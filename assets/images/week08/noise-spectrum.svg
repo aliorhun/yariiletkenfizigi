@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">Semiconductor noise spectrum</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="75" y1="330" x2="570" y2="330" class="s"/><line x1="75" y1="330" x2="75" y2="55" class="s"/><text x="560" y="360" class="sm">f</text><text x="18" y="65" class="sm">PSD</text>
+<path d="M95 85 C150 120 195 175 245 235 C300 292 380 300 555 300" fill="none" stroke="#dc2626" stroke-width="5"/><text x="120" y="105" class="lbl">1/f</text>
+<line x1="95" y1="250" x2="555" y2="250" stroke="#2563eb" stroke-width="4"/><text x="420" y="238" class="sm">thermal / shot floor</text>
+<path d="M245 250 C270 250 275 150 300 150 C325 150 330 250 355 250" fill="none" stroke="#15803d" stroke-width="4"/><text x="263" y="130" class="sm">g-r</text></svg>

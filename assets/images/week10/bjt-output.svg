@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">BJT output characteristics and Early effect</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="80" y1="335" x2="570" y2="335" class="s"/><line x1="80" y1="335" x2="80" y2="55" class="s"/><text x="552" y="366" class="sm">V_CE</text><text x="18" y="70" class="sm">I_C</text>
+<path d="M82 330 C105 180 135 125 180 110 C300 104 430 98 555 88" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.45"/><path d="M82 330 C105 220 135 165 180 150 C300 144 430 138 555 128" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.5700000000000001"/><path d="M82 330 C105 260 135 205 180 190 C300 184 430 178 555 168" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.69"/><path d="M82 330 C105 300 135 245 180 230 C300 224 430 218 555 208" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.81"/><path d="M82 330 C105 340 135 285 180 270 C300 264 430 258 555 248" fill="none" stroke="#2563eb" stroke-width="5" opacity="0.9299999999999999"/>
+<line x1="18" y1="315" x2="560" y2="135" stroke="#dc2626" stroke-width="3" stroke-dasharray="8 6"/><text x="390" y="105" class="sm">finite output resistance</text><text x="395" y="130" class="sm">(Early effect)</text></svg>

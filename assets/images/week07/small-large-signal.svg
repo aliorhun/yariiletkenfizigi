@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">Small-signal and large-signal operation</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="70" y1="330" x2="570" y2="330" class="s"/><line x1="110" y1="365" x2="110" y2="55" class="s"/>
+<path d="M110 330 C235 330 330 325 385 285 C435 245 480 165 535 70" fill="none" stroke="#2563eb" stroke-width="5"/>
+<circle cx="405" cy="266" r="7" fill="#d97706"/><line x1="315" y1="318" x2="492" y2="180" stroke="#15803d" stroke-width="4"/><text x="332" y="165" class="sm">small-signal tangent</text>
+<path d="M270 350 Q405 390 540 350" fill="none" stroke="#dc2626" stroke-width="4"/><path d="M330 373l-20-23 28-4M480 373l20-23-28-4" fill="#dc2626"/><text x="350" y="405" class="sm">large excursion</text></svg>
