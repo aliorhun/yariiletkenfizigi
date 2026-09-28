@@ -4638,6 +4638,12 @@ function showWeek(n) {
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
     main.innerHTML = html;
     main.appendChild(document.getElementById('week' + n + (LANG === 'en' ? '-en' : '')).content.cloneNode(true));
+    // Product/manufacturing content is shared between languages in the Turkish template.
+    // Clone that pane into the English lesson so the tab stays functional in both modes.
+    if (LANG === 'en' && !main.querySelector('.pane[data-pane="urun"]')) {
+      const productPane = document.getElementById('week' + n).content.querySelector('.pane[data-pane="urun"]');
+      if (productPane) main.appendChild(productPane.cloneNode(true));
+    }
     main.querySelector('.pane').classList.add('active');
     main.querySelectorAll('.subtabs button').forEach(b => b.addEventListener('click', () => showSub(b.dataset.sub)));
     bindWeek(n);
