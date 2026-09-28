@@ -27,3 +27,31 @@ The lesson visuals in this repository do not embed copied third-party photograph
 - `assets/images/week12/power-soa.svg` — Güç aygıtı yapısı ve güvenli çalışma alanı
 - `assets/images/week13/switching.svg` — Anahtarlamada gerilim-akım örtüşmesi ve kayıp
 - `assets/images/week14/ujt-relaxation.svg` — UJT eşik davranışı ve gevşeme osilatörü dalga şekli
+
+
+## Common manufacturing diagrams / Ortak üretim şemaları
+
+- `assets/images/common/semiconductor-fabrication-flow.svg` — özgün, bu repo için oluşturuldu.
+- `assets/images/common/device-technology-comparison.svg` — özgün, bu repo için oluşturuldu.
+
+## Verified real-world photographs / Doğrulanmış gerçek dünya fotoğrafları
+
+Aşağıdaki fotoğraflar Wikimedia Commons kaynak sayfalarında belirtilen açık lisans koşulları doğrulanarak seçildi. Yerel kopyalar görüntü boyutunu azaltmak için en fazla 1280 px uzun kenara yeniden boyutlandırılır; görsel içerik crop edilmez. CC BY/CC BY-SA dosyalarında bu teknik yeniden boyutlandırma değişiklik olarak kabul edilerek burada belirtilmiştir.
+
+| Local file | Work / subject | Author / institution | License | Source |
+|---|---|---|---|---|
+| `assets/images/real-world/silicon-wafer.jpg` | Silicon wafer | Inductiveload | Public Domain | https://commons.wikimedia.org/wiki/File:Silicon_wafer.jpg |
+| `assets/images/real-world/reference-silicon-solar-cell.jpg` | Reference silicon solar cell | Marta Victoria | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Reference_silicon_solar_cell.jpg |
+| `assets/images/real-world/cmos-image-sensor.jpg` | CMOS image sensor chip-scale package | Phiarc | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:CMOS_image_sensor_chip-scale_package_top.jpg |
+| `assets/images/real-world/sic-wafers.jpg` | Two 6-inch SiC wafers | FDominec | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:SiC_wafers_6inch.jpg |
+| `assets/images/real-world/igbt-module.jpg` | Infineon IGBT module | Leonrosenbaum | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Infineon_IGBT-Modul.jpg |
+| `assets/images/real-world/microprocessor.jpg` | Microprocessor exhibit photograph | Krzysztof Gojowy | CC BY 4.0 | https://commons.wikimedia.org/wiki/File:Microprocessor.jpg |
+| `assets/images/real-world/radar-sensor.jpg` | Automotive radar sensor | Krethiplethi | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Radar_Sensor_Golden_Sahara_II.png |
+| `assets/images/real-world/semiconductor-cleanroom.jpg` | Semiconductor manufacturing cleanroom | NASA Glenn Research Center | Public Domain (US Government/NASA) | https://commons.wikimedia.org/wiki/File:Clean_room.jpg |
+
+### License links
+- CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+- CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+- CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
+
+Trademark note: product or company marks visible in documentary photographs remain the property of their respective owners. Their appearance here is solely for educational identification and does not imply endorsement.
