@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">Anahtarlama ve endüktif yük</title><desc id="d">Depolanan enerji, transistor kapanırken gerilim darbesi üretir</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">Anahtarlama ve endüktif yük</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Depolanan enerji, transistor kapanırken gerilim darbesi üretir</text><rect x="115" y="205" width="260" height="190" rx="18" fill="#eef2f6" stroke="#69788a" stroke-width="4"/>
+<text x="245" y="250" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17212b">anahtar</text>
+<path d="M170 330h60l70-65" stroke="#344255" stroke-width="7"/><circle cx="315" cy="255" r="8" fill="#344255"/>
+<path d="M375 300h115" stroke="#344255" stroke-width="7"/>
+<path d="M490 300c15-60 35 60 50 0s35 60 50 0s35 60 50 0s35 60 50 0" fill="none" stroke="#d39c00" stroke-width="7"/>
+<text x="600" y="250" text-anchor="middle" font-family="Arial" font-size="20" fill="#8a6b00">motor / bobin</text>
+<path d="M690 300h95v100H175v-70" fill="none" stroke="#344255" stroke-width="7"/>
+<path d="M520 400c0-45 35-45 35 0s35 45 35 0" fill="none" stroke="#d9534f" stroke-width="6"/>
+<text x="600" y="445" text-anchor="middle" font-family="Arial" font-size="17" fill="#a8322e">flyback / klemp yolu</text></svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">BJT: iki eklem, tek taşıma sistemi</title><desc id="d">İnce taban, emetörden enjekte edilen taşıyıcıların kolektöre ulaşmasını sağlar</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">BJT: iki eklem, tek taşıma sistemi</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">İnce taban, emetörden enjekte edilen taşıyıcıların kolektöre ulaşmasını sağlar</text><rect x="180" y="190" width="190" height="210" fill="#a8c9ef"/><rect x="370" y="190" width="220" height="210" fill="#f2b0b0"/><rect x="590" y="190" width="190" height="210" fill="#a8c9ef"/>
+<text x="275" y="230" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#244f84">n+</text>
+<text x="480" y="230" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#8b2530">p</text>
+<text x="685" y="230" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#244f84">n</text>
+<text x="275" y="430" text-anchor="middle" font-family="Arial" font-size="18" fill="#637083">emetör</text>
+<text x="480" y="430" text-anchor="middle" font-family="Arial" font-size="18" fill="#637083">ince taban</text>
+<text x="685" y="430" text-anchor="middle" font-family="Arial" font-size="18" fill="#637083">kolektör</text>
+<defs><marker id="e" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0 0L8 3L0 6z" fill="#2e78c7"/></marker></defs>
+<path d="M260 315H675" stroke="#2e78c7" stroke-width="8" marker-end="url(#e)"/>
+<text x="480" y="295" text-anchor="middle" font-family="Arial" font-size="17" fill="#244f84">taşıyıcı taşınımı</text></svg>

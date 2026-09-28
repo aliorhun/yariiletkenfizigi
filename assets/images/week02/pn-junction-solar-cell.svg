@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">p-n eklemi ve fotovoltaik ayrışma</title><desc id="d">Yerleşik elektrik alan, ışıkla üretilen taşıyıcıları ayırır</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">p-n eklemi ve fotovoltaik ayrışma</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Yerleşik elektrik alan, ışıkla üretilen taşıyıcıları ayırır</text><rect x="170" y="190" width="310" height="210" fill="#f2b0b0"/><rect x="480" y="190" width="310" height="210" fill="#a8c9ef"/>
+<text x="310" y="225" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#8b2530">p tipi</text>
+<text x="640" y="225" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#244f84">n tipi</text>
+<rect x="440" y="190" width="80" height="210" fill="#f3e7b2" opacity=".9"/>
+<text x="480" y="426" text-anchor="middle" font-family="Arial" font-size="17" fill="#637083">tükenim bölgesi</text>
+<g stroke="#d39c00" stroke-width="6" marker-end="url(#a)"><path d="M390 290h170"/></g>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0 0L8 3L0 6z" fill="#d39c00"/></marker></defs>
+<text x="480" y="278" text-anchor="middle" font-family="Arial" font-size="17" fill="#8a6b00">yerleşik alan</text>
+<g stroke="#e1a900" stroke-width="5"><path d="M275 130l30 45M355 130l30 45M435 130l30 45"/></g>
+<circle cx="405" cy="330" r="12" fill="#fff" stroke="#244f84" stroke-width="4"/><circle cx="555" cy="330" r="12" fill="#244f84"/>
+<text x="480" y="468" text-anchor="middle" font-family="Arial" font-size="18" fill="#17212b">Güneş hücresi ve fotodiyotların temel fiziği</text></svg>

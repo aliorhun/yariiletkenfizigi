@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">Elektronik gürültü kaynakları</title><desc id="d">Termal, shot ve 1/f gürültüsü gerçek sensör ve alıcılarda ölçüm tabanını belirler</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">Elektronik gürültü kaynakları</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Termal, shot ve 1/f gürültüsü gerçek sensör ve alıcılarda ölçüm tabanını belirler</text><path d="M130 420V160M130 420H830" stroke="#344255" stroke-width="5"/>
+<path d="M145 320C200 260 230 335 285 280S365 325 420 285S510 315 565 290S650 305 815 290" fill="none" stroke="#2e78c7" stroke-width="5"/>
+<path d="M145 210C250 255 370 285 815 335" fill="none" stroke="#d9534f" stroke-width="6"/>
+<text x="690" y="276" font-family="Arial" font-size="18" fill="#244f84">beyaz gürültü</text>
+<text x="240" y="225" font-family="Arial" font-size="18" fill="#a8322e">1/f</text>
+<circle cx="720" cy="195" r="58" fill="#eef2f6" stroke="#69788a" stroke-width="4"/>
+<circle cx="720" cy="195" r="20" fill="#8fb3d9"/>
+<text x="720" y="275" text-anchor="middle" font-family="Arial" font-size="17" fill="#637083">kamera / RF / biyosensör</text></svg>

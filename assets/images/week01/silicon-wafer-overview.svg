@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">Silikon wafer ve yonga alanları</title><desc id="d">Kristal Si üzerinde çok sayıda entegre devrenin aynı anda üretimi</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">Silikon wafer ve yonga alanları</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Kristal Si üzerinde çok sayıda entegre devrenin aynı anda üretimi</text><circle cx="480" cy="310" r="160" fill="#dfe8f2" stroke="#69788a" stroke-width="6"/>
+<path d="M369 424 A160 160 0 0 0 591 424" fill="none" stroke="#69788a" stroke-width="6"/>
+<g fill="#8fb3d9" stroke="#fff" stroke-width="3">
+<rect x="372" y="205" width="38" height="38" rx="4"/><rect x="416" y="205" width="38" height="38" rx="4"/><rect x="460" y="205" width="38" height="38" rx="4"/><rect x="504" y="205" width="38" height="38" rx="4"/><rect x="548" y="205" width="38" height="38" rx="4"/><rect x="372" y="249" width="38" height="38" rx="4"/><rect x="416" y="249" width="38" height="38" rx="4"/><rect x="460" y="249" width="38" height="38" rx="4"/><rect x="504" y="249" width="38" height="38" rx="4"/><rect x="548" y="249" width="38" height="38" rx="4"/><rect x="372" y="293" width="38" height="38" rx="4"/><rect x="416" y="293" width="38" height="38" rx="4"/><rect x="460" y="293" width="38" height="38" rx="4"/><rect x="504" y="293" width="38" height="38" rx="4"/><rect x="548" y="293" width="38" height="38" rx="4"/><rect x="372" y="337" width="38" height="38" rx="4"/><rect x="416" y="337" width="38" height="38" rx="4"/><rect x="460" y="337" width="38" height="38" rx="4"/><rect x="504" y="337" width="38" height="38" rx="4"/><rect x="548" y="337" width="38" height="38" rx="4"/><rect x="372" y="381" width="38" height="38" rx="4"/><rect x="416" y="381" width="38" height="38" rx="4"/><rect x="460" y="381" width="38" height="38" rx="4"/><rect x="504" y="381" width="38" height="38" rx="4"/><rect x="548" y="381" width="38" height="38" rx="4"/>
+</g>
+<path d="M628 191l84-62" stroke="#d39c00" stroke-width="5"/><circle cx="717" cy="126" r="8" fill="#d39c00"/>
+<text x="724" y="132" font-family="Arial" font-size="18" fill="#17212b">tek die / çip</text>
+<text x="365" y="493" font-family="Arial" font-size="18" fill="#637083">wafer → litografi → implantasyon → metal bağlantılar</text></svg>

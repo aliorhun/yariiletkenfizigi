@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">TVS diyot ile ani gerilim koruması</title><desc id="d">Çığ kırılması, hassas girişleri kısa süreli aşırı gerilimden korur</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">TVS diyot ile ani gerilim koruması</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Çığ kırılması, hassas girişleri kısa süreli aşırı gerilimden korur</text><path d="M110 300h190" stroke="#344255" stroke-width="7"/><path d="M300 245v110" stroke="#344255" stroke-width="7"/>
+<path d="M320 255l90 45-90 45z" fill="#8fb3d9" stroke="#344255" stroke-width="5"/>
+<path d="M430 248l-18 30m18-30v104m0 0l18-30" stroke="#344255" stroke-width="6"/>
+<path d="M430 300h150" stroke="#344255" stroke-width="7"/>
+<rect x="580" y="230" width="190" height="140" rx="18" fill="#eef2f6" stroke="#69788a" stroke-width="4"/>
+<text x="675" y="285" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#17212b">korunan IC</text>
+<text x="675" y="320" text-anchor="middle" font-family="Arial" font-size="17" fill="#637083">USB / HDMI / sensör</text>
+<path d="M300 185l0 70" stroke="#d9534f" stroke-width="7"/><polyline points="265,195 300,160 335,195" fill="none" stroke="#d9534f" stroke-width="7"/>
+<text x="300" y="145" text-anchor="middle" font-family="Arial" font-size="18" fill="#a8322e">ESD darbesi</text>
+<text x="480" y="445" text-anchor="middle" font-family="Arial" font-size="18" fill="#17212b">Amaç: gerilimi klemp etmek, darbeyi toprağa yönlendirmek</text></svg>

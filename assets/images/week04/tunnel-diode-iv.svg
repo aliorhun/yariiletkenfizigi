@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">Tünel diyot I–V karakteristiği</title><desc id="d">Negatif diferansiyel direnç bölgesi kuantum tünellemesinden doğar</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">Tünel diyot I–V karakteristiği</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Negatif diferansiyel direnç bölgesi kuantum tünellemesinden doğar</text><path d="M160 430V160M160 430H800" stroke="#344255" stroke-width="5"/>
+<path d="M170 420C235 300 290 175 350 205C410 235 390 330 470 350C560 372 610 320 690 235C735 188 765 165 800 145" fill="none" stroke="#2e78c7" stroke-width="8"/>
+<line x1="350" y1="205" x2="350" y2="430" stroke="#c7ccd2" stroke-dasharray="8 8" stroke-width="3"/>
+<line x1="470" y1="350" x2="470" y2="430" stroke="#c7ccd2" stroke-dasharray="8 8" stroke-width="3"/>
+<text x="350" y="190" text-anchor="middle" font-family="Arial" font-size="17" fill="#17212b">tepe</text>
+<text x="470" y="340" text-anchor="middle" font-family="Arial" font-size="17" fill="#17212b">vadi</text>
+<path d="M370 255h85" stroke="#d9534f" stroke-width="5"/>
+<text x="505" y="262" font-family="Arial" font-size="18" fill="#a8322e">dI/dV &lt; 0</text>
+<text x="812" y="446" font-family="Arial" font-size="17" fill="#637083">V</text><text x="135" y="155" font-family="Arial" font-size="17" fill="#637083">I</text></svg>

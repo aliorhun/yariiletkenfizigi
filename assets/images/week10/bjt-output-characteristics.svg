@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="t d">
+<title id="t">BJT statik karakteristikleri</title><desc id="d">Çalışma noktası, Early etkisi ve doyum sınırları analog davranışı belirler</desc>
+<rect width="960" height="540" rx="28" fill="#f6f7f9"/>
+<rect x="24" y="24" width="912" height="492" rx="22" fill="#fff" stroke="#cfd6df" stroke-width="2"/>
+<text x="54" y="72" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#17212b">BJT statik karakteristikleri</text>
+<text x="54" y="102" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#637083">Çalışma noktası, Early etkisi ve doyum sınırları analog davranışı belirler</text><path d="M150 430V160M150 430H820" stroke="#344255" stroke-width="5"/>
+<path d="M165 390 C210 350 300 345 790 320" fill="none" stroke="#2e78c7" stroke-width="4"/><path d="M165 345 C210 305 300 300 790 275" fill="none" stroke="#2e78c7" stroke-width="4"/><path d="M165 300 C210 260 300 255 790 230" fill="none" stroke="#2e78c7" stroke-width="4"/><path d="M165 255 C210 215 300 210 790 185" fill="none" stroke="#2e78c7" stroke-width="4"/><path d="M165 210 C210 170 300 165 790 140" fill="none" stroke="#2e78c7" stroke-width="4"/>
+<rect x="160" y="170" width="95" height="250" fill="#f2b0b0" opacity=".28"/>
+<text x="205" y="195" text-anchor="middle" font-family="Arial" font-size="16" fill="#8b2530">doyum</text>
+<path d="M530 275l110-30" stroke="#d9534f" stroke-width="5"/><text x="650" y="242" font-family="Arial" font-size="17" fill="#a8322e">Early eğimi</text>
+<circle cx="470" cy="290" r="10" fill="#d39c00"/><text x="488" y="286" font-family="Arial" font-size="17" fill="#8a6b00">Q çalışma noktası</text></svg>
