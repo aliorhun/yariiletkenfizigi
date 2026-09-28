@@ -484,18 +484,6 @@ html[lang="en"] .edu-en { display:block; }
 <p>Fotonun momentumu elektron momentumuna göre ihmal edilebilecek kadar küçüktür, bu yüzden optik geçişler \(E(k)\) diyagramında dikeydir. GaAs'ta bant uçları aynı \(k\)'dadır ve ışımalı geçiş doğrudan olur. Si'de iletim bandı minimumu ~0.85·(2π/a) noktasındadır; geçiş için bir fononun momentum sağlaması gerekir. Bu ikinci mertebe bir süreçtir, olasılığı çok düşüktür ve ışımasız SRH rekombinasyonu baskın hale gelir.</p>
 </div></details></div>
 </div>
-
-<div class="pane" data-pane="odev">
-<p class="hw-meta">Teslim: bir sonraki ders başında. Sayısal sonuçları üç anlamlı basamakla verin, kullandığınız sabitleri belirtin.</p>
-<ol class="hw">
-<li>GaAs için (100), (110) ve (111) düzlemlerindeki birim alan başına atom sayısını hesaplayınız. Hangi düzlemin en kolay yarılacağını (cleave) tartışınız.</li>
-<li>Si ve GaAs için \(n_i\)'yi 250 K, 300 K, 400 K ve 500 K'de hesaplayınız (Varshni bağıntısı ve \(N_{C,V} \propto T^{3/2}\) kullanın). Sonuçları \(\log n_i\) – \(1000/T\) grafiğinde gösterip eğimden \(E_g\)'yi geri elde ediniz.</li>
-<li>\(N_D = 10^{15}\ \text{cm}^{-3}\) katkılı Si için hangi sıcaklıkta \(n_i = N_D\) olur? Bu sıcaklığın cihaz çalışması açısından önemini açıklayınız.</li>
-<li>Fermi–Dirac ile Boltzmann dağılımı arasındaki hatanın %5'i aştığı \(E - E_F\) değerini \(kT\) cinsinden bulunuz. Bunu bir dejenerelik ölçütü olarak yorumlayınız.</li>
-<li>n tipi Si'de (\(N_D = 10^{16}\), \(\tau_p = 2\ \mu\text{s}\)) yüzeyde \(10^{14}\ \text{cm}^{-3}\) sabit fazla hol tutuluyor. Kararlı durumda \(p_n(x)\) dağılımını süreklilik denkleminden türetiniz ve \(x = 50\ \mu\text{m}\)'deki difüzyon akım yoğunluğunu hesaplayınız.</li>
-</ol>
-<p class="hw-meta">Kaynak: Sze &amp; Ng, Bölüm 1 problemleri 1, 4, 7, 12 ile benzer yapıdadır.</p>
-</div>
 </template>
 
 <!-- =========================== HAFTA 2 İÇERİĞİ =========================== -->
@@ -2639,18 +2627,6 @@ html[lang="en"] .edu-en { display:block; }
 <p>The photon momentum is negligible compared with the electron momentum, so optical transitions are vertical in the \(E(k)\) diagram. In GaAs the band extrema are at the same \(k\) and radiative transitions are direct. In Si the conduction-band minimum lies at ~0.85·(2π/a); the transition needs a phonon to supply momentum. This is a second-order process with very low probability, and non-radiative SRH recombination dominates.</p>
 </div></details></div>
 </div>
-
-<div class="pane" data-pane="odev">
-<p class="hw-meta">Due: at the start of the next lecture. Give numerical results to three significant figures and state the constants you use.</p>
-<ol class="hw">
-<li>For GaAs, calculate the number of atoms per unit area on the (100), (110) and (111) planes. Discuss which plane cleaves most easily.</li>
-<li>Calculate \(n_i\) for Si and GaAs at 250 K, 300 K, 400 K and 500 K (use the Varshni relation and \(N_{C,V} \propto T^{3/2}\)). Plot the results as \(\log n_i\) versus \(1000/T\) and recover \(E_g\) from the slope.</li>
-<li>At what temperature does \(n_i = N_D\) for Si doped with \(N_D = 10^{15}\ \text{cm}^{-3}\)? Explain the significance of this temperature for device operation.</li>
-<li>Find the value of \(E - E_F\), in units of \(kT\), at which the error between the Fermi–Dirac and Boltzmann distributions exceeds 5%. Interpret this as a degeneracy criterion.</li>
-<li>In n-type Si (\(N_D = 10^{16}\), \(\tau_p = 2\ \mu\text{s}\)) a constant excess hole concentration of \(10^{14}\ \text{cm}^{-3}\) is held at the surface. Derive the steady-state \(p_n(x)\) from the continuity equation and calculate the diffusion current density at \(x = 50\ \mu\text{m}\).</li>
-</ol>
-<p class="hw-meta">Source: similar in structure to Sze &amp; Ng, Chapter 1 problems 1, 4, 7, 12.</p>
-</div>
 </template>
 <template id="week2-en">
 <div class="pane" data-pane="anlatim">
@@ -4555,7 +4531,7 @@ function applyLangChrome() {
 
 /* ---------------- Ders planı ---------------- */
 const WEEKS = [
-  { n:1,  t:"Yarıiletkenin fiziği ve özellikleri", sze:"Bölüm 1", ready:true, hw:true },
+  { n:1,  t:"Yarıiletkenin fiziği ve özellikleri", sze:"Bölüm 1", ready:true },
   { n:2,  t:"p-n eklem diyodu I", sze:"Bölüm 2.1–2.2", ready:true },
   { n:3,  t:"p-n eklem diyodu II", sze:"Bölüm 2.3–2.4", ready:true },
   { n:4,  t:"Tünel diyot", sze:"Bölüm 8.2", ready:true },
@@ -4571,7 +4547,7 @@ const WEEKS = [
   { n:14, t:"Tek eklemli transistör", sze:"ek kaynak", ready:true }
 ];
 const SUBTABS = [
-  ["anlatim","Anlatım","Lecture"],["urun","Örnek ürün & üretim","Products & manufacturing"],["matematik","Matematiksel temel","Mathematical foundations"],["gorsel","Görseller","Visuals"],["soru","Soru–yanıt","Q&amp;A"],["odev","Ödev","Homework"]
+  ["anlatim","Anlatım","Lecture"],["urun","Örnek ürün & üretim","Products & manufacturing"],["matematik","Matematiksel temel","Mathematical foundations"],["gorsel","Görseller","Visuals"],["soru","Soru–yanıt","Q&amp;A"]
 ];
 
 const nav = document.getElementById('weekNav');
@@ -4599,7 +4575,7 @@ function showWeek(n) {
   currentSub = 'anlatim';
   let html = `<div class="week-head"><h2>${L('Hafta', 'Week')} ${w.n}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[w.n-1])}</p></div>`;
   if (w.ready) {
-    const tabs = SUBTABS.filter(s => w.hw || s[0] !== 'odev');
+    const tabs = SUBTABS;
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
     main.innerHTML = html;
     main.appendChild(document.getElementById('week' + n + (LANG === 'en' ? '-en' : '')).content.cloneNode(true));
