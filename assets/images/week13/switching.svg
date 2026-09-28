@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">Switching voltage and current overlap</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="70" y1="340" x2="580" y2="340" class="s"/><text x="560" y="372" class="sm">t</text>
+<path d="M85 105H190 C225 105 255 165 285 230 C315 300 345 320 385 320 H560" fill="none" stroke="#2563eb" stroke-width="5"/><text x="95" y="88" class="sm">V_CE / V_DS</text>
+<path d="M85 320H190 C225 320 250 260 285 200 C315 145 350 115 390 115 H560" fill="none" stroke="#dc2626" stroke-width="5"/><text x="438" y="98" class="sm">I</text>
+<path d="M205 310 C245 265 270 205 300 180 C330 165 360 210 385 300" fill="#d97706" opacity=".28"/><text x="235" y="275" class="sm">switching loss</text></svg>

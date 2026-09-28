@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">UJT relaxation oscillator principle</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<g transform="translate(35 65)"><circle cx="90" cy="115" r="48" fill="#d97706" opacity=".14" stroke="#d97706" stroke-width="3"/><line x1="90" y1="20" x2="90" y2="67" class="s"/><line x1="90" y1="163" x2="90" y2="235" class="s"/><line x1="20" y1="115" x2="42" y2="115" class="s"/><polygon points="42,115 60,104 60,126" fill="#dc2626"/><text x="58" y="122" class="lbl">UJT</text><text x="15" y="275" class="sm">threshold → rapid discharge</text></g>
+<g transform="translate(300 55)"><line x1="35" y1="285" x2="290" y2="285" class="s"/><line x1="35" y1="285" x2="35" y2="35" class="s"/><path d="M45 275 Q95 185 150 105 L155 270 Q205 185 260 105 L265 270" fill="none" stroke="#2563eb" stroke-width="5"/><line x1="35" y1="105" x2="285" y2="105" stroke="#dc2626" stroke-width="3" stroke-dasharray="7 6"/><text x="190" y="90" class="sm">threshold</text><text x="85" y="325" class="sm">capacitor voltage</text></g></svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">Trap-assisted tunneling</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="70" y1="300" x2="570" y2="300" class="s"/><rect x="245" y="70" width="150" height="230" fill="#d97706" opacity=".12"/><path d="M80 240H220L245 135H395L420 240H555" fill="none" stroke="#1f2937" stroke-width="4"/>
+<circle cx="320" cy="185" r="14" fill="#dc2626"/><text x="309" y="191" fill="white" font-size="17">T</text>
+<path d="M165 230 C215 210 260 198 304 188" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="7 6"/><polygon points="304,188 289,181 292,199" fill="#2563eb"/>
+<path d="M336 188 C385 198 430 215 485 230" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="7 6"/><polygon points="485,230 470,218 467,237" fill="#15803d"/>
+<text x="245" y="55" class="lbl">gap states / traps</text><text x="170" y="350" class="sm">two-step carrier path through barrier</text></svg>

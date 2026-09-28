@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
+<title id="t">Real diode I-V characteristic</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<rect width="640" height="420" rx="18" fill="#f8fafc"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+
+<line x1="80" y1="320" x2="575" y2="320" class="s"/><line x1="300" y1="370" x2="300" y2="50" class="s"/><text x="568" y="348" class="sm">V</text><text x="314" y="68" class="sm">I</text>
+<path d="M300 320 C345 320 390 315 430 290 C470 260 500 205 540 85" fill="none" stroke="#2563eb" stroke-width="5"/>
+<path d="M300 320 C245 320 195 322 150 328 C120 333 102 350 90 365" fill="none" stroke="#dc2626" stroke-width="4"/>
+<path d="M105 365 C95 310 90 240 88 110" fill="none" stroke="#dc2626" stroke-width="5"/>
+<line x1="430" y1="55" x2="430" y2="350" class="thin dash"/><text x="442" y="105" class="sm">forward</text><text x="92" y="92" class="sm">avalanche</text><text x="160" y="305" class="sm">reverse leakage</text></svg>
