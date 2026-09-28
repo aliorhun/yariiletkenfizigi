@@ -1,11 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t d">
-<title id="t">Crystal lattice and energy bands</title><desc id="d">Original educational schematic created for the yariiletkenfizigi project.</desc>
+<title id="t">Silicon crystal lattice and intrinsic energy-band diagram</title>
+<desc id="d">Educational schematic showing identical silicon atoms in a crystal lattice and the conduction-band edge, valence-band edge, intrinsic Fermi level, and band-gap energy.</desc>
 <rect width="640" height="420" rx="18" fill="#f8fafc"/>
-<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.s{stroke:#1f2937;stroke-width:3;fill:none}.thin{stroke:#cbd5e1;stroke-width:2;fill:none}.dash{stroke-dasharray:8 7}.lbl{font-size:20px;font-weight:700}.sm{font-size:16px;fill:#64748b}.tiny{font-size:14px;fill:#64748b}</style>
+<defs>
+  <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+    <path d="M8 8L4 0L0 8Z" fill="#1f2937"/>
+  </marker>
+  <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+    <path d="M0 0L4 8L8 0Z" fill="#1f2937"/>
+  </marker>
+</defs>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}
+.thin{stroke:#cbd5e1;stroke-width:2;fill:none}
+.lbl{font-size:20px;font-weight:700}
+.sm{font-size:16px;fill:#64748b}
+.tiny{font-size:14px;fill:#64748b}
+</style>
 
 <g transform="translate(30 45)">
-<circle cx="50" cy="50" r="12" fill="#d97706"/><circle cx="110" cy="30" r="12" fill="#2563eb"/><circle cx="170" cy="50" r="12" fill="#d97706"/><circle cx="80" cy="110" r="12" fill="#2563eb"/><circle cx="140" cy="90" r="12" fill="#d97706"/><circle cx="200" cy="110" r="12" fill="#2563eb"/><circle cx="50" cy="170" r="12" fill="#d97706"/><circle cx="110" cy="150" r="12" fill="#2563eb"/><circle cx="170" cy="170" r="12" fill="#d97706"/>
-<path class="thin" d="M50 50L110 30L170 50M50 50L80 110L140 90L170 50M80 110L50 170L110 150L170 170L200 110M140 90L200 110M110 150L140 90"/>
-<text x="18" y="225" class="lbl">Si crystal</text><text x="18" y="250" class="sm">periodic lattice → bands</text>
+  <circle cx="50" cy="50" r="12" fill="#2563eb"/>
+  <circle cx="110" cy="30" r="12" fill="#2563eb"/>
+  <circle cx="170" cy="50" r="12" fill="#2563eb"/>
+  <circle cx="80" cy="110" r="12" fill="#2563eb"/>
+  <circle cx="140" cy="90" r="12" fill="#2563eb"/>
+  <circle cx="200" cy="110" r="12" fill="#2563eb"/>
+  <circle cx="50" cy="170" r="12" fill="#2563eb"/>
+  <circle cx="110" cy="150" r="12" fill="#2563eb"/>
+  <circle cx="170" cy="170" r="12" fill="#2563eb"/>
+  <path class="thin" d="M50 50L110 30L170 50M50 50L80 110L140 90L170 50M80 110L50 170L110 150L170 170L200 110M140 90L200 110M110 150L140 90"/>
+  <text x="18" y="225" class="lbl">Si crystal</text>
+  <text x="18" y="250" class="sm">identical Si atoms → periodic lattice</text>
 </g>
-<g transform="translate(340 55)"><line x1="0" y1="260" x2="250" y2="260" class="thin"/><rect x="20" y="45" width="210" height="65" rx="8" fill="#2563eb" opacity=".16"/><rect x="20" y="190" width="210" height="65" rx="8" fill="#dc2626" opacity=".14"/><line x1="20" y1="110" x2="230" y2="110" stroke="#2563eb" stroke-width="4"/><line x1="20" y1="190" x2="230" y2="190" stroke="#dc2626" stroke-width="4"/><line x1="20" y1="150" x2="230" y2="150" stroke="#15803d" stroke-width="3" stroke-dasharray="7 6"/><text x="240" y="116" class="sm">E_C</text><text x="240" y="196" class="sm">E_V</text><text x="240" y="156" class="sm">E_F</text><text x="90" y="155" class="lbl">E_g</text></g></svg>
+
+<g transform="translate(340 55)">
+  <rect x="20" y="45" width="210" height="65" rx="8" fill="#2563eb" opacity=".16"/>
+  <rect x="20" y="190" width="210" height="65" rx="8" fill="#dc2626" opacity=".14"/>
+
+  <line x1="20" y1="110" x2="230" y2="110" stroke="#2563eb" stroke-width="4"/>
+  <line x1="20" y1="190" x2="230" y2="190" stroke="#dc2626" stroke-width="4"/>
+  <line x1="20" y1="150" x2="230" y2="150" stroke="#15803d" stroke-width="3" stroke-dasharray="7 6"/>
+
+  <text x="240" y="116" class="sm">E_C</text>
+  <text x="240" y="156" class="sm">E_F</text>
+  <text x="240" y="196" class="sm">E_V</text>
+
+  <line x1="72" y1="118" x2="72" y2="182" stroke="#1f2937" stroke-width="2.5"
+        marker-start="url(#arrowUp)" marker-end="url(#arrowDown)"/>
+  <text x="84" y="147" class="lbl">E_g</text>
+  <text x="84" y="168" class="tiny">= E_C − E_V</text>
+
+  <text x="20" y="285" class="sm">intrinsic Si: E_F ≈ midgap</text>
+</g>
+</svg>
