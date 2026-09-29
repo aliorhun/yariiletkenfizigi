@@ -401,6 +401,26 @@ html[lang="en"] .edu-en { display:block; }
 <p>Bir elektron valans bandından ayrıldığında arkasında dolmamış bir durum bırakır. Komşu bir elektron bu boşluğu doldurunca boşluk başka yere geçmiş gibi görünür. Bu kolektif hareketi <b>hol</b> olarak modelleriz ve hol pozitif yük \(+q\) taşıyan bir yarı-parçacık gibi davranır.</p>
 <div class="note"><strong>Önemli:</strong> Hol yeni bir temel parçacık değildir; valans bandındaki elektron eksikliğinin kullanışlı fiziksel modelidir.</div>
 
+<h4>Akımı ne oluşturur?</h4>
+<p>Elektrik akımı, yükün belirli bir yönde <b>net</b> hareketidir: \(J = q\,(p\,\bar v_p - n\,\bar v_n)\). Buradan iki koşul çıkar: ortamda <b>hareket edebilen yük taşıyıcıları</b> olmalı ve bu taşıyıcıların hareketi bir yöne <b>ortalama olarak kaymalıdır</b>. Oda sıcaklığında taşıyıcılar zaten ~\(10^7\) cm/s ısıl hızla koşar, ama yönleri rastgele olduğu için ortalamaları sıfırdır ve akım oluşmaz.</p>
+<p><b>Bağlı elektronlar neden akım taşımaz?</b> Tamamen dolu bir bantta her \(\mathbf{k}\) durumundaki elektronun karşısında \(-\mathbf{k}\) durumunda da bir elektron vardır; toplam momentum sıfırdır. Alan elektronları itmek istese de geçebilecekleri <b>boş durum yoktur</b>, bu yüzden dağılım değişmez ve net akım sıfır kalır. Tamamen boş bantta ise zaten taşıyıcı yoktur. Akımı yalnızca <b>kısmen dolu bantlar</b> taşır: iletim bandındaki az sayıdaki elektron ve valans bandındaki az sayıdaki boş durum (hol). Valans bandının geri kalan milyarlarca elektronu akıma ancak holler üzerinden katkı verir.</p>
+<div class="type-grid">
+<div class="type-card n"><h4>1. Taşıyıcı nereden gelir? (“kaç tane?”)</h4><ul>
+<li><b>Isıl üretim:</b> bağların ısıyla kopması → \(n_i\) (1.4).</li>
+<li><b>Katkılama:</b> iyonlaşan donör/akseptörler → \(n\approx N_D\) veya \(p\approx N_A\) (1.5–1.7).</li>
+<li><b>Optik üretim:</b> \(h\nu\ge E_g\) fotonların soğurulması → güneş hücresi, fotodiyot.</li>
+<li><b>Enjeksiyon:</b> kontaktan veya p-n ekleminden taşıyıcı girmesi → diyot ve BJT (2.–3. ve 9. hafta).</li>
+<li><b>Çığ ve tünelleme:</b> çok yüksek alanda çarpışmalı iyonlaşma veya bant-bant tünelleme → kırılma, tünel diyot (3.–4. hafta).</li>
+</ul></div>
+<div class="type-card p"><h4>2. Onları ne hareket ettirir? (“hangi yöne?”)</h4><ul>
+<li><b>Sürüklenme (drift):</b> elektrik alan. Elektronlar alana ters, holler alan yönünde gider, ama iki akım <b>aynı yönde toplanır</b>: \(J=q(n\mu_n+p\mu_p)\mathcal{E}\).</li>
+<li><b>Difüzyon:</b> yoğunluk farkı; taşıyıcılar çoktan aza yayılır (1.12). p-n ekleminin ve BJT tabanının ana akımı budur.</li>
+<li><b>Sıcaklık farkı:</b> sıcak uçtaki taşıyıcılar daha hızlıdır → termoelektrik (Seebeck) akımı; termoelektrik soğutucu ve jeneratörler.</li>
+<li><b>Yer değiştirme akımı:</b> \(\varepsilon\,\partial\mathcal{E}/\partial t\); yük karşıya geçmeden, değişen alanla akan kapasitif akım. Yüksek frekansta önemlidir (11. hafta).</li>
+</ul></div>
+</div>
+<p>Kısacası akım, <b>taşıyıcı sayısı</b> (\(n,p\)) ile <b>hareket kolaylığının</b> (\(\mu\)) çarpımı ve bir <b>itici etken</b> (alan, yoğunluk veya sıcaklık farkı) ile belirlenir: \(\sigma=q(n\mu_n+p\mu_p)\). Bunun sayısal etkisi çok büyüktür. Saf Si'de 300 K'de \(\rho\approx3\times10^{5}\ \Omega\,\mathrm{cm}\) iken \(N_D=10^{16}\ \mathrm{cm^{-3}}\) katkılı Si'de \(\rho\approx0.5\ \Omega\,\mathrm{cm}\) olur. Karşılaştırma için bakırda \(\rho\approx1.7\times10^{-6}\ \Omega\,\mathrm{cm}\)'dir.</p>
+
 <h3>1.4 Isıl dengede taşıyıcılar ve \(n_i\)</h3>
 <p>Bir enerji seviyesinin elektronla dolu olma olasılığı Fermi–Dirac dağılımıyla verilir. Fermi seviyesi \(E_F\), doluluk olasılığının tam 1/2 olduğu enerjidir. İletim bandındaki elektron yoğunluğu, durum yoğunluğu ile doluluk olasılığının çarpımının bant boyunca integralidir. \(E_F\), bant kenarlarından birkaç \(kT\) uzakta olduğu sürece (dejenere olmayan durum) bu integral basit bir üstel ifadeye indirgenir.</p>
 <p><b>Intrinsic carrier concentration</b> veya <b>öz taşıyıcı yoğunluğu</b> \(n_i\), katkısız bir yarıiletkende termal dengede birim hacimde doğal olarak bulunan hareketli elektron ve hol yoğunluğudur. Intrinsic malzemede her kopan bağ bir elektron ve bir hol ürettiği için:</p>
@@ -411,6 +431,27 @@ html[lang="en"] .edu-en { display:block; }
 <p>Dejenere olmayan yaklaşımda:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
 <p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür: Si'de 300 K'den 400 K'e çıkınca \(n_i\) yaklaşık 500 kat artar. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p><p>Bu üstel bağımlılık, yarıiletken aygıtların sıcaklığa duyarlılığının temel nedenidir.</p>
+
+<h4>Isıl denge pratikte ne demek? Kararlı durum (steady state) ile farkı</h4>
+<p><b>Isıl denge</b>, malzemeye dışarıdan <b>hiç enerji verilmediği</b> ve her yerin <b>aynı sıcaklıkta</b> olduğu, yeterince uzun süre beklenmiş durumdur: uygulanan gerilim yok, ışık yok, sıcaklık farkı yok. Bu durumda her mikroskobik süreç kendi tersiyle dengelenir (<b>ayrıntılı denge</b>):</p>
+<ul>
+<li>Isıl üretim hızı rekombinasyon hızına eşittir: \(G=R\). Taşıyıcılar sürekli oluşup yok olur, ama sayıları sabit kalır.</li>
+<li>Elektron akımı ve hol akımı <b>ayrı ayrı</b> sıfırdır; bir yerde sürüklenme varsa onu tam dengeleyen bir difüzyon vardır (p-n ekleminde olduğu gibi).</li>
+<li>Fermi seviyesi \(E_F\) her yerde sabittir ve \(np=n_i^2\) geçerlidir.</li>
+</ul>
+<p>Denge <b>durgunluk değildir</b>: taşıyıcılar ısıl hızla koşmaya, üretilip yok olmaya devam eder. Yalnızca her şeyin <b>net</b> sonucu sıfırdır.</p>
+<p><b>Kararlı durum (steady state)</b> ise büyüklüklerin zamanla değişmediği (\(\partial/\partial t=0\)) ama sistemin <b>sürekli enerji aldığı ve bir şeyin aktığı</b> durumdur. Sabit bir gerilim veya sabit bir ışık, taşıyıcıları sürekli üretir ya da enjekte eder; aynı hızla rekombinasyon ve akım onları götürür. Değerler sabittir ama akım sıfır değildir, \(G\ne R_{\text{ısıl}}\) olabilir ve \(np\ne n_i^2\) olur. Her ısıl denge bir kararlı durumdur; tersi doğru değildir. Zamanla değişen durumlara ise <b>geçici durum (transient)</b> denir.</p>
+<div class="table-wrap"><table class="data wrap">
+<thead><tr><th>Pratik durum</th><th>Hangisi?</th><th>Neden</th></tr></thead>
+<tbody>
+<tr><td>Rafta duran, bağlı olmayan çip (karanlık, oda sıcaklığı)</td><td><b>Isıl denge</b></td><td>Dışarıdan enerji yok; tüm akımlar sıfır.</td></tr>
+<tr><td>Açık devre p-n eklemi, karanlıkta</td><td><b>Isıl denge</b></td><td>Eklemde yerleşik gerilim \(V_{bi}\) ve alan vardır ama sürüklenme ile difüzyon birbirini tam dengeler; akım sıfırdır (2. hafta).</td></tr>
+<tr><td>Sabit DC gerilimde çalışan diyot veya transistör</td><td><b>Kararlı durum</b></td><td>Akım sabit ama sıfır değil; eklem çevresinde \(np\ne n_i^2\).</td></tr>
+<tr><td>Sabit ışık altındaki güneş hücresi veya fotodiyot</td><td><b>Kararlı durum</b></td><td>Optik üretim sürekli; fazla taşıyıcı yoğunluğu sabit ama dengedekinden fazla.</td></tr>
+<tr><td>Anahtarlanan transistör, ışık darbesi (Haynes–Shockley), açılış anı</td><td><b>Geçici durum</b></td><td>Yoğunluklar ve akımlar zamanla değişir (13. hafta).</td></tr>
+<tr><td>Gerilim veya ışık kesildikten hemen sonra</td><td>Geçici → denge</td><td>Fazla taşıyıcılar ömür \(\tau\) (Si'de ns–ms) içinde rekombine olur ve sistem dengeye döner.</td></tr>
+</tbody></table></div>
+<p><b>Denge formülleri neden hâlâ işe yarar?</b> Aygıt çalışırken bile her bant içindeki taşıyıcılar fononlarla çok hızlı (~ps) ısınıp soğur ve kendi içinde dengeye gelir. Bu yüzden kararlı durumda her bant için ayrı bir <b>yarı-Fermi seviyesi</b> tanımlanabilir ve denge denklemleri küçük düzeltmelerle kullanılır. Ayrıca düşük enjeksiyonda çoğunluk taşıyıcı yoğunluğu dengedeki değerine çok yakındır; derste “ısıl dengedeki” değerler, aygıt analizinin başlangıç noktasıdır.</p>
 
 <h3>1.5 Katkılama: taşıyıcı sayısını neden ve nasıl seçeriz?</h3>
 <p>Saf silisyumun iki sorunu vardır: taşıyıcı sayısı çok azdır ve bu sayı sıcaklıkla üstel olarak değişir. Çözüm, kristale kontrollü miktarda <b>yabancı atom (katkı, dopant)</b> yerleştirmektir. Katkı atomu bir Si atomunun yerine oturur (<b>yer değiştirmeli katkı</b>) ve dört komşusuyla bağ kurar. Katkının değerlik elektron sayısı Si'den farklı olduğu için bir elektron <b>artar</b> ya da <b>eksik</b> kalır; taşıyıcı sayısını artık sıcaklık değil, üretim sırasında seçtiğimiz katkı miktarı belirler.</p>
@@ -890,6 +931,16 @@ html[lang="en"] .edu-en { display:block; }
 <div class="qa"><p class="q">20. Neden Si'den verimli bir LED yapılamaz, GaAs'tan yapılabilir? <span class="lvl">kavramsal</span></p>
 <details><summary>Çözümü göster</summary><div>
 <p>Fotonun momentumu elektron momentumuna göre ihmal edilebilecek kadar küçüktür, bu yüzden optik geçişler \(E(k)\) diyagramında dikeydir. GaAs'ta bant uçları aynı \(k\)'dadır ve ışımalı geçiş doğrudan olur. Si'de iletim bandı minimumu ~0.85·(2π/a) noktasındadır; geçiş için bir fononun momentum sağlaması gerekir. Bu ikinci mertebe bir süreçtir, olasılığı çok düşüktür ve ışımasız SRH rekombinasyonu baskın hale gelir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">21. Isıl dengedeki bir Si parçasında taşıyıcılar hareket ettiği hâlde neden akım yoktur? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Taşıyıcılar ~\(10^7\) cm/s ısıl hızla hareket eder ama yönleri rastgeledir; ortalama hızları sıfırdır. Akım için net bir yön gerekir: alan (sürüklenme), yoğunluk farkı (difüzyon) veya sıcaklık farkı. Isıl dengede bunların hiçbiri net etki üretmez; bir p-n ekleminde olduğu gibi alan olsa bile sürüklenme difüzyonla tam dengelenir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">22. Sabit ışık altındaki bir güneş hücresi ısıl dengede midir? \(np=n_i^2\) geçerli midir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Hayır. Değerler zamanla değişmiyorsa hücre <b>kararlı durumdadır</b>, ama dışarıdan sürekli foton enerjisi aldığı için ısıl dengede değildir. Optik üretim fazla elektron ve hol yarattığından \(np>n_i^2\) olur; tek bir Fermi seviyesi yerine elektronlar ve holler için ayrı yarı-Fermi seviyeleri tanımlanır. Işık kesildiğinde fazla taşıyıcılar ömür \(\tau\) içinde rekombine olur ve hücre dengeye döner.</p>
 </div></details></div>
 </div>
 </template>
@@ -2906,6 +2957,26 @@ html[lang="en"] .edu-en { display:block; }
 <p>An electron leaving the valence band leaves an unfilled state behind. When a neighbouring electron fills that vacancy, the vacancy appears to have moved. We model this collective motion as a <b>hole</b>, a quasi-particle that behaves as if it carried a positive charge \(+q\).</p>
 <div class="note"><strong>Important:</strong> A hole is not a new fundamental particle; it is a useful physical model of a missing electron in the valence band.</div>
 
+<h4>What produces a current?</h4>
+<p>Electric current is the <b>net</b> motion of charge in some direction: \(J = q\,(p\,\bar v_p - n\,\bar v_n)\). Two conditions follow: the material must contain <b>mobile charge carriers</b>, and their motion must be <b>shifted on average</b> in one direction. At room temperature carriers already run at a thermal speed of ~\(10^7\) cm/s, but their directions are random, so the average is zero and there is no current.</p>
+<p><b>Why do bound electrons carry no current?</b> In a completely filled band, for every electron in a state \(\mathbf{k}\) there is another in \(-\mathbf{k}\); the total momentum is zero. The field may push the electrons, but there are <b>no empty states</b> for them to move into, so the distribution cannot change and the net current stays zero. A completely empty band has no carriers at all. Only <b>partially filled bands</b> carry current: the few electrons in the conduction band and the few empty states (holes) in the valence band. The remaining billions of valence electrons contribute to current only through the holes.</p>
+<div class="type-grid">
+<div class="type-card n"><h4>1. Where do carriers come from? (“how many?”)</h4><ul>
+<li><b>Thermal generation:</b> bonds broken by heat → \(n_i\) (1.4).</li>
+<li><b>Doping:</b> ionized donors/acceptors → \(n\approx N_D\) or \(p\approx N_A\) (1.5–1.7).</li>
+<li><b>Optical generation:</b> absorption of photons with \(h\nu\ge E_g\) → solar cells, photodiodes.</li>
+<li><b>Injection:</b> carriers entering from a contact or across a p-n junction → diodes and BJTs (weeks 2–3 and 9).</li>
+<li><b>Avalanche and tunnelling:</b> impact ionization or band-to-band tunnelling at very high field → breakdown, tunnel diode (weeks 3–4).</li>
+</ul></div>
+<div class="type-card p"><h4>2. What sets them moving? (“which way?”)</h4><ul>
+<li><b>Drift:</b> an electric field. Electrons move against the field and holes along it, but the two currents <b>add in the same direction</b>: \(J=q(n\mu_n+p\mu_p)\mathcal{E}\).</li>
+<li><b>Diffusion:</b> a concentration difference; carriers spread from high to low density (1.12). This is the main current of a p-n junction and of a BJT base.</li>
+<li><b>Temperature difference:</b> carriers at the hot end are faster → thermoelectric (Seebeck) current; thermoelectric coolers and generators.</li>
+<li><b>Displacement current:</b> \(\varepsilon\,\partial\mathcal{E}/\partial t\); a capacitive current that flows through a changing field without charge crossing over. Important at high frequency (week 11).</li>
+</ul></div>
+</div>
+<p>In short, current is set by the <b>number of carriers</b> (\(n,p\)) times <b>how easily they move</b> (\(\mu\)), together with a <b>driving force</b> (a field, a concentration difference or a temperature difference): \(\sigma=q(n\mu_n+p\mu_p)\). The numerical effect is enormous. Pure Si at 300 K has \(\rho\approx3\times10^{5}\ \Omega\,\mathrm{cm}\), while Si doped with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) has \(\rho\approx0.5\ \Omega\,\mathrm{cm}\). For comparison, copper has \(\rho\approx1.7\times10^{-6}\ \Omega\,\mathrm{cm}\).</p>
+
 <h3>1.4 Carriers in thermal equilibrium and \(n_i\)</h3>
 <p>The probability that an energy level is occupied by an electron is given by the Fermi–Dirac distribution. The Fermi level \(E_F\) is the energy at which the occupation probability is exactly 1/2. The electron concentration in the conduction band is the integral over the band of the product of the density of states and the occupation probability. As long as \(E_F\) is several \(kT\) away from the band edges (the non-degenerate case), this integral reduces to a simple exponential expression.</p>
 <p>The <b>intrinsic carrier concentration</b> \(n_i\) is the density of mobile electrons and holes that exist naturally per unit volume in an undoped semiconductor at thermal equilibrium. Since every broken bond produces one electron and one hole:</p>
@@ -2916,6 +2987,27 @@ html[lang="en"] .edu-en { display:block; }
 <p>In the non-degenerate approximation:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
 <p>\(N_C\) and \(N_V\) scale roughly as \(T^{3/2}\), but the exponential dominates. <b>As temperature rises</b>, more electrons cross the band gap and \(n_i\) grows rapidly: in Si, going from 300 K to 400 K increases \(n_i\) about 500-fold. <b>A larger \(E_g\)</b> means fewer intrinsic carriers at the same temperature.</p><p>This exponential dependence is the basic reason why semiconductor devices are temperature sensitive.</p>
+
+<h4>What does thermal equilibrium mean in practice? How does it differ from steady state?</h4>
+<p><b>Thermal equilibrium</b> is the state reached after waiting long enough while <b>no energy is supplied</b> from outside and everything is at the <b>same temperature</b>: no applied voltage, no light, no temperature difference. Every microscopic process is then balanced by its inverse (<b>detailed balance</b>):</p>
+<ul>
+<li>The thermal generation rate equals the recombination rate: \(G=R\). Carriers are constantly created and destroyed, but their number stays constant.</li>
+<li>The electron current and the hole current are <b>separately</b> zero; wherever there is drift, an equal and opposite diffusion cancels it (as in a p-n junction).</li>
+<li>The Fermi level \(E_F\) is constant everywhere and \(np=n_i^2\) holds.</li>
+</ul>
+<p>Equilibrium is <b>not stillness</b>: carriers keep running at the thermal speed and keep being generated and recombined. Only the <b>net</b> result of everything is zero.</p>
+<p><b>Steady state</b> is a state in which quantities do not change with time (\(\partial/\partial t=0\)) but the system <b>continuously receives energy and something flows</b>. A constant voltage or constant light keeps generating or injecting carriers; recombination and current remove them at the same rate. The values are constant, but the current is not zero, \(G\ne R_{\text{thermal}}\) is possible and \(np\ne n_i^2\). Every thermal equilibrium is a steady state; the converse is not true. States that change with time are called <b>transient</b>.</p>
+<div class="table-wrap"><table class="data wrap">
+<thead><tr><th>Practical situation</th><th>Which one?</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>A chip sitting on the shelf, unconnected (dark, room temperature)</td><td><b>Thermal equilibrium</b></td><td>No external energy; all currents are zero.</td></tr>
+<tr><td>An open-circuit p-n junction in the dark</td><td><b>Thermal equilibrium</b></td><td>The junction has a built-in voltage \(V_{bi}\) and field, but drift and diffusion cancel exactly; the current is zero (week 2).</td></tr>
+<tr><td>A diode or transistor operating at a constant DC voltage</td><td><b>Steady state</b></td><td>The current is constant but not zero; \(np\ne n_i^2\) around the junction.</td></tr>
+<tr><td>A solar cell or photodiode under constant light</td><td><b>Steady state</b></td><td>Optical generation is continuous; the excess carrier density is constant but above equilibrium.</td></tr>
+<tr><td>A switching transistor, a light pulse (Haynes–Shockley), the moment of turn-on</td><td><b>Transient</b></td><td>Densities and currents change with time (week 13).</td></tr>
+<tr><td>Right after the voltage or light is removed</td><td>Transient → equilibrium</td><td>Excess carriers recombine within the lifetime \(\tau\) (ns–ms in Si) and the system returns to equilibrium.</td></tr>
+</tbody></table></div>
+<p><b>Why are equilibrium formulas still useful?</b> Even while a device operates, the carriers within each band heat up and cool down very quickly (~ps) through phonons and reach equilibrium among themselves. So in steady state a separate <b>quasi-Fermi level</b> can be defined for each band, and the equilibrium equations can be used with small corrections. Moreover, under low injection the majority-carrier density stays very close to its equilibrium value; the “thermal equilibrium” values of this course are the starting point of device analysis.</p>
 
 <h3>1.5 Doping: why and how we choose the carrier density</h3>
 <p>Pure silicon has two problems: it has very few carriers, and that number changes exponentially with temperature. The solution is to place a controlled amount of <b>foreign atoms (dopants)</b> into the crystal. A dopant atom takes the place of a Si atom (<b>substitutional doping</b>) and bonds with its four neighbours. Because its number of valence electrons differs from Si, one electron is either <b>left over</b> or <b>missing</b>; the carrier density is now set by the dopant amount chosen during fabrication rather than by temperature.</p>
@@ -3394,6 +3486,16 @@ html[lang="en"] .edu-en { display:block; }
 <div class="qa"><p class="q">20. Why can an efficient LED be made from GaAs but not from Si? <span class="lvl">conceptual</span></p>
 <details><summary>Show solution</summary><div>
 <p>The photon momentum is negligible compared with the electron momentum, so optical transitions are vertical in the \(E(k)\) diagram. In GaAs the band extrema are at the same \(k\) and radiative transitions are direct. In Si the conduction-band minimum lies at ~0.85·(2π/a); the transition needs a phonon to supply momentum. This is a second-order process with very low probability, and non-radiative SRH recombination dominates.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">21. Why is there no current in a piece of Si at thermal equilibrium, even though its carriers are moving? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>Carriers move at a thermal speed of ~\(10^7\) cm/s, but in random directions; their average velocity is zero. A current needs a net direction: a field (drift), a concentration difference (diffusion) or a temperature difference. At thermal equilibrium none of these produces a net effect; even where a field exists, as in a p-n junction, drift is exactly balanced by diffusion.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">22. Is a solar cell under constant light in thermal equilibrium? Does \(np=n_i^2\) hold? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>No. If its values do not change with time the cell is in <b>steady state</b>, but it is not in thermal equilibrium because it continuously receives photon energy. Optical generation creates excess electrons and holes, so \(np>n_i^2\); instead of a single Fermi level, separate quasi-Fermi levels are defined for electrons and holes. When the light is switched off, the excess carriers recombine within the lifetime \(\tau\) and the cell returns to equilibrium.</p>
 </div></details></div>
 </div>
 </template>
