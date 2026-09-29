@@ -1,6 +1,6 @@
 # Yarıiletken Fiziği — İnteraktif Ders Çalışma Yardımcısı
 
-Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil; **fiziksel sezgi, bant diyagramları, taşıyıcı istatistiği, interaktif grafikler ve problem çözme** üzerinden öğrenmeye yardımcı olmak için hazırlanmış 14 haftalık bir ders çalışma dokümanıdır.
+Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil; **fiziksel sezgi, bant diyagramları, taşıyıcı istatistiği, interaktif grafikler ve problem çözme** üzerinden öğrenmeye yardımcı olmak için hazırlanmış, **Hafta 0 temel bölümü + 14 haftalık ders akışından** oluşan bir çalışma dokümanıdır.
 
 > **Amaç:** Bir denklemi kullanabilmenin yanında, o denklemin ne anlattığını, hangi büyüklüklerin sonucu nasıl değiştirdiğini ve farklı yarıiletken aygıtlarının aynı temel fizik üzerinden nasıl birbirine bağlandığını görebilmek.
 
@@ -19,7 +19,8 @@ Her konuyu mümkünse şu sırayla çalışın:
 
 ```mermaid
 flowchart TD
-    A["Kristal Yapı ve Kuantum Temelleri"] --> B["Enerji Bantları"]
+    Z["Atomlar, Kovalent Bağlar, Serbest Elektron/Hol ve nᵢ"] --> A["Kristal Yapı ve Kuantum Temelleri"]
+    A --> B["Enerji Bantları"]
     B --> C["Fermi Seviyesi ve Taşıyıcı İstatistiği"]
     C --> D["Katkılama ve Taşıyıcı Yoğunluğu"]
     D --> E["Sürüklenme, Difüzyon ve Rekombinasyon"]
@@ -36,10 +37,11 @@ flowchart TD
 
 Bu haritanın önemli mesajı şudur: konular birbirinden bağımsız değildir. Özellikle **enerji bantları → Fermi seviyesi → taşıyıcı yoğunluğu → PN eklemi → diyot/BJT** zinciri dersin omurgasını oluşturur.
 
-## 14 Haftalık Çalışma Rotası
+## Temel Bölüm + 14 Haftalık Çalışma Rotası
 
 | Aşama | Odak | Çalışırken kendine sor |
 |---|---|---|
+| 0 | Yarıiletken fiziği temelleri | Atom, bağlı elektron, serbest elektron, hol ve \(n_i\) arasındaki ilişki nedir? Freeze-out, extrinsic ve intrinsic bölgeleri neden oluşur? |
 | 1 | Kristal ve yarıiletken temelleri | Bir katıyı iletken, yalıtkan veya yarıiletken yapan nedir? |
 | 2 | Bant teorisi | Yasak enerji aralığı fiziksel olarak neyi ifade eder? |
 | 3 | Taşıyıcı istatistiği | Fermi seviyesi elektron ve delik yoğunluğunu nasıl belirler? |
