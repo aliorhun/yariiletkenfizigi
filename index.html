@@ -316,6 +316,135 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 
 <!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
+<template id="week0">
+<div class="pane" data-pane="anlatim">
+<div class="prose">
+<div class="edu-card"><div class="edu-label">🎯 Bu bölümde ne öğreneceğiz?</div><ul>
+<li>Atom, kovalent bağ ve hareketli taşıyıcı arasındaki farkı kurmak.</li>
+<li>Serbest elektron ve holün nasıl birlikte oluştuğunu açıklamak.</li>
+<li>\(n_i\) öz taşıyıcı yoğunluğunun tam olarak neyi ölçtüğünü anlamak.</li>
+<li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic bölgelerinin neden oluştuğunu yorumlamak.</li>
+</ul></div>
+<div class="edu-card edu-predict"><div class="edu-label">🧪 Önce tahmin et</div><p>Donör katkılı bir Si örneğinde sıcaklığı çok düşükten çok yükseğe çıkarırsak elektron yoğunluğu sürekli \(N_D\)'ye eşit mi kalır? Üç farklı sıcaklık bölgesinde ne beklediğinizi düşünün.</p></div>
+
+<figure class="lesson-visual"><img src="assets/images/week00/carrier-generation.svg" alt="Saf silisyumda termal enerjiyle elektron-hol çifti oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Bağlı elektron → serbest elektron + hol · Özgün teknik şema</figcaption></figure>
+
+<h3>0.1 Atom ile taşıyıcı aynı şey değildir</h3>
+<p>Silisyum kristalindeki atomlar örgü noktalarında titreşir ama elektrik akımını taşıyan şey atomların kendisi değildir. Her Si atomunun dört değerlik elektronu komşu atomlarla <b>kovalent bağlara</b> katılır. Yeterli termal veya optik enerji alan bir elektron bağdan kurtulup iletim bandında hareket edebilir hale geldiğinde <b>serbest elektron taşıyıcısı</b> oluşur.</p>
+<p>Elektronun ayrıldığı bağda bir elektron eksikliği kalır. Komşu bağ elektronları bu eksikliği doldurdukça eksiklik kristal içinde hareket ediyormuş gibi görünür; buna <b>hol</b> denir. Hol bağımsız temel parçacık değildir, fakat kristal dinamiğinde pozitif yüklü bir taşıyıcı gibi davranır. Bir elektron değerlik bandından iletim bandına geçtiğinde <b>bir elektron ve bir hol birlikte</b> oluşur.</p>
+
+<h3>0.2 \(n_i\): öz taşıyıcı yoğunluğu tam olarak nedir?</h3>
+<p>\(n_i\) (<i>intrinsic carrier concentration</i>), katkısız ve termal dengedeki bir yarıiletkende <b>birim hacimde bulunan hareketli elektron yoğunluğunu</b> ifade eder. Her termal uyarılma bir elektron–hol çifti oluşturduğu için saf malzemede</p>
+<div class="eq">\[ n=p=n_i \]</div>
+<p>olur. Birimi genellikle \(\text{cm}^{-3}\)'tür. Si için 300 K civarında \(n_i\) yaklaşık \(10^{10}\ \text{cm}^{-3}\) mertebesindedir. Buna karşılık Si atom yoğunluğu yaklaşık \(5\times10^{22}\ \text{cm}^{-3}\)'tür. Yani <b>atom yoğunluğu ile taşıyıcı yoğunluğu tamamen farklı büyüklüklerdir</b>: oda sıcaklığında atomların çok küçük bir bölümünün elektronları hareketli taşıyıcı durumundadır.</p>
+<p>\(n_i\), malzemenin bant aralığına ve sıcaklığa çok duyarlıdır. Sıcaklık yükseldikçe daha fazla elektron değerlik bandından iletim bandına uyarılır ve \(n_i\) üstel biçimde artar.</p>
+
+<h3>0.3 Katkılı Si'de üç sıcaklık bölgesi</h3>
+<p>Donör katkılı n-tipi Si için elektron yoğunluğu her sıcaklıkta basitçe \(n=N_D\) değildir. Düşük sıcaklıkta donör elektronlarının önemli bölümü atoma bağlı kalır; bu <b>freeze-out (donma)</b> bölgesidir. Orta sıcaklıklarda donörler hemen hemen tamamen iyonlaşmıştır ve termal öz taşıyıcılar hâlâ azdır; <b>extrinsic (dışsal)</b> bölgede yaklaşık \(n\approx N_D\) olur. Yüksek sıcaklıkta ise termal üretilen elektron–hol çiftleri katkı yoğunluğunu geçer; <b>intrinsic (öz)</b> bölgede malzemenin davranışını artık \(n_i\) belirler.</p>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Önemli ayrım</div><p>Bu üç bölge keskin faz sınırları değildir; geçişler süreklidir. “Freeze-out bitti” veya “intrinsic başladı” ifadeleri pratik eşiklerle tanımlanan yaklaşık bölgelerdir.</p></div>
+</div>
+</div>
+
+<div class="pane" data-pane="matematik">
+<div class="prose">
+<h3>Taşıyıcı yoğunlukları</h3>
+<div class="eq">\[
+n=N_C e^{-(E_C-E_F)/kT},\qquad
+p=N_V e^{-(E_F-E_V)/kT}
+\]</div>
+<p>Dejenere olmayan yarıiletken için bu Boltzmann yaklaşımı, bant kenarından uzaktaki Fermi seviyelerinde iyi çalışır.</p>
+
+<h3>Öz taşıyıcı yoğunluğu</h3>
+<div class="eq">\[
+n_i=\sqrt{N_C N_V}\,e^{-E_g/(2kT)}
+\]</div>
+<p>Bu formülde en güçlü sıcaklık bağımlılığı üstel terimdedir. \(E_g\) büyüdükçe aynı sıcaklıkta öz taşıyıcı üretmek zorlaşır; sıcaklık yükseldikçe \(n_i\) hızla büyür.</p>
+
+<h3>Kütle etkisi yasası</h3>
+<div class="eq">\[ np=n_i^2 \]</div>
+<p>Termal dengede katkılama elektron ve hol sayılarını birbirinin ters yönünde değiştirir. Örneğin n-tipi malzemede \(n\gg n_i\) ise \(p=n_i^2/n\) olur.</p>
+
+<h3>Katkılı malzemede yük nötrlüğü</h3>
+<div class="eq">\[
+n+N_A^- = p+N_D^+
+\]</div>
+<p>Donörlerin tamamen iyonlaşmadığı düşük sıcaklıkta \(N_D^+\neq N_D\)'dir. Basit donor modeli:</p>
+<div class="eq">\[
+N_D^+=\frac{N_D}{1+g_D\exp[(E_F-E_D)/kT]},\qquad g_D\approx2
+\]</div>
+<p>Görseller sekmesindeki sıcaklık grafiği bu yük nötrlüğü koşulunu ve eksik iyonlaşmayı sayısal olarak çözer; bu nedenle düşük sıcaklıktaki freeze-out davranışı da görülür.</p>
+
+<h3>Üç bölgenin yaklaşık matematiksel resmi</h3>
+<div class="edu-card"><p><b>Freeze-out:</b> \(N_D^+<N_D\), elektronların önemli kısmı donöre bağlıdır.</p><p><b>Extrinsic:</b> \(N_D^+\approx N_D\) ve \(n_i\ll N_D\), dolayısıyla \(n\approx N_D\).</p><p><b>Intrinsic:</b> \(n_i\gtrsim N_D\), termal elektron–hol üretimi katkılamanın etkisini bastırır.</p></div>
+</div>
+</div>
+
+<div class="pane" data-pane="gorsel">
+<p class="legend-key">Renk kodu: <span class="e">mavi</span> elektron / toplam elektron yoğunluğu, <span class="h">kırmızı</span> hol, <span class="f">yeşil</span> öz taşıyıcı yoğunluğu.</p>
+
+<section class="fig">
+<h3>Donör katkılı Si: sıcaklıkla elektron yoğunluğu</h3>
+<p class="why">Ekteki ders kitabı grafiğinin fiziksel mesajını özgün ve etkileşimli olarak yeniden kurar. Donör yoğunluğunu değiştirin; düşük sıcaklıkta freeze-out, orta sıcaklıkta \(n\approx N_D\) platosu ve yüksek sıcaklıkta \(n_i\)'nin baskın hale geldiği intrinsic bölgeyi izleyin. Kesikli yeşil eğri saf Si'nin \(n_i(T)\) değeridir.</p>
+<div class="controls">
+<label>log₁₀ \(N_D\) <input type="range" id="r-f0-nd" min="12" max="17" step="0.25" value="15"><output id="o-f0-nd">10^15 cm⁻³</output></label>
+<label>İşaretçi T <input type="range" id="r-f0-t" min="30" max="800" step="10" value="300"><output id="o-f0-t">300 K</output></label>
+</div>
+<div class="readout" id="ro-f0"></div>
+<div class="plot tall" id="p-foundation-regimes"></div>
+<div class="edu-card"><div class="edu-label">🔎 Grafiği nasıl okuyacağız?</div><p><b>Sol:</b> donörler elektronlarını tam veremez; \(N_D^+/N_D\) düşüktür. <b>Orta:</b> eğri yataylaşır; elektron yoğunluğunu katkı belirler. <b>Sağ:</b> \(n_i(T)\) hızla yükselir ve katkı yoğunluğuyla yarışmaya başlar; elektron ve hol sayıları birbirine yaklaşır.</p></div>
+</section>
+
+<section class="fig">
+<h3>\(n_i\) neden malzemeye ve sıcaklığa bağlı?</h3>
+<p class="why">Si, Ge ve GaAs için \(n_i(T)\). Daha küçük bant aralığı termal taşıyıcı üretimini kolaylaştırır. Logaritmik eksen, sıcaklığın taşıyıcı yoğunluğunu kaç mertebe değiştirebildiğini açıkça gösterir.</p>
+<div class="plot" id="p-foundation-ni"></div>
+</section>
+</div>
+
+<div class="pane" data-pane="soru">
+<div class="qa"><p class="q">1. \(n_i=10^{10}\ \text{cm}^{-3}\) ifadesi ne anlatır?</p><details><summary>Çözümü göster</summary><div><p>Katkısız, termal dengedeki 1 cm³ yarıiletkende yaklaşık \(10^{10}\) hareketli elektron ve aynı sayıda hol bulunduğunu söyler. Atom sayısını söylemez.</p></div></details></div>
+<div class="qa"><p class="q">2. Bir elektron iletim bandına uyarıldığında neden aynı anda bir hol oluşur?</p><details><summary>Çözümü göster</summary><div><p>Elektron değerlik bandındaki bağlı durumunu terk eder; geride kalan eksik doluluk hol olarak davranır. Bu nedenle termal üretim elektron–hol çifti oluşturur.</p></div></details></div>
+<div class="qa"><p class="q">3. n-tipi Si'de neden orta sıcaklıklarda \(n\approx N_D\)?</p><details><summary>Çözümü göster</summary><div><p>Donörlerin hemen tamamı iyonlaşmıştır, fakat öz taşıyıcı üretimi hâlâ \(N_D\)'den çok küçüktür. Elektron sayısını esas olarak donörler belirler.</p></div></details></div>
+<div class="qa"><p class="q">4. Çok yüksek sıcaklıkta katkılama neden önemini kaybeder?</p><details><summary>Çözümü göster</summary><div><p>\(n_i\) üstel olarak büyür ve katkı yoğunluğuyla karşılaştırılabilir ya da daha büyük hale gelir. Termal elektron–hol çiftleri baskın olur.</p></div></details></div>
+<div class="qa"><p class="q">5. Hol gerçek bir pozitif parçacık mıdır?</p><details><summary>Çözümü göster</summary><div><p>Temel parçacık değildir; değerlik bandındaki eksik elektron durumudur. Kristalde pozitif yüklü etkili bir taşıyıcı gibi davranır.</p></div></details></div>
+</div>
+</template>
+
+<template id="week0-en">
+<div class="pane" data-pane="anlatim"><div class="prose">
+<div class="edu-card"><div class="edu-label">🎯 Learning goals</div><ul><li>Distinguish atoms, covalent bonds and mobile carriers.</li><li>Explain why a free electron and a hole are created together.</li><li>Interpret the physical meaning of intrinsic carrier concentration \(n_i\).</li><li>Explain the freeze-out → extrinsic → intrinsic temperature regimes.</li></ul></div>
+<figure class="lesson-visual"><img src="assets/images/week00/carrier-generation.svg" alt="Electron-hole pair generation in intrinsic silicon" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Bound electron → free electron + hole · Original technical diagram</figcaption></figure>
+<h3>0.1 Atoms are not carriers</h3><p>Silicon atoms occupy lattice sites and vibrate around them; the atoms themselves do not carry ordinary semiconductor current. Their four valence electrons participate in covalent bonds. When sufficient thermal or optical energy excites a bond electron into the conduction band, that electron becomes a mobile carrier.</p><p>The missing electron left in the valence bond behaves as a positively charged mobile state called a <b>hole</b>. A hole is not a fundamental positive particle; it is an effective description of a missing valence electron. One excitation therefore creates an electron–hole pair.</p>
+<h3>0.2 What exactly is \(n_i\)?</h3><p>Intrinsic carrier concentration is the number of mobile conduction electrons per unit volume in an undoped semiconductor at thermal equilibrium. Pair generation gives \(n=p=n_i\). At 300 K, Si has \(n_i\) of order \(10^{10}\ \text{cm}^{-3}\), while its atomic density is of order \(5\times10^{22}\ \text{cm}^{-3}\): atomic density and carrier density are very different quantities.</p>
+<h3>0.3 Three temperature regimes in doped silicon</h3><p>At low temperature many donor electrons remain bound: <b>freeze-out</b>. At intermediate temperature donors are nearly fully ionized while intrinsic generation is still weak: the <b>extrinsic</b> region has \(n\approx N_D\). At high temperature intrinsic pair generation grows rapidly and eventually dominates: the <b>intrinsic</b> region.</p>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Important</div><p>These are gradual crossovers, not sharp phase boundaries. Their quoted boundaries depend on the practical criterion used.</p></div>
+</div></div>
+
+<div class="pane" data-pane="matematik"><div class="prose">
+<h3>Carrier densities</h3><div class="eq">\[n=N_Ce^{-(E_C-E_F)/kT},\qquad p=N_Ve^{-(E_F-E_V)/kT}\]</div>
+<h3>Intrinsic concentration</h3><div class="eq">\[n_i=\sqrt{N_CN_V}\,e^{-E_g/(2kT)}\]</div>
+<h3>Mass-action law</h3><div class="eq">\[np=n_i^2\]</div>
+<h3>Charge neutrality and incomplete donor ionization</h3><div class="eq">\[n+N_A^-=p+N_D^+\]</div><div class="eq">\[N_D^+=\frac{N_D}{1+g_D\exp[(E_F-E_D)/kT]},\qquad g_D\approx2\]</div>
+<p>The interactive temperature plot solves charge neutrality together with incomplete ionization, so it reproduces the low-temperature freeze-out regime rather than assuming \(N_D^+=N_D\) at all temperatures.</p>
+</div></div>
+
+<div class="pane" data-pane="gorsel">
+<p class="legend-key">Color code: <span class="e">blue</span> total electron density, <span class="h">red</span> holes, <span class="f">green</span> intrinsic concentration.</p>
+<section class="fig"><h3>Donor-doped Si: electron density versus temperature</h3><p class="why">An original interactive reconstruction of the physical message in the supplied reference figure. Change donor density and inspect the freeze-out, extrinsic plateau and intrinsic rise.</p>
+<div class="controls"><label>log₁₀ \(N_D\) <input type="range" id="r-f0-nd" min="12" max="17" step="0.25" value="15"><output id="o-f0-nd">10^15 cm⁻³</output></label><label>Marker T <input type="range" id="r-f0-t" min="30" max="800" step="10" value="300"><output id="o-f0-t">300 K</output></label></div>
+<div class="readout" id="ro-f0"></div><div class="plot tall" id="p-foundation-regimes"></div>
+<div class="edu-card"><div class="edu-label">🔎 Reading the graph</div><p><b>Left:</b> donors are only partly ionized. <b>Middle:</b> \(n\) forms a plateau near \(N_D\). <b>Right:</b> \(n_i(T)\) rises exponentially and eventually competes with or exceeds doping.</p></div></section>
+<section class="fig"><h3>Why does \(n_i\) depend on material and temperature?</h3><p class="why">Intrinsic concentration for Si, Ge and GaAs. The logarithmic axis makes the exponential temperature sensitivity visible.</p><div class="plot" id="p-foundation-ni"></div></section>
+</div>
+
+<div class="pane" data-pane="soru">
+<div class="qa"><p class="q">1. What does \(n_i=10^{10}\ \text{cm}^{-3}\) mean?</p><details><summary>Show solution</summary><div><p>It means roughly \(10^{10}\) mobile electrons and the same density of holes per cm³ in undoped material at equilibrium; it is not an atomic density.</p></div></details></div>
+<div class="qa"><p class="q">2. Why are an electron and a hole created together?</p><details><summary>Show solution</summary><div><p>An electron leaves a valence-band state and enters the conduction band; the missing valence electron is the hole.</p></div></details></div>
+<div class="qa"><p class="q">3. Why is \(n\approx N_D\) in the extrinsic region?</p><details><summary>Show solution</summary><div><p>Donors are nearly fully ionized while intrinsic generation remains much smaller than the donor density.</p></div></details></div>
+<div class="qa"><p class="q">4. Why does doping lose importance at high temperature?</p><details><summary>Show solution</summary><div><p>Intrinsic electron-hole generation rises exponentially until \(n_i\) becomes comparable to or larger than the dopant density.</p></div></details></div>
+</div>
+</template>
+
 <template id="week1">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
@@ -4555,8 +4684,8 @@ html[lang="en"] .edu-en { display:block; }
 let LANG = 'tr';
 try { LANG = localStorage.getItem('ydf-lang') === 'en' ? 'en' : 'tr'; } catch(e) {}
 const L = (tr, en) => LANG === 'en' ? en : tr;
-const EN_TITLES = ["Physics and properties of semiconductors", "p-n junction diode I", "p-n junction diode II", "Tunnel diode", "Heavy-doping effects", "Excess current", "Small- and large-signal analysis", "Noise", "Junction transistors", "Static characteristics", "Microwave transistor", "Power transistor", "Switching transistor", "Unijunction transistor"];
-const EN_SZE = ["Chapter 1", "Sections 2.1–2.2", "Sections 2.3–2.4", "Section 8.2", "Sections 1.4–1.5, 5.2", "Section 8.2.2", "Sections 2.3.4–2.3.5, 5.2", "relevant device chapters + van der Ziel", "Sections 5.1–5.2", "Section 5.2", "Sections 5.3, 5.5", "Section 5.4", "Section 5.4", "supplementary sources"];
+const EN_TITLES = ["Semiconductor physics foundations", "Physics and properties of semiconductors", "p-n junction diode I", "p-n junction diode II", "Tunnel diode", "Heavy-doping effects", "Excess current", "Small- and large-signal analysis", "Noise", "Junction transistors", "Static characteristics", "Microwave transistor", "Power transistor", "Switching transistor", "Unijunction transistor"];
+const EN_SZE = ["Preparation for Chapter 1", "Chapter 1", "Sections 2.1–2.2", "Sections 2.3–2.4", "Section 8.2", "Sections 1.4–1.5, 5.2", "Section 8.2.2", "Sections 2.3.4–2.3.5, 5.2", "relevant device chapters + van der Ziel", "Sections 5.1–5.2", "Section 5.2", "Sections 5.3, 5.5", "Section 5.4", "Section 5.4", "supplementary sources"];
 const TX_SUB = [[": üretilen güç her sıcaklıkta atılan gücü aşıyor, denge noktası yok. Balast direncini artırın veya R", ": generated power exceeds removed power at every temperature; no equilibrium. Increase the ballast resistance or reduce R"], ["Saçma gürültüsü: her örnekte Poisson(λ=4) sayıda yük, beyaz spektrum (seviye ∝ λ)", "Shot noise: Poisson(λ=4) charges per sample, white spectrum (level ∝ λ)"], ["Derecelendirilmiş emetör: sivri engel kayboldu. Bant aralığı farkının tamamı (", "Graded emitter: the spike is gone. The entire band-gap difference ("], ["Si homoeklem: tabandaki elektronlar ile emetördeki holler aynı engeli görür (", "Si homojunction: electrons in the base and holes in the emitter see the same barrier ("], [" meV'luk Ge derecelendirmesi iletim bandını kolektöre doğru eğer (η = ", " meV of Ge grading in the base tilts the conduction band toward the collector (η = "], [" bant kenarına 3kT’den yakın: Boltzmann yaklaşımı geçersiz (5. hafta)", " within 3kT of the band edge: Boltzmann approximation invalid (week 5)"], ["Rastgele telgraf sinyali: tek tuzak, Lorentz spektrumu, köşe f = p/π", "Random telegraph signal: single trap, Lorentzian spectrum, corner f = p/π"], ["n tipi Si'de Auger ömrünün SRH ömrünün altına düştüğü katkı: ", "Doping at which the Auger lifetime falls below the SRH lifetime in n-type Si: "], [" ile büyür; taban hafif katkılı kalmak zorundadır.", "; the base must stay lightly doped."], ["bant kenarları örtüşmüyor: fazla akım + ısıl akım", "band edges no longer overlap: excess + thermal current"], [" (uzun taban: 0.5; kısa taban yaklaşımı W²/3L² = ", " (long base: 0.5; short-base approximation W²/3L² = "], [" &lt; 0'da kolektör eklemi ileri kutuplanır, I", " &lt; 0: collector junction forward biased, I"], ["güç sınırının akım sınırını kestiği gerilim = ", "voltage where power limit meets current limit = "], ["Isıl gürültü: Gauss dağılımlı, beyaz spektrum", "Thermal noise: Gaussian, white spectrum"], [" > 0.1: düşük enjeksiyon varsayımı bozuluyor", " > 0.1: low-injection assumption breaks down"], ["1/f gürültüsü: her onlukta eşit güç, köşesiz", "1/f noise: equal power per decade, no corner"], ["emetör şeridi boyunca konum (μm, 0 = merkez)", "position across emitter stripe (μm, 0 = centre)"], ["düzgün dağılım varsayımıyla yanal düşüm = ", "lateral drop assuming uniform distribution = "], ["ters yön: p valans → n iletim tünellemesi", "reverse: p valence → n conduction tunnelling"], ["ölçülen toplam (yüksek enjeksiyon + R_s)", "measured total (high injection + R_s)"], ["endüktif yükte gerilim yükselme süresi t", "inductive voltage rise time t"], ["kilitlenir (vadiden sonra kapanamaz)", "latches (cannot turn off after the valley)"], [": tükenim yaklaşımı geçersizleşiyor", ": depletion approximation breaks down"], [", β yalnızca ileri aktifte anlamlı)", ", β meaningful only in forward active)"], ["Ani AlGaAs/GaAs: iletim bandında ΔE", "Abrupt AlGaAs/GaAs: conduction-band ΔE"], ["tetiklenmez (tepe akımı sağlanamaz)", "does not fire (peak current not supplied)"], ["Bu dejenerelikte NDR bölgesi yok.", "No NDR region at this degeneracy."], [" eV'luk sivri engel. Holler ek ΔE", " eV spike. Holes see an extra ΔE"], ["β'nın %50'sine düştüğü akımlar: ", "currents where β falls to 50%: "], ["kenar/ortalama akım yoğunluğu = ", "edge/average current density = "], ["kilitlendi: UJT iletimde kalıyor", "latched: UJT stays on"], ["kesim (tepe noktasının altında)", "cutoff (below the peak point)"], [" ≥ |R|: osilasyon mümkün değil", " ≥ |R|: oscillation impossible"], [" μA, tabanda yeniden birleşme ", " μA, recombination in base "], [" eV engel görür ⇒ β kazanımı e", " eV barrier ⇒ β gain e"], ["üretilen P_gen = V_CE·I_C(T_j)", "generated P_gen = V_CE·I_C(T_j)"], ["As (a/4 kaydırılmış alt örgü)", "As (sublattice shifted by a/4)"], ["Si (a/4 kaydırılmış alt örgü)", "Si (sublattice shifted by a/4)"], ["üretim–yeniden birleşme (η=2)", "generation–recombination (η=2)"], ["tepeye doğru: örtüşme büyüyor", "toward the peak: overlap growing"], ["dejenere sınır (4/3√π)η^{3/2}", "degenerate limit (4/3√π)η^{3/2}"], ["Fermi–Dirac + eksik iyonlaşma", "Fermi–Dirac + incomplete ionization"], ["G'nin √2 katına çıktığı ωτ ≈ ", "ωτ at which G reaches √2·G₀ ≈ "], ["yük kontrolün fazla tahmini: ", "charge-control overestimate: "], [" eV) hol engeline eklenir ⇒ e", " eV) adds to the hole barrier ⇒ e"], ["kararlı doyumdaki fazla yük Q", "excess charge in steady saturation Q"], ["fazla hol yoğunluğu (göreli)", "excess hole concentration (relative)"], ["bileşenler: tabana elektron ", "components: electrons into base "], ["n (tabanda azınlık elektron)", "n (minority electrons in base)"], ["aşırı sürme k = βI_B1 / I_Cs", "overdrive k = βI_B1 / I_Cs"], ["tetiklenmiyor: kondansatör V", "not firing: capacitor V"], ["verici seviyesi (P, 45 meV)", "donor level (P, 45 meV)"], ["Fermi–Dirac + tam iyonlaşma", "Fermi–Dirac + complete ionization"], ["'da izin verilen DC akım = ", ": allowed DC current = "], ["x / W_B (emetör → kolektör)", "x / W_B (emitter → collector)"], ["alıcı seviyesi (B, 45 meV)", "acceptor level (B, 45 meV)"], ["g-r köşe frekansı 1/2πτ = ", "g-r corner frequency 1/2πτ = "], ["p (kolektörde azınlık hol)", "p (minority holes in collector)"], ["1 + V/V_A (doğrusal Early)", "1 + V/V_A (linear Early)"], ["p SiGe (derecelendirilmiş)", "p SiGe (graded)"], ["ikincil kırılma başlangıcı", "onset of second breakdown"], ["t / τ_BF (kapanış anından)", "t / τ_BF (from turn-off)"], ["doyum bölgesi (vadi ötesi)", "saturation region (beyond valley)"], ["karışık (tünelleme + çığ)", "mixed (tunnelling + avalanche)"], ["Boltzmann + tam iyonlaşma", "Boltzmann + complete ionization"], [" (ısıl sınır q/kT = 38.7)", " (thermal limit q/kT = 38.7)"], ["yasak aralıktaki durumlar", "gap states"], ["β₀ (bant daralması dahil)", "β₀ (with band-gap narrowing)"], ["kolektör çığ kırılması ≈ ", "collector avalanche breakdown ≈ "], ["güç hiperbolü (uzatılmış)", "power hyperbola (extended)"], ["göreli taşıyıcı dağılımı", "relative carrier distribution"], ["donör seviyesi E_D − E_C", "donor level E_D − E_C"], ["p (emetörde azınlık hol)", "p (minority holes in emitter)"], [" mA (güç sınırı olsaydı ", " mA (power limit alone: "], [" biriminde): dirençli = ", "): resistive = "], ["yük doğrusu V_BB − I_E R", "load line V_BB − I_E R"], [" mV'ta baskın bileşen: ", " mV, dominant component: "], ["bantlar arası tünelleme", "band-to-band tunnelling"], ["t = t_s anındaki profil", "profile at t = t_s"], [" eV). Kazanç yalnızca N", " eV). Gain grows only with N"], [") ⇒ taban geçiş süresi ", ") ⇒ base transit time "], ["atılan (T_j − T_a)/R_th", "removed (T_j − T_a)/R_th"], ["Katkı yoğunluğu (cm⁻³)", "Doping (cm⁻³)"], ["n_p (azınlık elektron)", "n_p (minority electrons)"], ["sıfırda eğrilik |γ| = ", "curvature at zero |γ| = "], [" V'ta (ortak emetörde ", " V (common emitter: "], ["simülasyon (formül), τ", "simulation (formula), in units of τ"], ["t_s (Schottky kenetli)", "t_s (Schottky clamped)"], ["negatif direnç bölgesi", "negative-resistance region"], ["<extra>İletim</extra>", "<extra>Conduction</extra>"], ["<extra>Valans</extra>", "<extra>Valence</extra>"], ["difüzyon (ideal, η=1)", "diffusion (ideal, η=1)"], ["belirgin bir vadi yok", "no distinct valley"], ["2. harmonik/temel = %", "2nd harmonic/fundamental (%) = "], ["taban taşınımı sınırı", "base-transport limit"], ["ideal I_C (60 mV/dek)", "ideal I_C (60 mV/dec)"], ["kenetlemesiz toplam t", "unclamped total t"], ["Boltzmann hatası = %", "Boltzmann error (%) = "], ["Boltzmann hatası (%)", "Boltzmann error (%)"], ["N_D⁺/N_D (sağ eksen)", "N_D⁺/N_D (right axis)"], ["teğet (küçük sinyal)", "tangent (small signal)"], ["1/f köşe frekansı = ", "1/f corner frequency = "], ["Genel en düşük NF = ", "Overall minimum NF = "], ["emetör verimi sınırı", "emitter-efficiency limit"], ["benzetim periyodu = ", "simulated period = "], ["Ga (fcc alt örgü 1)", "Ga (fcc sublattice 1)"], ["Si (fcc alt örgü 1)", "Si (fcc sublattice 1)"], ["dikey (optik) geçiş", "vertical (optical) transition"], ["N(E)F(E) — elektron", "N(E)F(E) — electrons"], ["tepe konumu μ_p·E·t", "peak position μ_p·E·t"], [" kaydırıcısından; N", " slider; N"], ["V ekseni kesimi = V", "V-axis intercept = V"], ["düşük enjeksiyon: p", "low injection: p"], [": örtüşme küçülüyor", ": overlap shrinking"], ["saçma tabanı 2qI = ", "shot floor 2qI = "], ["Schottky kenetli: V", "Schottky clamped: V"], ["Q_BS (doyum sınırı)", "Q_BS (saturation boundary)"], ["Kapanış enerjisi (V", "Turn-off energy (in units of V"], ["N(E)[1−F(E)] — hol", "N(E)[1−F(E)] — holes"], ["dışsal (extrinsic)", "extrinsic"], ["doğrusal değişimli", "linearly graded"], ["i(t)/I_F (sayısal)", "i(t)/I_F (numerical)"], ["β₀ (daralma hariç)", "β₀ (without narrowing)"], ["döngü kazancı S = ", "loop gain S = "], ["A (emetör karşısı)", "A (opposite emitter)"], ["osilasyon aralığı ", "oscillation range "], ["tünelleme (Zener)", "tunnelling (Zener)"], ["p_n (azınlık hol)", "p_n (minority holes)"], ["τ toplam (n tipi)", "τ total (n-type)"], ["standart sapma = ", "standard deviation = "], [" mA, emetöre hol ", " mA, holes into emitter "], ["τ_SCR kolektör TB", "τ_SCR collector SCR"], ["τ_C kolektör şarj", "τ_C collector charging"], ["ters gerilim (V)", "reverse voltage (V)"], ["n_ie²/n_i² (sağ)", "n_ie²/n_i² (right)"], ["τ_Auger (n tipi)", "τ_Auger (n-type)"], ["τ_Auger (p tipi)", "τ_Auger (p-type)"], ["<sub>ileri</sub>", "<sub>fwd</sub>"], ["etkin genişlik S", "effective width S"], ["n(x) (normalize)", "n(x) (normalized)"], ["'de takılı kalır", " stuck"], ["i_E (B1 darbesi)", "i_E (B1 pulse)"], ["E − E_orta (eV)", "E − E_mid (eV)"], [" kullanılmıyor)", " not used)"], ["1/C² (doğrusal)", "1/C² (graded)"], ["yoğunluk (cm⁻³)", "concentration (cm⁻³)"], ["çalışma noktası", "operating point"], ["x (nm, şematik)", "x (nm, schematic)"], ["<sub>ters</sub>", "<sub>rev</sub>"], ["düşük frekans C", "low-frequency C"], ["t / T (periyot)", "t / T (period)"], ["normalize değer", "normalized value"], ["t_s yük kontrol", "t_s charge control"], ["kenar yoğunluğu", "edge concentration"], [" örnek, Welch: ", " samples, Welch: "], ["kestirilen S(f)", "estimated S(f)"], ["f / f_örnekleme", "f / f_sampling"], ["zorlanmış β = β", "forced β = β"], ["τ_E emetör şarj", "τ_E emitter charging"], ["τ_B taban geçiş", "τ_B base transit"], ["kenar/merkez = ", "edge/centre = "], [" en küçük: k = ", " minimum: k = "], [" kΩ (başlangıç ", " kΩ (initial "], ["tepe (I_P, V_P)", "peak (I_P, V_P)"], ["vadi (I_V, V_V)", "valley (I_V, V_V)"], ["'den bağımsız)", " independent)"], ["has benzeri (n", "near-intrinsic (n"], ["μ_n (elektron)", "μ_n (electrons)"], ["ekstrapolasyon", "extrapolation"], [" (difüzyon) = ", " (diffusion) = "], ["p_p (çoğunluk)", "p_p (majority)"], ["n_n (çoğunluk)", "n_n (majority)"], ["ters akım (Si)", "reverse current (Si)"], ["/τ: sayısal = ", "/τ: numerical = "], ["yük kontrol = ", "charge control = "], ["tam yanıt i(t)", "exact response i(t)"], ["doğrusal g_d·v", "linear g_d·v"], [" sınırı: NF ≥ ", " limit: NF ≥ "], ["emetör/taban n", "emitter/base n"], ["Ortak taban: I", "Common base: I"], ["en yüksek β = ", "peak β = "], ["nötr taban W_B", "neutral base W_B"], ["SiGe: tabanda ", "SiGe: "], ["düzgün dağılım", "uniform distribution"], ["negatif direnç", "negative resistance"], ["foton + fonon", "photon + phonon"], ["dolaylı geçiş", "indirect transition"], ["tünelleme J_t", "tunnelling J_t"], ["1/f referansı", "1/f reference"], [", daralmasız ", ", without "], ["Nötr taban (V", "Neutral base (V"], ["çığ kırılması", "avalanche breakdown"], ["taban kontağı", "base contact"], ["kararlı nokta", "stable point"], [" biriminde: t", ": t"], ["fazla yük Q_S", "excess charge Q_S"], [", endüktif = ", ", inductive = "], ["p(t) dirençli", "p(t) resistive"], ["p(t) endüktif", "p(t) inductive"], ["kovalent bağ", "covalent bond"], ["İletim bandı", "Conduction band"], ["Valans bandı", "Valence band"], ["(enjeksiyon)", "(injection)"], ["Ani eklem: d", "Abrupt junction: d"], ["fazla + ısıl", "excess + thermal"], ["DC kayma = %", "DC shift (%) = "], ["(uzun taban)", "(long base)"], ["nötr taban W", "neutral base W"], [": daralmalı ", ": with narrowing "], ["kolektör (n)", "collector (n)"], [", kırılma BV", ", breakdown BV"], ["gecikme (ps)", "delay (ps)"], [" kat kısalır", "× shorter"], ["100 μs darbe", "100 μs pulse"], ["'yi azaltın.", "."], ["dirençli yük", "resistive load"], ["endüktif yük", "inductive load"], ["v_C (emetör)", "v_C (emitter)"], ["Mekanizma: ", "Mechanism: "], ["seçilen N_B", "selected N_B"], [" mA (tünel ", " mA (tunnel "], ["NDR bölgesi", "NDR region"], ["en yüksek f", "highest f"], ["t_s sayısal", "t_s numerical"], ["toplam S(f)", "total S(f)"], ["en düşük NF", "lowest NF"], ["ileri aktif", "forward active"], [" (taban) = ", " (base) = "], ["emetör (n⁺)", "emitter (n⁺)"], ["kazanç (dB)", "gain (dB)"], ["seçili k = ", "selected k = "], ["süre / τ_BF", "time / τ_BF"], [" varsayıldı", " assumed"], ["seçilen I_E", "selected I_E"], ["|eğim|) = ", "|slope|) = "], ["1/C² (ani)", "1/C² (abrupt)"], ["örtüşme = ", "overlap = "], ["fazla akım", "excess current"], ["I(V) üstel", "I(V) exponential"], ["ters aktif", "reverse active"], [" V ⇒ önce ", " V ⇒ first: "], ["1 ms darbe", "1 ms pulse"], ["Isıl kaçak", "Thermal runaway"], ["taban yükü", "base charge"], ["σ/σ₀ (sağ)", "σ/σ₀ (right)"], ["μ_p (hol)", "μ_p (holes)"], ["ρ, n tipi", "ρ, n-type"], ["ρ, p tipi", "ρ, p-type"], ["ani eklem", "abrupt junction"], ["akım payı", "current share"], ["ısıl akım", "thermal current"], ["ara durum", "intermediate state"], ["fazla J_x", "excess J_x"], ["ısıl J_th", "thermal J_th"], ["seçilen δ", "selected δ"], [" (a/4 ≈ %", " (a/4 ≈ "], ["(seçilen)", "(selected)"], ["saçma 2qI", "shot 2qI"], [" oranı = ", " ratio = "], ["taban (p)", "base (p)"], ["delinme: ", "punch-through: "], ["Seçilen I", "At selected I"], ["p⁺ emetör", "p⁺ emitter"], ["tek darbe", "single pulse"], ["tünelleme", "tunnelling"], [" baskın)", " dominates)"], ["J toplam", "J total"], [", fazla ", ", excess "], ["tepe yok", "no peak"], ["toplam I", "total I"], ["vadide I", "at valley I"], ["örnek no", "sample no."], ["delinme!", "punch-through!"], ["/10'da V", "/10: V"], [" mA'de f", " mA: f"], [" °C'de I", " °C: I"], ["Rejim: ", "Regime: "], [", ısıl ", ", thermal "], ["Bölge: ", "Mode: "], ["delinme", "punch-through"], ["Kararlı", "Stable"], ["ancak T", "but T"], ["oran = ", "ratio = "], ["salınır", "oscillates"], [" düşer", " falls"], [" A ve ", " A and "], ["tepe f", "peak f"], ["toplam", "total"], ["'de β", ": β"], [" olur", ""], ["doyum", "saturation"], ["kesim", "cutoff"], ["vadi", "valley"], ["çığ", "avalanche"]];
 const TX_EXACT = {"foton": "photon", "hata": "error", "sinyal": "signal", "kuramsal": "theoretical", "çoğunluk": "majority", "taban": "base", "kolektör": "collector"};
 function tx(str) {
@@ -4590,6 +4719,7 @@ function applyLangChrome() {
 
 /* ---------------- Ders planı ---------------- */
 const WEEKS = [
+  { n:0,  t:"Yarıiletken fiziği temelleri", sze:"Bölüm 1'e hazırlık", ready:true, tabs:["anlatim","matematik","gorsel","soru"] },
   { n:1,  t:"Yarıiletkenin fiziği ve özellikleri", sze:"Bölüm 1", ready:true },
   { n:2,  t:"p-n eklem diyodu I", sze:"Bölüm 2.1–2.2", ready:true },
   { n:3,  t:"p-n eklem diyodu II", sze:"Bölüm 2.3–2.4", ready:true },
@@ -4612,7 +4742,8 @@ const SUBTABS = [
 const nav = document.getElementById('weekNav');
 const main = document.getElementById('main');
 let current = 1, currentSub = 'anlatim';
-const wTitle = w => L(w.t, EN_TITLES[w.n-1]);
+const wIndex = w => WEEKS.indexOf(w);
+const wTitle = w => L(w.t, EN_TITLES[wIndex(w)]);
 
 function buildNav() {
   nav.innerHTML = '';
@@ -4630,17 +4761,18 @@ function showWeek(n) {
   current = n;
   try { localStorage.setItem('ydf-week', n); } catch(e) {}
   nav.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', b.dataset.week == n));
-  const w = WEEKS[n-1];
+  const w = WEEKS.find(x => x.n === n) || WEEKS[0];
+  const wi = wIndex(w);
   currentSub = 'anlatim';
-  let html = `<div class="week-head"><h2>${L('Hafta', 'Week')} ${w.n}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[w.n-1])}</p></div>`;
+  let html = `<div class="week-head"><h2>${L('Hafta', 'Week')} ${w.n}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
   if (w.ready) {
-    const tabs = SUBTABS;
+    const tabs = w.tabs ? SUBTABS.filter(s => w.tabs.includes(s[0])) : SUBTABS;
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
     main.innerHTML = html;
     main.appendChild(document.getElementById('week' + n + (LANG === 'en' ? '-en' : '')).content.cloneNode(true));
     // Product/manufacturing content is shared between languages in the Turkish template.
     // Clone that pane into the English lesson so the tab stays functional in both modes.
-    if (LANG === 'en' && !main.querySelector('.pane[data-pane="urun"]')) {
+    if (LANG === 'en' && tabs.some(t => t[0] === 'urun') && !main.querySelector('.pane[data-pane="urun"]')) {
       const productPane = document.getElementById('week' + n).content.querySelector('.pane[data-pane="urun"]');
       if (productPane) main.appendChild(productPane.cloneNode(true));
     }
@@ -5183,6 +5315,63 @@ function solveEF(N, T, mode) {  // η = (E_F - E_C)/kT
   for (let i=0;i<80;i++) { const m = (lo+hi)/2; f(m) > 0 ? hi = m : lo = m; }
   const eta = (lo+hi)/2; return { eta, frac: ion(eta) };
 }
+
+PLOTS['p-foundation-regimes'] = el => {
+  const lg = val('r-f0-nd'), ND = Math.pow(10, lg), markerT = val('r-f0-t');
+  const Ts = lin(30, 800, 180);
+  const rows = Ts.map(T => {
+    const r = solveEF(ND, T, 'fdion');
+    const Nc = MAT.Si.Nc*Math.pow(T/300, 1.5);
+    const n = Math.max(Nc*F12(r.eta), 1);
+    return {T, n, ni:Math.max(ni(MAT.Si,T),1), frac:r.frac};
+  });
+  const freeze = rows.find(o => o.frac >= 0.90)?.T || 800;
+  const intrinsic = rows.find(o => o.ni >= ND)?.T || 800;
+  const nearest = rows.reduce((a,b) => Math.abs(b.T-markerT) < Math.abs(a.T-markerT) ? b : a);
+  const region = nearest.frac < 0.90 ? L('freeze-out / donma','freeze-out')
+    : nearest.ni >= ND ? L('intrinsic / öz','intrinsic')
+    : L('extrinsic / dışsal','extrinsic');
+  const ro = document.getElementById('ro-f0');
+  if (ro) ro.innerHTML = `T = ${nearest.T.toFixed(0)} K (${(nearest.T-273.15).toFixed(0)} °C)
+    &nbsp;|&nbsp; n = ${sciH(nearest.n)}
+    &nbsp;|&nbsp; n<sub>i</sub> = ${sciH(nearest.ni)}
+    &nbsp;|&nbsp; N<sub>D</sub><sup>+</sup>/N<sub>D</sub> = ${nearest.frac.toFixed(3)}
+    &nbsp;|&nbsp; <b>${region}</b>`;
+  Plotly.react(el, [
+    {x:Ts,y:rows.map(o=>o.n),mode:'lines',name:L('toplam elektron yoğunluğu n','total electron density n'),line:{color:css('--elec'),width:4},
+      customdata:rows.map(o=>[o.T-273.15,o.frac]),hovertemplate:'T=%{x:.0f} K (%{customdata[0]:.0f} °C)<br>n=%{y:.2e} cm⁻³<br>N_D⁺/N_D=%{customdata[1]:.3f}<extra></extra>'},
+    {x:Ts,y:rows.map(o=>o.ni),mode:'lines',name:'n_i(T)',line:{color:css('--fermi'),width:2.5,dash:'dash'},
+      hovertemplate:'T=%{x:.0f} K<br>n_i=%{y:.2e} cm⁻³<extra></extra>'},
+    {x:[30,800],y:[ND,ND],mode:'lines',name:'N_D',line:{color:css('--litho-ink'),width:2,dash:'dot'},hoverinfo:'skip'},
+    {x:[nearest.T],y:[nearest.n],mode:'markers',name:L('seçili sıcaklık','selected temperature'),marker:{size:11,color:css('--hole')},showlegend:false,
+      hovertemplate:'T=%{x:.0f} K<br>n=%{y:.2e} cm⁻³<extra></extra>'}
+  ], baseLayout({
+    xaxis:{title:'T (K)',color:css('--ink'),gridcolor:css('--rule'),range:[30,800]},
+    yaxis:{title:L('elektron yoğunluğu (cm⁻³)','electron density (cm⁻³)'),type:'log',exponentformat:'power',color:css('--ink'),gridcolor:css('--rule')},
+    shapes:[
+      {type:'rect',xref:'x',yref:'paper',x0:30,x1:freeze,y0:0,y1:1,fillcolor:'rgba(200,53,74,.07)',line:{width:0},layer:'below'},
+      {type:'rect',xref:'x',yref:'paper',x0:freeze,x1:intrinsic,y0:0,y1:1,fillcolor:'rgba(224,161,0,.07)',line:{width:0},layer:'below'},
+      {type:'rect',xref:'x',yref:'paper',x0:intrinsic,x1:800,y0:0,y1:1,fillcolor:'rgba(31,138,91,.07)',line:{width:0},layer:'below'}
+    ],
+    annotations:[
+      {x:(30+freeze)/2,y:1.05,xref:'x',yref:'paper',text:'freeze-out',showarrow:false,font:{color:css('--hole')}},
+      {x:(freeze+intrinsic)/2,y:1.05,xref:'x',yref:'paper',text:'extrinsic',showarrow:false,font:{color:css('--litho-ink')}},
+      {x:(intrinsic+800)/2,y:1.05,xref:'x',yref:'paper',text:'intrinsic',showarrow:false,font:{color:css('--fermi')}}
+    ],
+    margin:{l:75,r:25,t:55,b:55}
+  }), CFG);
+};
+
+PLOTS['p-foundation-ni'] = el => {
+  const Ts = lin(180, 800, 150);
+  Plotly.react(el, Object.entries(MAT).map(([name,m]) => ({
+    x:Ts,y:Ts.map(T=>ni(m,T)),mode:'lines',name,line:{width:3,color:css(m.col)},
+    hovertemplate:'T=%{x:.0f} K<br>n_i=%{y:.2e} cm⁻³<extra>'+name+'</extra>'
+  })), baseLayout({
+    xaxis:{title:'T (K)',color:css('--ink'),gridcolor:css('--rule')},
+    yaxis:{title:'n_i (cm⁻³)',type:'log',exponentformat:'power',color:css('--ink'),gridcolor:css('--rule')}
+  }), CFG);
+};
 
 PLOTS['p-fdi'] = el => {
   const e0 = val('r-eta'), es = lin(-5, 10, 151);
@@ -6051,6 +6240,8 @@ function renderVisible() {
 function bindWeek(n) {
   const e = v => '1e' + (+v).toFixed(1);
   const R = {
+    'r-f0-nd':[v => '10^'+(+v).toFixed(2)+' cm⁻³', ['p-foundation-regimes']],
+    'r-f0-t':[v => v+' K / '+((+v)-273.15).toFixed(0)+' °C', ['p-foundation-regimes']],
     'r-meff':[v => (+v).toFixed(2), ['p-ek']], 'r-ef':[v => (+v).toFixed(2)+' eV', ['p-fd']], 'r-t1':[v => v+' K', ['p-fd']],
     'r-dop':[null, ['p-dop']], 'r-t2':[v => v+' K', ['p-dop']],
     'r-hs-t':[v => (+v).toFixed(2)+' μs', ['p-hs']], 'r-hs-e':[v => v+' V/cm', ['p-hs']], 'r-hs-tau':[v => (+v).toFixed(1)+' μs', ['p-hs']],
@@ -6110,9 +6301,15 @@ function bindWeek(n) {
   });
 }
 
-let start = 1;
-try { start = parseInt(localStorage.getItem('ydf-week')) || 1; } catch(e) {}
-showWeek(WEEKS[start-1] && WEEKS[start-1].ready ? start : 1);
+let start = 0;
+try {
+  const saved = localStorage.getItem('ydf-week');
+  if (saved !== null) {
+    const parsed = parseInt(saved, 10);
+    if (WEEKS.some(w => w.n === parsed && w.ready)) start = parsed;
+  }
+} catch(e) {}
+showWeek(start);
 </script>
 </body>
 </html>
