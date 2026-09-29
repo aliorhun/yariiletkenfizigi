@@ -331,6 +331,120 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 
 <!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
+<template id="week0">
+<div class="pane" data-pane="anlatim">
+<div class="prose">
+<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kristal, enerji bandı ve taşıyıcı kavramlarını birbirine bağlamak.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>Intrinsic carrier concentration \(n_i\)'nin atom sayısı değil, hareketli taşıyıcı yoğunluğu olduğunu anlamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li></ul></div></div>
+
+<div class="foundation-chain">
+<div class="foundation-step"><strong>1. Atom</strong>Si atomunun dört değerlik elektronu vardır.</div>
+<div class="foundation-step"><strong>2. Kristal</strong>Komşu Si atomları kovalent bağlarla periyodik örgü kurar.</div>
+<div class="foundation-step"><strong>3. Enerji bantları</strong>Atomik seviyeler valans ve iletim bantlarına dönüşür.</div>
+<div class="foundation-step"><strong>4. Taşıyıcı</strong>Uyarılan elektron hareket eder; geride hareketli bir hol kalır.</div>
+</div>
+
+<h3>0.1 Serbest elektron nedir?</h3>
+<p>Kristaldeki bütün elektronlar akıma eşit katkı vermez. Si değerlik elektronlarının çoğu kovalent bağların parçasıdır ve <b>bağlı durumdadır</b>. Bir elektron ısı veya ışıkla yeterli enerji kazanıp valans bandından iletim bandına geçtiğinde, bant içindeki boş durumlara geçebilir ve elektrik alan altında sürüklenebilir. Bu elektron artık <b>serbest elektron taşıyıcısıdır</b>.</p>
+<p>Buradaki “serbest”, vakumdaki serbest elektron anlamına gelmez. Elektron hâlâ kristalin periyodik potansiyelini hisseder; bu etki etkin kütle \(m^*\) gibi büyüklüklerle modele katılır.</p>
+
+<h3>0.2 Hol (boşluk) nedir?</h3>
+<p>Bir elektron valans bandından ayrıldığında arkasında dolmamış bir durum bırakır. Komşu bir elektron bu boşluğu doldurunca boşluk başka yere geçmiş gibi görünür. Bu kolektif hareketi <b>hol</b> olarak modelleriz ve hol pozitif yük \(+q\) taşıyan bir yarı-parçacık gibi davranır.</p>
+<div class="note"><strong>Önemli:</strong> Hol yeni bir temel parçacık değildir; valans bandındaki elektron eksikliğinin kullanışlı fiziksel modelidir.</div>
+
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Silisyum kovalent bağından elektron-hol taşıyıcı çiftinin oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Atom → bağ → bant → taşıyıcı. Bir elektron iletim bandına çıktığında aynı olayda bir elektron–hol çifti oluşur.</figcaption></figure>
+
+<h3>0.3 Intrinsic carrier concentration \(n_i\) nedir?</h3>
+<p><b>Intrinsic carrier concentration</b> veya <b>öz taşıyıcı yoğunluğu</b> \(n_i\), katkısız bir yarıiletkende termal dengede birim hacimde doğal olarak bulunan hareketli elektron ve hol yoğunluğudur. Intrinsic malzemede çift üretimi nedeniyle:</p>
+<p>\[\boxed{n=p=n_i}\]</p>
+<p>Örneğin \(n_i=10^{10}\ \mathrm{cm^{-3}}\), 1 cm³ malzemede yaklaşık \(10^{10}\) hareketli elektron ve aynı yoğunlukta hol bulunduğu anlamına gelir. Bu değer <b>Si atom yoğunluğu değildir</b>; kristaldeki atom sayısı çok daha büyüktür.</p>
+
+<h3>0.4 \(n_i\) neden sıcaklığa çok duyarlıdır?</h3>
+<p>Dejenere olmayan yaklaşımda:</p>
+<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
+<p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p>
+
+<h3>0.5 Katkılama varken \(n_i\) ne olur?</h3>
+<p>Katkılama \(n_i\)'yi ortadan kaldırmaz. Donör veya akseptörler çoğunluk taşıyıcısını değiştirir; termal dengede ise:</p>
+<p>\[\boxed{np=n_i^2}\]</p>
+<p>Tam iyonlaşmış, kompanzasyonsuz n-tipi malzemede \(N_D\gg n_i\) ise \(n\approx N_D\), azınlık hol yoğunluğu da \(p\approx n_i^2/N_D\) olur.</p>
+
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Üç yoğunluğu karıştırmayın</div><p><b>Atom yoğunluğu</b> kristaldeki atomları, <b>katkı yoğunluğu</b> eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> ise gerçekten hareket edebilen elektron ve holleri sayar. \(n_i\) üçüncüsüdür.</p></div>
+</div>
+</div>
+
+<div class="pane" data-pane="urun">
+<div class="edu-tr"><div class="product-grid">
+<article class="product-card"><h3>CMOS görüntü sensörü</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Karanlıkta bile termal elektron–hol çiftleri oluşur ve sensörde dark current üretir.</p><div class="product-use"><p><strong>Neden önemli?</strong> \(n_i\) sıcaklıkla arttığı için sıcak sensörde düşük ışık performansı bozulur.</p><p class="benefit"><strong>Faydası:</strong> Aynı taşıyıcı üretimi ışığın elektrik sinyaline çevrilmesini sağlar.</p><p class="limit"><strong>Sınırlama:</strong> İstenmeyen termal üretim gürültü oluşturur.</p></div></article>
+<article class="product-card"><h3>İşlemci / SoC</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Kapalı transistorlarda dahi termal taşıyıcılarla ilişkili sızıntılar sıfır değildir.</p><div class="product-use"><p><strong>Neden önemli?</strong> Sıcaklık yükseldikçe intrinsic ölçek ve leakage önem kazanır.</p><p class="benefit"><strong>Faydası:</strong> Katkılama ile taşıyıcı yoğunluğu mühendislik edilebilir.</p><p class="limit"><strong>Sınırlama:</strong> Isı–sızıntı–güç geri beslemesi oluşabilir.</p></div></article>
+<article class="product-card"><h3>SiC / GaN güç aygıtları</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Geniş bant aralığı aynı sıcaklıkta çok daha düşük \(n_i\) verir.</p><div class="product-use"><p><strong>Neden önemli?</strong> Yüksek sıcaklık ve yüksek gerilimde düşük sızıntı sağlar.</p><p class="benefit"><strong>Faydası:</strong> Daha yüksek alan ve sıcaklıkta çalışma potansiyeli.</p><p class="limit"><strong>Sınırlama:</strong> Malzeme ve üretim maliyeti daha yüksektir.</p></div></article>
+</div></div>
+<div class="edu-en"><div class="product-grid">
+<article class="product-card"><h3>CMOS image sensor</h3><p class="product-relation"><strong>Connection:</strong> Thermal electron–hole generation exists even in darkness and contributes to dark current.</p><div class="product-use"><p><strong>Why it matters:</strong> Higher \(n_i\) at higher temperature worsens low-light noise.</p><p class="benefit"><strong>Benefit:</strong> Carrier generation also converts light into signal.</p><p class="limit"><strong>Limitation:</strong> Unwanted thermal generation adds noise.</p></div></article>
+<article class="product-card"><h3>Processor / SoC</h3><p class="product-relation"><strong>Connection:</strong> Thermally related leakage remains nonzero even when transistors are nominally off.</p><div class="product-use"><p><strong>Why it matters:</strong> Leakage becomes increasingly important as temperature rises.</p><p class="benefit"><strong>Benefit:</strong> Doping lets engineers control carrier populations.</p><p class="limit"><strong>Limitation:</strong> Heat, leakage and power can reinforce one another.</p></div></article>
+<article class="product-card"><h3>SiC / GaN power devices</h3><p class="product-relation"><strong>Connection:</strong> Wider band gaps produce much lower intrinsic carrier concentration at the same temperature.</p><div class="product-use"><p><strong>Why it matters:</strong> Low leakage at high temperature and field.</p><p class="benefit"><strong>Benefit:</strong> Higher-field and higher-temperature operation.</p><p class="limit"><strong>Limitation:</strong> Materials and fabrication are more expensive.</p></div></article>
+</div></div>
+</div>
+
+<div class="pane" data-pane="matematik">
+<div class="prose">
+<h3>Temel bağıntılar</h3>
+<p><b>Intrinsic:</b> \(n=p=n_i\)</p>
+<p><b>Kütle etkisi:</b> \(np=n_i^2\)</p>
+<p><b>Intrinsic yoğunluk:</b></p>
+<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
+<p><b>Tam iyonlaşmış, kompanzasyonsuz n-tipi malzeme:</b></p>
+<p>\[n=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2}\]</p>
+<ul><li>\(n_i\ll N_D\): \(n\approx N_D\) — extrinsic rejim.</li><li>\(n_i\sim N_D\): intrinsic üretim artık ihmal edilemez.</li><li>\(n_i\gg N_D\): \(n\approx n_i\) — intrinsic rejim.</li></ul>
+<div class="note"><strong>Freeze-out:</strong> Çok düşük sıcaklıkta tam iyonlaşma varsayımı geçersizdir; donörlerin önemli kısmı nötr kaldığından \(n&lt;N_D\).</div>
+<h3>Örnek</h3>
+<p>300 K civarında \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) ve \(N_D=10^{15}\ \mathrm{cm^{-3}}\) ise \(n\approx10^{15}\ \mathrm{cm^{-3}}\). Azınlık holler:</p>
+<p>\[p=\frac{n_i^2}{n}\approx10^5\ \mathrm{cm^{-3}}\]</p>
+</div>
+</div>
+
+<div class="pane" data-pane="gorsel">
+<div class="prose">
+<h3>Görsel 1 — Elektron ve hol nasıl birlikte oluşur?</h3>
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Elektron-hol çifti oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Bir elektron valans bandından iletim bandına çıktığında bir serbest elektron ve bir hol aynı anda oluşur.</figcaption></figure>
+
+<h3>Görsel 2 — Sıcaklık grafiğini nasıl okumalıyız?</h3>
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-temperature-regimes.svg" alt="Donör katkılı silisyumda sıcaklığa göre elektron ve intrinsic taşıyıcı yoğunluğu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Donör katkılı Si için özgün kavramsal grafik. Geçiş sıcaklıkları dopant ve malzeme parametrelerine bağlıdır.</figcaption></figure>
+
+<div class="analysis-grid">
+<div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Düşük sıcaklıkta donörlerin önemli kısmı iyonlaşmaz. Bu yüzden \(n\ll N_D\). Sıcaklık arttıkça donörler iyonlaşır ve elektron yoğunluğu hızla yükselir.</p></div>
+<div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler büyük ölçüde iyonlaşmıştır fakat intrinsic üretim küçüktür. Taşıyıcı yoğunluğunu katkılama belirler ve \(n\approx N_D\).</p></div>
+<div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyür. \(n_i\) donör yoğunluğuyla karşılaştırılabilir hale gelince katkılama baskınlığını kaybeder; sonunda \(n\approx p\approx n_i\).</p></div>
+</div>
+
+<h3>\(n_i=N_D\) noktası ne anlatıyor?</h3>
+<p>Bu nokta keskin bir faz sınırı değildir. Intrinsic termal üretimin, katkılamayla getirilen taşıyıcı ölçeğine ulaştığını gösterir. Buradan sonra \(n\approx N_D\) yaklaşımı giderek bozulur.</p>
+
+<h3>Eksenler ve eğriler</h3>
+<ul>
+<li><b>x:</b> mutlak sıcaklık \(T\) (K).</li>
+<li><b>y:</b> taşıyıcı yoğunluğu \(\mathrm{cm^{-3}}\), log ölçek.</li>
+<li><b>Mavi:</b> gerçek çoğunluk elektron yoğunluğu \(n(T)\).</li>
+<li><b>Siyah kesikli:</b> intrinsic yoğunluk \(n_i(T)\).</li>
+<li><b>Turuncu:</b> sabit donör yoğunluğu \(N_D\).</li>
+</ul>
+
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Grafikte sık yapılan hatalar</div><ul><li>Extrinsic platoda \(n_i\)'nin sabit olduğunu sanmak.</li><li>\(n=N_D\) ifadesini her sıcaklıkta geçerli kabul etmek.</li><li>Intrinsic bölgede donörlerin yok olduğunu düşünmek; donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</li></ul></div>
+
+<h3>Kendine sor</h3>
+<ol><li>\(N_D\) artırılırsa extrinsic plato nasıl değişir?</li><li>\(E_g\) daha büyük bir malzemede intrinsic rejim daha erken mi, daha geç mi başlar?</li><li>Freeze-out bölgesinde neden \(n&lt;N_D\)?</li><li>Yüksek sıcaklıkta neden n-tipi etiketi giderek daha az belirleyici olur?</li></ol>
+</div>
+</div>
+
+<div class="pane" data-pane="soru">
+<div class="prose">
+<div class="qa"><p class="q">1. \(n_i\) atom yoğunluğu mudur?</p><p>Hayır. Katkısız malzemede termal dengedeki hareketli elektron ve hol yoğunluğudur.</p></div>
+<div class="qa"><p class="q">2. Elektron oluşunca hol neden oluşur?</p><p>Elektron valans bandındaki dolu bir durumdan ayrıldığı için arkasında bir elektron eksikliği bırakır.</p></div>
+<div class="qa"><p class="q">3. Hol gerçek parçacık mıdır?</p><p>Temel parçacık değildir; elektron eksikliğinin kolektif hareketini pozitif yüklü yarı-parçacık olarak modelleriz.</p></div>
+<div class="qa"><p class="q">4. Katkılı malzemede \(np=n_i^2\) neden önemlidir?</p><p>Çoğunluk taşıyıcısı arttığında azınlık taşıyıcısının ne kadar azalacağını termal dengede doğrudan verir.</p></div>
+<div class="qa"><p class="q">5. N-tipi Si yüksek sıcaklıkta neden intrinsic davranır?</p><p>Termal elektron–hol üretimi donörlerin sağladığı taşıyıcı yoğunluğunu aşacak kadar büyür.</p></div>
+</div>
+</div>
+</template>
 <template id="week1">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
@@ -2493,6 +2607,54 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 </template>
 
+<template id="week0-en">
+<div class="pane" data-pane="anlatim">
+<div class="prose">
+<div class="edu-card"><div class="edu-label">🎯 Foundation goals</div><ul><li>Connect atoms, covalent bonds, bands and mobile carriers.</li><li>Distinguish a mobile conduction electron from a bound valence electron.</li><li>Understand a hole as a mobile missing-electron state.</li><li>Interpret \(n_i\), \(np=n_i^2\), and freeze-out / extrinsic / intrinsic regimes.</li></ul></div>
+<div class="foundation-chain"><div class="foundation-step"><strong>1. Atom</strong>Si has four valence electrons.</div><div class="foundation-step"><strong>2. Crystal</strong>Si atoms form a periodic covalent lattice.</div><div class="foundation-step"><strong>3. Bands</strong>Atomic levels broaden into valence and conduction bands.</div><div class="foundation-step"><strong>4. Carrier</strong>An excited electron becomes mobile and leaves a hole.</div></div>
+<h3>0.1 Free electrons</h3>
+<p>Most valence electrons participate in covalent bonds and do not contribute directly to conduction. After gaining enough thermal or optical energy to reach the conduction band, an electron can move through available states and respond to an electric field.</p>
+<h3>0.2 Holes</h3>
+<p>Promoting an electron leaves an empty valence-band state. Neighboring electrons can fill that state, making the vacancy propagate through the crystal. This mobile missing-electron state is modeled as a positively charged <b>hole</b>.</p>
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation in silicon" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>One promoted valence electron produces one conduction electron and one hole.</figcaption></figure>
+<h3>0.3 Intrinsic carrier concentration \(n_i\)</h3>
+<p>\(n_i\) is the equilibrium density of naturally occurring mobile electrons and holes in an undoped semiconductor:</p>
+<p>\[\boxed{n=p=n_i}\]</p>
+<p>It is a carrier density, not the silicon atom density.</p>
+<h3>0.4 Temperature dependence</h3>
+<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
+<p>The exponential factor makes \(n_i\) rise strongly with temperature and fall strongly as band gap increases.</p>
+<h3>0.5 Doping and mass action</h3>
+<p>Doping changes majority-carrier density but does not remove the intrinsic scale. At thermal equilibrium:</p>
+<p>\[\boxed{np=n_i^2}\]</p>
+</div>
+</div>
+
+<div class="pane" data-pane="matematik"><div class="prose">
+<h3>Core equations</h3>
+<p>Intrinsic: \(n=p=n_i\)</p><p>Mass action: \(np=n_i^2\)</p>
+<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
+<p>For fully ionized uncompensated n-type material:</p>
+<p>\[n=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2}\]</p>
+<ul><li>\(n_i\ll N_D\): extrinsic, \(n\approx N_D\).</li><li>\(n_i\sim N_D\): intrinsic generation is no longer negligible.</li><li>\(n_i\gg N_D\): intrinsic, \(n\approx n_i\).</li></ul>
+<div class="note"><strong>Freeze-out:</strong> at low temperature many donors remain neutral, so the full-ionization assumption fails and \(n&lt;N_D\).</div>
+</div></div>
+
+<div class="pane" data-pane="gorsel"><div class="prose">
+<h3>Visual 1 — electron-hole pair generation</h3>
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Promoting one electron creates one conduction electron and one hole.</figcaption></figure>
+<h3>Visual 2 — carrier density versus temperature</h3>
+<figure class="foundation-figure"><img src="assets/images/week00/carrier-temperature-regimes.svg" alt="Carrier concentration versus temperature in donor-doped silicon" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Original conceptual plot for donor-doped Si. Transition temperatures depend on dopant and material parameters.</figcaption></figure>
+<div class="analysis-grid"><div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Many donors remain neutral; \(n\ll N_D\).</p></div><div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Most donors are ionized and \(n\approx N_D\).</p></div><div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) becomes comparable to and then exceeds the doping scale.</p></div></div>
+<h3>What does \(n_i=N_D\) mean?</h3><p>It marks the scale where intrinsic thermal generation becomes comparable to the carrier population supplied by doping. It is a crossover, not a sharp phase boundary.</p>
+</div></div>
+
+<div class="pane" data-pane="soru"><div class="prose">
+<div class="qa"><p class="q">1. Is \(n_i\) an atom density?</p><p>No. It is the equilibrium density of mobile carriers in undoped material.</p></div>
+<div class="qa"><p class="q">2. Why does a hole appear with a conduction electron?</p><p>The promoted electron leaves an empty valence-band state.</p></div>
+<div class="qa"><p class="q">3. Why can \(n\approx N_D\) fail at both low and high temperature?</p><p>At low temperature donors freeze out; at high temperature intrinsic generation dominates.</p></div>
+</div></div>
+</template>
 <template id="week1-en">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
