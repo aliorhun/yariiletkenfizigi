@@ -166,6 +166,7 @@ table.data { border-collapse: collapse; font-family: var(--sans); font-size: .95
 .table-wrap { overflow-x: auto; }
 table.data th, table.data td { border-bottom: 1px solid var(--rule); padding: .4rem .8rem; text-align: left; white-space: nowrap; }
 table.data th { font-weight: 600; }
+table.data.wrap td { white-space: normal; min-width: 5.5em; }
 
 /* ---------- Görseller ---------- */
 .fig { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; margin: 0 0 2rem; padding: 1rem 1rem .5rem; }
@@ -279,6 +280,12 @@ olol
 .type-card ul { margin:.2rem 0 0; padding-left:1.15rem; }
 .type-card li { margin:.25rem 0; }
 @media (max-width:820px) { .def-grid, .type-grid { grid-template-columns:1fr; } .def-card dl { grid-template-columns:1fr; } .def-card dt { margin-top:.3rem; } }
+.type-card.ph { border-left-color:var(--fermi); } .type-card.ph h4 { color:var(--fermi); }
+.type-card.imp { border-left-color:var(--litho); } .type-card.imp h4 { color:var(--litho-ink); }
+.plot.sim { height:auto; aspect-ratio:1000/600; border:1px solid var(--rule); border-radius:6px; overflow:hidden; }
+.plot.sim canvas { display:block; width:100%; height:100%; }
+.sim-btn { font-family:var(--sans); font-size:.92rem; background:var(--panel); color:var(--ink); border:1px solid var(--rule); border-radius:6px; padding:.3rem .8rem; cursor:pointer; }
+.sim-btn:hover { border-color:var(--litho); }
 .analysis-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; margin:1rem 0; }
 .analysis-card { border:1px solid var(--rule); border-radius:8px; background:var(--panel); padding:.85rem; }
 .analysis-card h4 { margin:0 0 .35rem; font-size:1rem; }
@@ -354,7 +361,7 @@ html[lang="en"] .edu-en { display:block; }
 <template id="week0">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kovalent bağ, enerji bandı ve hareketli taşıyıcı kavramlarını tek bir zincirde birleştirmek.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>\(n_i\), \(N_D\), \(N_A\), \(n\) ve \(p\) sembollerinin <b>neyi saydığını</b> karıştırmadan kullanmak.</li><li><b>n tipi</b> ve <b>p tipi</b> silisyumun nasıl elde edildiğini ve neden farklı davrandığını açıklamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li></ul></div></div>
+<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kovalent bağ, enerji bandı ve hareketli taşıyıcı kavramlarını tek bir zincirde birleştirmek.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>\(n_i\), \(N_D\), \(N_A\), \(n\) ve \(p\) sembollerinin <b>neyi saydığını</b> karıştırmadan kullanmak.</li><li><b>n tipi</b> ve <b>p tipi</b> silisyumun nasıl elde edildiğini ve neden farklı davrandığını açıklamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li><li>Elektron, hol, foton ve fononun rollerini ayırmak; çarpışma ile saçılmanın farkını ve hareketliliği neyin sınırladığını açıklamak.</li></ul></div></div>
 <div class="edu-card edu-predict"><div class="edu-tr"><div class="edu-label">🧪 Önce tahmin et</div><p>Silisyuma her 5 milyon atomda bir fosfor atomu eklenirse (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)) oda sıcaklığında serbest elektron sayısı saf silisyuma göre kabaca kaç kat artar? Hol sayısı artar mı, azalır mı?</p></div></div>
 <div class="edu-card edu-mistake"><div class="edu-tr"><div class="edu-label">⚠️ Sık yapılan hata</div><p>“n tipi silisyum negatif yüklüdür” yanlıştır. Her serbest elektronun yanında kristalde sabit bir \(\mathrm{P^+}\) iyonu kalır; malzeme bir bütün olarak <b>elektriksel olarak nötrdür</b>. “n” yalnızca akımı çoğunlukla <b>negatif yüklü taşıyıcıların</b> taşıdığını söyler.</p></div></div>
 
@@ -445,7 +452,68 @@ html[lang="en"] .edu-en { display:block; }
 
 <div class="edu-card edu-mistake"><div class="edu-label">⚠️ Üç yoğunluğu karıştırmayın</div><p><b>Atom yoğunluğu</b> kristaldeki atomları (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>katkı yoğunluğu</b> (\(N_D\), \(N_A\)) eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> (\(n\), \(p\), \(n_i\)) ise gerçekten hareket edebilen elektron ve holleri sayar. Görseller sekmesindeki çubuk grafikte üçünü aynı eksende karşılaştırabilirsiniz.</p></div>
 
-<div class="note"><strong>Sze karşılığı:</strong> Bölüm 1, kısım 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic yoğunluk, donörler ve akseptörler).</div>
+<h3>0.9 Dört oyuncu: elektron, hol, foton ve fonon</h3>
+<p>Yarıiletken fiziğinde olan biten neredeyse her şey dört “parçacık” arasındaki alışverişle anlatılır. Elektron ve hol <b>yük taşır</b>; foton ve fonon <b>enerji ve momentum taşır</b>, taşıyıcıları üretir, yok eder veya saptırır.</p>
+<div class="table-wrap"><table class="data wrap">
+<thead><tr><th>Oyuncu</th><th>Nedir?</th><th>Yük</th><th>Tipik enerji / momentum</th><th>Bu dersteki rolü</th></tr></thead>
+<tbody>
+<tr><td><b style="color:var(--elec)">Elektron</b> (e⁻)</td><td>İletim bandındaki hareketli elektron</td><td>\(-q\)</td><td>\(E\approx E_C+\tfrac32kT\)</td><td>akım taşır; n tipinde çoğunluk</td></tr>
+<tr><td><b style="color:var(--hole)">Hol</b> (h⁺)</td><td>Valans bandındaki elektron eksikliği (yarı-parçacık)</td><td>\(+q\)</td><td>\(E\approx E_V-\tfrac32kT\)</td><td>akım taşır; p tipinde çoğunluk</td></tr>
+<tr><td><b style="color:var(--litho-ink)">Foton</b> (\(h\nu\))</td><td>Işık kuantumu</td><td>0</td><td>enerjisi büyük (~1 eV), momentumu çok küçük</td><td>soğurulunca e⁻–h⁺ çifti üretir; doğrudan rekombinasyonda salınır (LED, lazer)</td></tr>
+<tr><td><b style="color:var(--fermi)">Fonon</b></td><td>Örgü titreşiminin kuantumu (“ses/ısı paketi”)</td><td>0</td><td>enerjisi küçük (Si'de ≤ 63 meV), momentumu büyük olabilir</td><td>taşıyıcıları saçar; dolaylı geçişlerde momentumu sağlar; ısıyı taşır</td></tr>
+</tbody></table></div>
+<p>Bu dört oyuncunun karşılaştığı üç tipik sahne vardır:</p>
+<ul>
+<li><b>Üretim:</b> bir foton (\(h\nu\ge E_g\)) veya yeterince enerjik bir fonon bir bağı koparır → bir elektron + bir hol. Si dolaylı bant aralıklı olduğundan, bant kenarında foton soğurmasına momentum sağlamak için bir fonon da katılmalıdır.</li>
+<li><b>Saçılma:</b> hareket eden elektron ya da hol bir fononla veya iyonlaşmış katkı atomuyla etkileşip yön/hız değiştirir. Taşıyıcı yok olmaz, yalnızca rotası değişir. Bu bölümün konusu budur.</li>
+<li><b>Rekombinasyon:</b> elektron bir hol ile birleşir, çift yok olur. Enerji GaAs gibi doğrudan malzemede çoğunlukla <b>foton</b> (ışık), Si'de çoğunlukla tuzaklar üzerinden <b>fonon</b> (ısı) olarak açığa çıkar.</li>
+</ul>
+
+<h3>0.10 Çarpışma ve saçılma nedir? Farkı ne?</h3>
+<div class="def-grid">
+<div class="def-card"><div class="sym"><b>Çarpışma</b><span>günlük dildeki imge</span></div>
+<dl>
+<dt>Resim</dt><dd>İki bilardo topu gibi, birbirine <b>değen</b> iki cisim.</dd>
+<dt>Katıda</dt><dd>Taşıyıcının hareketini kesen olay için kullanılan <b>kısa ve sezgisel</b> ad. Drude modelinde “ortalama çarpışma süresi” \(\tau\) diye anılır.</dd>
+<dt>Sınırı</dt><dd>Taşıyıcının Si atomlarına fiziksel olarak toslaması <b>değildir</b>; o resim yanlış sayılar verir.</dd>
+</dl></div>
+<div class="def-card acc"><div class="sym"><b>Saçılma</b><span>fiziğin kullandığı kavram</span></div>
+<dl>
+<dt>Tanım</dt><dd>Taşıyıcının kristal momentumunun (ve bazen enerjisinin) kristalin <b>mükemmel periyodikliğini bozan</b> bir etki yüzünden aniden değişmesi.</dd>
+<dt>Temas?</dt><dd>Gerekmez. İyonlaşmış bir katkının Coulomb alanı taşıyıcıyı uzaktan saptırır; bir fonon soğurulup salınabilir.</dd>
+<dt>Türleri</dt><dd><b>Elastik</b> (enerji neredeyse korunur, yalnız yön değişir) veya <b>inelastik</b> (fonon alışverişiyle enerji de değişir).</dd>
+</dl></div>
+</div>
+<p>Kısacası: <b>“çarpışma” olayın gündelik adı, “saçılma” fiziksel mekanizmasıdır.</b> Bu derste ikisi aynı olayı anlatmak için kullanılabilir, ama sayılarla konuşurken saçılma resmini düşünmek gerekir. En şaşırtıcı nokta şudur: <b>mükemmel ve titreşmeyen bir kristalde elektron hiç saçılmaz.</b> Elektron bir dalgadır ve periyodik potansiyel içinde (Bloch dalgası olarak) engelsiz ilerler; atomların “etkisi” zaten etkin kütle \(m^*\)'ın içindedir. Direnci doğuran, bu periyodikliği bozan her şeydir.</p>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Sık yapılan hata</div><p>“Elektronlar Si atomlarına çarptığı için direnç oluşur.” Yanlış. Öyle olsaydı serbest yol atomlar arası mesafe (~0.2 nm) mertebesinde olurdu; ölçülen değer ise oda sıcaklığında onlarca nanometredir ve soğudukça <b>uzar</b>. Taşıyıcıyı saptıran atomların kendisi değil, <b>titreşimleri (fononlar)</b> ve <b>kusurlardır</b>.</p></div>
+
+<h3>0.11 Çarpışmalar nelerden oluyor?</h3>
+<div class="type-grid">
+<div class="type-card ph"><h4>1. Örgü (fonon) saçılması</h4><ul>
+<li>Sıcaklıkta atomlar denge konumları etrafında titreşir; periyodiklik anlık olarak bozulur.</li>
+<li><b>Akustik fononlar:</b> düşük enerjili, yaklaşık elastik saçılma. Oda sıcaklığında hafif katkılı Si'de baskın mekanizma.</li>
+<li><b>Optik fononlar:</b> Si'de ~63 meV. Yüksek alanda hızlanan taşıyıcı enerjisini bunlara verir → sürüklenme hızı ~\(10^7\) cm/s'de doyar.</li>
+<li>T arttıkça fonon sayısı artar: \(\mu_L\propto T^{-3/2}\).</li>
+</ul></div>
+<div class="type-card imp"><h4>2. İyonlaşmış katkı (Coulomb) saçılması</h4><ul>
+<li>\(\mathrm{P^+}\) ve \(\mathrm{B^-}\) iyonları çevrelerinde Coulomb alanı yaratır ve taşıyıcıyı saptırır (Rutherford saçılmasına benzer).</li>
+<li><b>Yavaş taşıyıcı daha çok sapar;</b> yüksek sıcaklıkta taşıyıcılar hızlı olduğundan bu saçılma zayıflar.</li>
+<li>Katkı arttıkça güçlenir: \(\mu_I\propto T^{3/2}/N_I\), \(N_I=N_D^++N_A^-\).</li>
+<li>Düşük sıcaklıkta ve yoğun katkılı bölgelerde baskındır.</li>
+</ul></div>
+</div>
+<p><b>Diğer kaynaklar:</b> nötr katkı atomları ve kristal kusurları (boşluk, dislokasyon), MOSFET kanalında oksit arayüzünün <b>pürüzlülüğü</b>, çok yüksek taşıyıcı yoğunluğunda <b>taşıyıcı–taşıyıcı</b> (elektron–elektron, elektron–hol) saçılması ve alaşımlarda (SiGe) <b>alaşım düzensizliği</b>. Holler de aynı mekanizmalarla saçılır; Si'de hol hareketliliğinin (\(\approx470\)) elektronunkinden (\(\approx1400\ \mathrm{cm^2/V\,s}\)) düşük olmasının ana nedeni holün daha büyük etkin kütlesidir.</p>
+
+<h3>0.12 Saçılmadan hareketliliğe: ortalama serbest yol ve Matthiessen kuralı</h3>
+<p>Taşıyıcı iki saçılma arasında ısıl hızla \(v_{th}\approx10^7\ \mathrm{cm/s}\) rastgele yönlerde koşar. Elektrik alan her serbest uçuşta onu biraz ittiği için, rastgele hareketin üzerine küçük bir ortalama <b>sürüklenme hızı</b> biner:</p>
+<p>\[ v_d = \mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda = v_{th}\,\tau_m \]</p>
+<p>Si elektronları için oda sıcaklığında \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) ve \(m^*\approx0.26\,m_0\) alınırsa ortalama saçılma süresi \(\tau_m\approx0.2\) ps, <b>ortalama serbest yol</b> \(\lambda\approx40\)–\(50\) nm çıkar: yaklaşık 200 atom mesafesi. \(\mathcal{E}=1\ \mathrm{kV/cm}\) gibi tipik bir alanda \(v_d\approx1.4\times10^6\) cm/s olur; yani sürüklenme, ısıl hareketin üzerindeki küçük bir “eğilimdir”.</p>
+<p>Farklı mekanizmalar bağımsız çalıştığında saçılma <b>oranları toplanır</b>; bu da hareketliliklerin terslerinin toplanması demektir (<b>Matthiessen kuralı</b>):</p>
+<p>\[ \frac{1}{\tau_m}=\frac{1}{\tau_L}+\frac{1}{\tau_I}+\dots \qquad\Longrightarrow\qquad \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I}+\dots \]</p>
+<p>Sonuç olarak en <b>kötü</b> (en sık saçılan) mekanizma hareketliliği belirler: düşük sıcaklıkta iyonlaşmış katkılar, yüksek sıcaklıkta fononlar. Görseller sekmesindeki saçılma simülasyonunda bu yarışı canlı izleyebilir, hemen altındaki grafikte de \(\mu(T)\)'nin nasıl bir tepe yaptığını görebilirsiniz.</p>
+<div class="edu-card edu-predict"><div class="edu-label">🧪 Simülasyondan önce tahmin et</div><p>Katkı sayısını sabit tutup sıcaklığı 50 K'den 600 K'e çıkarırsanız ortalama serbest yol önce artar mı, azalır mı? Hangi sıcaklıkta en uzun olur?</p></div>
+
+<div class="note"><strong>Sze karşılığı:</strong> Bölüm 1, kısım 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic yoğunluk, donörler ve akseptörler) ve 1.5.1 (Drift: hareketlilik, saçılma mekanizmaları).</div>
 </div>
 </div>
 
@@ -498,6 +566,19 @@ html[lang="en"] .edu-en { display:block; }
 <p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
 <p><b>p tipi:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
 <p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
+
+<h3>Saçılma, hareketlilik ve serbest yol</h3>
+<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Si elektronu, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
+<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen kuralı: bağımsız saçılma oranları toplanır. \(\mu\), \(\mu_L=\mu_I\) sıcaklığında en büyük değerine ulaşır; bu sıcaklık \(N_I^{1/3}\) ile artar.</span></div>
+<details class="derive"><summary>Türetim: Drude modeliyle \(\mu=q\tau_m/m^*\)</summary><div>
+<p>Bir taşıyıcı son saçılmadan sonra rastgele bir hızla yola çıkar; ortalaması sıfırdır. Sonraki \(t\) süresi boyunca alan ona \(\Delta v=-q\mathcal{E}t/m^*\) (elektron için) kazandırır. Saçılmalar arası süre üstel dağılımlı ve ortalaması \(\tau_m\) olduğundan \(\langle t\rangle=\tau_m\):</p>
+\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
+<p>Hol için işaret pozitiftir. Saçılma ne kadar sıksa (\(\tau_m\) küçük) veya etkin kütle ne kadar büyükse hareketlilik o kadar düşer.</p>
+</div></details>
+<details class="derive"><summary>Neden \(\mu_L\propto T^{-3/2}\) ve \(\mu_I\propto T^{3/2}\)?</summary><div>
+<p><b>Fonon:</b> Akustik fonon sayısı \(\propto T\), taşıyıcının saçılabileceği durum sayısı ve hızı \(\propto T^{1/2}\) ile artar: \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
+<p><b>İyonlaşmış katkı:</b> Rutherford saçılmasında sapma açısı \(\propto 1/(m^*v^2)\); saçılma kesit alanı \(\propto v^{-4}\) ve oran \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). \(v\propto T^{1/2}\) konursa \(1/\tau_I\propto N_I T^{-3/2}\).</p>
+</div></details>
 </div>
 </div>
 
@@ -550,6 +631,30 @@ html[lang="en"] .edu-en { display:block; }
   <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler neredeyse tamamen iyonlaşmıştır, intrinsic üretim ise küçüktür. Taşıyıcı sayısını katkı belirler: \(n\approx N_D\). Aygıtların çalışma bölgesi burasıdır.</p></div>
   <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyüyüp \(N_D\)'yi yakalar. Katkı baskınlığını kaybeder ve sonunda \(n\approx p\approx n_i\) olur. Donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</p></div>
   </div>
+</section>
+
+<section class="fig">
+  <h3>Saçılma simülasyonu: elektron, hol, fonon ve foton</h3>
+  <p class="why">Taşıyıcılar ısıl hızla rastgele koşar, alan onları yavaşça bir yöne iter. Yeşil halka <b>fonon saçılması</b> (titreşen Si atomu), sarı halka <b>iyonlaşmış katkı saçılması</b>dır (Coulomb sapması). Sıcaklığı düşürün: atomlar sakinleşir, fonon saçılması azalır ama yavaşlayan taşıyıcılar iyonlar tarafından çok daha sert saptırılır. Işığı açın: her foton bir elektron–hol çifti üretir, çift bir süre sonra rekombine olur. Alan ve hızlar görünür olsun diye abartılmıştır.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="scCar"><button data-v="e">Elektron (n tipi)</button><button data-v="h">Hol (p tipi)</button><button data-v="eh">İkisi</button></span>
+    <span class="seg" data-ctl="scLight"><button data-v="off">Işık kapalı</button><button data-v="on">Işık (foton) açık</button></span>
+    <button type="button" class="sim-btn" id="sc-play">❚❚ Duraklat</button><button type="button" class="sim-btn" id="sc-reset">↺ Sıfırla</button>
+  </div>
+  <div class="controls">
+    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
+    <label>Katkı iyonu <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
+    <label>Alan \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
+  </div>
+  <div class="readout" id="ro-sc"></div>
+  <div class="plot sim" id="p-scat"></div>
+</section>
+
+<section class="fig">
+  <h3>Matthiessen kuralı: hareketlilik sıcaklıkla neden tepe yapar?</h3>
+  <p class="why">Yukarıdaki sıcaklık, katkı iyonu ve taşıyıcı seçimi bu grafiği de günceller (1 iyon ≈ \(10^{16}\ \mathrm{cm^{-3}}\) iyonlaşmış katkı). Düşük sıcaklıkta katkı iyonları, yüksek sıcaklıkta fononlar hareketliliği sınırlar; toplam \(\mu\) her zaman ikisinden küçüktür. λ değeri gerçek Si parametreleriyle hesaplanır.</p>
+  <div class="readout" id="ro-sc-mu"></div>
+  <div class="plot" id="p-sc-mu"></div>
 </section>
 </div>
 
@@ -606,6 +711,28 @@ html[lang="en"] .edu-en { display:block; }
 <div class="qa"><p class="q">10. Yüksek sıcaklıkta n tipi etiketi neden anlamını yitirir? <span class="lvl">kavramsal</span></p>
 <details><summary>Çözümü göster</summary><div>
 <p>Termal elektron–hol üretimi, yani \(n_i\), üstel olarak artar ve donörlerin sağladığı taşıyıcı yoğunluğunu aşar. Bu durumda \(n\approx p\approx n_i\) olur ve malzemenin davranışını katkı değil sıcaklık belirler. Geniş bant aralıklı malzemelerin (SiC, GaN) yüksek sıcaklıkta tercih edilmesinin nedeni budur.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">11. Çarpışma ile saçılma arasındaki fark nedir? Mükemmel bir kristalde elektron saçılır mı? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>“Çarpışma” olayın gündelik adıdır ve temas imgesi taşır; “saçılma”, taşıyıcının momentumunun periyodikliği bozan bir etki yüzünden değişmesidir ve temas gerektirmez. Mükemmel, titreşmeyen bir kristalde elektron Bloch dalgası olarak saçılmadan ilerler; direnç fononlardan ve kusurlardan gelir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">12. \(\mu_n=1400\ \mathrm{cm^2/V\,s}\), \(m^*=0.26\,m_0\) olan Si elektronları için 300 K'de \(\tau_m\) ve ortalama serbest yol nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
+\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
+<p>Bu, Si atomları arasındaki ~0.24 nm mesafenin yaklaşık 200 katıdır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">13. Katkılı Si'yi 300 K'den 77 K'e soğutunca hareketlilik neden bazen artar, bazen azalır? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Soğutma fononları azaltır (\(\mu_L\) artar) ama taşıyıcıları yavaşlatır ve iyonlaşmış katkı saçılmasını güçlendirir (\(\mu_I\) azalır). Matthiessen kuralına göre hangisi daha küçükse o baskın olur: hafif katkılı Si'de \(\mu\) artar, yoğun katkılı Si'de iyon saçılması baskınlaşıp \(\mu\) azalabilir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">14. Si'ye ışık düşünce foton ve fonon ne rol oynar? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>\(h\nu\ge E_g\) olan foton soğurulur ve bir elektron–hol çifti üretir. Si dolaylı bant aralıklı olduğundan bant kenarı geçişinde momentumu bir fonon sağlar. Oluşan taşıyıcılar fononlarla saçılarak fazla enerjilerini ısı olarak örgüye verir, sonra çoğunlukla tuzaklar üzerinden rekombine olur; bu enerji de büyük ölçüde fonon (ısı) olarak açığa çıkar.</p>
 </div></details></div>
 </div>
 </template>
@@ -2776,7 +2903,7 @@ html[lang="en"] .edu-en { display:block; }
 <template id="week0-en">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-label">🎯 What this foundation unit builds</div><ul><li>Connect atoms, covalent bonds, energy bands and mobile carriers into one chain.</li><li>Explain physically what a free electron and a hole are.</li><li>Use the symbols \(n_i\), \(N_D\), \(N_A\), \(n\) and \(p\) without mixing up <b>what each one counts</b>.</li><li>Explain how <b>n-type</b> and <b>p-type</b> silicon are made and why they behave differently.</li><li>Interpret the freeze-out → extrinsic → intrinsic regimes as temperature rises.</li></ul></div>
+<div class="edu-card"><div class="edu-label">🎯 What this foundation unit builds</div><ul><li>Connect atoms, covalent bonds, energy bands and mobile carriers into one chain.</li><li>Explain physically what a free electron and a hole are.</li><li>Use the symbols \(n_i\), \(N_D\), \(N_A\), \(n\) and \(p\) without mixing up <b>what each one counts</b>.</li><li>Explain how <b>n-type</b> and <b>p-type</b> silicon are made and why they behave differently.</li><li>Interpret the freeze-out → extrinsic → intrinsic regimes as temperature rises.</li><li>Tell apart the roles of electrons, holes, photons and phonons; explain the difference between collision and scattering and what limits mobility.</li></ul></div>
 <div class="edu-card edu-predict"><div class="edu-label">🧪 Predict first</div><p>If one phosphorus atom is added for every 5 million silicon atoms (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)), by roughly what factor does the free-electron density at room temperature increase compared with pure silicon? Does the hole density go up or down?</p></div>
 <div class="edu-card edu-mistake"><div class="edu-label">⚠️ Common misconception</div><p>“n-type silicon is negatively charged” is wrong. Every free electron leaves a fixed \(\mathrm{P^+}\) ion behind in the crystal, so the material as a whole is <b>electrically neutral</b>. The “n” only says that current is carried mostly by <b>negatively charged carriers</b>.</p></div>
 
@@ -2862,7 +2989,68 @@ html[lang="en"] .edu-en { display:block; }
 
 <div class="edu-card edu-mistake"><div class="edu-label">⚠️ Do not mix up the three densities</div><p><b>Atom density</b> counts the atoms in the crystal (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>dopant density</b> (\(N_D\), \(N_A\)) counts the added donors/acceptors, and <b>carrier density</b> (\(n\), \(p\), \(n_i\)) counts the electrons and holes that can actually move. The bar chart in the Visuals tab compares all three on the same axis.</p></div>
 
-<div class="note"><strong>Sze reference:</strong> Chapter 1, section 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic concentration, donors and acceptors).</div>
+<h3>0.9 Four players: electron, hole, photon and phonon</h3>
+<p>Almost everything that happens in semiconductor physics can be told as an exchange between four “particles”. Electrons and holes <b>carry charge</b>; photons and phonons <b>carry energy and momentum</b> and create, destroy or deflect the carriers.</p>
+<div class="table-wrap"><table class="data wrap">
+<thead><tr><th>Player</th><th>What it is</th><th>Charge</th><th>Typical energy / momentum</th><th>Role in this course</th></tr></thead>
+<tbody>
+<tr><td><b style="color:var(--elec)">Electron</b> (e⁻)</td><td>Mobile electron in the conduction band</td><td>\(-q\)</td><td>\(E\approx E_C+\tfrac32kT\)</td><td>carries current; majority in n-type</td></tr>
+<tr><td><b style="color:var(--hole)">Hole</b> (h⁺)</td><td>Missing electron in the valence band (quasi-particle)</td><td>\(+q\)</td><td>\(E\approx E_V-\tfrac32kT\)</td><td>carries current; majority in p-type</td></tr>
+<tr><td><b style="color:var(--litho-ink)">Photon</b> (\(h\nu\))</td><td>Quantum of light</td><td>0</td><td>large energy (~1 eV), very small momentum</td><td>creates an e⁻–h⁺ pair when absorbed; emitted in direct recombination (LEDs, lasers)</td></tr>
+<tr><td><b style="color:var(--fermi)">Phonon</b></td><td>Quantum of lattice vibration (a “packet of sound/heat”)</td><td>0</td><td>small energy (≤ 63 meV in Si), momentum can be large</td><td>scatters carriers; supplies momentum in indirect transitions; carries heat</td></tr>
+</tbody></table></div>
+<p>These four players meet in three typical scenes:</p>
+<ul>
+<li><b>Generation:</b> a photon (\(h\nu\ge E_g\)) or an energetic enough phonon breaks a bond → one electron + one hole. Because Si has an indirect band gap, a phonon must also take part at the band edge to supply the momentum for photon absorption.</li>
+<li><b>Scattering:</b> a moving electron or hole interacts with a phonon or an ionized dopant and changes direction/speed. The carrier is not destroyed; only its path changes. This is the subject of this section.</li>
+<li><b>Recombination:</b> an electron meets a hole and the pair disappears. The energy is released mostly as a <b>photon</b> (light) in direct materials such as GaAs, and mostly as <b>phonons</b> (heat) via traps in Si.</li>
+</ul>
+
+<h3>0.10 What are collisions and scattering? How do they differ?</h3>
+<div class="def-grid">
+<div class="def-card"><div class="sym"><b>Collision</b><span>the everyday picture</span></div>
+<dl>
+<dt>Image</dt><dd>Two objects that <b>touch</b>, like two billiard balls.</dd>
+<dt>In a solid</dt><dd>A <b>short, intuitive</b> name for the event that interrupts a carrier's motion. In the Drude model it appears as the “mean collision time” \(\tau\).</dd>
+<dt>Limitation</dt><dd>It is <b>not</b> the carrier physically bumping into Si atoms; that picture gives wrong numbers.</dd>
+</dl></div>
+<div class="def-card acc"><div class="sym"><b>Scattering</b><span>the concept physics uses</span></div>
+<dl>
+<dt>Definition</dt><dd>A sudden change of the carrier's crystal momentum (and sometimes energy) caused by something that <b>breaks the perfect periodicity</b> of the crystal.</dd>
+<dt>Contact?</dt><dd>Not needed. The Coulomb field of an ionized dopant deflects a carrier from a distance; a phonon can be absorbed or emitted.</dd>
+<dt>Kinds</dt><dd><b>Elastic</b> (energy nearly conserved, only direction changes) or <b>inelastic</b> (energy also changes through phonon exchange).</dd>
+</dl></div>
+</div>
+<p>In short: <b>“collision” is the everyday name of the event; “scattering” is its physical mechanism.</b> Both words may be used for the same event in this course, but when working with numbers think in terms of scattering. The most surprising point is this: <b>in a perfect, non-vibrating crystal an electron does not scatter at all.</b> The electron is a wave and travels unimpeded through the periodic potential (as a Bloch wave); the “effect” of the atoms is already contained in the effective mass \(m^*\). Resistance comes from everything that breaks that periodicity.</p>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Common misconception</div><p>“Resistance arises because electrons bump into Si atoms.” Wrong. If that were true the free path would be of the order of the interatomic distance (~0.2 nm); the measured value at room temperature is tens of nanometres, and it <b>grows</b> on cooling. Carriers are deflected not by the atoms themselves but by their <b>vibrations (phonons)</b> and by <b>defects</b>.</p></div>
+
+<h3>0.11 What causes the collisions?</h3>
+<div class="type-grid">
+<div class="type-card ph"><h4>1. Lattice (phonon) scattering</h4><ul>
+<li>At finite temperature atoms vibrate about their equilibrium positions, momentarily breaking the periodicity.</li>
+<li><b>Acoustic phonons:</b> low energy, nearly elastic scattering. Dominant in lightly doped Si at room temperature.</li>
+<li><b>Optical phonons:</b> ~63 meV in Si. A carrier accelerated by a high field hands its energy to them → the drift velocity saturates near \(10^7\) cm/s.</li>
+<li>The number of phonons grows with T: \(\mu_L\propto T^{-3/2}\).</li>
+</ul></div>
+<div class="type-card imp"><h4>2. Ionized-impurity (Coulomb) scattering</h4><ul>
+<li>\(\mathrm{P^+}\) and \(\mathrm{B^-}\) ions create a Coulomb field around them that deflects carriers (similar to Rutherford scattering).</li>
+<li><b>Slow carriers are deflected more;</b> at high temperature carriers are fast, so this scattering weakens.</li>
+<li>It strengthens with doping: \(\mu_I\propto T^{3/2}/N_I\), \(N_I=N_D^++N_A^-\).</li>
+<li>Dominant at low temperature and in heavily doped regions.</li>
+</ul></div>
+</div>
+<p><b>Other sources:</b> neutral dopants and crystal defects (vacancies, dislocations), <b>roughness</b> of the oxide interface in a MOSFET channel, <b>carrier–carrier</b> (electron–electron, electron–hole) scattering at very high carrier densities, and <b>alloy disorder</b> in alloys such as SiGe. Holes scatter through the same mechanisms; the main reason the hole mobility in Si (\(\approx470\)) is lower than the electron mobility (\(\approx1400\ \mathrm{cm^2/V\,s}\)) is the larger effective mass of the hole.</p>
+
+<h3>0.12 From scattering to mobility: mean free path and Matthiessen's rule</h3>
+<p>Between two scattering events a carrier runs in a random direction at the thermal speed \(v_{th}\approx10^7\ \mathrm{cm/s}\). Because the electric field pushes it slightly during every free flight, a small average <b>drift velocity</b> rides on top of the random motion:</p>
+<p>\[ v_d = \mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda = v_{th}\,\tau_m \]</p>
+<p>Taking \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) and \(m^*\approx0.26\,m_0\) for electrons in Si at room temperature gives a mean scattering time \(\tau_m\approx0.2\) ps and a <b>mean free path</b> \(\lambda\approx40\)–\(50\) nm: roughly 200 atomic spacings. In a typical field of \(\mathcal{E}=1\ \mathrm{kV/cm}\), \(v_d\approx1.4\times10^6\) cm/s; drift is only a small “bias” on top of the thermal motion.</p>
+<p>When different mechanisms act independently, their scattering <b>rates add</b>, which means the inverse mobilities add (<b>Matthiessen's rule</b>):</p>
+<p>\[ \frac{1}{\tau_m}=\frac{1}{\tau_L}+\frac{1}{\tau_I}+\dots \qquad\Longrightarrow\qquad \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I}+\dots \]</p>
+<p>As a result the <b>worst</b> (most frequent) mechanism sets the mobility: ionized dopants at low temperature, phonons at high temperature. You can watch this contest live in the scattering simulation in the Visuals tab, and see in the chart below it how \(\mu(T)\) develops a peak.</p>
+<div class="edu-card edu-predict"><div class="edu-label">🧪 Predict before the simulation</div><p>If you keep the impurity count fixed and raise the temperature from 50 K to 600 K, does the mean free path first increase or decrease? At what temperature is it longest?</p></div>
+
+<div class="note"><strong>Sze reference:</strong> Chapter 1, section 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic concentration, donors and acceptors) and 1.5.1 (Drift: mobility and scattering mechanisms).</div>
 </div>
 </div>
 
@@ -2902,6 +3090,19 @@ html[lang="en"] .edu-en { display:block; }
 <p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
 <p><b>p-type:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
 <p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
+
+<h3>Scattering, mobility and free path</h3>
+<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Electrons in Si, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
+<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen's rule: independent scattering rates add. \(\mu\) peaks at the temperature where \(\mu_L=\mu_I\); this temperature rises as \(N_I^{1/3}\).</span></div>
+<details class="derive"><summary>Derivation: \(\mu=q\tau_m/m^*\) from the Drude model</summary><div>
+<p>After its last scattering event a carrier starts with a random velocity whose average is zero. During the following time \(t\) the field adds \(\Delta v=-q\mathcal{E}t/m^*\) (for an electron). Since the time between scattering events is exponentially distributed with mean \(\tau_m\), \(\langle t\rangle=\tau_m\):</p>
+\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
+<p>For holes the sign is positive. The more frequent the scattering (small \(\tau_m\)) or the larger the effective mass, the lower the mobility.</p>
+</div></details>
+<details class="derive"><summary>Why \(\mu_L\propto T^{-3/2}\) and \(\mu_I\propto T^{3/2}\)?</summary><div>
+<p><b>Phonons:</b> the number of acoustic phonons grows \(\propto T\), and the carrier speed and the number of final states grow \(\propto T^{1/2}\): \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
+<p><b>Ionized impurities:</b> in Rutherford scattering the deflection angle is \(\propto 1/(m^*v^2)\); the cross-section is \(\propto v^{-4}\) and the rate \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). With \(v\propto T^{1/2}\), \(1/\tau_I\propto N_I T^{-3/2}\).</p>
+</div></details>
 </div>
 </div>
 
@@ -2954,6 +3155,30 @@ html[lang="en"] .edu-en { display:block; }
   <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donors are almost fully ionized while intrinsic generation is small. Doping sets the carrier density: \(n\approx N_D\). This is where devices operate.</p></div>
   <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) grows exponentially and catches up with \(N_D\). Doping loses control and eventually \(n\approx p\approx n_i\). The donors are still there; they simply no longer set the carrier density.</p></div>
   </div>
+</section>
+
+<section class="fig">
+  <h3>Scattering simulation: electrons, holes, phonons and photons</h3>
+  <p class="why">Carriers run randomly at the thermal speed while the field slowly pushes them one way. A green ring is <b>phonon scattering</b> (a vibrating Si atom), a yellow ring is <b>ionized-impurity scattering</b> (Coulomb deflection). Lower the temperature: the atoms calm down and phonon scattering drops, but the slower carriers are deflected much more strongly by the ions. Switch on the light: every photon creates an electron–hole pair, which recombines after a while. The field and speeds are exaggerated for visibility.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="scCar"><button data-v="e">Electrons (n-type)</button><button data-v="h">Holes (p-type)</button><button data-v="eh">Both</button></span>
+    <span class="seg" data-ctl="scLight"><button data-v="off">Light off</button><button data-v="on">Light (photons) on</button></span>
+    <button type="button" class="sim-btn" id="sc-play">❚❚ Pause</button><button type="button" class="sim-btn" id="sc-reset">↺ Reset</button>
+  </div>
+  <div class="controls">
+    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
+    <label>Impurity ions <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
+    <label>Field \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
+  </div>
+  <div class="readout" id="ro-sc"></div>
+  <div class="plot sim" id="p-scat"></div>
+</section>
+
+<section class="fig">
+  <h3>Matthiessen's rule: why does mobility peak with temperature?</h3>
+  <p class="why">The temperature, impurity-ion and carrier selections above also update this chart (1 ion ≈ \(10^{16}\ \mathrm{cm^{-3}}\) ionized dopants). Dopant ions limit mobility at low temperature, phonons at high temperature; the total \(\mu\) is always smaller than either. λ is computed with real Si parameters.</p>
+  <div class="readout" id="ro-sc-mu"></div>
+  <div class="plot" id="p-sc-mu"></div>
 </section>
 </div>
 
@@ -3010,6 +3235,28 @@ html[lang="en"] .edu-en { display:block; }
 <div class="qa"><p class="q">10. Why does the n-type label lose its meaning at high temperature? <span class="lvl">conceptual</span></p>
 <details><summary>Show solution</summary><div>
 <p>Thermal electron–hole generation, i.e. \(n_i\), grows exponentially and overtakes the carrier density supplied by the donors. Then \(n\approx p\approx n_i\), and temperature rather than doping controls the material. This is why wide-band-gap materials (SiC, GaN) are preferred at high temperature.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">11. What is the difference between collision and scattering? Does an electron scatter in a perfect crystal? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>“Collision” is the everyday name of the event and carries an image of contact; “scattering” is a change of the carrier's momentum caused by something that breaks the periodicity, and needs no contact. In a perfect, non-vibrating crystal an electron propagates as a Bloch wave without scattering; resistance comes from phonons and defects.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">12. For electrons in Si with \(\mu_n=1400\ \mathrm{cm^2/V\,s}\) and \(m^*=0.26\,m_0\), find \(\tau_m\) and the mean free path at 300 K. <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
+\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
+<p>That is about 200 times the ~0.24 nm spacing between Si atoms.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">13. Why does cooling doped Si from 300 K to 77 K sometimes raise and sometimes lower the mobility? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>Cooling reduces phonons (\(\mu_L\) rises) but slows the carriers and strengthens ionized-impurity scattering (\(\mu_I\) falls). By Matthiessen's rule the smaller one dominates: in lightly doped Si \(\mu\) rises, while in heavily doped Si impurity scattering can take over and \(\mu\) may fall.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">14. What roles do photons and phonons play when light falls on Si? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>A photon with \(h\nu\ge E_g\) is absorbed and creates an electron–hole pair. Because Si has an indirect gap, a phonon supplies the momentum for the band-edge transition. The new carriers scatter off phonons, handing their excess energy to the lattice as heat, and then mostly recombine through traps, releasing that energy largely as phonons (heat) as well.</p>
 </div></details></div>
 </div>
 </template>
@@ -5266,7 +5513,7 @@ const sciH = (x,d=2) => sci(x,d).replace(/\^(-?\d+)/,'<sup>$1</sup>');
 
 /* ---------------- Hafta 1 grafikleri ---------------- */
 const PLOTS = {};
-const state = { f0type:'n', lattice:'diamond', ek:'direct', dop:'n', prof:'abrupt', noise:'white', conf:'ce', early:'off', hbt:'homo', clamp:'off' };
+const state = { f0type:'n', scCar:'e', scLight:'off', lattice:'diamond', ek:'direct', dop:'n', prof:'abrupt', noise:'white', conf:'ce', early:'off', hbt:'homo', clamp:'off' };
 
 PLOTS['p-lattice'] = el => {
   const A = [], B = [];
@@ -6813,6 +7060,248 @@ PLOTS['p-f0-regime'] = el => {
     annotations: R.map(b => b.ann) }), CFG);
 };
 
+/* ---------------- Bölüm 0: saçılma simülasyonu ---------------- */
+// Model birimleri: dünya 1000×600 birim; 1 birim ≈ SC.NM nm. Hızlar birim/s.
+const SC = { W:1000, H:600, V0:160, G0:1.2, B0C:3.7e5, NM:0.34, NCAR:22, MAXPAIR:8 };
+const scMat = c => c === 'h' ? { vf:0.8, gf:1.8, af:0.6 } : { vf:1, gf:1, af:1 };
+const scRand = seed => { let s = seed; return () => (s = (s*9301 + 49297) % 233280)/233280; };
+const scIonSites = (() => {
+  const cells = []; for (let j=0;j<5;j++) for (let i=0;i<11;i++) cells.push([100 + i*80, 106 + j*84]);
+  return f0Order(cells.length, 17).map(k => cells[k]);
+})();
+function scParams() {
+  return { T: val('r-sc-t'), NI: Math.round(val('r-sc-ni')), E: val('r-sc-e'), car: state.scCar, light: state.scLight === 'on' };
+}
+function scSpawn(sim, type, x, y, gen) {
+  const m = scMat(type), T = sim.p.T, v = SC.V0*m.vf*Math.sqrt(T/300)*(0.6 + 0.8*Math.random()), a = Math.random()*2*Math.PI;
+  return { type, x, y, vx: v*Math.cos(a), vy: v*Math.sin(a), trail: [], path: 0, near: {}, gen: gen || 0 };
+}
+function scReset(sim) {
+  sim.p = scParams(); sim.vd = 0; sim.cars = []; sim.flashes = []; sim.photons = []; sim.paths = []; sim.events = []; sim.tPhot = 0;
+  const r = scRand(3);
+  for (let k=0;k<SC.NCAR;k++) {
+    const type = sim.p.car === 'eh' ? (k % 2 ? 'h' : 'e') : sim.p.car;
+    sim.cars.push(scSpawn(sim, type, 40 + r()*920, 40 + r()*500));
+  }
+}
+function scSync(sim) {
+  const old = sim.p; sim.p = scParams();
+  if (old && old.car !== sim.p.car) { const keep = sim.cars.filter(c => c.gen); scReset(sim); sim.cars.push(...keep); }
+  const ions = scIonSites.slice(0, sim.p.NI);
+  sim.ions = ions.map(([x,y], k) => ({ x, y, q: sim.p.car === 'e' ? 1 : sim.p.car === 'h' ? -1 : (k % 2 ? -1 : 1) }));
+}
+function scAtoms() {
+  const A = []; const r = scRand(9);
+  for (let j=0;j<6;j++) for (let i=0;i<12;i++) A.push({ x: 60 + i*80, y: 64 + j*84, ph: r()*6.28, dir: r()*6.28, kick: 0 });
+  return A;
+}
+function scStep(sim, dt) {
+  const p = sim.p, now = sim.t;
+  sim.atoms.forEach(a => { a.kick *= Math.exp(-dt*3); });
+  const event = (kind, x, y, extra) => { sim.flashes.push({ kind, x, y, t: now }); sim.events.push({ kind, t: now }); if (extra) extra(); };
+  sim.cars.forEach(c => {
+    const m = scMat(c.type), vth = SC.V0*m.vf*Math.sqrt(p.T/300);
+    // alan: E ← yönünde; elektron → , hol ← sürüklenir
+    c.vx += (c.type === 'e' ? 1 : -1)*p.E*18*m.af*dt;
+    const sp = Math.hypot(c.vx, c.vy), cap = 4*SC.V0;
+    if (sp > cap) { c.vx *= cap/sp; c.vy *= cap/sp; }
+    const ox = c.x, oy = c.y;
+    c.x += c.vx*dt; c.y += c.vy*dt; c.path += Math.hypot(c.vx, c.vy)*dt;
+    // fonon saçılması: oran ∝ T^{3/2} (akustik fonon)
+    if (Math.random() < SC.G0*m.gf*Math.pow(p.T/300, 1.5)*dt) {
+      const v = vth*(0.6 + 0.8*Math.random()), a = Math.random()*2*Math.PI;
+      c.vx = v*Math.cos(a); c.vy = v*Math.sin(a);
+      let best = null, bd = 1e9; sim.atoms.forEach(at => { const d = Math.hypot(at.x - c.x, at.y - c.y); if (d < bd) { bd = d; best = at; } });
+      if (best) best.kick = 5;
+      sim.paths.push(c.path); c.path = 0;
+      event('ph', best ? best.x : c.x, best ? best.y : c.y);
+    }
+    // iyonlaşmış katkı (Coulomb/Rutherford) saçılması: en yakın geçişte θ = 2·atan(b0/b)
+    sim.ions.forEach((ion, k) => {
+      const d = Math.hypot(ion.x - c.x, ion.y - c.y), prev = c.near[k];
+      if (d < 120) {
+        if (prev !== undefined && prev.d < d && !prev.done) {
+          const v2 = c.vx*c.vx + c.vy*c.vy, b = Math.max(prev.d, 6), b0 = SC.B0C/Math.max(v2, 400);
+          const th = 2*Math.atan(b0/b), attract = (c.type === 'e' ? -1 : 1)*ion.q < 0;
+          const side = Math.sign(c.vx*(ion.y - c.y) - c.vy*(ion.x - c.x)) || 1, ang = th*side*(attract ? 1 : -1);
+          const cs = Math.cos(ang), sn = Math.sin(ang), vx = c.vx*cs - c.vy*sn, vy = c.vx*sn + c.vy*cs;
+          c.vx = vx; c.vy = vy; prev.done = true;
+          if (th > 0.26) { sim.paths.push(c.path); c.path = 0; event('imp', ion.x, ion.y); }
+        } else if (!prev) c.near[k] = { d, done:false };
+        if (c.near[k]) c.near[k].d = d;
+      } else delete c.near[k];
+    });
+    // periyodik sınırlar
+    let wrap = false;
+    if (c.x < 0) { c.x += SC.W; wrap = true; } else if (c.x > SC.W) { c.x -= SC.W; wrap = true; }
+    if (c.y < 0) { c.y += 560; wrap = true; } else if (c.y > 560) { c.y -= 560; wrap = true; }
+    if (wrap) { c.trail = []; c.near = {}; }
+    c.trail.push([c.x, c.y]); if (c.trail.length > 16) c.trail.shift();
+    if (c.gen) c.gen -= dt;
+  });
+  // rekombinasyon: ışıkla üretilen çiftin ömrü bitince (Si'de enerji çoğunlukla fonon/ısı)
+  const dead = sim.cars.filter(c => c.gen < 0);
+  dead.forEach(c => event('rec', c.x, c.y));
+  if (dead.length) sim.cars = sim.cars.filter(c => !(c.gen < 0));
+  // foton: soğurulunca elektron–hol çifti
+  if (p.light) {
+    sim.tPhot += dt;
+    if (sim.tPhot > 0.7 && sim.cars.filter(c => c.gen).length < 2*SC.MAXPAIR) {
+      sim.tPhot = 0;
+      const tx = 80 + Math.random()*840, ty = 80 + Math.random()*420;
+      sim.photons.push({ x0: tx - 260, y0: ty - 260, tx, ty, t: now });
+    }
+  }
+  sim.photons = sim.photons.filter(ph => {
+    if (now - ph.t < 0.45) return true;
+    const life = 3 + 3*Math.random();
+    const e = scSpawn(sim, 'e', ph.tx, ph.ty, life), h = scSpawn(sim, 'h', ph.tx, ph.ty, life);
+    h.vx = -e.vx*0.8; h.vy = -e.vy*0.8;
+    sim.cars.push(e, h); event('gen', ph.tx, ph.ty);
+    return false;
+  });
+  const vdi = sim.cars.length ? sim.cars.reduce((a, c) => a + (c.type === 'e' ? c.vx : -c.vx), 0)/sim.cars.length : 0;
+  sim.vd = (sim.vd || 0) + (vdi - (sim.vd || 0))*Math.min(1, dt/3);
+  sim.flashes = sim.flashes.filter(f => now - f.t < (f.kind === 'ph' ? 0.4 : 0.7));
+  sim.events = sim.events.filter(e => now - e.t < 2);
+  if (sim.paths.length > 200) sim.paths.splice(0, sim.paths.length - 200);
+}
+function scDraw(sim) {
+  const cv = sim.cv, ctx = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
+  const cw = cv.clientWidth, ch = cv.clientHeight;
+  if (cv.width !== Math.round(cw*dpr) || cv.height !== Math.round(ch*dpr)) { cv.width = Math.round(cw*dpr); cv.height = Math.round(ch*dpr); }
+  const HH = sim.H || SC.H, s = Math.min(cw/SC.W, ch/HH);
+  ctx.setTransform(dpr*s, 0, 0, dpr*s, dpr*(cw - SC.W*s)/2, dpr*(ch - HH*s)/2);
+  const C = { bg: css('--panel'), ink: css('--ink'), mut: css('--muted'), rule: css('--rule'), e: css('--elec'), h: css('--hole'), f: css('--fermi'), l: css('--litho') };
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, SC.W, HH);
+  ctx.strokeStyle = C.rule; ctx.globalAlpha = .45; ctx.lineWidth = 1; ctx.beginPath();
+  for (let x=20; x<SC.W; x+=40) { ctx.moveTo(x, 0); ctx.lineTo(x, 560); }
+  for (let y=20; y<560; y+=40) { ctx.moveTo(0, y); ctx.lineTo(SC.W, y); }
+  ctx.stroke(); ctx.globalAlpha = 1;
+  const t = sim.t, amp = 2.2*Math.sqrt(sim.p.T/300);
+  // katkı iyonları (ışıma halkası + işaret)
+  sim.ions.forEach(ion => {
+    const g = ctx.createRadialGradient(ion.x, ion.y, 4, ion.x, ion.y, 48); g.addColorStop(0, C.l + '66'); g.addColorStop(1, C.l + '00');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(ion.x, ion.y, 48, 0, 7); ctx.fill();
+    ctx.fillStyle = C.l; ctx.beginPath(); ctx.arc(ion.x, ion.y, 12, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(ion.x - 6, ion.y); ctx.lineTo(ion.x + 6, ion.y);
+    if (ion.q > 0) { ctx.moveTo(ion.x, ion.y - 6); ctx.lineTo(ion.x, ion.y + 6); } ctx.stroke();
+  });
+  // Si atomları: titreşim genliği ∝ √T (+ saçılmada fonon "tekmesi")
+  ctx.fillStyle = C.f;
+  sim.atoms.forEach(a => {
+    const d = (amp + a.kick)*Math.sin(9*t + a.ph);
+    ctx.globalAlpha = .8; ctx.beginPath(); ctx.arc(a.x + d*Math.cos(a.dir), a.y + d*Math.sin(a.dir), 10, 0, 7); ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  // fotonlar: dalgalı ışın
+  sim.photons.forEach(ph => {
+    const u = Math.min(1, (t - ph.t)/0.45), L0 = Math.hypot(ph.tx - ph.x0, ph.ty - ph.y0), ux = (ph.tx - ph.x0)/L0, uy = (ph.ty - ph.y0)/L0;
+    ctx.strokeStyle = C.l; ctx.lineWidth = 2.5; ctx.beginPath();
+    for (let k=0; k<=40; k++) { const sd = Math.max(0, u*L0 - 90) + k*Math.min(90, u*L0)/40, w = 6*Math.sin(sd/7);
+      const x = ph.x0 + ux*sd - uy*w, y = ph.y0 + uy*sd + ux*w; k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    ctx.stroke();
+  });
+  // izler ve taşıyıcılar
+  sim.cars.forEach(c => {
+    const col = c.type === 'e' ? C.e : C.h, fade = c.gen ? Math.min(1, c.gen) : 1;
+    ctx.strokeStyle = col; ctx.lineWidth = 1.5;
+    for (let k=1; k<c.trail.length; k++) { ctx.globalAlpha = fade*k/c.trail.length*.7; ctx.beginPath(); ctx.moveTo(...c.trail[k-1]); ctx.lineTo(...c.trail[k]); ctx.stroke(); }
+    ctx.globalAlpha = fade;
+    if (c.type === 'e') { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(c.x, c.y, 7, 0, 7); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c.x, c.y, 2.5, 0, 7); ctx.fill(); }
+    else { ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(c.x, c.y, 7, 0, 7); ctx.stroke(); }
+    if (c.gen) { ctx.strokeStyle = C.l; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(c.x, c.y, 11, 0, 7); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  });
+  // çarpışma halkaları
+  const fc = { ph: C.f, imp: C.l, gen: C.l, rec: C.mut };
+  sim.flashes.forEach(f => { const u = (t - f.t)/(f.kind === 'ph' ? 0.4 : 0.7); ctx.globalAlpha = 1 - u; ctx.strokeStyle = fc[f.kind]; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.arc(f.x, f.y, 12 + 26*u, 0, 7); ctx.stroke(); });
+  ctx.globalAlpha = 1;
+  // üst etiket ve lejant (dar ekranda büyük yazı, lejant satırlara bölünür)
+  const fs = cw < 640 ? 30 : 15, top = L('E alanı ←     e⁻ sürüklenmesi →     h⁺ sürüklenmesi ←', 'field E ←     e⁻ drift →     h⁺ drift ←');
+  ctx.font = `${fs}px "IBM Plex Sans Condensed", sans-serif`; ctx.textBaseline = 'middle';
+  const leg = [[C.f, 'fill', L('Si atomu (titreşim = fonon)', 'Si atom (vibration = phonon)')], [C.l, 'fill', sim.p.car === 'h' ? L('iyon B⁻', 'ion B⁻') : sim.p.car === 'e' ? L('iyon P⁺', 'ion P⁺') : L('iyon P⁺ / B⁻', 'ion P⁺ / B⁻')],
+    [C.e, 'fill', L('elektron', 'electron')], [C.h, 'ring', L('hol', 'hole')], [C.l, 'wave', L('foton → e⁻h⁺ çifti', 'photon → e⁻h⁺ pair')]];
+  const rowH = fs + 16, pos = []; let lx = 16, ly = 560 + rowH/2 + 4;
+  leg.forEach(it => { const w = 18 + fs*0.4 + ctx.measureText(it[2]).width; if (lx + w > SC.W - 10 && lx > 16) { lx = 16; ly += rowH; } pos.push([lx, ly]); lx += w + 20; });
+  const H = Math.ceil(ly + rowH/2 + 4);
+  if (sim.H !== H) { sim.H = H; cv.parentElement.style.aspectRatio = `${SC.W} / ${H}`; }
+  ctx.fillStyle = C.bg; ctx.globalAlpha = .88; ctx.fillRect(0, 560, SC.W, H - 560); ctx.fillRect(8, 6, ctx.measureText(top).width + 16, fs + 12); ctx.globalAlpha = 1;
+  ctx.fillStyle = C.mut; ctx.fillText(top, 16, 12 + fs/2);
+  leg.forEach(([col, kind, txt], k) => {
+    const [x, y] = pos[k], r = fs*0.4;
+    ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.beginPath();
+    if (kind === 'fill') { ctx.arc(x + r, y, r, 0, 7); ctx.fill(); } else if (kind === 'ring') { ctx.arc(x + r, y, r, 0, 7); ctx.stroke(); }
+    else { for (let i=0;i<=2*r;i++) { const xx = x + i, yy = y + r*0.6*Math.sin(i*6/r); i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); }
+    ctx.fillStyle = C.mut; ctx.fillText(txt, x + 2*r + 8, y);
+  });
+}
+function scReadout(sim) {
+  const ro = document.getElementById('ro-sc'); if (!ro) return;
+  const P = sim.paths, mfp = P.length ? P.reduce((a, b) => a + b, 0)/P.length*SC.NM : 0;
+  const cnt = k => sim.events.filter(e => e.kind === k).length/2;
+  const act = sim.flashes.filter(f => f.kind === 'ph' || f.kind === 'imp').length;
+  const vd = sim.vd || 0;
+  const ph = cnt('ph'), im = cnt('imp'), dom = ph + im < 0.5 ? '—' : ph >= im ? L('fonon', 'phonon') : L('iyonlaşmış katkı', 'ionized impurity');
+  ro.innerHTML = `${L('Ortalama serbest yol (model)', 'Mean free path (model)')} ≈ <b>${P.length > 5 ? mfp.toFixed(0) + ' nm' : '…'}</b> &nbsp;|&nbsp; ${L('Aktif çarpışma', 'Active collisions')}: <b>${act}</b> &nbsp;|&nbsp; ` +
+    `${L('saçılma/s', 'scattering/s')}: <span style="color:var(--fermi)">${L('fonon', 'phonon')} ${ph.toFixed(1)}</span> · <span style="color:var(--litho-ink)">${L('katkı', 'impurity')} ${im.toFixed(1)}</span> → ${L('baskın', 'dominant')}: <b>${dom}</b>` +
+    (sim.p.light ? ` &nbsp;|&nbsp; ${L('foton üretimi', 'photogeneration')} ${cnt('gen').toFixed(1)}/s · ${L('rekombinasyon', 'recombination')} ${cnt('rec').toFixed(1)}/s` : '') +
+    ` &nbsp;|&nbsp; ${L('ort. sürüklenme / ısıl hız', 'avg. drift / thermal speed')} = ${(vd/(SC.V0*Math.sqrt(sim.p.T/300))).toFixed(2)}`;
+}
+PLOTS['p-scat'] = el => {
+  let sim = el._sim;
+  if (!sim) {
+    el.innerHTML = ''; const cv = document.createElement('canvas'); cv.setAttribute('role', 'img');
+    cv.setAttribute('aria-label', L('Elektron ve hollerin fonon ve katkı iyonlarıyla saçılmasını gösteren animasyon', 'Animation of electrons and holes scattering off phonons and dopant ions'));
+    el.appendChild(cv);
+    sim = el._sim = { cv, t: 0, atoms: scAtoms(), paused: window.matchMedia('(prefers-reduced-motion: reduce)').matches, loop: null, last: 0, lastRo: 0 };
+    scReset(sim);
+    const pb = document.getElementById('sc-play'), rb = document.getElementById('sc-reset');
+    const lbl = () => { if (pb) pb.textContent = sim.paused ? L('▶ Devam', '▶ Resume') : L('❚❚ Duraklat', '❚❚ Pause'); };
+    lbl();
+    if (pb) pb.addEventListener('click', () => { sim.paused = !sim.paused; lbl(); });
+    if (rb) rb.addEventListener('click', () => { scReset(sim); scSync(sim); });
+  }
+  scSync(sim);
+  scDraw(sim);
+  if (!sim.loop) {
+    sim.last = performance.now();
+    const frame = now => {
+      if (!document.body.contains(el) || el.offsetParent === null) { sim.loop = null; return; }
+      const dt = Math.min(0.05, (now - sim.last)/1000); sim.last = now;
+      if (!sim.paused) { sim.t += dt; scStep(sim, dt); }
+      scDraw(sim);
+      if (now - sim.lastRo > 400) { sim.lastRo = now; scReadout(sim); }
+      sim.loop = requestAnimationFrame(frame);
+    };
+    sim.loop = requestAnimationFrame(frame);
+  }
+};
+
+PLOTS['p-sc-mu'] = el => {
+  const T0 = val('r-sc-t'), cnt = Math.round(val('r-sc-ni')), NI = cnt*1e16, hole = state.scCar === 'h';
+  const P = hole ? { L0:480, I0:975, m:0.39, nm: L('hol', 'hole') } : { L0:1430, I0:1850, m:0.26, nm: L('elektron', 'electron') };
+  const muL = T => P.L0*Math.pow(T/300, -1.5), muI = T => NI > 0 ? P.I0*Math.pow(T/300, 1.5)*(1e17/NI) : Infinity;
+  const mu = T => 1/(1/muL(T) + 1/muI(T));
+  const Ts = []; for (let l=Math.log10(20); l<=Math.log10(600)+1e-9; l+=0.01) Ts.push(Math.pow(10, l));
+  const m0 = 9.109e-31, q = 1.602e-19, kB = 1.381e-23;
+  const lam = T => { const tau = mu(T)*1e-4*P.m*m0/q, vth = Math.sqrt(3*kB*T/(P.m*m0)); return vth*tau*1e9; };
+  const cur = mu(T0), dom = muI(T0) < muL(T0) ? L('iyonlaşmış katkı saçılması', 'ionized-impurity scattering') : L('fonon (örgü) saçılması', 'phonon (lattice) scattering');
+  let Tp = null; if (NI > 0) Tp = 300*Math.pow(P.I0*1e17/NI/P.L0, -1/3);
+  document.getElementById('ro-sc-mu').innerHTML = `${P.nm}, N<sub>I</sub> ≈ ${NI ? f0Sci(NI, 0) : '0'} cm<sup>−3</sup>, T = ${T0} K &nbsp;|&nbsp; μ = <b>${cur.toFixed(0)}</b> cm²/V·s &nbsp;|&nbsp; ${L('baskın', 'dominant')}: ${dom} &nbsp;|&nbsp; λ = v<sub>th</sub>τ ≈ ${lam(T0).toFixed(0)} nm` +
+    (Tp ? ` &nbsp;|&nbsp; μ<sub>L</sub> = μ<sub>I</sub>: T ≈ ${Tp.toFixed(0)} K` : '');
+  const tr = [
+    { x:Ts, y:Ts.map(muL), mode:'lines', name: L('μ_L: yalnız fonon', 'μ_L: phonons only'), line:{ color: css('--fermi'), width:2, dash:'dash' } },
+    { x:Ts, y:Ts.map(mu), mode:'lines', name: L('μ: toplam (Matthiessen)', 'μ: total (Matthiessen)'), line:{ color: hole ? css('--hole') : css('--elec'), width:3.5 } },
+    { x:[T0], y:[cur], mode:'markers', marker:{ size:11, color: hole ? css('--hole') : css('--elec'), line:{ color: css('--ink'), width:1.5 } }, name: L('seçilen T', 'selected T'), hoverinfo:'skip' }
+  ];
+  if (NI > 0) tr.splice(1, 0, { x:Ts, y:Ts.map(muI), mode:'lines', name: L('μ_I: yalnız katkı iyonu', 'μ_I: impurity ions only'), line:{ color: css('--litho'), width:2, dash:'dot' } });
+  Plotly.react(el, tr, baseLayout({ margin:{ l:65, r:20, t:20, b:50 },
+    xaxis:{ title: L('Sıcaklık T (K)', 'Temperature T (K)'), type:'log', color: css('--ink'), gridcolor: css('--rule') },
+    yaxis:{ title:'μ (cm²/V·s)', type:'log', range:[1.5, 5], exponentformat:'power', color: css('--ink'), gridcolor: css('--rule') } }), CFG);
+};
+
 Object.keys(PLOTS).forEach(k => {
   const f = PLOTS[k];
   PLOTS[k] = el => { f(el); if (LANG === 'en') main.querySelectorAll('.readout').forEach(r => { const h = r.innerHTML, t = tx(h); if (t !== h) r.innerHTML = t; }); };
@@ -6824,6 +7313,7 @@ function renderVisible() {
 function bindWeek(n) {
   const e = v => '1e' + (+v).toFixed(1);
   const R = {
+    'r-sc-t':[v => v+' K', ['p-scat','p-sc-mu']], 'r-sc-ni':[v => v, ['p-scat','p-sc-mu']], 'r-sc-e':[v => v, ['p-scat']],
     'r-f0-t':[v => v+' K', ['p-f0-lattice']], 'r-f0-n':[e, ['p-f0-lattice']],
     'r-f0-nd':[e, ['p-f0-sweep','p-f0-bars']], 'r-f0-na':[e, ['p-f0-sweep','p-f0-bars']], 'r-f0-t2':[v => v+' K', ['p-f0-sweep','p-f0-bars']],
     'r-f0-rn':[e, ['p-f0-regime']], 'r-f0-ed':[v => v+' meV', ['p-f0-regime']], 'r-f0-rt':[v => v+' K', ['p-f0-regime']],
@@ -6856,7 +7346,7 @@ function bindWeek(n) {
     const o = document.getElementById('o' + id.slice(1));
     r.addEventListener('input', () => { if (o && fmt) o.textContent = fmt(r.value); plots.forEach(p => PLOTS[p](document.getElementById(p))); });
   });
-  const segTargets = { f0type:['p-f0-lattice'], lattice:['p-lattice'], ek:['p-ek'], dop:['p-dop'], prof:['p-junc'], noise:['p-noise'], conf:['p-oc'], early:['p-oc'], hbt:['p-hbt'], clamp:['p-sw2','p-sw3d2','p-traj'] };
+  const segTargets = { f0type:['p-f0-lattice'], scCar:['p-scat','p-sc-mu'], scLight:['p-scat'], lattice:['p-lattice'], ek:['p-ek'], dop:['p-dop'], prof:['p-junc'], noise:['p-noise'], conf:['p-oc'], early:['p-oc'], hbt:['p-hbt'], clamp:['p-sw2','p-sw3d2','p-traj'] };
   main.querySelectorAll('.seg[data-ctl]').forEach(seg => {
     const cur = state[seg.dataset.ctl];
     seg.querySelectorAll('button').forEach(b => {
