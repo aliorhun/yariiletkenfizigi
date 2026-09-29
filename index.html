@@ -340,14 +340,10 @@ html[lang="en"] .edu-en { display:block; }
   <main id="main"></main>
 </div>
 
-<!-- =========================== BÖLÜM 0 İÇERİĞİ =========================== -->
-<template id="week0">
+<!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
+<template id="week1">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kovalent bağ, enerji bandı ve hareketli taşıyıcı kavramlarını tek bir zincirde birleştirmek.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>\(n_i\), \(N_D\), \(N_A\), \(n\) ve \(p\) sembollerinin <b>neyi saydığını</b> karıştırmadan kullanmak.</li><li><b>n tipi</b> ve <b>p tipi</b> silisyumun nasıl elde edildiğini ve neden farklı davrandığını açıklamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li><li>Elektron, hol, foton ve fononun rollerini ayırmak; çarpışma ile saçılmanın farkını ve hareketliliği neyin sınırladığını açıklamak.</li></ul></div></div>
-<div class="edu-card edu-predict"><div class="edu-tr"><div class="edu-label">🧪 Önce tahmin et</div><p>Silisyuma her 5 milyon atomda bir fosfor atomu eklenirse (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)) oda sıcaklığında serbest elektron sayısı saf silisyuma göre kabaca kaç kat artar? Hol sayısı artar mı, azalır mı?</p></div></div>
-<div class="edu-card edu-mistake"><div class="edu-tr"><div class="edu-label">⚠️ Sık yapılan hata</div><p>“n tipi silisyum negatif yüklüdür” yanlıştır. Her serbest elektronun yanında kristalde sabit bir \(\mathrm{P^+}\) iyonu kalır; malzeme bir bütün olarak <b>elektriksel olarak nötrdür</b>. “n” yalnızca akımı çoğunlukla <b>negatif yüklü taşıyıcıların</b> taşıdığını söyler.</p></div></div>
-
 <div class="foundation-chain">
 <div class="foundation-step"><strong>1. Atom</strong>Si atomunun dört değerlik elektronu vardır.</div>
 <div class="foundation-step"><strong>2. Kristal</strong>Komşu Si atomları kovalent bağlarla periyodik örgü kurar.</div>
@@ -355,30 +351,41 @@ html[lang="en"] .edu-en { display:block; }
 <div class="foundation-step"><strong>4. Taşıyıcı</strong>Uyarılan elektron hareket eder; geride hareketli bir hol kalır.</div>
 </div>
 
+<figure class="lesson-visual"><img src="assets/images/week01/band-structure.svg" alt="Kristal örgü ve enerji bantlarının ilişkisi" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Kristal örgü ve enerji bantlarının ilişkisi · Özgün teknik şema</figcaption></figure>
+<h3>1.1 Kristal yapı</h3>
+<p>Si, Ge ve GaAs gibi yarı iletkenler düzenli bir kristal örgüde bulunur. Si ve Ge <b>elmas</b> yapısında, GaAs ise <b>çinko sülfür (zincblende)</b> yapısında kristalleşir. Her iki yapı da birbirinin içine geçmiş iki yüzey merkezli kübik (fcc) alt örgüden oluşur; ikinci alt örgü, birinciye göre cisim köşegeni boyunca \(a/4\) kaydırılmıştır. Böylece her atom dört en yakın komşusuyla düzgün dört yüzlü (tetrahedral) kovalent bağlar kurar. Elmas yapıda iki alt örgünün atomları aynı türdendir, zincblende'de ise bir alt örgü Ga, diğeri As'tır.</p>
+<p>Oda sıcaklığında Si'nin örgü sabiti \(a = 5.431\) Å, GaAs'ınki \(a = 5.653\) Å'dur. Kristal düzlemleri ve yönleri Miller indisleriyle \((hkl)\) ve \([hkl]\) olarak gösterilir; entegre devre üretiminde çoğunlukla (100) yüzeyli pullar kullanılır, çünkü bu yüzeyde oksit–yarı iletken ara yüzey tuzak yoğunluğu en düşüktür.</p>
+
+<h3>1.2 Enerji bantları</h3>
+<p>Atomlar kristal oluşturmak üzere yaklaştıkça, tek atomdaki keskin enerji seviyeleri Pauli ilkesi gereği yarılarak <b>bantlara</b> dönüşür. Yarı iletkende 0 K'de tamamen dolu en üst banda <b>valans bandı</b>, tamamen boş en alt banda <b>iletim bandı</b> denir; ikisi arasındaki yasak aralık bant aralığı \(E_g\)'dir. Si için oda sıcaklığında \(E_g = 1.12\) eV, GaAs için 1.42 eV, Ge için 0.66 eV'dur.</p>
+<p>Bant yapısı, enerjinin kristal momentumuna \(\hbar\mathbf{k}\) bağlılığı \(E(\mathbf{k})\) ile tanımlanır. İletim bandı minimumu ile valans bandı maksimumu aynı \(\mathbf{k}\) değerindeyse yarı iletken <b>doğrudan bant aralıklıdır</b> (GaAs). Farklı \(\mathbf{k}\) değerlerindeyse <b>dolaylı bant aralıklıdır</b> (Si, Ge). Dolaylı geçişlerde momentum korunumu için bir fononun katılması gerekir; bu yüzden Si verimli ışık yayamaz, GaAs ise LED ve lazerlerde kullanılır. Bu ayrımı Görseller sekmesindeki 3B \(E(k)\) yüzeyinde inceleyebilirsiniz.</p>
+<p>Bant kenarlarının yakınında \(E(k)\) parabol ile yaklaşılabilir ve eğrilik <b>etkin kütle</b> \(m^*\) ile ifade edilir. Etkin kütle, kristalin periyodik potansiyelinin etkisini taşıyıcının kütlesine gömer; böylece elektron ve hollere dış kuvvetler altında serbest parçacık gibi davranan nesneler olarak bakabiliriz.</p>
+
 <figure class="lesson-visual"><img src="assets/images/week00/carrier-pair.svg" alt="Silisyum kovalent bağından elektron-hol taşıyıcı çiftinin oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Kovalent bağdan kopan bir elektron, bant resminde iletim bandına çıkar ve aynı olayda bir hol oluşur · Özgün teknik şema</figcaption></figure>
 
-<h3>0.1 Serbest elektron nedir?</h3>
+<h3>1.3 Serbest elektron ve hol</h3>
+<h4>Serbest elektron nedir?</h4>
 <p>Kristaldeki bütün elektronlar akıma eşit katkı vermez. Si değerlik elektronlarının çoğu kovalent bağların parçasıdır ve <b>bağlı durumdadır</b>. Bir elektron ısı veya ışıkla yeterli enerji kazanıp valans bandından iletim bandına geçtiğinde, bant içindeki boş durumlara geçebilir ve elektrik alan altında sürüklenebilir. Bu elektron artık <b>serbest elektron taşıyıcısıdır</b>.</p>
 <p>Buradaki “serbest”, vakumdaki serbest elektron anlamına gelmez. Elektron hâlâ kristalin periyodik potansiyelini hisseder; bu etki etkin kütle \(m^*\) gibi büyüklüklerle modele katılır.</p>
-
-<h3>0.2 Hol (boşluk) nedir?</h3>
+<h4>Hol (boşluk) nedir?</h4>
 <p>Bir elektron valans bandından ayrıldığında arkasında dolmamış bir durum bırakır. Komşu bir elektron bu boşluğu doldurunca boşluk başka yere geçmiş gibi görünür. Bu kolektif hareketi <b>hol</b> olarak modelleriz ve hol pozitif yük \(+q\) taşıyan bir yarı-parçacık gibi davranır.</p>
 <div class="note"><strong>Önemli:</strong> Hol yeni bir temel parçacık değildir; valans bandındaki elektron eksikliğinin kullanışlı fiziksel modelidir.</div>
 
-<h3>0.3 Intrinsic carrier concentration \(n_i\) nedir?</h3>
+<h3>1.4 Isıl dengede taşıyıcılar ve \(n_i\)</h3>
+<p>Bir enerji seviyesinin elektronla dolu olma olasılığı Fermi–Dirac dağılımıyla verilir. Fermi seviyesi \(E_F\), doluluk olasılığının tam 1/2 olduğu enerjidir. İletim bandındaki elektron yoğunluğu, durum yoğunluğu ile doluluk olasılığının çarpımının bant boyunca integralidir. \(E_F\), bant kenarlarından birkaç \(kT\) uzakta olduğu sürece (dejenere olmayan durum) bu integral basit bir üstel ifadeye indirgenir.</p>
 <p><b>Intrinsic carrier concentration</b> veya <b>öz taşıyıcı yoğunluğu</b> \(n_i\), katkısız bir yarıiletkende termal dengede birim hacimde doğal olarak bulunan hareketli elektron ve hol yoğunluğudur. Intrinsic malzemede her kopan bağ bir elektron ve bir hol ürettiği için:</p>
 <p>\[\boxed{n=p=n_i}\]</p>
-<p>Si için 300 K'de \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) (Sze: \(9.65\times10^{9}\)). Bu değer <b>Si atom yoğunluğu değildir</b>: 1 cm³ silisyumda yaklaşık \(5\times10^{22}\) atom vardır; yani saf Si'de oda sıcaklığında <b>her ~\(5\times10^{12}\) atoma yalnızca bir serbest elektron</b> düşer. Saf silisyum bu yüzden iyi bir iletken değildir.</p>
+<p>Si için 300 K'de \(n_i\approx9.65\times10^{9}\ \mathrm{cm^{-3}}\) (Sze 3. baskı; eski kaynaklarda \(1.45\times10^{10}\) değeri geçer). Bu değer <b>Si atom yoğunluğu değildir</b>: 1 cm³ silisyumda yaklaşık \(5\times10^{22}\) atom vardır; yani saf Si'de oda sıcaklığında <b>her ~\(5\times10^{12}\) atoma yalnızca bir serbest elektron</b> düşer. Saf silisyum bu yüzden iyi bir iletken değildir.</p>
 
-<h3>0.4 \(n_i\) neden sıcaklığa çok duyarlıdır?</h3>
+<h4>\(n_i\) neden sıcaklığa çok duyarlıdır?</h4>
 <p>Dejenere olmayan yaklaşımda:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür: Si'de 300 K'den 400 K'e çıkınca \(n_i\) yaklaşık 500 kat artar. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p>
+<p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür: Si'de 300 K'den 400 K'e çıkınca \(n_i\) yaklaşık 500 kat artar. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p><p>Bu üstel bağımlılık, yarıiletken aygıtların sıcaklığa duyarlılığının temel nedenidir.</p>
 
-<h3>0.5 Katkılama: taşıyıcı sayısını neden ve nasıl seçeriz?</h3>
+<h3>1.5 Katkılama: taşıyıcı sayısını neden ve nasıl seçeriz?</h3>
 <p>Saf silisyumun iki sorunu vardır: taşıyıcı sayısı çok azdır ve bu sayı sıcaklıkla üstel olarak değişir. Çözüm, kristale kontrollü miktarda <b>yabancı atom (katkı, dopant)</b> yerleştirmektir. Katkı atomu bir Si atomunun yerine oturur (<b>yer değiştirmeli katkı</b>) ve dört komşusuyla bağ kurar. Katkının değerlik elektron sayısı Si'den farklı olduğu için bir elektron <b>artar</b> ya da <b>eksik</b> kalır; taşıyıcı sayısını artık sıcaklık değil, üretim sırasında seçtiğimiz katkı miktarı belirler.</p>
 
-<h3>0.6 \(N_D\) ve \(N_A\): katkı yoğunluğu tanımı</h3>
+<h3>1.6 \(N_D\) ve \(N_A\): katkı yoğunluğu tanımı</h3>
 <p>Katkı miktarını, birim hacimdeki katkı atomu sayısıyla ölçeriz. Bu iki sembol dersin geri kalanında her denklemde karşımıza çıkacak:</p>
 <div class="def-grid">
 <div class="def-card"><div class="sym"><b>\(N_D\)</b><span>donör (verici) yoğunluğu</span></div>
@@ -407,7 +414,7 @@ html[lang="en"] .edu-en { display:block; }
 </tbody></table></div>
 <div class="note"><strong>Kompanzasyon:</strong> Aynı bölgede hem donör hem akseptör varsa ikisi birbirini kısmen yok eder; donörün fazla elektronu akseptörün eksiğini doldurur. Tip ve çoğunluk taşıyıcı yoğunluğu <b>net katkıyla</b> belirlenir: \(N_D>N_A\) ise \(n\approx N_D-N_A\), \(N_A>N_D\) ise \(p\approx N_A-N_D\).</div>
 
-<h3>0.7 n tipi ve p tipi silisyum ne demek?</h3>
+<h3>1.7 n tipi ve p tipi silisyum</h3>
 <div class="type-grid">
 <div class="type-card n"><h4>n tipi silisyum (negatif taşıyıcı çoğunlukta)</h4><ul>
 <li><b>Nasıl yapılır?</b> Si'ye V. grup atomu (P, As, Sb) eklenir: \(N_D>N_A\).</li>
@@ -427,15 +434,16 @@ html[lang="en"] .edu-en { display:block; }
 </ul></div>
 </div>
 <p>İki tip de <b>aynı kristaldir</b>; farkı milyonlarca atomda bir yer alan katkı atomları yaratır. Buna rağmen etkisi çok büyüktür: \(N_D=10^{16}\ \mathrm{cm^{-3}}\) ile elektron yoğunluğu \(n_i\)'nin yaklaşık bir milyon katına çıkar, hol yoğunluğu ise yaklaşık bir milyon kat azalır. p-n eklemi, BJT ve MOSFET gibi aygıtların hepsi n ve p bölgelerinin yan yana getirilmesiyle çalışır.</p>
+<p>Katkı arttıkça \(E_F\) ilgili bant kenarına yaklaşır. \(N_D\) yaklaşık \(10^{18}\ \text{cm}^{-3}\)'ün üzerine çıktığında Boltzmann yaklaşımı bozulmaya başlar; bu durum 5. haftada yüksek katkılama etkileri başlığında ele alınacaktır.</p>
 
-<h3>0.8 Katkılama varken \(n_i\) ne olur?</h3>
+<h3>1.8 Kütle etkisi yasası: katkılama varken \(n_i\)</h3>
 <p>Katkılama \(n_i\)'yi ortadan kaldırmaz. Donör veya akseptörler çoğunluk taşıyıcısını değiştirir; termal dengede ise çarpım sabit kalır (<b>kütle etkisi yasası</b>):</p>
 <p>\[\boxed{np=n_i^2}\]</p>
 <p>Çoğunluk taşıyıcısı artarsa, fazla elektronlar holler ile daha sık karşılaşıp rekombine olduğu için azınlık taşıyıcısı aynı oranda azalır. Tam iyonlaşmış, kompanzasyonsuz n tipi malzemede \(N_D\gg n_i\) ise \(n\approx N_D\) ve \(p\approx n_i^2/N_D\) olur.</p>
 
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Üç yoğunluğu karıştırmayın</div><p><b>Atom yoğunluğu</b> kristaldeki atomları (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>katkı yoğunluğu</b> (\(N_D\), \(N_A\)) eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> (\(n\), \(p\), \(n_i\)) ise gerçekten hareket edebilen elektron ve holleri sayar. Görseller sekmesindeki çubuk grafikte üçünü aynı eksende karşılaştırabilirsiniz.</p></div>
+<div class="note"><strong>Üç yoğunluğu karıştırmayın:</strong> <b>Atom yoğunluğu</b> kristaldeki atomları (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>katkı yoğunluğu</b> (\(N_D\), \(N_A\)) eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> (\(n\), \(p\), \(n_i\)) ise gerçekten hareket edebilen elektron ve holleri sayar. Görseller sekmesindeki çubuk grafikte üçünü aynı eksende karşılaştırabilirsiniz.</div>
 
-<h3>0.9 Dört oyuncu: elektron, hol, foton ve fonon</h3>
+<h3>1.9 Dört oyuncu: elektron, hol, foton ve fonon</h3>
 <p>Yarıiletken fiziğinde olan biten neredeyse her şey dört “parçacık” arasındaki alışverişle anlatılır. Elektron ve hol <b>yük taşır</b>; foton ve fonon <b>enerji ve momentum taşır</b>, taşıyıcıları üretir, yok eder veya saptırır.</p>
 <div class="table-wrap"><table class="data wrap">
 <thead><tr><th>Oyuncu</th><th>Nedir?</th><th>Yük</th><th>Tipik enerji / momentum</th><th>Bu dersteki rolü</th></tr></thead>
@@ -448,11 +456,11 @@ html[lang="en"] .edu-en { display:block; }
 <p>Bu dört oyuncunun karşılaştığı üç tipik sahne vardır:</p>
 <ul>
 <li><b>Üretim:</b> bir foton (\(h\nu\ge E_g\)) veya yeterince enerjik bir fonon bir bağı koparır → bir elektron + bir hol. Si dolaylı bant aralıklı olduğundan, bant kenarında foton soğurmasına momentum sağlamak için bir fonon da katılmalıdır.</li>
-<li><b>Saçılma:</b> hareket eden elektron ya da hol bir fononla veya iyonlaşmış katkı atomuyla etkileşip yön/hız değiştirir. Taşıyıcı yok olmaz, yalnızca rotası değişir. Bu bölümün konusu budur.</li>
+<li><b>Saçılma:</b> hareket eden elektron ya da hol bir fononla veya iyonlaşmış katkı atomuyla etkileşip yön/hız değiştirir. Taşıyıcı yok olmaz, yalnızca rotası değişir. 1.10–1.12 bu olayı ele alır.</li>
 <li><b>Rekombinasyon:</b> elektron bir hol ile birleşir, çift yok olur. Enerji GaAs gibi doğrudan malzemede çoğunlukla <b>foton</b> (ışık), Si'de çoğunlukla tuzaklar üzerinden <b>fonon</b> (ısı) olarak açığa çıkar.</li>
 </ul>
 
-<h3>0.10 Çarpışma ve saçılma nedir? Farkı ne?</h3>
+<h3>1.10 Çarpışma ve saçılma nedir? Farkı ne?</h3>
 <div class="def-grid">
 <div class="def-card"><div class="sym"><b>Çarpışma</b><span>günlük dildeki imge</span></div>
 <dl>
@@ -468,9 +476,9 @@ html[lang="en"] .edu-en { display:block; }
 </dl></div>
 </div>
 <p>Kısacası: <b>“çarpışma” olayın gündelik adı, “saçılma” fiziksel mekanizmasıdır.</b> Bu derste ikisi aynı olayı anlatmak için kullanılabilir, ama sayılarla konuşurken saçılma resmini düşünmek gerekir. En şaşırtıcı nokta şudur: <b>mükemmel ve titreşmeyen bir kristalde elektron hiç saçılmaz.</b> Elektron bir dalgadır ve periyodik potansiyel içinde (Bloch dalgası olarak) engelsiz ilerler; atomların “etkisi” zaten etkin kütle \(m^*\)'ın içindedir. Direnci doğuran, bu periyodikliği bozan her şeydir.</p>
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Sık yapılan hata</div><p>“Elektronlar Si atomlarına çarptığı için direnç oluşur.” Yanlış. Öyle olsaydı serbest yol atomlar arası mesafe (~0.2 nm) mertebesinde olurdu; ölçülen değer ise oda sıcaklığında onlarca nanometredir ve soğudukça <b>uzar</b>. Taşıyıcıyı saptıran atomların kendisi değil, <b>titreşimleri (fononlar)</b> ve <b>kusurlardır</b>.</p></div>
+<div class="note"><strong>Not:</strong> “Elektronlar Si atomlarına çarptığı için direnç oluşur.” Yanlış. Öyle olsaydı serbest yol atomlar arası mesafe (~0.2 nm) mertebesinde olurdu; ölçülen değer ise oda sıcaklığında onlarca nanometredir ve soğudukça <b>uzar</b>. Taşıyıcıyı saptıran atomların kendisi değil, <b>titreşimleri (fononlar)</b> ve <b>kusurlardır</b>.</div>
 
-<h3>0.11 Çarpışmalar nelerden oluyor?</h3>
+<h3>1.11 Çarpışmalar nelerden oluyor?</h3>
 <div class="type-grid">
 <div class="type-card ph"><h4>1. Örgü (fonon) saçılması</h4><ul>
 <li>Sıcaklıkta atomlar denge konumları etrafında titreşir; periyodiklik anlık olarak bozulur.</li>
@@ -487,257 +495,17 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 <p><b>Diğer kaynaklar:</b> nötr katkı atomları ve kristal kusurları (boşluk, dislokasyon), MOSFET kanalında oksit arayüzünün <b>pürüzlülüğü</b>, çok yüksek taşıyıcı yoğunluğunda <b>taşıyıcı–taşıyıcı</b> (elektron–elektron, elektron–hol) saçılması ve alaşımlarda (SiGe) <b>alaşım düzensizliği</b>. Holler de aynı mekanizmalarla saçılır; Si'de hol hareketliliğinin (\(\approx470\)) elektronunkinden (\(\approx1400\ \mathrm{cm^2/V\,s}\)) düşük olmasının ana nedeni holün daha büyük etkin kütlesidir.</p>
 
-<h3>0.12 Saçılmadan hareketliliğe: ortalama serbest yol ve Matthiessen kuralı</h3>
+<h3>1.12 Sürüklenme, hareketlilik ve difüzyon</h3>
 <p>Taşıyıcı iki saçılma arasında ısıl hızla \(v_{th}\approx10^7\ \mathrm{cm/s}\) rastgele yönlerde koşar. Elektrik alan her serbest uçuşta onu biraz ittiği için, rastgele hareketin üzerine küçük bir ortalama <b>sürüklenme hızı</b> biner:</p>
 <p>\[ v_d = \mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda = v_{th}\,\tau_m \]</p>
 <p>Si elektronları için oda sıcaklığında \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) ve \(m^*\approx0.26\,m_0\) alınırsa ortalama saçılma süresi \(\tau_m\approx0.2\) ps, <b>ortalama serbest yol</b> \(\lambda\approx40\)–\(50\) nm çıkar: yaklaşık 200 atom mesafesi. \(\mathcal{E}=1\ \mathrm{kV/cm}\) gibi tipik bir alanda \(v_d\approx1.4\times10^6\) cm/s olur; yani sürüklenme, ısıl hareketin üzerindeki küçük bir “eğilimdir”.</p>
 <p>Farklı mekanizmalar bağımsız çalıştığında saçılma <b>oranları toplanır</b>; bu da hareketliliklerin terslerinin toplanması demektir (<b>Matthiessen kuralı</b>):</p>
 <p>\[ \frac{1}{\tau_m}=\frac{1}{\tau_L}+\frac{1}{\tau_I}+\dots \qquad\Longrightarrow\qquad \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I}+\dots \]</p>
 <p>Sonuç olarak en <b>kötü</b> (en sık saçılan) mekanizma hareketliliği belirler: düşük sıcaklıkta iyonlaşmış katkılar, yüksek sıcaklıkta fononlar. Görseller sekmesindeki saçılma simülasyonunda bu yarışı canlı izleyebilir, hemen altındaki grafikte de \(\mu(T)\)'nin nasıl bir tepe yaptığını görebilirsiniz.</p>
-<div class="edu-card edu-predict"><div class="edu-label">🧪 Simülasyondan önce tahmin et</div><p>Katkı sayısını sabit tutup sıcaklığı 50 K'den 600 K'e çıkarırsanız ortalama serbest yol önce artar mı, azalır mı? Hangi sıcaklıkta en uzun olur?</p></div>
-
-<div class="note"><strong>Sze karşılığı:</strong> Bölüm 1, kısım 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic yoğunluk, donörler ve akseptörler) ve 1.5.1 (Drift: hareketlilik, saçılma mekanizmaları).</div>
-</div>
-</div>
-
-<div class="pane" data-pane="matematik">
-<div class="prose">
-<h3>Intrinsic yoğunluk ve kütle etkisi</h3>
-<div class="eq">\[ n = p = n_i, \qquad n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right) \propto T^{3/2}e^{-E_g/2kT} \]<span class="cap">Si, 300 K: \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\ \mathrm{cm^{-3}}\), \(E_g=1.12\) eV → \(n_i\approx 10^{10}\ \mathrm{cm^{-3}}\).</span></div>
-<div class="eq">\[ np = n_i^2 \]<span class="cap">Termal dengede, dejenere olmayan malzemede katkıdan bağımsızdır. Katkı yalnızca \(n\) ile \(p\)'nin bu çarpımı nasıl paylaştığını değiştirir.</span></div>
-
-<h3>Yük nötrlüğü ve katkı iyonlaşması</h3>
-<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">Sol taraf negatif, sağ taraf pozitif yükleri sayar. \(N_D^+\) ve \(N_A^-\) sabit (hareketsiz) iyonlardır; \(n\) ve \(p\) hareketli taşıyıcılardır.</span></div>
-<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Taban durumu dejenerelik çarpanları Si için \(g_D=2\), \(g_A=4\). İyonlaşma enerjileri: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
-
-<details class="derive"><summary>Türetim: tam iyonlaşmada \(n\) ve \(p\)</summary><div>
-<p>\(N_D^+=N_D\), \(N_A^-=N_A\) ve \(p=n_i^2/n\) nötrlük denklemine yazılırsa:</p>
-\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
-<p>Aynı işlem hol için yapılırsa:</p>
-\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
-<p>Kök içindeki iki terimin yarışı rejimi belirler:</p>
-<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, çoğunluk yoğunluğu = net katkı.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic üretim artık ihmal edilemez.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic davranış, \(n\approx p\approx n_i\).</li></ul>
-</div></details>
-
-<h3>n tipi ve p tipi için pratik formüller</h3>
-<div class="eq">\[ \text{n tipi } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
-<div class="eq">\[ \text{p tipi } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
-<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n tipi, \(E_F<E_i\) → p tipi. Katkı 10 kat arttığında \(E_F\) yaklaşık \(kT\ln10\approx 60\) meV kayar.</span></div>
-
-<h3>Düşük sıcaklık: freeze-out</h3>
-<details class="derive"><summary>Türetim: kompanzasyonsuz n tipinde freeze-out yaklaşımı</summary><div>
-<p>Çok düşük sıcaklıkta \(p\approx0\), \(N_A=0\) ve donörlerin çoğu nötrdür (\(e^{(E_F-E_D)/kT}\gg1\)). Nötrlük \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\) olur. Bunu \(n=N_C e^{-(E_C-E_F)/kT}\) ile çarpıp \(E_F\)'yi yok edersek:</p>
-\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
-<p>Eğim, intrinsic bölgedeki \(E_g/2\) yerine \((E_C-E_D)/2\) ile belirlenir; bu yüzden freeze-out bölgesi çok daha düşük sıcaklıklarda görülür.</p>
-</div></details>
-
-<h3>Örnekler</h3>
-<p><b>n tipi:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
-<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
-<p><b>p tipi:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
-<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
-
-<h3>Saçılma, hareketlilik ve serbest yol</h3>
-<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Si elektronu, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
-<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen kuralı: bağımsız saçılma oranları toplanır. \(\mu\), \(\mu_L=\mu_I\) sıcaklığında en büyük değerine ulaşır; bu sıcaklık \(N_I^{1/3}\) ile artar.</span></div>
-<details class="derive"><summary>Türetim: Drude modeliyle \(\mu=q\tau_m/m^*\)</summary><div>
-<p>Bir taşıyıcı son saçılmadan sonra rastgele bir hızla yola çıkar; ortalaması sıfırdır. Sonraki \(t\) süresi boyunca alan ona \(\Delta v=-q\mathcal{E}t/m^*\) (elektron için) kazandırır. Saçılmalar arası süre üstel dağılımlı ve ortalaması \(\tau_m\) olduğundan \(\langle t\rangle=\tau_m\):</p>
-\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
-<p>Hol için işaret pozitiftir. Saçılma ne kadar sıksa (\(\tau_m\) küçük) veya etkin kütle ne kadar büyükse hareketlilik o kadar düşer.</p>
-</div></details>
-<details class="derive"><summary>Neden \(\mu_L\propto T^{-3/2}\) ve \(\mu_I\propto T^{3/2}\)?</summary><div>
-<p><b>Fonon:</b> Akustik fonon sayısı \(\propto T\), taşıyıcının saçılabileceği durum sayısı ve hızı \(\propto T^{1/2}\) ile artar: \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
-<p><b>İyonlaşmış katkı:</b> Rutherford saçılmasında sapma açısı \(\propto 1/(m^*v^2)\); saçılma kesit alanı \(\propto v^{-4}\) ve oran \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). \(v\propto T^{1/2}\) konursa \(1/\tau_I\propto N_I T^{-3/2}\).</p>
-</div></details>
-</div>
-</div>
-
-<div class="pane" data-pane="gorsel">
-<p class="legend-key">Renk kodu tüm derste sabittir: <span class="e">mavi</span> elektron ve iletim bandı, <span class="h">kırmızı</span> hol ve valans bandı, <span class="f">yeşil</span> Fermi seviyesi.</p>
-
-<section class="fig">
-  <h3>Kristalden banda: katkı atomları ve taşıyıcılar</h3>
-  <p class="why">Solda iki boyuta indirgenmiş Si örgüsü (her çizgi iki elektronlu bir kovalent bağ), sağda aynı durumun bant diyagramı. Tipi değiştirin: P atomunun 5. elektronu nereye gidiyor, B atomunun eksik bağı nasıl hol oluyor? Sıcaklığı düşürüp freeze-out'u, yükseltip kopan bağları görün. Taşıyıcı sayıları sembolik, alttaki değerler gerçek hesaptır.</p>
-  <div class="controls">
-    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Saf Si</button><button aria-pressed="true" data-v="n">n tipi (P)</button><button aria-pressed="false" data-v="p">p tipi (B)</button></span>
-    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
-    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
-  </div>
-  <div class="readout" id="ro-f0-lat"></div>
-  <div class="plot tall" id="p-f0-lattice"></div>
-</section>
-
-<section class="fig">
-  <h3>n tipi mi, p tipi mi? \(N_D\) ile \(N_A\) yarışı</h3>
-  <p class="why">\(N_A\)'yı sabit tutup \(N_D\)'yi süpürdüğümüzde elektron ve hol yoğunlukları. \(N_D=N_A\) çizgisinin solunda malzeme p tipi, sağında n tipidir. Çoğunluk taşıyıcısı arttıkça azınlığın aynı oranda azaldığına dikkat edin: iki eğri her yerde \(np=n_i^2\) ile birbirine bağlıdır.</p>
-  <div class="controls">
-    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
-    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
-    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
-  </div>
-  <div class="readout" id="ro-f0-np"></div>
-  <div class="plot" id="p-f0-sweep"></div>
-</section>
-
-<section class="fig">
-  <h3>Atom, katkı ve taşıyıcı yoğunlukları aynı eksende</h3>
-  <p class="why">Yukarıdaki kaydırıcılar bu grafiği de günceller. Logaritmik eksende Si atom yoğunluğu, katkı yoğunlukları ve hareketli taşıyıcı yoğunlukları. Katkının ne kadar seyreltik olduğunu ve \(N_D\) ile \(n\)'nin ne zaman aynı çubuk boyuna geldiğini görün.</p>
-  <div class="plot" id="p-f0-bars"></div>
-</section>
-
-<section class="fig">
-  <h3>Sıcaklıkla üç rejim: freeze-out → extrinsic → intrinsic</h3>
-  <p class="why">Donör katkılı Si'de elektron yoğunluğu, eksik iyonlaşmayı da içeren nötrlük denkleminden hesaplanır. \(N_D\)'yi artırın: extrinsic plato yükselir ve intrinsic geçiş daha yüksek sıcaklığa kayar. İyonlaşma enerjisini artırın: freeze-out bölgesi genişler.</p>
-  <div class="controls">
-    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
-    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
-    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
-    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
-  </div>
-  <div class="readout" id="ro-f0-reg"></div>
-  <div class="plot" id="p-f0-regime"></div>
-  <div class="analysis-grid">
-  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Düşük sıcaklıkta donörlerin önemli kısmı elektronunu tutar, bu yüzden \(n\ll N_D\). Sıcaklık arttıkça donörler iyonlaşır ve \(n\) hızla yükselir.</p></div>
-  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler neredeyse tamamen iyonlaşmıştır, intrinsic üretim ise küçüktür. Taşıyıcı sayısını katkı belirler: \(n\approx N_D\). Aygıtların çalışma bölgesi burasıdır.</p></div>
-  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyüyüp \(N_D\)'yi yakalar. Katkı baskınlığını kaybeder ve sonunda \(n\approx p\approx n_i\) olur. Donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</p></div>
-  </div>
-</section>
-
-<section class="fig">
-  <h3>Saçılma simülasyonu: elektron, hol, fonon ve foton</h3>
-  <p class="why">Taşıyıcılar ısıl hızla rastgele koşar, alan onları yavaşça bir yöne iter. Yeşil halka <b>fonon saçılması</b> (titreşen Si atomu), sarı halka <b>iyonlaşmış katkı saçılması</b>dır (Coulomb sapması). Sıcaklığı düşürün: atomlar sakinleşir, fonon saçılması azalır ama yavaşlayan taşıyıcılar iyonlar tarafından çok daha sert saptırılır. Işığı açın: her foton bir elektron–hol çifti üretir, çift bir süre sonra rekombine olur. Alan ve hızlar görünür olsun diye abartılmıştır.</p>
-  <div class="controls">
-    <span class="seg" data-ctl="scCar"><button data-v="e">Elektron (n tipi)</button><button data-v="h">Hol (p tipi)</button><button data-v="eh">İkisi</button></span>
-    <span class="seg" data-ctl="scLight"><button data-v="off">Işık kapalı</button><button data-v="on">Işık (foton) açık</button></span>
-    <button type="button" class="sim-btn" id="sc-play">❚❚ Duraklat</button><button type="button" class="sim-btn" id="sc-reset">↺ Sıfırla</button>
-  </div>
-  <div class="controls">
-    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
-    <label>Katkı iyonu <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
-    <label>Alan \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
-  </div>
-  <div class="readout" id="ro-sc"></div>
-  <div class="plot sim" id="p-scat"></div>
-</section>
-
-<section class="fig">
-  <h3>Matthiessen kuralı: hareketlilik sıcaklıkla neden tepe yapar?</h3>
-  <p class="why">Yukarıdaki sıcaklık, katkı iyonu ve taşıyıcı seçimi bu grafiği de günceller (1 iyon ≈ \(10^{16}\ \mathrm{cm^{-3}}\) iyonlaşmış katkı). Düşük sıcaklıkta katkı iyonları, yüksek sıcaklıkta fononlar hareketliliği sınırlar; toplam \(\mu\) her zaman ikisinden küçüktür. λ değeri gerçek Si parametreleriyle hesaplanır.</p>
-  <div class="readout" id="ro-sc-mu"></div>
-  <div class="plot" id="p-sc-mu"></div>
-</section>
-</div>
-
-<div class="pane" data-pane="soru">
-<div class="qa"><p class="q">1. \(n_i\) atom yoğunluğu mudur? <span class="lvl">temel</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Hayır. Katkısız malzemede termal dengedeki <b>hareketli</b> elektron (ve hol) yoğunluğudur. Si'de 300 K'de \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\), atom yoğunluğu ise \(5\times10^{22}\ \mathrm{cm^{-3}}\); yani yaklaşık her \(5\times10^{12}\) atoma bir serbest elektron düşer.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">2. Saf Si'de elektron oluşunca hol neden oluşur? <span class="lvl">temel</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Elektron valans bandındaki dolu bir durumdan, yani bir kovalent bağdan ayrılır. Arkasında bir elektron eksikliği bırakır; bu eksiklik hol olarak hareket eder. Bu yüzden saf malzemede \(n=p\).</p>
-</div></details></div>
-
-<div class="qa"><p class="q">3. Hol gerçek bir parçacık mıdır? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Temel parçacık değildir. Valans bandındaki çok sayıda elektronun kolektif hareketini, tek bir boş durumun ters yönde hareketi olarak modellemek çok daha kolaydır. Bu boş durum \(+q\) yüklü ve pozitif etkin kütleli bir yarı-parçacık gibi davranır.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">4. Si'ye \(N_D=10^{16}\ \mathrm{cm^{-3}}\) fosfor ekleniyor. Kaç Si atomuna bir P düşer? 300 K'de \(n\) ve \(p\) nedir? <span class="lvl">temel</span></p>
-<details><summary>Çözümü göster</summary><div>
-\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atomuna bir P}, \qquad n\approx N_D = 10^{16}\ \mathrm{cm^{-3}}, \qquad p=\frac{(9.65\times10^9)^2}{10^{16}}\approx 9.3\times10^{3}\ \mathrm{cm^{-3}}. \]
-<p>Çok seyreltik bir katkı, elektron sayısını \(n_i\)'nin bir milyon katına çıkarırken hol sayısını bir milyon kat düşürür.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">5. \(N_A=10^{17}\ \mathrm{cm^{-3}}\) bor katkılı Si'de 300 K'de çoğunluk ve azınlık taşıyıcı yoğunlukları ile \(E_F-E_V\) nedir? <span class="lvl">orta</span></p>
-<details><summary>Çözümü göster</summary><div>
-\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
-<p>Malzeme p tipidir; Fermi seviyesi valans bandına yaklaşmıştır.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">6. Bir Si bölgesinde \(N_D=3\times10^{16}\) ve \(N_A=10^{16}\ \mathrm{cm^{-3}}\) var. Malzeme hangi tiptir; \(n\) ve \(p\) nedir? <span class="lvl">orta</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>\(N_D>N_A\) olduğu için <b>n tipidir</b>. Akseptörler donörlerin bir kısmını kompanze eder:</p>
-\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
-<div class="note"><strong>Dikkat:</strong> Taşıyıcı yoğunluğu net katkıya bağlıdır; hareketlilik ise toplam iyon yoğunluğu \(N_D+N_A\) ile belirlenir (1. hafta).</div>
-</div></details></div>
-
-<div class="qa"><p class="q">7. n tipi silisyum negatif yüklü müdür? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Hayır. Her iyonlaşmış donör bir serbest elektron ve bir sabit \(\mathrm{P^+}\) iyonu üretir; toplam yük sıfırdır. Nötrlük \(n+N_A^-=p+N_D^+\) denklemiyle ifade edilir. “n tipi” ifadesi yalnızca çoğunluk taşıyıcısının negatif yüklü olduğunu söyler.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">8. \(N_D=10^{15}\ \mathrm{cm^{-3}}\) Si yaklaşık hangi sıcaklıkta intrinsic davranmaya başlar? <span class="lvl">orta</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Geçiş kabaca \(n_i(T)\approx N_D\) olduğunda başlar. \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) sayısal olarak çözülürse \(n_i=10^{15}\ \mathrm{cm^{-3}}\) yaklaşık <b>545 K</b>'de sağlanır (\(N_D=10^{16}\) için ~650 K). Görseller sekmesindeki rejim grafiğinde \(N_D\)'yi değiştirerek bu kaymayı görebilirsiniz.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">9. Çok düşük sıcaklıkta neden \(n&lt;N_D\) olur? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Donör elektronunu serbest bırakmak için yaklaşık 45 meV gerekir. \(kT\) bu enerjiye göre çok küçük olduğunda (ör. 30 K'de \(kT\approx2.6\) meV) elektronların çoğu donör atomuna bağlı kalır. Bu duruma <b>freeze-out</b> (donma) denir.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">10. Yüksek sıcaklıkta n tipi etiketi neden anlamını yitirir? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Termal elektron–hol üretimi, yani \(n_i\), üstel olarak artar ve donörlerin sağladığı taşıyıcı yoğunluğunu aşar. Bu durumda \(n\approx p\approx n_i\) olur ve malzemenin davranışını katkı değil sıcaklık belirler. Geniş bant aralıklı malzemelerin (SiC, GaN) yüksek sıcaklıkta tercih edilmesinin nedeni budur.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">11. Çarpışma ile saçılma arasındaki fark nedir? Mükemmel bir kristalde elektron saçılır mı? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>“Çarpışma” olayın gündelik adıdır ve temas imgesi taşır; “saçılma”, taşıyıcının momentumunun periyodikliği bozan bir etki yüzünden değişmesidir ve temas gerektirmez. Mükemmel, titreşmeyen bir kristalde elektron Bloch dalgası olarak saçılmadan ilerler; direnç fononlardan ve kusurlardan gelir.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">12. \(\mu_n=1400\ \mathrm{cm^2/V\,s}\), \(m^*=0.26\,m_0\) olan Si elektronları için 300 K'de \(\tau_m\) ve ortalama serbest yol nedir? <span class="lvl">orta</span></p>
-<details><summary>Çözümü göster</summary><div>
-\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
-\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
-<p>Bu, Si atomları arasındaki ~0.24 nm mesafenin yaklaşık 200 katıdır.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">13. Katkılı Si'yi 300 K'den 77 K'e soğutunca hareketlilik neden bazen artar, bazen azalır? <span class="lvl">orta</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>Soğutma fononları azaltır (\(\mu_L\) artar) ama taşıyıcıları yavaşlatır ve iyonlaşmış katkı saçılmasını güçlendirir (\(\mu_I\) azalır). Matthiessen kuralına göre hangisi daha küçükse o baskın olur: hafif katkılı Si'de \(\mu\) artar, yoğun katkılı Si'de iyon saçılması baskınlaşıp \(\mu\) azalabilir.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">14. Si'ye ışık düşünce foton ve fonon ne rol oynar? <span class="lvl">kavramsal</span></p>
-<details><summary>Çözümü göster</summary><div>
-<p>\(h\nu\ge E_g\) olan foton soğurulur ve bir elektron–hol çifti üretir. Si dolaylı bant aralıklı olduğundan bant kenarı geçişinde momentumu bir fonon sağlar. Oluşan taşıyıcılar fononlarla saçılarak fazla enerjilerini ısı olarak örgüye verir, sonra çoğunlukla tuzaklar üzerinden rekombine olur; bu enerji de büyük ölçüde fonon (ısı) olarak açığa çıkar.</p>
-</div></details></div>
-</div>
-</template>
-
-<!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
-<template id="week1">
-<div class="pane" data-pane="anlatim">
-<div class="prose">
-<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu hafta ne öğreneceğiz?</div><ul><li>Kristal yapı ile enerji bantları arasındaki bağı kurmak.</li><li>Fermi seviyesinin taşıyıcı yoğunluğundaki rolünü açıklamak.</li><li>Katkılama ve sıcaklık değişince taşıyıcıların nasıl değişeceğini tahmin etmek.</li></ul></div><div class="edu-en"><div class="edu-label">🎯 Learning goals</div><ul><li>Connect crystal structure to energy bands.</li><li>Explain how the Fermi level controls carrier populations.</li><li>Predict how doping and temperature change carrier concentrations.</li></ul></div></div>
-<div class="edu-card edu-predict"><div class="edu-tr"><div class="edu-label">🧪 Önce tahmin et</div><p>Bir yarıiletkene donör katkısı artırılırsa Fermi seviyesi hangi banda yaklaşır? Grafiğe bakmadan önce nedenini söyleyin.</p></div><div class="edu-en"><div class="edu-label">🧪 Predict first</div><p>If donor doping is increased, which band should the Fermi level approach? Explain why before viewing the graph.</p></div></div>
-<div class="edu-card edu-mistake"><div class="edu-tr"><div class="edu-label">⚠️ Sık yapılan hata</div><p>Fermi seviyesi, elektronların tek tek bulunduğu enerji değildir; enerji durumlarının doluluk olasılığını belirleyen istatistiksel bir büyüklüktür.</p></div><div class="edu-en"><div class="edu-label">⚠️ Common misconception</div><p>The Fermi level is not the energy occupied by every electron; it is a statistical quantity governing occupation probability.</p></div></div>
-
-<figure class="lesson-visual"><img src="assets/images/week01/band-structure.svg" alt="Kristal örgü ve enerji bantlarının ilişkisi" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Kristal örgü ve enerji bantlarının ilişkisi · Özgün teknik şema</figcaption></figure>
-<h3>1.1 Kristal yapı</h3>
-<p>Si, Ge ve GaAs gibi yarı iletkenler düzenli bir kristal örgüde bulunur. Si ve Ge <b>elmas</b> yapısında, GaAs ise <b>çinko sülfür (zincblende)</b> yapısında kristalleşir. Her iki yapı da birbirinin içine geçmiş iki yüzey merkezli kübik (fcc) alt örgüden oluşur; ikinci alt örgü, birinciye göre cisim köşegeni boyunca \(a/4\) kaydırılmıştır. Böylece her atom dört en yakın komşusuyla düzgün dört yüzlü (tetrahedral) kovalent bağlar kurar. Elmas yapıda iki alt örgünün atomları aynı türdendir, zincblende'de ise bir alt örgü Ga, diğeri As'tır.</p>
-<p>Oda sıcaklığında Si'nin örgü sabiti \(a = 5.431\) Å, GaAs'ınki \(a = 5.653\) Å'dur. Kristal düzlemleri ve yönleri Miller indisleriyle \((hkl)\) ve \([hkl]\) olarak gösterilir; entegre devre üretiminde çoğunlukla (100) yüzeyli pullar kullanılır, çünkü bu yüzeyde oksit–yarı iletken ara yüzey tuzak yoğunluğu en düşüktür.</p>
-
-<h3>1.2 Enerji bantları</h3>
-<p>Atomlar kristal oluşturmak üzere yaklaştıkça, tek atomdaki keskin enerji seviyeleri Pauli ilkesi gereği yarılarak <b>bantlara</b> dönüşür. Yarı iletkende 0 K'de tamamen dolu en üst banda <b>valans bandı</b>, tamamen boş en alt banda <b>iletim bandı</b> denir; ikisi arasındaki yasak aralık bant aralığı \(E_g\)'dir. Si için oda sıcaklığında \(E_g = 1.12\) eV, GaAs için 1.42 eV, Ge için 0.66 eV'dur.</p>
-<p>Bant yapısı, enerjinin kristal momentumuna \(\hbar\mathbf{k}\) bağlılığı \(E(\mathbf{k})\) ile tanımlanır. İletim bandı minimumu ile valans bandı maksimumu aynı \(\mathbf{k}\) değerindeyse yarı iletken <b>doğrudan bant aralıklıdır</b> (GaAs). Farklı \(\mathbf{k}\) değerlerindeyse <b>dolaylı bant aralıklıdır</b> (Si, Ge). Dolaylı geçişlerde momentum korunumu için bir fononun katılması gerekir; bu yüzden Si verimli ışık yayamaz, GaAs ise LED ve lazerlerde kullanılır. Bu ayrımı Görseller sekmesindeki 3B \(E(k)\) yüzeyinde inceleyebilirsiniz.</p>
-<p>Bant kenarlarının yakınında \(E(k)\) parabol ile yaklaşılabilir ve eğrilik <b>etkin kütle</b> \(m^*\) ile ifade edilir. Etkin kütle, kristalin periyodik potansiyelinin etkisini taşıyıcının kütlesine gömer; böylece elektron ve hollere dış kuvvetler altında serbest parçacık gibi davranan nesneler olarak bakabiliriz.</p>
-
-<h3>1.3 Isıl dengede taşıyıcı yoğunlukları</h3>
-<p>Bir enerji seviyesinin elektronla dolu olma olasılığı Fermi–Dirac dağılımıyla verilir. Fermi seviyesi \(E_F\), doluluk olasılığının tam 1/2 olduğu enerjidir. İletim bandındaki elektron yoğunluğu, durum yoğunluğu ile doluluk olasılığının çarpımının bant boyunca integralidir. \(E_F\), bant kenarlarından birkaç \(kT\) uzakta olduğu sürece (dejenere olmayan durum) bu integral basit bir üstel ifadeye indirgenir.</p>
-<p><b>Has (intrinsic)</b> yarı iletkende \(n = p = n_i\)'dir. Si için 300 K'de \(n_i \approx 9.65\times10^{9}\ \text{cm}^{-3}\)'tür (Sze 3. baskı; eski kaynaklarda \(1.45\times10^{10}\) değeri geçer). \(n_i\) sıcaklıkla ve bant aralığıyla üstel olarak değişir; bu bağımlılık, cihazların sıcaklığa duyarlılığının temel nedenidir.</p>
-
-<h3>1.4 Katkılama</h3>
-<p>Si'ye V. grup atomu (P, As) eklendiğinde beşinci elektron zayıf bağlıdır ve iletim bandının yaklaşık 45 meV altında bir <b>verici (donör)</b> seviyesi oluşturur; oda sıcaklığında bu elektronların neredeyse tamamı iyonlaşır, malzeme <b>n tipi</b> olur. III. grup atomu (B) ise valans bandının hemen üstünde bir <b>alıcı (akseptör)</b> seviyesi oluşturur ve <b>p tipi</b> malzeme elde edilir. Katkılamada iki koşul her zaman geçerlidir: kütle etkisi yasası \(np = n_i^2\) ve yük nötrlüğü.</p>
-<p>Katkı arttıkça \(E_F\) ilgili bant kenarına yaklaşır. \(N_D\) yaklaşık \(10^{18}\ \text{cm}^{-3}\)'ün üzerine çıktığında Boltzmann yaklaşımı bozulmaya başlar; bu durum 5. haftada yüksek katkılama etkileri başlığında ele alınacaktır.</p>
-
-<h3>1.5 Taşınım olayları</h3>
-<p>Elektrik alan altında taşıyıcılar örgü titreşimleri (fononlar) ve iyonlaşmış katkı atomlarıyla sürekli çarpışır; ortalama hızları alanla orantılıdır ve orantı katsayısına <b>hareketlilik (mobilite)</b> denir. Katkı yoğunluğu arttıkça iyonize safsızlık saçılması güçlenir ve hareketlilik düşer. Yüksek alanlarda sürüklenme hızı yaklaşık \(10^{7}\) cm/s'de doyuma ulaşır.</p>
+<h4>Difüzyon</h4>
 <p>Taşıyıcı yoğunluğunda uzaysal bir fark varsa, taşıyıcılar yüksek yoğunluktan düşüğe doğru <b>difüzyon</b> ile hareket eder. Sürüklenme ve difüzyon aynı saçılma süreçlerinden kaynaklandığı için katsayıları Einstein bağıntısıyla birbirine bağlıdır.</p>
 
-<h3>1.6 Üretim, yeniden birleşme ve temel denklemler</h3>
+<h3>1.13 Üretim, yeniden birleşme ve temel denklemler</h3>
 <p>Dengeden sapıldığında (örneğin ışıkla fazla taşıyıcı üretildiğinde) sistem yeniden birleşme (rekombinasyon) yoluyla dengeye döner. Si gibi dolaylı yarı iletkenlerde baskın süreç, bant aralığı içindeki tuzak seviyeleri üzerinden gerçekleşen Shockley–Read–Hall (SRH) rekombinasyonudur. Azınlık taşıyıcılarının ortalama ömrü \(\tau\), difüzyon uzunluğu ise \(L = \sqrt{D\tau}\) ile verilir.</p>
 <p>Tüm yarı iletken cihaz analizleri üç denklem grubuna dayanır: <b>Poisson denklemi</b>, <b>akım yoğunluğu denklemleri</b> (sürüklenme + difüzyon) ve <b>süreklilik denklemleri</b>. Sonraki haftalarda p-n eklemden transistörlere kadar tüm yapılar bu üçlüyle çözülecektir.</p>
 
@@ -773,18 +541,54 @@ html[lang="en"] .edu-en { display:block; }
 <div class="eq">\[ np = n_i^2 = N_C N_V \exp\!\left(-\frac{E_g}{kT}\right) \;\;\Rightarrow\;\; n_i = \sqrt{N_C N_V}\; e^{-E_g/2kT} \propto T^{3/2} e^{-E_g/2kT} \]</div>
 <div class="eq">\[ E_i = \frac{E_C+E_V}{2} + \frac{kT}{2}\ln\frac{N_V}{N_C}, \qquad n = n_i\, e^{(E_F-E_i)/kT},\quad p = n_i\, e^{(E_i-E_F)/kT} \]<span class="cap">\(E_i\), bant aralığının ortasından yalnızca birkaç meV sapar.</span></div>
 
-<h3>Yük nötrlüğü (tam iyonlaşma)</h3>
-<details class="derive"><summary>Türetim: katkılı yarı iletkende \(n\)</summary><div>
-<p>Nötrlük: \(n + N_A = p + N_D\). \(p = n_i^2/n\) yazılırsa ikinci derece denklem çıkar:</p>
-\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \]
-\[ n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
-<p>\(N_D - N_A \gg n_i\) ise \(n \approx N_D - N_A\) ve \(E_C - E_F = kT\ln[N_C/(N_D-N_A)]\).</p>
+<h3>Yük nötrlüğü ve katkı iyonlaşması</h3>
+<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">Sol taraf negatif, sağ taraf pozitif yükleri sayar. \(N_D^+\) ve \(N_A^-\) sabit (hareketsiz) iyonlardır; \(n\) ve \(p\) hareketli taşıyıcılardır.</span></div>
+<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Taban durumu dejenerelik çarpanları Si için \(g_D=2\), \(g_A=4\). İyonlaşma enerjileri: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
+
+<details class="derive"><summary>Türetim: tam iyonlaşmada \(n\) ve \(p\)</summary><div>
+<p>\(N_D^+=N_D\), \(N_A^-=N_A\) ve \(p=n_i^2/n\) nötrlük denklemine yazılırsa:</p>
+\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
+<p>Aynı işlem hol için yapılırsa:</p>
+\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
+<p>Kök içindeki iki terimin yarışı rejimi belirler:</p>
+<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, çoğunluk yoğunluğu = net katkı.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic üretim artık ihmal edilemez.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic davranış, \(n\approx p\approx n_i\).</li></ul>
 </div></details>
+
+<h3>n tipi ve p tipi için pratik formüller</h3>
+<div class="eq">\[ \text{n tipi } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
+<div class="eq">\[ \text{p tipi } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
+<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n tipi, \(E_F<E_i\) → p tipi. Katkı 10 kat arttığında \(E_F\) yaklaşık \(kT\ln10\approx 60\) meV kayar.</span></div>
+
+<h3>Düşük sıcaklık: freeze-out</h3>
+<details class="derive"><summary>Türetim: kompanzasyonsuz n tipinde freeze-out yaklaşımı</summary><div>
+<p>Çok düşük sıcaklıkta \(p\approx0\), \(N_A=0\) ve donörlerin çoğu nötrdür (\(e^{(E_F-E_D)/kT}\gg1\)). Nötrlük \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\) olur. Bunu \(n=N_C e^{-(E_C-E_F)/kT}\) ile çarpıp \(E_F\)'yi yok edersek:</p>
+\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
+<p>Eğim, intrinsic bölgedeki \(E_g/2\) yerine \((E_C-E_D)/2\) ile belirlenir; bu yüzden freeze-out bölgesi çok daha düşük sıcaklıklarda görülür.</p>
+</div></details>
+
+<h3>Örnekler</h3>
+<p><b>n tipi:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
+<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
+<p><b>p tipi:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
+<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
 
 <h3>Akım yoğunluğu denklemleri</h3>
 <div class="eq">\[ J_n = q\mu_n n \mathcal{E} + qD_n\frac{dn}{dx}, \qquad J_p = q\mu_p p \mathcal{E} - qD_p\frac{dp}{dx} \]</div>
 <div class="eq">\[ D = \frac{kT}{q}\,\mu \quad\text{(Einstein bağıntısı)}, \qquad \rho = \frac{1}{q(\mu_n n + \mu_p p)} \]</div>
 <div class="eq">\[ \mu(N) = \mu_{min} + \frac{\mu_{max}-\mu_{min}}{1 + (N/N_{ref})^{\alpha}} \]<span class="cap">Caughey–Thomas ampirik modeli. Si elektronları: \(\mu_{min}=68.5,\ \mu_{max}=1414\ \text{cm}^2/\text{V·s},\ N_{ref}=9.2\times10^{16},\ \alpha=0.711\).</span></div>
+
+<h3>Saçılma, hareketlilik ve serbest yol</h3>
+<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Si elektronu, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
+<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen kuralı: bağımsız saçılma oranları toplanır. \(\mu\), \(\mu_L=\mu_I\) sıcaklığında en büyük değerine ulaşır; bu sıcaklık \(N_I^{1/3}\) ile artar.</span></div>
+<details class="derive"><summary>Türetim: Drude modeliyle \(\mu=q\tau_m/m^*\)</summary><div>
+<p>Bir taşıyıcı son saçılmadan sonra rastgele bir hızla yola çıkar; ortalaması sıfırdır. Sonraki \(t\) süresi boyunca alan ona \(\Delta v=-q\mathcal{E}t/m^*\) (elektron için) kazandırır. Saçılmalar arası süre üstel dağılımlı ve ortalaması \(\tau_m\) olduğundan \(\langle t\rangle=\tau_m\):</p>
+\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
+<p>Hol için işaret pozitiftir. Saçılma ne kadar sıksa (\(\tau_m\) küçük) veya etkin kütle ne kadar büyükse hareketlilik o kadar düşer.</p>
+</div></details>
+<details class="derive"><summary>Neden \(\mu_L\propto T^{-3/2}\) ve \(\mu_I\propto T^{3/2}\)?</summary><div>
+<p><b>Fonon:</b> Akustik fonon sayısı \(\propto T\), taşıyıcının saçılabileceği durum sayısı ve hızı \(\propto T^{1/2}\) ile artar: \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
+<p><b>İyonlaşmış katkı:</b> Rutherford saçılmasında sapma açısı \(\propto 1/(m^*v^2)\); saçılma kesit alanı \(\propto v^{-4}\) ve oran \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). \(v\propto T^{1/2}\) konursa \(1/\tau_I\propto N_I T^{-3/2}\).</p>
+</div></details>
 
 <h3>SRH rekombinasyonu</h3>
 <div class="eq">\[ U = \frac{\sigma_n\sigma_p v_{th} N_t\,(pn - n_i^2)}{\sigma_n\!\left[n + n_i e^{(E_t-E_i)/kT}\right] + \sigma_p\!\left[p + n_i e^{(E_i-E_t)/kT}\right]} \]<span class="cap">Düşük enjeksiyonda n tipi malzeme için \(U \approx (p_n - p_{n0})/\tau_p\), \(\tau_p = 1/(\sigma_p v_{th} N_t)\). Rekombinasyon en etkili olarak \(E_t \approx E_i\) olduğunda gerçekleşir.</span></div>
@@ -819,6 +623,18 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>Kristalden banda: katkı atomları ve taşıyıcılar</h3>
+  <p class="why">Solda iki boyuta indirgenmiş Si örgüsü (her çizgi iki elektronlu bir kovalent bağ), sağda aynı durumun bant diyagramı. Tipi değiştirin: P atomunun 5. elektronu nereye gidiyor, B atomunun eksik bağı nasıl hol oluyor? Sıcaklığı düşürüp freeze-out'u, yükseltip kopan bağları görün. Taşıyıcı sayıları sembolik, alttaki değerler gerçek hesaptır.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Saf Si</button><button aria-pressed="true" data-v="n">n tipi (P)</button><button aria-pressed="false" data-v="p">p tipi (B)</button></span>
+    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
+    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
+  </div>
+  <div class="readout" id="ro-f0-lat"></div>
+  <div class="plot tall" id="p-f0-lattice"></div>
+</section>
+
+<section class="fig">
   <h3>Durum yoğunluğu × Fermi–Dirac = taşıyıcı dağılımı</h3>
   <p class="why">Solda bant diyagramı ve \(F(E)\), sağda \(N(E)F(E)\) (elektron) ve \(N(E)[1-F(E)]\) (hol). \(E_F\)'yi kaydırın: taşıyıcı yoğunluklarından biri artarken diğerinin nasıl üstel azaldığını görün. Sıcaklık, dağılımın kuyruğunu genişletir.</p>
   <div class="controls">
@@ -836,6 +652,24 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>Sıcaklıkla üç rejim: freeze-out → extrinsic → intrinsic</h3>
+  <p class="why">Donör katkılı Si'de elektron yoğunluğu, eksik iyonlaşmayı da içeren nötrlük denkleminden hesaplanır. \(N_D\)'yi artırın: extrinsic plato yükselir ve intrinsic geçiş daha yüksek sıcaklığa kayar. İyonlaşma enerjisini artırın: freeze-out bölgesi genişler.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
+    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
+    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
+    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-reg"></div>
+  <div class="plot" id="p-f0-regime"></div>
+  <div class="analysis-grid">
+  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Düşük sıcaklıkta donörlerin önemli kısmı elektronunu tutar, bu yüzden \(n\ll N_D\). Sıcaklık arttıkça donörler iyonlaşır ve \(n\) hızla yükselir.</p></div>
+  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler neredeyse tamamen iyonlaşmıştır, intrinsic üretim ise küçüktür. Taşıyıcı sayısını katkı belirler: \(n\approx N_D\). Aygıtların çalışma bölgesi burasıdır.</p></div>
+  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyüyüp \(N_D\)'yi yakalar. Katkı baskınlığını kaybeder ve sonunda \(n\approx p\approx n_i\) olur. Donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</p></div>
+  </div>
+</section>
+
+<section class="fig">
   <h3>Katkılama ve Fermi seviyesinin konumu</h3>
   <p class="why">Katkı türünü ve yoğunluğunu değiştirin. Fermi seviyesi yük nötrlüğü denkleminden hesaplanır. Katkı \(n_i\)'ye yaklaştığında malzeme hasa, \(10^{18}\ \text{cm}^{-3}\)'ün üzerinde ise dejenere olmaya yaklaşır.</p>
   <div class="controls">
@@ -848,9 +682,51 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>n tipi mi, p tipi mi? \(N_D\) ile \(N_A\) yarışı</h3>
+  <p class="why">\(N_A\)'yı sabit tutup \(N_D\)'yi süpürdüğümüzde elektron ve hol yoğunlukları. \(N_D=N_A\) çizgisinin solunda malzeme p tipi, sağında n tipidir. Çoğunluk taşıyıcısı arttıkça azınlığın aynı oranda azaldığına dikkat edin: iki eğri her yerde \(np=n_i^2\) ile birbirine bağlıdır.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
+    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
+    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-np"></div>
+  <div class="plot" id="p-f0-sweep"></div>
+</section>
+
+<section class="fig">
+  <h3>Atom, katkı ve taşıyıcı yoğunlukları aynı eksende</h3>
+  <p class="why">Yukarıdaki kaydırıcılar bu grafiği de günceller. Logaritmik eksende Si atom yoğunluğu, katkı yoğunlukları ve hareketli taşıyıcı yoğunlukları. Katkının ne kadar seyreltik olduğunu ve \(N_D\) ile \(n\)'nin ne zaman aynı çubuk boyuna geldiğini görün.</p>
+  <div class="plot" id="p-f0-bars"></div>
+</section>
+
+<section class="fig">
   <h3>Si'de hareketlilik ve özdirenç – katkı ilişkisi</h3>
   <p class="why">Düşük katkıda fonon saçılması, yüksek katkıda iyonize safsızlık saçılması baskındır. Sağ eksen, n ve p tipi Si'nin 300 K özdirencini verir (Caughey–Thomas modeli).</p>
   <div class="plot" id="p-mob"></div>
+</section>
+
+<section class="fig">
+  <h3>Saçılma simülasyonu: elektron, hol, fonon ve foton</h3>
+  <p class="why">Taşıyıcılar ısıl hızla rastgele koşar, alan onları yavaşça bir yöne iter. Yeşil halka <b>fonon saçılması</b> (titreşen Si atomu), sarı halka <b>iyonlaşmış katkı saçılması</b>dır (Coulomb sapması). Sıcaklığı düşürün: atomlar sakinleşir, fonon saçılması azalır ama yavaşlayan taşıyıcılar iyonlar tarafından çok daha sert saptırılır. Işığı açın: her foton bir elektron–hol çifti üretir, çift bir süre sonra rekombine olur. Alan ve hızlar görünür olsun diye abartılmıştır.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="scCar"><button data-v="e">Elektron (n tipi)</button><button data-v="h">Hol (p tipi)</button><button data-v="eh">İkisi</button></span>
+    <span class="seg" data-ctl="scLight"><button data-v="off">Işık kapalı</button><button data-v="on">Işık (foton) açık</button></span>
+    <button type="button" class="sim-btn" id="sc-play">❚❚ Duraklat</button><button type="button" class="sim-btn" id="sc-reset">↺ Sıfırla</button>
+  </div>
+  <div class="controls">
+    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
+    <label>Katkı iyonu <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
+    <label>Alan \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
+  </div>
+  <div class="readout" id="ro-sc"></div>
+  <div class="plot sim" id="p-scat"></div>
+</section>
+
+<section class="fig">
+  <h3>Matthiessen kuralı: hareketlilik sıcaklıkla neden tepe yapar?</h3>
+  <p class="why">Yukarıdaki sıcaklık, katkı iyonu ve taşıyıcı seçimi bu grafiği de günceller (1 iyon ≈ \(10^{16}\ \mathrm{cm^{-3}}\) iyonlaşmış katkı). Düşük sıcaklıkta katkı iyonları, yüksek sıcaklıkta fononlar hareketliliği sınırlar; toplam \(\mu\) her zaman ikisinden küçüktür. λ değeri gerçek Si parametreleriyle hesaplanır.</p>
+  <div class="readout" id="ro-sc-mu"></div>
+  <div class="plot" id="p-sc-mu"></div>
 </section>
 
 <section class="fig">
@@ -878,32 +754,103 @@ html[lang="en"] .edu-en { display:block; }
 \[ N = \frac{8}{a^3} = \frac{8}{(5.431\times10^{-8}\ \text{cm})^3} = 5.0\times10^{22}\ \text{cm}^{-3}. \]
 </div></details></div>
 
-<div class="qa"><p class="q">3. \(N_D = 10^{16}\ \text{cm}^{-3}\) fosforla katkılanmış Si'de 300 K'de \(n\), \(p\) ve \(E_C - E_F\) nedir? <span class="lvl">orta</span></p>
+<div class="qa"><p class="q">3. \(n_i\) atom yoğunluğu mudur? <span class="lvl">temel</span></p>
 <details><summary>Çözümü göster</summary><div>
-<p>\(N_D \gg n_i\) olduğu için \(n \approx N_D = 10^{16}\ \text{cm}^{-3}\).</p>
-\[ p = \frac{n_i^2}{n} = \frac{(9.65\times10^9)^2}{10^{16}} = 9.3\times10^{3}\ \text{cm}^{-3} \]
-\[ E_C - E_F = kT\ln\frac{N_C}{n} = 0.02585\ln\frac{2.86\times10^{19}}{10^{16}} = 0.206\ \text{eV}. \]
+<p>Hayır. Katkısız malzemede termal dengedeki <b>hareketli</b> elektron (ve hol) yoğunluğudur. Si'de 300 K'de \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\), atom yoğunluğu ise \(5\times10^{22}\ \mathrm{cm^{-3}}\); yani yaklaşık her \(5\times10^{12}\) atoma bir serbest elektron düşer.</p>
 </div></details></div>
 
-<div class="qa"><p class="q">4. Bir Si numunesi \(N_D = 3\times10^{15}\) ve \(N_A = 10^{15}\ \text{cm}^{-3}\) ile katkılanmıştır. 300 K'deki özdirencini bulunuz. <span class="lvl">orta</span></p>
+<div class="qa"><p class="q">4. Saf Si'de elektron oluşunca hol neden oluşur? <span class="lvl">temel</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Elektron valans bandındaki dolu bir durumdan, yani bir kovalent bağdan ayrılır. Arkasında bir elektron eksikliği bırakır; bu eksiklik hol olarak hareket eder. Bu yüzden saf malzemede \(n=p\).</p>
+</div></details></div>
+
+<div class="qa"><p class="q">5. Hol gerçek bir parçacık mıdır? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Temel parçacık değildir. Valans bandındaki çok sayıda elektronun kolektif hareketini, tek bir boş durumun ters yönde hareketi olarak modellemek çok daha kolaydır. Bu boş durum \(+q\) yüklü ve pozitif etkin kütleli bir yarı-parçacık gibi davranır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">6. Si'ye \(N_D=10^{16}\ \mathrm{cm^{-3}}\) fosfor ekleniyor. Kaç Si atomuna bir P düşer? 300 K'de \(n\), \(p\) ve \(E_C-E_F\) nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atomuna bir P}. \]
+<p>\(N_D \gg n_i\) olduğu için \(n \approx N_D = 10^{16}\ \text{cm}^{-3}\).</p>
+\[ p = \frac{n_i^2}{n} = \frac{(9.65\times10^9)^2}{10^{16}} = 9.3\times10^{3}\ \text{cm}^{-3}, \qquad E_C - E_F = kT\ln\frac{N_C}{n} = 0.02585\ln\frac{2.86\times10^{19}}{10^{16}} = 0.206\ \text{eV}. \]
+<p>Çok seyreltik bir katkı, elektron sayısını \(n_i\)'nin bir milyon katına çıkarırken hol sayısını bir milyon kat düşürür.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">7. \(N_A=10^{17}\ \mathrm{cm^{-3}}\) bor katkılı Si'de 300 K'de çoğunluk ve azınlık taşıyıcı yoğunlukları ile \(E_F-E_V\) nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
+<p>Malzeme p tipidir; Fermi seviyesi valans bandına yaklaşmıştır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">8. Bir Si bölgesinde \(N_D=3\times10^{16}\) ve \(N_A=10^{16}\ \mathrm{cm^{-3}}\) var. Malzeme hangi tiptir; \(n\) ve \(p\) nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>\(N_D>N_A\) olduğu için <b>n tipidir</b>. Akseptörler donörlerin bir kısmını kompanze eder:</p>
+\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
+<div class="note"><strong>Dikkat:</strong> Taşıyıcı yoğunluğu net katkıya bağlıdır; hareketlilik ise toplam iyon yoğunluğu \(N_D+N_A\) ile belirlenir (sonraki soru).</div>
+</div></details></div>
+
+<div class="qa"><p class="q">9. Bir Si numunesi \(N_D = 3\times10^{15}\) ve \(N_A = 10^{15}\ \text{cm}^{-3}\) ile katkılanmıştır. 300 K'deki özdirencini bulunuz. <span class="lvl">orta</span></p>
 <details><summary>Çözümü göster</summary><div>
 <p>Net katkı \(n \approx N_D - N_A = 2\times10^{15}\ \text{cm}^{-3}\). Hareketlilik toplam iyonize safsızlık \(N_D + N_A = 4\times10^{15}\) ile belirlenir. Caughey–Thomas modelinden \(\mu_n \approx 1320\ \text{cm}^2/\text{V·s}\):</p>
 \[ \rho = \frac{1}{q n \mu_n} = \frac{1}{1.6\times10^{-19}\cdot 2\times10^{15}\cdot1320} \approx 2.4\ \Omega\,\text{cm}. \]
 <div class="note"><strong>Dikkat:</strong> Taşıyıcı yoğunluğu net katkıya, hareketlilik ise toplam katkıya bağlıdır. Sık yapılan hata budur.</div>
 </div></details></div>
 
-<div class="qa"><p class="q">5. Si'de \(E_i\) bant aralığının ortasından ne kadar sapar? (300 K, \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\)) <span class="lvl">orta</span></p>
+<div class="qa"><p class="q">10. n tipi silisyum negatif yüklü müdür? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Hayır. Her iyonlaşmış donör bir serbest elektron ve bir sabit \(\mathrm{P^+}\) iyonu üretir; toplam yük sıfırdır. Nötrlük \(n+N_A^-=p+N_D^+\) denklemiyle ifade edilir. “n tipi” ifadesi yalnızca çoğunluk taşıyıcısının negatif yüklü olduğunu söyler.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">11. Si'de \(E_i\) bant aralığının ortasından ne kadar sapar? (300 K, \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\)) <span class="lvl">orta</span></p>
 <details><summary>Çözümü göster</summary><div>
 \[ E_i - \frac{E_C+E_V}{2} = \frac{kT}{2}\ln\frac{N_V}{N_C} = 0.0129\ln(0.930) = -0.94\ \text{meV}. \]
 <p>Sapma 1 meV'dan küçüktür; pratikte \(E_i\) bant ortasında kabul edilir.</p>
 </div></details></div>
 
-<div class="qa"><p class="q">6. Hareketliliği \(\mu_p = 400\ \text{cm}^2/\text{V·s}\) olan hollerin 300 K'deki difüzyon katsayısı ve \(\tau_p = 1\ \mu\text{s}\) için difüzyon uzunluğu nedir? <span class="lvl">temel</span></p>
+<div class="qa"><p class="q">12. \(N_D=10^{15}\ \mathrm{cm^{-3}}\) Si yaklaşık hangi sıcaklıkta intrinsic davranmaya başlar? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Geçiş kabaca \(n_i(T)\approx N_D\) olduğunda başlar. \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) sayısal olarak çözülürse \(n_i=10^{15}\ \mathrm{cm^{-3}}\) yaklaşık <b>545 K</b>'de sağlanır (\(N_D=10^{16}\) için ~650 K). Görseller sekmesindeki rejim grafiğinde \(N_D\)'yi değiştirerek bu kaymayı görebilirsiniz.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">13. Çok düşük sıcaklıkta neden \(n&lt;N_D\) olur? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Donör elektronunu serbest bırakmak için yaklaşık 45 meV gerekir. \(kT\) bu enerjiye göre çok küçük olduğunda (ör. 30 K'de \(kT\approx2.6\) meV) elektronların çoğu donör atomuna bağlı kalır. Bu duruma <b>freeze-out</b> (donma) denir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">14. Yüksek sıcaklıkta n tipi etiketi neden anlamını yitirir? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Termal elektron–hol üretimi, yani \(n_i\), üstel olarak artar ve donörlerin sağladığı taşıyıcı yoğunluğunu aşar. Bu durumda \(n\approx p\approx n_i\) olur ve malzemenin davranışını katkı değil sıcaklık belirler. Geniş bant aralıklı malzemelerin (SiC, GaN) yüksek sıcaklıkta tercih edilmesinin nedeni budur.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">15. Hareketliliği \(\mu_p = 400\ \text{cm}^2/\text{V·s}\) olan hollerin 300 K'deki difüzyon katsayısı ve \(\tau_p = 1\ \mu\text{s}\) için difüzyon uzunluğu nedir? <span class="lvl">temel</span></p>
 <details><summary>Çözümü göster</summary><div>
 \[ D_p = \frac{kT}{q}\mu_p = 0.02585 \times 400 = 10.3\ \text{cm}^2/\text{s}, \qquad L_p = \sqrt{D_p\tau_p} = \sqrt{10.3\times10^{-6}} = 32\ \mu\text{m}. \]
 </div></details></div>
 
-<div class="qa"><p class="q">7. Neden Si'den verimli bir LED yapılamaz, GaAs'tan yapılabilir? <span class="lvl">kavramsal</span></p>
+<div class="qa"><p class="q">16. Çarpışma ile saçılma arasındaki fark nedir? Mükemmel bir kristalde elektron saçılır mı? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>“Çarpışma” olayın gündelik adıdır ve temas imgesi taşır; “saçılma”, taşıyıcının momentumunun periyodikliği bozan bir etki yüzünden değişmesidir ve temas gerektirmez. Mükemmel, titreşmeyen bir kristalde elektron Bloch dalgası olarak saçılmadan ilerler; direnç fononlardan ve kusurlardan gelir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">17. \(\mu_n=1400\ \mathrm{cm^2/V\,s}\), \(m^*=0.26\,m_0\) olan Si elektronları için 300 K'de \(\tau_m\) ve ortalama serbest yol nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
+\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
+<p>Bu, Si atomları arasındaki ~0.24 nm mesafenin yaklaşık 200 katıdır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">18. Katkılı Si'yi 300 K'den 77 K'e soğutunca hareketlilik neden bazen artar, bazen azalır? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Soğutma fononları azaltır (\(\mu_L\) artar) ama taşıyıcıları yavaşlatır ve iyonlaşmış katkı saçılmasını güçlendirir (\(\mu_I\) azalır). Matthiessen kuralına göre hangisi daha küçükse o baskın olur: hafif katkılı Si'de \(\mu\) artar, yoğun katkılı Si'de iyon saçılması baskınlaşıp \(\mu\) azalabilir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">19. Si'ye ışık düşünce foton ve fonon ne rol oynar? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>\(h\nu\ge E_g\) olan foton soğurulur ve bir elektron–hol çifti üretir. Si dolaylı bant aralıklı olduğundan bant kenarı geçişinde momentumu bir fonon sağlar. Oluşan taşıyıcılar fononlarla saçılarak fazla enerjilerini ısı olarak örgüye verir, sonra çoğunlukla tuzaklar üzerinden rekombine olur; bu enerji de büyük ölçüde fonon (ısı) olarak açığa çıkar.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">20. Neden Si'den verimli bir LED yapılamaz, GaAs'tan yapılabilir? <span class="lvl">kavramsal</span></p>
 <details><summary>Çözümü göster</summary><div>
 <p>Fotonun momentumu elektron momentumuna göre ihmal edilebilecek kadar küçüktür, bu yüzden optik geçişler \(E(k)\) diyagramında dikeydir. GaAs'ta bant uçları aynı \(k\)'dadır ve ışımalı geçiş doğrudan olur. Si'de iletim bandı minimumu ~0.85·(2π/a) noktasındadır; geçiş için bir fononun momentum sağlaması gerekir. Bu ikinci mertebe bir süreçtir, olasılığı çok düşüktür ve ışımasız SRH rekombinasyonu baskın hale gelir.</p>
 </div></details></div>
@@ -2870,39 +2817,46 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 </template>
 
-<template id="week0-en">
+<template id="week1-en">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-label">🎯 What this foundation unit builds</div><ul><li>Connect atoms, covalent bonds, energy bands and mobile carriers into one chain.</li><li>Explain physically what a free electron and a hole are.</li><li>Use the symbols \(n_i\), \(N_D\), \(N_A\), \(n\) and \(p\) without mixing up <b>what each one counts</b>.</li><li>Explain how <b>n-type</b> and <b>p-type</b> silicon are made and why they behave differently.</li><li>Interpret the freeze-out → extrinsic → intrinsic regimes as temperature rises.</li><li>Tell apart the roles of electrons, holes, photons and phonons; explain the difference between collision and scattering and what limits mobility.</li></ul></div>
-<div class="edu-card edu-predict"><div class="edu-label">🧪 Predict first</div><p>If one phosphorus atom is added for every 5 million silicon atoms (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)), by roughly what factor does the free-electron density at room temperature increase compared with pure silicon? Does the hole density go up or down?</p></div>
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Common misconception</div><p>“n-type silicon is negatively charged” is wrong. Every free electron leaves a fixed \(\mathrm{P^+}\) ion behind in the crystal, so the material as a whole is <b>electrically neutral</b>. The “n” only says that current is carried mostly by <b>negatively charged carriers</b>.</p></div>
-
 <div class="foundation-chain"><div class="foundation-step"><strong>1. Atom</strong>Si has four valence electrons.</div><div class="foundation-step"><strong>2. Crystal</strong>Si atoms form a periodic covalent lattice.</div><div class="foundation-step"><strong>3. Bands</strong>Atomic levels broaden into valence and conduction bands.</div><div class="foundation-step"><strong>4. Carrier</strong>An excited electron becomes mobile and leaves a hole.</div></div>
+
+<figure class="lesson-visual"><img src="assets/images/week01/band-structure.svg" alt="Crystal lattice and energy bands" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Crystal lattice and energy bands · Original technical diagram</figcaption></figure>
+<h3>1.1 Crystal structure</h3>
+<p>Semiconductors such as Si, Ge and GaAs exist in a regular crystal lattice. Si and Ge crystallize in the <b>diamond</b> structure, GaAs in the <b>zinc-blende</b> structure. Both consist of two interpenetrating face-centred cubic (fcc) sublattices, the second displaced from the first by \(a/4\) along the body diagonal. Each atom therefore forms regular tetrahedral covalent bonds with its four nearest neighbours. In diamond both sublattices contain the same atom; in zinc-blende one sublattice is Ga and the other As.</p>
+<p>At room temperature the lattice constant of Si is \(a = 5.431\) Å and that of GaAs is \(a = 5.653\) Å. Crystal planes and directions are labelled by Miller indices \((hkl)\) and \([hkl]\); integrated-circuit manufacturing mostly uses (100) wafers, because this surface has the lowest oxide–semiconductor interface trap density.</p>
+
+<h3>1.2 Energy bands</h3>
+<p>As atoms approach each other to form a crystal, the sharp energy levels of the isolated atom split, as required by the Pauli principle, and turn into <b>bands</b>. In a semiconductor at 0 K the highest completely filled band is the <b>valence band</b> and the lowest completely empty band is the <b>conduction band</b>; the forbidden gap between them is the band gap \(E_g\). At room temperature \(E_g = 1.12\) eV for Si, 1.42 eV for GaAs and 0.66 eV for Ge.</p>
+<p>The band structure is described by the dependence of energy on crystal momentum \(\hbar\mathbf{k}\), i.e. by \(E(\mathbf{k})\). If the conduction-band minimum and the valence-band maximum occur at the same \(\mathbf{k}\), the semiconductor has a <b>direct band gap</b> (GaAs). If they occur at different \(\mathbf{k}\), it has an <b>indirect band gap</b> (Si, Ge). Indirect transitions need a phonon to conserve momentum; this is why Si cannot emit light efficiently while GaAs is used in LEDs and lasers. You can explore this distinction on the 3D \(E(k)\) surface in the Visuals tab.</p>
+<p>Near the band edges \(E(k)\) can be approximated by a parabola, and its curvature is expressed through the <b>effective mass</b> \(m^*\). The effective mass absorbs the effect of the crystal's periodic potential into the carrier's mass, so electrons and holes can be treated as objects that behave like free particles under external forces.</p>
 
 <figure class="lesson-visual"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation from a silicon covalent bond" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>An electron released from a covalent bond rises to the conduction band, and a hole is created in the same event · Original technical diagram</figcaption></figure>
 
-<h3>0.1 What is a free electron?</h3>
+<h3>1.3 Free electrons and holes</h3>
+<h4>What is a free electron?</h4>
 <p>Not every electron in the crystal contributes to current. Most Si valence electrons are part of covalent bonds and are <b>bound</b>. When an electron gains enough thermal or optical energy to move from the valence band to the conduction band, it can move into empty states within the band and drift under an electric field. It is now a <b>free-electron carrier</b>.</p>
 <p>“Free” does not mean free as in vacuum. The electron still feels the periodic potential of the crystal; this is included in the model through quantities such as the effective mass \(m^*\).</p>
-
-<h3>0.2 What is a hole?</h3>
+<h4>What is a hole?</h4>
 <p>An electron leaving the valence band leaves an unfilled state behind. When a neighbouring electron fills that vacancy, the vacancy appears to have moved. We model this collective motion as a <b>hole</b>, a quasi-particle that behaves as if it carried a positive charge \(+q\).</p>
 <div class="note"><strong>Important:</strong> A hole is not a new fundamental particle; it is a useful physical model of a missing electron in the valence band.</div>
 
-<h3>0.3 What is the intrinsic carrier concentration \(n_i\)?</h3>
+<h3>1.4 Carriers in thermal equilibrium and \(n_i\)</h3>
+<p>The probability that an energy level is occupied by an electron is given by the Fermi–Dirac distribution. The Fermi level \(E_F\) is the energy at which the occupation probability is exactly 1/2. The electron concentration in the conduction band is the integral over the band of the product of the density of states and the occupation probability. As long as \(E_F\) is several \(kT\) away from the band edges (the non-degenerate case), this integral reduces to a simple exponential expression.</p>
 <p>The <b>intrinsic carrier concentration</b> \(n_i\) is the density of mobile electrons and holes that exist naturally per unit volume in an undoped semiconductor at thermal equilibrium. Since every broken bond produces one electron and one hole:</p>
 <p>\[\boxed{n=p=n_i}\]</p>
-<p>For Si at 300 K, \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) (Sze: \(9.65\times10^{9}\)). This is <b>not the silicon atom density</b>: 1 cm³ of silicon contains about \(5\times10^{22}\) atoms, so at room temperature pure Si has <b>only one free electron for every ~\(5\times10^{12}\) atoms</b>. That is why pure silicon is a poor conductor.</p>
+<p>For Si at 300 K, \(n_i\approx9.65\times10^{9}\ \mathrm{cm^{-3}}\) (Sze, 3rd ed.; older sources quote \(1.45\times10^{10}\)). This is <b>not the silicon atom density</b>: 1 cm³ of silicon contains about \(5\times10^{22}\) atoms, so at room temperature pure Si has <b>only one free electron for every ~\(5\times10^{12}\) atoms</b>. That is why pure silicon is a poor conductor.</p>
 
-<h3>0.4 Why is \(n_i\) so sensitive to temperature?</h3>
+<h4>Why is \(n_i\) so sensitive to temperature?</h4>
 <p>In the non-degenerate approximation:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p>\(N_C\) and \(N_V\) scale roughly as \(T^{3/2}\), but the exponential dominates. <b>As temperature rises</b>, more electrons cross the band gap and \(n_i\) grows rapidly: in Si, going from 300 K to 400 K increases \(n_i\) about 500-fold. <b>A larger \(E_g\)</b> means fewer intrinsic carriers at the same temperature.</p>
+<p>\(N_C\) and \(N_V\) scale roughly as \(T^{3/2}\), but the exponential dominates. <b>As temperature rises</b>, more electrons cross the band gap and \(n_i\) grows rapidly: in Si, going from 300 K to 400 K increases \(n_i\) about 500-fold. <b>A larger \(E_g\)</b> means fewer intrinsic carriers at the same temperature.</p><p>This exponential dependence is the basic reason why semiconductor devices are temperature sensitive.</p>
 
-<h3>0.5 Doping: why and how we choose the carrier density</h3>
+<h3>1.5 Doping: why and how we choose the carrier density</h3>
 <p>Pure silicon has two problems: it has very few carriers, and that number changes exponentially with temperature. The solution is to place a controlled amount of <b>foreign atoms (dopants)</b> into the crystal. A dopant atom takes the place of a Si atom (<b>substitutional doping</b>) and bonds with its four neighbours. Because its number of valence electrons differs from Si, one electron is either <b>left over</b> or <b>missing</b>; the carrier density is now set by the dopant amount chosen during fabrication rather than by temperature.</p>
 
-<h3>0.6 \(N_D\) and \(N_A\): defining dopant concentration</h3>
+<h3>1.6 \(N_D\) and \(N_A\): defining dopant concentration</h3>
 <p>We measure the amount of doping as the number of dopant atoms per unit volume. These two symbols appear in nearly every equation for the rest of the course:</p>
 <div class="def-grid">
 <div class="def-card"><div class="sym"><b>\(N_D\)</b><span>donor concentration</span></div>
@@ -2931,7 +2885,7 @@ html[lang="en"] .edu-en { display:block; }
 </tbody></table></div>
 <div class="note"><strong>Compensation:</strong> If donors and acceptors are present in the same region, they partially cancel: the donor's extra electron fills the acceptor's missing one. The type and majority-carrier density are set by the <b>net doping</b>: if \(N_D>N_A\), \(n\approx N_D-N_A\); if \(N_A>N_D\), \(p\approx N_A-N_D\).</div>
 
-<h3>0.7 What do n-type and p-type silicon mean?</h3>
+<h3>1.7 n-type and p-type silicon</h3>
 <div class="type-grid">
 <div class="type-card n"><h4>n-type silicon (negative carriers in the majority)</h4><ul>
 <li><b>How it is made:</b> a group-V atom (P, As, Sb) is added to Si: \(N_D>N_A\).</li>
@@ -2951,15 +2905,16 @@ html[lang="en"] .edu-en { display:block; }
 </ul></div>
 </div>
 <p>Both types are <b>the same crystal</b>; the difference comes from dopant atoms sitting at one site in millions. Their effect is nevertheless enormous: with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) the electron density rises to about a million times \(n_i\), while the hole density falls about a million-fold. Devices such as p-n junctions, BJTs and MOSFETs all work by placing n and p regions next to each other.</p>
+<p>As doping increases, \(E_F\) moves toward the corresponding band edge. When \(N_D\) exceeds roughly \(10^{18}\ \text{cm}^{-3}\) the Boltzmann approximation begins to fail; this is treated in week 5 under high-doping effects.</p>
 
-<h3>0.8 What happens to \(n_i\) when the material is doped?</h3>
+<h3>1.8 The mass-action law: \(n_i\) in doped material</h3>
 <p>Doping does not remove \(n_i\). Donors or acceptors change the majority carrier, but at thermal equilibrium the product stays fixed (the <b>mass-action law</b>):</p>
 <p>\[\boxed{np=n_i^2}\]</p>
 <p>When the majority carrier increases, the extra electrons meet holes more often and recombine with them, so the minority carrier decreases by the same factor. In fully ionized, uncompensated n-type material with \(N_D\gg n_i\), \(n\approx N_D\) and \(p\approx n_i^2/N_D\).</p>
 
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Do not mix up the three densities</div><p><b>Atom density</b> counts the atoms in the crystal (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>dopant density</b> (\(N_D\), \(N_A\)) counts the added donors/acceptors, and <b>carrier density</b> (\(n\), \(p\), \(n_i\)) counts the electrons and holes that can actually move. The bar chart in the Visuals tab compares all three on the same axis.</p></div>
+<div class="note"><strong>Do not mix up the three densities:</strong> <b>Atom density</b> counts the atoms in the crystal (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>dopant density</b> (\(N_D\), \(N_A\)) counts the added donors/acceptors, and <b>carrier density</b> (\(n\), \(p\), \(n_i\)) counts the electrons and holes that can actually move. The bar chart in the Visuals tab compares all three on the same axis.</div>
 
-<h3>0.9 Four players: electron, hole, photon and phonon</h3>
+<h3>1.9 Four players: electron, hole, photon and phonon</h3>
 <p>Almost everything that happens in semiconductor physics can be told as an exchange between four “particles”. Electrons and holes <b>carry charge</b>; photons and phonons <b>carry energy and momentum</b> and create, destroy or deflect the carriers.</p>
 <div class="table-wrap"><table class="data wrap">
 <thead><tr><th>Player</th><th>What it is</th><th>Charge</th><th>Typical energy / momentum</th><th>Role in this course</th></tr></thead>
@@ -2972,11 +2927,11 @@ html[lang="en"] .edu-en { display:block; }
 <p>These four players meet in three typical scenes:</p>
 <ul>
 <li><b>Generation:</b> a photon (\(h\nu\ge E_g\)) or an energetic enough phonon breaks a bond → one electron + one hole. Because Si has an indirect band gap, a phonon must also take part at the band edge to supply the momentum for photon absorption.</li>
-<li><b>Scattering:</b> a moving electron or hole interacts with a phonon or an ionized dopant and changes direction/speed. The carrier is not destroyed; only its path changes. This is the subject of this section.</li>
+<li><b>Scattering:</b> a moving electron or hole interacts with a phonon or an ionized dopant and changes direction/speed. The carrier is not destroyed; only its path changes. Sections 1.10–1.12 deal with it.</li>
 <li><b>Recombination:</b> an electron meets a hole and the pair disappears. The energy is released mostly as a <b>photon</b> (light) in direct materials such as GaAs, and mostly as <b>phonons</b> (heat) via traps in Si.</li>
 </ul>
 
-<h3>0.10 What are collisions and scattering? How do they differ?</h3>
+<h3>1.10 Collisions and scattering: what are they and how do they differ?</h3>
 <div class="def-grid">
 <div class="def-card"><div class="sym"><b>Collision</b><span>the everyday picture</span></div>
 <dl>
@@ -2992,9 +2947,9 @@ html[lang="en"] .edu-en { display:block; }
 </dl></div>
 </div>
 <p>In short: <b>“collision” is the everyday name of the event; “scattering” is its physical mechanism.</b> Both words may be used for the same event in this course, but when working with numbers think in terms of scattering. The most surprising point is this: <b>in a perfect, non-vibrating crystal an electron does not scatter at all.</b> The electron is a wave and travels unimpeded through the periodic potential (as a Bloch wave); the “effect” of the atoms is already contained in the effective mass \(m^*\). Resistance comes from everything that breaks that periodicity.</p>
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Common misconception</div><p>“Resistance arises because electrons bump into Si atoms.” Wrong. If that were true the free path would be of the order of the interatomic distance (~0.2 nm); the measured value at room temperature is tens of nanometres, and it <b>grows</b> on cooling. Carriers are deflected not by the atoms themselves but by their <b>vibrations (phonons)</b> and by <b>defects</b>.</p></div>
+<div class="note"><strong>Note:</strong> “Resistance arises because electrons bump into Si atoms.” Wrong. If that were true the free path would be of the order of the interatomic distance (~0.2 nm); the measured value at room temperature is tens of nanometres, and it <b>grows</b> on cooling. Carriers are deflected not by the atoms themselves but by their <b>vibrations (phonons)</b> and by <b>defects</b>.</div>
 
-<h3>0.11 What causes the collisions?</h3>
+<h3>1.11 What causes the collisions?</h3>
 <div class="type-grid">
 <div class="type-card ph"><h4>1. Lattice (phonon) scattering</h4><ul>
 <li>At finite temperature atoms vibrate about their equilibrium positions, momentarily breaking the periodicity.</li>
@@ -3011,251 +2966,17 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 <p><b>Other sources:</b> neutral dopants and crystal defects (vacancies, dislocations), <b>roughness</b> of the oxide interface in a MOSFET channel, <b>carrier–carrier</b> (electron–electron, electron–hole) scattering at very high carrier densities, and <b>alloy disorder</b> in alloys such as SiGe. Holes scatter through the same mechanisms; the main reason the hole mobility in Si (\(\approx470\)) is lower than the electron mobility (\(\approx1400\ \mathrm{cm^2/V\,s}\)) is the larger effective mass of the hole.</p>
 
-<h3>0.12 From scattering to mobility: mean free path and Matthiessen's rule</h3>
+<h3>1.12 Drift, mobility and diffusion</h3>
 <p>Between two scattering events a carrier runs in a random direction at the thermal speed \(v_{th}\approx10^7\ \mathrm{cm/s}\). Because the electric field pushes it slightly during every free flight, a small average <b>drift velocity</b> rides on top of the random motion:</p>
 <p>\[ v_d = \mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda = v_{th}\,\tau_m \]</p>
 <p>Taking \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) and \(m^*\approx0.26\,m_0\) for electrons in Si at room temperature gives a mean scattering time \(\tau_m\approx0.2\) ps and a <b>mean free path</b> \(\lambda\approx40\)–\(50\) nm: roughly 200 atomic spacings. In a typical field of \(\mathcal{E}=1\ \mathrm{kV/cm}\), \(v_d\approx1.4\times10^6\) cm/s; drift is only a small “bias” on top of the thermal motion.</p>
 <p>When different mechanisms act independently, their scattering <b>rates add</b>, which means the inverse mobilities add (<b>Matthiessen's rule</b>):</p>
 <p>\[ \frac{1}{\tau_m}=\frac{1}{\tau_L}+\frac{1}{\tau_I}+\dots \qquad\Longrightarrow\qquad \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I}+\dots \]</p>
 <p>As a result the <b>worst</b> (most frequent) mechanism sets the mobility: ionized dopants at low temperature, phonons at high temperature. You can watch this contest live in the scattering simulation in the Visuals tab, and see in the chart below it how \(\mu(T)\) develops a peak.</p>
-<div class="edu-card edu-predict"><div class="edu-label">🧪 Predict before the simulation</div><p>If you keep the impurity count fixed and raise the temperature from 50 K to 600 K, does the mean free path first increase or decrease? At what temperature is it longest?</p></div>
-
-<div class="note"><strong>Sze reference:</strong> Chapter 1, section 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic concentration, donors and acceptors) and 1.5.1 (Drift: mobility and scattering mechanisms).</div>
-</div>
-</div>
-
-<div class="pane" data-pane="matematik">
-<div class="prose">
-<h3>Intrinsic concentration and mass action</h3>
-<div class="eq">\[ n = p = n_i, \qquad n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right) \propto T^{3/2}e^{-E_g/2kT} \]<span class="cap">Si, 300 K: \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\ \mathrm{cm^{-3}}\), \(E_g=1.12\) eV → \(n_i\approx 10^{10}\ \mathrm{cm^{-3}}\).</span></div>
-<div class="eq">\[ np = n_i^2 \]<span class="cap">Independent of doping at thermal equilibrium in non-degenerate material. Doping only changes how \(n\) and \(p\) share this product.</span></div>
-
-<h3>Charge neutrality and dopant ionization</h3>
-<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">The left side counts negative charges, the right side positive ones. \(N_D^+\) and \(N_A^-\) are fixed (immobile) ions; \(n\) and \(p\) are mobile carriers.</span></div>
-<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Ground-state degeneracy factors for Si: \(g_D=2\), \(g_A=4\). Ionization energies: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
-
-<details class="derive"><summary>Derivation: \(n\) and \(p\) with full ionization</summary><div>
-<p>Substituting \(N_D^+=N_D\), \(N_A^-=N_A\) and \(p=n_i^2/n\) into the neutrality equation:</p>
-\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
-<p>Doing the same for holes:</p>
-\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
-<p>The competition between the two terms under the square root sets the regime:</p>
-<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, majority density = net doping.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic generation is no longer negligible.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic behaviour, \(n\approx p\approx n_i\).</li></ul>
-</div></details>
-
-<h3>Practical formulas for n-type and p-type</h3>
-<div class="eq">\[ \text{n-type } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
-<div class="eq">\[ \text{p-type } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
-<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n-type, \(E_F<E_i\) → p-type. A tenfold increase in doping shifts \(E_F\) by about \(kT\ln10\approx 60\) meV.</span></div>
-
-<h3>Low temperature: freeze-out</h3>
-<details class="derive"><summary>Derivation: freeze-out approximation for uncompensated n-type material</summary><div>
-<p>At very low temperature \(p\approx0\), \(N_A=0\) and most donors are neutral (\(e^{(E_F-E_D)/kT}\gg1\)). Neutrality becomes \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\). Multiplying by \(n=N_C e^{-(E_C-E_F)/kT}\) to eliminate \(E_F\):</p>
-\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
-<p>The slope is set by \((E_C-E_D)/2\) instead of \(E_g/2\) in the intrinsic region, which is why freeze-out appears only at much lower temperatures.</p>
-</div></details>
-
-<h3>Examples</h3>
-<p><b>n-type:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
-<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
-<p><b>p-type:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
-<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
-
-<h3>Scattering, mobility and free path</h3>
-<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Electrons in Si, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
-<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen's rule: independent scattering rates add. \(\mu\) peaks at the temperature where \(\mu_L=\mu_I\); this temperature rises as \(N_I^{1/3}\).</span></div>
-<details class="derive"><summary>Derivation: \(\mu=q\tau_m/m^*\) from the Drude model</summary><div>
-<p>After its last scattering event a carrier starts with a random velocity whose average is zero. During the following time \(t\) the field adds \(\Delta v=-q\mathcal{E}t/m^*\) (for an electron). Since the time between scattering events is exponentially distributed with mean \(\tau_m\), \(\langle t\rangle=\tau_m\):</p>
-\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
-<p>For holes the sign is positive. The more frequent the scattering (small \(\tau_m\)) or the larger the effective mass, the lower the mobility.</p>
-</div></details>
-<details class="derive"><summary>Why \(\mu_L\propto T^{-3/2}\) and \(\mu_I\propto T^{3/2}\)?</summary><div>
-<p><b>Phonons:</b> the number of acoustic phonons grows \(\propto T\), and the carrier speed and the number of final states grow \(\propto T^{1/2}\): \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
-<p><b>Ionized impurities:</b> in Rutherford scattering the deflection angle is \(\propto 1/(m^*v^2)\); the cross-section is \(\propto v^{-4}\) and the rate \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). With \(v\propto T^{1/2}\), \(1/\tau_I\propto N_I T^{-3/2}\).</p>
-</div></details>
-</div>
-</div>
-
-<div class="pane" data-pane="gorsel">
-<p class="legend-key">The colour code is fixed throughout the course: <span class="e">blue</span> electrons and conduction band, <span class="h">red</span> holes and valence band, <span class="f">green</span> Fermi level.</p>
-
-<section class="fig">
-  <h3>From crystal to bands: dopant atoms and carriers</h3>
-  <p class="why">Left: a Si lattice reduced to two dimensions (each line is a two-electron covalent bond). Right: the band diagram of the same situation. Switch the type: where does the fifth electron of P go, and how does the missing bond of B become a hole? Lower the temperature to see freeze-out, raise it to see bonds break. Carrier counts are symbolic; the values below are real calculations.</p>
-  <div class="controls">
-    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Pure Si</button><button aria-pressed="true" data-v="n">n-type (P)</button><button aria-pressed="false" data-v="p">p-type (B)</button></span>
-    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
-    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
-  </div>
-  <div class="readout" id="ro-f0-lat"></div>
-  <div class="plot tall" id="p-f0-lattice"></div>
-</section>
-
-<section class="fig">
-  <h3>n-type or p-type? The \(N_D\) versus \(N_A\) contest</h3>
-  <p class="why">Electron and hole densities as \(N_D\) is swept with \(N_A\) held fixed. Left of the \(N_D=N_A\) line the material is p-type, right of it n-type. Notice that as the majority carrier rises the minority falls by the same factor: the two curves are tied together everywhere by \(np=n_i^2\).</p>
-  <div class="controls">
-    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
-    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
-    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
-  </div>
-  <div class="readout" id="ro-f0-np"></div>
-  <div class="plot" id="p-f0-sweep"></div>
-</section>
-
-<section class="fig">
-  <h3>Atom, dopant and carrier densities on one axis</h3>
-  <p class="why">The sliders above also update this chart. On a logarithmic axis: the Si atom density, the dopant densities and the mobile carrier densities. See how dilute doping is, and when \(N_D\) and \(n\) reach the same bar length.</p>
-  <div class="plot" id="p-f0-bars"></div>
-</section>
-
-<section class="fig">
-  <h3>Three regimes with temperature: freeze-out → extrinsic → intrinsic</h3>
-  <p class="why">Electron density in donor-doped Si, computed from the neutrality equation including incomplete ionization. Increase \(N_D\): the extrinsic plateau rises and the intrinsic transition moves to higher temperature. Increase the ionization energy: the freeze-out region widens.</p>
-  <div class="controls">
-    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
-    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
-    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
-    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
-  </div>
-  <div class="readout" id="ro-f0-reg"></div>
-  <div class="plot" id="p-f0-regime"></div>
-  <div class="analysis-grid">
-  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>At low temperature many donors keep their electron, so \(n\ll N_D\). As temperature rises the donors ionize and \(n\) climbs quickly.</p></div>
-  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donors are almost fully ionized while intrinsic generation is small. Doping sets the carrier density: \(n\approx N_D\). This is where devices operate.</p></div>
-  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) grows exponentially and catches up with \(N_D\). Doping loses control and eventually \(n\approx p\approx n_i\). The donors are still there; they simply no longer set the carrier density.</p></div>
-  </div>
-</section>
-
-<section class="fig">
-  <h3>Scattering simulation: electrons, holes, phonons and photons</h3>
-  <p class="why">Carriers run randomly at the thermal speed while the field slowly pushes them one way. A green ring is <b>phonon scattering</b> (a vibrating Si atom), a yellow ring is <b>ionized-impurity scattering</b> (Coulomb deflection). Lower the temperature: the atoms calm down and phonon scattering drops, but the slower carriers are deflected much more strongly by the ions. Switch on the light: every photon creates an electron–hole pair, which recombines after a while. The field and speeds are exaggerated for visibility.</p>
-  <div class="controls">
-    <span class="seg" data-ctl="scCar"><button data-v="e">Electrons (n-type)</button><button data-v="h">Holes (p-type)</button><button data-v="eh">Both</button></span>
-    <span class="seg" data-ctl="scLight"><button data-v="off">Light off</button><button data-v="on">Light (photons) on</button></span>
-    <button type="button" class="sim-btn" id="sc-play">❚❚ Pause</button><button type="button" class="sim-btn" id="sc-reset">↺ Reset</button>
-  </div>
-  <div class="controls">
-    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
-    <label>Impurity ions <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
-    <label>Field \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
-  </div>
-  <div class="readout" id="ro-sc"></div>
-  <div class="plot sim" id="p-scat"></div>
-</section>
-
-<section class="fig">
-  <h3>Matthiessen's rule: why does mobility peak with temperature?</h3>
-  <p class="why">The temperature, impurity-ion and carrier selections above also update this chart (1 ion ≈ \(10^{16}\ \mathrm{cm^{-3}}\) ionized dopants). Dopant ions limit mobility at low temperature, phonons at high temperature; the total \(\mu\) is always smaller than either. λ is computed with real Si parameters.</p>
-  <div class="readout" id="ro-sc-mu"></div>
-  <div class="plot" id="p-sc-mu"></div>
-</section>
-</div>
-
-<div class="pane" data-pane="soru">
-<div class="qa"><p class="q">1. Is \(n_i\) an atom density? <span class="lvl">basic</span></p>
-<details><summary>Show solution</summary><div>
-<p>No. It is the density of <b>mobile</b> electrons (and holes) in undoped material at thermal equilibrium. In Si at 300 K, \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) while the atom density is \(5\times10^{22}\ \mathrm{cm^{-3}}\): about one free electron per \(5\times10^{12}\) atoms.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">2. Why does a hole appear whenever an electron is freed in pure Si? <span class="lvl">basic</span></p>
-<details><summary>Show solution</summary><div>
-<p>The electron leaves a filled valence-band state, i.e. a covalent bond. It leaves a missing electron behind, and that vacancy moves as a hole. Hence \(n=p\) in pure material.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">3. Is a hole a real particle? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>It is not a fundamental particle. It is far easier to model the collective motion of many valence electrons as the opposite motion of a single empty state. That empty state behaves like a quasi-particle with charge \(+q\) and a positive effective mass.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">4. Si is doped with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) phosphorus. How many Si atoms are there per P atom? What are \(n\) and \(p\) at 300 K? <span class="lvl">basic</span></p>
-<details><summary>Show solution</summary><div>
-\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atoms per P}, \qquad n\approx N_D = 10^{16}\ \mathrm{cm^{-3}}, \qquad p=\frac{(9.65\times10^9)^2}{10^{16}}\approx 9.3\times10^{3}\ \mathrm{cm^{-3}}. \]
-<p>A very dilute dopant raises the electron density a million-fold above \(n_i\) and lowers the hole density a million-fold.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">5. For Si doped with \(N_A=10^{17}\ \mathrm{cm^{-3}}\) boron at 300 K, find the majority and minority densities and \(E_F-E_V\). <span class="lvl">intermediate</span></p>
-<details><summary>Show solution</summary><div>
-\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
-<p>The material is p-type; the Fermi level has moved toward the valence band.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">6. A Si region contains \(N_D=3\times10^{16}\) and \(N_A=10^{16}\ \mathrm{cm^{-3}}\). What type is it, and what are \(n\) and \(p\)? <span class="lvl">intermediate</span></p>
-<details><summary>Show solution</summary><div>
-<p>Since \(N_D>N_A\) it is <b>n-type</b>. The acceptors compensate part of the donors:</p>
-\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
-<div class="note"><strong>Watch out:</strong> Carrier density depends on the net doping, while mobility depends on the total ion density \(N_D+N_A\) (week 1).</div>
-</div></details></div>
-
-<div class="qa"><p class="q">7. Is n-type silicon negatively charged? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>No. Every ionized donor produces one free electron and one fixed \(\mathrm{P^+}\) ion; the total charge is zero. Neutrality is expressed by \(n+N_A^-=p+N_D^+\). “n-type” only says that the majority carrier is negatively charged.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">8. At roughly what temperature does Si with \(N_D=10^{15}\ \mathrm{cm^{-3}}\) start to behave intrinsically? <span class="lvl">intermediate</span></p>
-<details><summary>Show solution</summary><div>
-<p>The crossover begins roughly where \(n_i(T)\approx N_D\). Solving \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) numerically gives \(n_i=10^{15}\ \mathrm{cm^{-3}}\) at about <b>545 K</b> (about 650 K for \(N_D=10^{16}\)). You can watch this shift by changing \(N_D\) in the regime chart in the Visuals tab.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">9. Why is \(n&lt;N_D\) at very low temperature? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>Releasing a donor electron takes about 45 meV. When \(kT\) is much smaller than this (e.g. \(kT\approx2.6\) meV at 30 K), most electrons stay bound to their donor atoms. This is called <b>freeze-out</b>.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">10. Why does the n-type label lose its meaning at high temperature? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>Thermal electron–hole generation, i.e. \(n_i\), grows exponentially and overtakes the carrier density supplied by the donors. Then \(n\approx p\approx n_i\), and temperature rather than doping controls the material. This is why wide-band-gap materials (SiC, GaN) are preferred at high temperature.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">11. What is the difference between collision and scattering? Does an electron scatter in a perfect crystal? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>“Collision” is the everyday name of the event and carries an image of contact; “scattering” is a change of the carrier's momentum caused by something that breaks the periodicity, and needs no contact. In a perfect, non-vibrating crystal an electron propagates as a Bloch wave without scattering; resistance comes from phonons and defects.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">12. For electrons in Si with \(\mu_n=1400\ \mathrm{cm^2/V\,s}\) and \(m^*=0.26\,m_0\), find \(\tau_m\) and the mean free path at 300 K. <span class="lvl">intermediate</span></p>
-<details><summary>Show solution</summary><div>
-\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
-\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
-<p>That is about 200 times the ~0.24 nm spacing between Si atoms.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">13. Why does cooling doped Si from 300 K to 77 K sometimes raise and sometimes lower the mobility? <span class="lvl">intermediate</span></p>
-<details><summary>Show solution</summary><div>
-<p>Cooling reduces phonons (\(\mu_L\) rises) but slows the carriers and strengthens ionized-impurity scattering (\(\mu_I\) falls). By Matthiessen's rule the smaller one dominates: in lightly doped Si \(\mu\) rises, while in heavily doped Si impurity scattering can take over and \(\mu\) may fall.</p>
-</div></details></div>
-
-<div class="qa"><p class="q">14. What roles do photons and phonons play when light falls on Si? <span class="lvl">conceptual</span></p>
-<details><summary>Show solution</summary><div>
-<p>A photon with \(h\nu\ge E_g\) is absorbed and creates an electron–hole pair. Because Si has an indirect gap, a phonon supplies the momentum for the band-edge transition. The new carriers scatter off phonons, handing their excess energy to the lattice as heat, and then mostly recombine through traps, releasing that energy largely as phonons (heat) as well.</p>
-</div></details></div>
-</div>
-</template>
-<template id="week1-en">
-<div class="pane" data-pane="anlatim">
-<div class="prose">
-<figure class="lesson-visual"><img src="assets/images/week01/band-structure.svg" alt="Crystal lattice and energy bands" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Crystal lattice and energy bands · Original technical diagram</figcaption></figure>
-<h3>1.1 Crystal structure</h3>
-<p>Semiconductors such as Si, Ge and GaAs exist in a regular crystal lattice. Si and Ge crystallize in the <b>diamond</b> structure, GaAs in the <b>zinc-blende</b> structure. Both consist of two interpenetrating face-centred cubic (fcc) sublattices, the second displaced from the first by \(a/4\) along the body diagonal. Each atom therefore forms regular tetrahedral covalent bonds with its four nearest neighbours. In diamond both sublattices contain the same atom; in zinc-blende one sublattice is Ga and the other As.</p>
-<p>At room temperature the lattice constant of Si is \(a = 5.431\) Å and that of GaAs is \(a = 5.653\) Å. Crystal planes and directions are labelled by Miller indices \((hkl)\) and \([hkl]\); integrated-circuit manufacturing mostly uses (100) wafers, because this surface has the lowest oxide–semiconductor interface trap density.</p>
-
-<h3>1.2 Energy bands</h3>
-<p>As atoms approach each other to form a crystal, the sharp energy levels of the isolated atom split, as required by the Pauli principle, and turn into <b>bands</b>. In a semiconductor at 0 K the highest completely filled band is the <b>valence band</b> and the lowest completely empty band is the <b>conduction band</b>; the forbidden gap between them is the band gap \(E_g\). At room temperature \(E_g = 1.12\) eV for Si, 1.42 eV for GaAs and 0.66 eV for Ge.</p>
-<p>The band structure is described by the dependence of energy on crystal momentum \(\hbar\mathbf{k}\), i.e. by \(E(\mathbf{k})\). If the conduction-band minimum and the valence-band maximum occur at the same \(\mathbf{k}\), the semiconductor has a <b>direct band gap</b> (GaAs). If they occur at different \(\mathbf{k}\), it has an <b>indirect band gap</b> (Si, Ge). Indirect transitions need a phonon to conserve momentum; this is why Si cannot emit light efficiently while GaAs is used in LEDs and lasers. You can explore this distinction on the 3D \(E(k)\) surface in the Visuals tab.</p>
-<p>Near the band edges \(E(k)\) can be approximated by a parabola, and its curvature is expressed through the <b>effective mass</b> \(m^*\). The effective mass absorbs the effect of the crystal's periodic potential into the carrier's mass, so electrons and holes can be treated as objects that behave like free particles under external forces.</p>
-
-<h3>1.3 Carrier concentrations in thermal equilibrium</h3>
-<p>The probability that an energy level is occupied by an electron is given by the Fermi–Dirac distribution. The Fermi level \(E_F\) is the energy at which the occupation probability is exactly 1/2. The electron concentration in the conduction band is the integral over the band of the product of the density of states and the occupation probability. As long as \(E_F\) is several \(kT\) away from the band edges (the non-degenerate case), this integral reduces to a simple exponential expression.</p>
-<p>In an <b>intrinsic</b> semiconductor \(n = p = n_i\). For Si at 300 K, \(n_i \approx 9.65\times10^{9}\ \text{cm}^{-3}\) (Sze, 3rd ed.; older sources quote \(1.45\times10^{10}\)). \(n_i\) varies exponentially with temperature and band gap; this dependence is the basic reason why devices are temperature sensitive.</p>
-
-<h3>1.4 Doping</h3>
-<p>When a group-V atom (P, As) is added to Si, its fifth electron is weakly bound and forms a <b>donor</b> level about 45 meV below the conduction band; at room temperature nearly all of these electrons are ionized and the material becomes <b>n-type</b>. A group-III atom (B) forms an <b>acceptor</b> level just above the valence band and gives <b>p-type</b> material. Two conditions always hold in doped material: the mass-action law \(np = n_i^2\) and charge neutrality.</p>
-<p>As doping increases, \(E_F\) moves toward the corresponding band edge. When \(N_D\) exceeds roughly \(10^{18}\ \text{cm}^{-3}\) the Boltzmann approximation begins to fail; this is treated in week 5 under high-doping effects.</p>
-
-<h3>1.5 Transport phenomena</h3>
-<p>Under an electric field carriers continually collide with lattice vibrations (phonons) and ionized dopant atoms; their average velocity is proportional to the field and the proportionality constant is called the <b>mobility</b>. As doping increases, ionized-impurity scattering strengthens and mobility falls. At high fields the drift velocity saturates at about \(10^{7}\) cm/s.</p>
+<h4>Diffusion</h4>
 <p>If there is a spatial variation in carrier concentration, carriers move from high to low concentration by <b>diffusion</b>. Because drift and diffusion arise from the same scattering processes, their coefficients are linked by the Einstein relation.</p>
 
-<h3>1.6 Generation, recombination and the basic equations</h3>
+<h3>1.13 Generation, recombination and the basic equations</h3>
 <p>When the system is disturbed from equilibrium (for example when excess carriers are generated by light), it returns to equilibrium through recombination. In indirect semiconductors such as Si the dominant process is Shockley–Read–Hall (SRH) recombination through trap levels in the band gap. The mean lifetime of minority carriers is \(\tau\), and the diffusion length is \(L = \sqrt{D\tau}\).</p>
 <p>All semiconductor device analysis rests on three sets of equations: <b>Poisson's equation</b>, the <b>current-density equations</b> (drift + diffusion) and the <b>continuity equations</b>. In the coming weeks every structure, from the p-n junction to transistors, will be solved with this trio.</p>
 
@@ -3290,18 +3011,54 @@ html[lang="en"] .edu-en { display:block; }
 <div class="eq">\[ np = n_i^2 = N_C N_V \exp\!\left(-\frac{E_g}{kT}\right) \;\;\Rightarrow\;\; n_i = \sqrt{N_C N_V}\; e^{-E_g/2kT} \propto T^{3/2} e^{-E_g/2kT} \]</div>
 <div class="eq">\[ E_i = \frac{E_C+E_V}{2} + \frac{kT}{2}\ln\frac{N_V}{N_C}, \qquad n = n_i\, e^{(E_F-E_i)/kT},\quad p = n_i\, e^{(E_i-E_F)/kT} \]<span class="cap">\(E_i\) deviates from midgap by only a few meV.</span></div>
 
-<h3>Charge neutrality (complete ionization)</h3>
-<details class="derive"><summary>Derivation: \(n\) in a doped semiconductor</summary><div>
-<p>Neutrality: \(n + N_A = p + N_D\). Writing \(p = n_i^2/n\) gives a quadratic equation:</p>
-\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \]
-\[ n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
-<p>If \(N_D - N_A \gg n_i\), then \(n \approx N_D - N_A\) and \(E_C - E_F = kT\ln[N_C/(N_D-N_A)]\).</p>
+<h3>Charge neutrality and dopant ionization</h3>
+<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">The left side counts negative charges, the right side positive ones. \(N_D^+\) and \(N_A^-\) are fixed (immobile) ions; \(n\) and \(p\) are mobile carriers.</span></div>
+<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Ground-state degeneracy factors for Si: \(g_D=2\), \(g_A=4\). Ionization energies: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
+
+<details class="derive"><summary>Derivation: \(n\) and \(p\) with full ionization</summary><div>
+<p>Substituting \(N_D^+=N_D\), \(N_A^-=N_A\) and \(p=n_i^2/n\) into the neutrality equation:</p>
+\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
+<p>Doing the same for holes:</p>
+\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
+<p>The competition between the two terms under the square root sets the regime:</p>
+<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, majority density = net doping.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic generation is no longer negligible.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic behaviour, \(n\approx p\approx n_i\).</li></ul>
 </div></details>
+
+<h3>Practical formulas for n-type and p-type</h3>
+<div class="eq">\[ \text{n-type } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
+<div class="eq">\[ \text{p-type } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
+<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n-type, \(E_F<E_i\) → p-type. A tenfold increase in doping shifts \(E_F\) by about \(kT\ln10\approx 60\) meV.</span></div>
+
+<h3>Low temperature: freeze-out</h3>
+<details class="derive"><summary>Derivation: freeze-out approximation for uncompensated n-type material</summary><div>
+<p>At very low temperature \(p\approx0\), \(N_A=0\) and most donors are neutral (\(e^{(E_F-E_D)/kT}\gg1\)). Neutrality becomes \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\). Multiplying by \(n=N_C e^{-(E_C-E_F)/kT}\) to eliminate \(E_F\):</p>
+\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
+<p>The slope is set by \((E_C-E_D)/2\) instead of \(E_g/2\) in the intrinsic region, which is why freeze-out appears only at much lower temperatures.</p>
+</div></details>
+
+<h3>Examples</h3>
+<p><b>n-type:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
+<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
+<p><b>p-type:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
+<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
 
 <h3>Current-density equations</h3>
 <div class="eq">\[ J_n = q\mu_n n \mathcal{E} + qD_n\frac{dn}{dx}, \qquad J_p = q\mu_p p \mathcal{E} - qD_p\frac{dp}{dx} \]</div>
 <div class="eq">\[ D = \frac{kT}{q}\,\mu \quad\text{(Einstein relation)}, \qquad \rho = \frac{1}{q(\mu_n n + \mu_p p)} \]</div>
 <div class="eq">\[ \mu(N) = \mu_{min} + \frac{\mu_{max}-\mu_{min}}{1 + (N/N_{ref})^{\alpha}} \]<span class="cap">Caughey–Thomas empirical model. Si electrons: \(\mu_{min}=68.5,\ \mu_{max}=1414\ \text{cm}^2/\text{V·s},\ N_{ref}=9.2\times10^{16},\ \alpha=0.711\).</span></div>
+
+<h3>Scattering, mobility and free path</h3>
+<div class="eq">\[ v_d=\mu\,\mathcal{E},\qquad \mu=\frac{q\,\tau_m}{m^*},\qquad \lambda=v_{th}\,\tau_m,\qquad v_{th}=\sqrt{\frac{3kT}{m^*}} \]<span class="cap">Electrons in Si, 300 K: \(m^*\approx0.26\,m_0\), \(\mu\approx1400\ \mathrm{cm^2/V\,s}\) → \(\tau_m\approx0.2\) ps, \(v_{th}\approx2.3\times10^7\) cm/s, \(\lambda\approx47\) nm.</span></div>
+<div class="eq">\[ \frac{1}{\mu}=\frac{1}{\mu_L}+\frac{1}{\mu_I},\qquad \mu_L\propto T^{-3/2},\qquad \mu_I\propto\frac{T^{3/2}}{N_I} \]<span class="cap">Matthiessen's rule: independent scattering rates add. \(\mu\) peaks at the temperature where \(\mu_L=\mu_I\); this temperature rises as \(N_I^{1/3}\).</span></div>
+<details class="derive"><summary>Derivation: \(\mu=q\tau_m/m^*\) from the Drude model</summary><div>
+<p>After its last scattering event a carrier starts with a random velocity whose average is zero. During the following time \(t\) the field adds \(\Delta v=-q\mathcal{E}t/m^*\) (for an electron). Since the time between scattering events is exponentially distributed with mean \(\tau_m\), \(\langle t\rangle=\tau_m\):</p>
+\[ v_d=\langle\Delta v\rangle=-\frac{q\tau_m}{m^*}\,\mathcal{E}\equiv-\mu_n\mathcal{E}. \]
+<p>For holes the sign is positive. The more frequent the scattering (small \(\tau_m\)) or the larger the effective mass, the lower the mobility.</p>
+</div></details>
+<details class="derive"><summary>Why \(\mu_L\propto T^{-3/2}\) and \(\mu_I\propto T^{3/2}\)?</summary><div>
+<p><b>Phonons:</b> the number of acoustic phonons grows \(\propto T\), and the carrier speed and the number of final states grow \(\propto T^{1/2}\): \(1/\tau_L\propto T\cdot T^{1/2}=T^{3/2}\).</p>
+<p><b>Ionized impurities:</b> in Rutherford scattering the deflection angle is \(\propto 1/(m^*v^2)\); the cross-section is \(\propto v^{-4}\) and the rate \(\propto N_I\,v\,\sigma\propto N_I v^{-3}\). With \(v\propto T^{1/2}\), \(1/\tau_I\propto N_I T^{-3/2}\).</p>
+</div></details>
 
 <h3>SRH recombination</h3>
 <div class="eq">\[ U = \frac{\sigma_n\sigma_p v_{th} N_t\,(pn - n_i^2)}{\sigma_n\!\left[n + n_i e^{(E_t-E_i)/kT}\right] + \sigma_p\!\left[p + n_i e^{(E_i-E_t)/kT}\right]} \]<span class="cap">Under low injection in n-type material \(U \approx (p_n - p_{n0})/\tau_p\), \(\tau_p = 1/(\sigma_p v_{th} N_t)\). Recombination is most effective when \(E_t \approx E_i\).</span></div>
@@ -3336,6 +3093,18 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>From crystal to bands: dopant atoms and carriers</h3>
+  <p class="why">Left: a Si lattice reduced to two dimensions (each line is a two-electron covalent bond). Right: the band diagram of the same situation. Switch the type: where does the fifth electron of P go, and how does the missing bond of B become a hole? Lower the temperature to see freeze-out, raise it to see bonds break. Carrier counts are symbolic; the values below are real calculations.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Pure Si</button><button aria-pressed="true" data-v="n">n-type (P)</button><button aria-pressed="false" data-v="p">p-type (B)</button></span>
+    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
+    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
+  </div>
+  <div class="readout" id="ro-f0-lat"></div>
+  <div class="plot tall" id="p-f0-lattice"></div>
+</section>
+
+<section class="fig">
   <h3>Density of states × Fermi–Dirac = carrier distribution</h3>
   <p class="why">Left: band diagram and \(F(E)\); right: \(N(E)F(E)\) (electrons) and \(N(E)[1-F(E)]\) (holes). Move \(E_F\): see how one carrier concentration rises while the other falls exponentially. Temperature broadens the tail of the distribution.</p>
   <div class="controls">
@@ -3353,6 +3122,24 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>Three regimes with temperature: freeze-out → extrinsic → intrinsic</h3>
+  <p class="why">Electron density in donor-doped Si, computed from the neutrality equation including incomplete ionization. Increase \(N_D\): the extrinsic plateau rises and the intrinsic transition moves to higher temperature. Increase the ionization energy: the freeze-out region widens.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
+    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
+    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
+    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-reg"></div>
+  <div class="plot" id="p-f0-regime"></div>
+  <div class="analysis-grid">
+  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>At low temperature many donors keep their electron, so \(n\ll N_D\). As temperature rises the donors ionize and \(n\) climbs quickly.</p></div>
+  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donors are almost fully ionized while intrinsic generation is small. Doping sets the carrier density: \(n\approx N_D\). This is where devices operate.</p></div>
+  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) grows exponentially and catches up with \(N_D\). Doping loses control and eventually \(n\approx p\approx n_i\). The donors are still there; they simply no longer set the carrier density.</p></div>
+  </div>
+</section>
+
+<section class="fig">
   <h3>Doping and the position of the Fermi level</h3>
   <p class="why">Change the dopant type and concentration. The Fermi level is computed from the charge-neutrality equation. As doping approaches \(n_i\) the material becomes intrinsic; above \(10^{18}\ \text{cm}^{-3}\) it approaches degeneracy.</p>
   <div class="controls">
@@ -3365,9 +3152,51 @@ html[lang="en"] .edu-en { display:block; }
 </section>
 
 <section class="fig">
+  <h3>n-type or p-type? The \(N_D\) versus \(N_A\) contest</h3>
+  <p class="why">Electron and hole densities as \(N_D\) is swept with \(N_A\) held fixed. Left of the \(N_D=N_A\) line the material is p-type, right of it n-type. Notice that as the majority carrier rises the minority falls by the same factor: the two curves are tied together everywhere by \(np=n_i^2\).</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
+    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
+    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-np"></div>
+  <div class="plot" id="p-f0-sweep"></div>
+</section>
+
+<section class="fig">
+  <h3>Atom, dopant and carrier densities on one axis</h3>
+  <p class="why">The sliders above also update this chart. On a logarithmic axis: the Si atom density, the dopant densities and the mobile carrier densities. See how dilute doping is, and when \(N_D\) and \(n\) reach the same bar length.</p>
+  <div class="plot" id="p-f0-bars"></div>
+</section>
+
+<section class="fig">
   <h3>Mobility and resistivity versus doping in Si</h3>
   <p class="why">Phonon scattering dominates at low doping, ionized-impurity scattering at high doping. The right axis gives the 300 K resistivity of n- and p-type Si (Caughey–Thomas model).</p>
   <div class="plot" id="p-mob"></div>
+</section>
+
+<section class="fig">
+  <h3>Scattering simulation: electrons, holes, phonons and photons</h3>
+  <p class="why">Carriers run randomly at the thermal speed while the field slowly pushes them one way. A green ring is <b>phonon scattering</b> (a vibrating Si atom), a yellow ring is <b>ionized-impurity scattering</b> (Coulomb deflection). Lower the temperature: the atoms calm down and phonon scattering drops, but the slower carriers are deflected much more strongly by the ions. Switch on the light: every photon creates an electron–hole pair, which recombines after a while. The field and speeds are exaggerated for visibility.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="scCar"><button data-v="e">Electrons (n-type)</button><button data-v="h">Holes (p-type)</button><button data-v="eh">Both</button></span>
+    <span class="seg" data-ctl="scLight"><button data-v="off">Light off</button><button data-v="on">Light (photons) on</button></span>
+    <button type="button" class="sim-btn" id="sc-play">❚❚ Pause</button><button type="button" class="sim-btn" id="sc-reset">↺ Reset</button>
+  </div>
+  <div class="controls">
+    <label>T <input type="range" id="r-sc-t" min="20" max="600" step="10" value="300"><output id="o-sc-t">300 K</output></label>
+    <label>Impurity ions <input type="range" id="r-sc-ni" min="0" max="20" step="1" value="5"><output id="o-sc-ni">5</output></label>
+    <label>Field \(\mathcal{E}\) <input type="range" id="r-sc-e" min="0" max="10" step="1" value="4"><output id="o-sc-e">4</output></label>
+  </div>
+  <div class="readout" id="ro-sc"></div>
+  <div class="plot sim" id="p-scat"></div>
+</section>
+
+<section class="fig">
+  <h3>Matthiessen's rule: why does mobility peak with temperature?</h3>
+  <p class="why">The temperature, impurity-ion and carrier selections above also update this chart (1 ion ≈ \(10^{16}\ \mathrm{cm^{-3}}\) ionized dopants). Dopant ions limit mobility at low temperature, phonons at high temperature; the total \(\mu\) is always smaller than either. λ is computed with real Si parameters.</p>
+  <div class="readout" id="ro-sc-mu"></div>
+  <div class="plot" id="p-sc-mu"></div>
 </section>
 
 <section class="fig">
@@ -3395,32 +3224,103 @@ html[lang="en"] .edu-en { display:block; }
 \[ N = \frac{8}{a^3} = \frac{8}{(5.431\times10^{-8}\ \text{cm})^3} = 5.0\times10^{22}\ \text{cm}^{-3}. \]
 </div></details></div>
 
-<div class="qa"><p class="q">3. What are \(n\), \(p\) and \(E_C - E_F\) at 300 K in Si doped with \(N_D = 10^{16}\ \text{cm}^{-3}\) phosphorus? <span class="lvl">intermediate</span></p>
+<div class="qa"><p class="q">3. Is \(n_i\) an atom density? <span class="lvl">basic</span></p>
 <details><summary>Show solution</summary><div>
-<p>Since \(N_D \gg n_i\), \(n \approx N_D = 10^{16}\ \text{cm}^{-3}\).</p>
-\[ p = \frac{n_i^2}{n} = \frac{(9.65\times10^9)^2}{10^{16}} = 9.3\times10^{3}\ \text{cm}^{-3} \]
-\[ E_C - E_F = kT\ln\frac{N_C}{n} = 0.02585\ln\frac{2.86\times10^{19}}{10^{16}} = 0.206\ \text{eV}. \]
+<p>No. It is the density of <b>mobile</b> electrons (and holes) in undoped material at thermal equilibrium. In Si at 300 K, \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) while the atom density is \(5\times10^{22}\ \mathrm{cm^{-3}}\): about one free electron per \(5\times10^{12}\) atoms.</p>
 </div></details></div>
 
-<div class="qa"><p class="q">4. A Si sample is doped with \(N_D = 3\times10^{15}\) and \(N_A = 10^{15}\ \text{cm}^{-3}\). Find its resistivity at 300 K. <span class="lvl">intermediate</span></p>
+<div class="qa"><p class="q">4. Why does a hole appear whenever an electron is freed in pure Si? <span class="lvl">basic</span></p>
+<details><summary>Show solution</summary><div>
+<p>The electron leaves a filled valence-band state, i.e. a covalent bond. It leaves a missing electron behind, and that vacancy moves as a hole. Hence \(n=p\) in pure material.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">5. Is a hole a real particle? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>It is not a fundamental particle. It is far easier to model the collective motion of many valence electrons as the opposite motion of a single empty state. That empty state behaves like a quasi-particle with charge \(+q\) and a positive effective mass.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">6. Si is doped with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) phosphorus. How many Si atoms are there per P atom? What are \(n\), \(p\) and \(E_C-E_F\) at 300 K? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atoms per P}. \]
+<p>Since \(N_D \gg n_i\), \(n \approx N_D = 10^{16}\ \text{cm}^{-3}\).</p>
+\[ p = \frac{n_i^2}{n} = \frac{(9.65\times10^9)^2}{10^{16}} = 9.3\times10^{3}\ \text{cm}^{-3}, \qquad E_C - E_F = kT\ln\frac{N_C}{n} = 0.02585\ln\frac{2.86\times10^{19}}{10^{16}} = 0.206\ \text{eV}. \]
+<p>A very dilute dopant raises the electron density a million-fold above \(n_i\) and lowers the hole density a million-fold.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">7. For Si doped with \(N_A=10^{17}\ \mathrm{cm^{-3}}\) boron at 300 K, find the majority and minority densities and \(E_F-E_V\). <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
+<p>The material is p-type; the Fermi level has moved toward the valence band.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">8. A Si region contains \(N_D=3\times10^{16}\) and \(N_A=10^{16}\ \mathrm{cm^{-3}}\). What type is it, and what are \(n\) and \(p\)? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>Since \(N_D>N_A\) it is <b>n-type</b>. The acceptors compensate part of the donors:</p>
+\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
+<div class="note"><strong>Watch out:</strong> Carrier density depends on the net doping, while mobility depends on the total ion density \(N_D+N_A\) (next question).</div>
+</div></details></div>
+
+<div class="qa"><p class="q">9. A Si sample is doped with \(N_D = 3\times10^{15}\) and \(N_A = 10^{15}\ \text{cm}^{-3}\). Find its resistivity at 300 K. <span class="lvl">intermediate</span></p>
 <details><summary>Show solution</summary><div>
 <p>Net doping gives \(n \approx N_D - N_A = 2\times10^{15}\ \text{cm}^{-3}\). Mobility is set by the total ionized impurity concentration \(N_D + N_A = 4\times10^{15}\). From the Caughey–Thomas model \(\mu_n \approx 1320\ \text{cm}^2/\text{V·s}\):</p>
 \[ \rho = \frac{1}{q n \mu_n} = \frac{1}{1.6\times10^{-19}\cdot 2\times10^{15}\cdot1320} \approx 2.4\ \Omega\,\text{cm}. \]
 <div class="note"><strong>Note:</strong> Carrier concentration depends on the net doping, mobility on the total doping. This is a common mistake.</div>
 </div></details></div>
 
-<div class="qa"><p class="q">5. How far does \(E_i\) deviate from midgap in Si? (300 K, \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\)) <span class="lvl">intermediate</span></p>
+<div class="qa"><p class="q">10. Is n-type silicon negatively charged? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>No. Every ionized donor produces one free electron and one fixed \(\mathrm{P^+}\) ion; the total charge is zero. Neutrality is expressed by \(n+N_A^-=p+N_D^+\). “n-type” only says that the majority carrier is negatively charged.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">11. How far does \(E_i\) deviate from midgap in Si? (300 K, \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\)) <span class="lvl">intermediate</span></p>
 <details><summary>Show solution</summary><div>
 \[ E_i - \frac{E_C+E_V}{2} = \frac{kT}{2}\ln\frac{N_V}{N_C} = 0.0129\ln(0.930) = -0.94\ \text{meV}. \]
 <p>The deviation is less than 1 meV; in practice \(E_i\) is taken at midgap.</p>
 </div></details></div>
 
-<div class="qa"><p class="q">6. What is the diffusion coefficient at 300 K of holes with mobility \(\mu_p = 400\ \text{cm}^2/\text{V·s}\), and their diffusion length for \(\tau_p = 1\ \mu\text{s}\)? <span class="lvl">basic</span></p>
+<div class="qa"><p class="q">12. At roughly what temperature does Si with \(N_D=10^{15}\ \mathrm{cm^{-3}}\) start to behave intrinsically? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>The crossover begins roughly where \(n_i(T)\approx N_D\). Solving \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) numerically gives \(n_i=10^{15}\ \mathrm{cm^{-3}}\) at about <b>545 K</b> (about 650 K for \(N_D=10^{16}\)). You can watch this shift by changing \(N_D\) in the regime chart in the Visuals tab.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">13. Why is \(n&lt;N_D\) at very low temperature? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>Releasing a donor electron takes about 45 meV. When \(kT\) is much smaller than this (e.g. \(kT\approx2.6\) meV at 30 K), most electrons stay bound to their donor atoms. This is called <b>freeze-out</b>.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">14. Why does the n-type label lose its meaning at high temperature? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>Thermal electron–hole generation, i.e. \(n_i\), grows exponentially and overtakes the carrier density supplied by the donors. Then \(n\approx p\approx n_i\), and temperature rather than doping controls the material. This is why wide-band-gap materials (SiC, GaN) are preferred at high temperature.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">15. What is the diffusion coefficient at 300 K of holes with mobility \(\mu_p = 400\ \text{cm}^2/\text{V·s}\), and their diffusion length for \(\tau_p = 1\ \mu\text{s}\)? <span class="lvl">basic</span></p>
 <details><summary>Show solution</summary><div>
 \[ D_p = \frac{kT}{q}\mu_p = 0.02585 \times 400 = 10.3\ \text{cm}^2/\text{s}, \qquad L_p = \sqrt{D_p\tau_p} = \sqrt{10.3\times10^{-6}} = 32\ \mu\text{m}. \]
 </div></details></div>
 
-<div class="qa"><p class="q">7. Why can an efficient LED be made from GaAs but not from Si? <span class="lvl">conceptual</span></p>
+<div class="qa"><p class="q">16. What is the difference between collision and scattering? Does an electron scatter in a perfect crystal? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>“Collision” is the everyday name of the event and carries an image of contact; “scattering” is a change of the carrier's momentum caused by something that breaks the periodicity, and needs no contact. In a perfect, non-vibrating crystal an electron propagates as a Bloch wave without scattering; resistance comes from phonons and defects.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">17. For electrons in Si with \(\mu_n=1400\ \mathrm{cm^2/V\,s}\) and \(m^*=0.26\,m_0\), find \(\tau_m\) and the mean free path at 300 K. <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+\[ \tau_m=\frac{\mu m^*}{q}=\frac{0.14\cdot0.26\cdot9.11\times10^{-31}}{1.6\times10^{-19}}\approx2.1\times10^{-13}\ \mathrm{s},\qquad v_{th}=\sqrt{\frac{3kT}{m^*}}\approx2.3\times10^{5}\ \mathrm{m/s} \]
+\[ \lambda=v_{th}\tau_m\approx4.7\times10^{-8}\ \mathrm{m}\approx47\ \mathrm{nm}. \]
+<p>That is about 200 times the ~0.24 nm spacing between Si atoms.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">18. Why does cooling doped Si from 300 K to 77 K sometimes raise and sometimes lower the mobility? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>Cooling reduces phonons (\(\mu_L\) rises) but slows the carriers and strengthens ionized-impurity scattering (\(\mu_I\) falls). By Matthiessen's rule the smaller one dominates: in lightly doped Si \(\mu\) rises, while in heavily doped Si impurity scattering can take over and \(\mu\) may fall.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">19. What roles do photons and phonons play when light falls on Si? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>A photon with \(h\nu\ge E_g\) is absorbed and creates an electron–hole pair. Because Si has an indirect gap, a phonon supplies the momentum for the band-edge transition. The new carriers scatter off phonons, handing their excess energy to the lattice as heat, and then mostly recombine through traps, releasing that energy largely as phonons (heat) as well.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">20. Why can an efficient LED be made from GaAs but not from Si? <span class="lvl">conceptual</span></p>
 <details><summary>Show solution</summary><div>
 <p>The photon momentum is negligible compared with the electron momentum, so optical transitions are vertical in the \(E(k)\) diagram. In GaAs the band extrema are at the same \(k\) and radiative transitions are direct. In Si the conduction-band minimum lies at ~0.85·(2π/a); the transition needs a phonon to supply momentum. This is a second-order process with very low probability, and non-radiative SRH recombination dominates.</p>
 </div></details></div>
@@ -5307,8 +5207,8 @@ html[lang="en"] .edu-en { display:block; }
 let LANG = 'tr';
 try { LANG = localStorage.getItem('ydf-lang') === 'en' ? 'en' : 'tr'; } catch(e) {}
 const L = (tr, en) => LANG === 'en' ? en : tr;
-const EN_TITLES = ["Semiconductor Physics Fundamentals", "Physics and properties of semiconductors", "p-n junction diode I", "p-n junction diode II", "Tunnel diode", "Heavy-doping effects", "Excess current", "Small- and large-signal analysis", "Noise", "Junction transistors", "Static characteristics", "Microwave transistor", "Power transistor", "Switching transistor", "Unijunction transistor"];
-const EN_SZE = ["Chapter 1 — fundamentals", "Chapter 1", "Sections 2.1–2.2", "Sections 2.3–2.4", "Section 8.2", "Sections 1.4–1.5, 5.2", "Section 8.2.2", "Sections 2.3.4–2.3.5, 5.2", "relevant device chapters + van der Ziel", "Sections 5.1–5.2", "Section 5.2", "Sections 5.3, 5.5", "Section 5.4", "Section 5.4", "supplementary sources"];
+const EN_TITLES = ["Physics and properties of semiconductors", "p-n junction diode I", "p-n junction diode II", "Tunnel diode", "Heavy-doping effects", "Excess current", "Small- and large-signal analysis", "Noise", "Junction transistors", "Static characteristics", "Microwave transistor", "Power transistor", "Switching transistor", "Unijunction transistor"];
+const EN_SZE = ["Chapter 1", "Sections 2.1–2.2", "Sections 2.3–2.4", "Section 8.2", "Sections 1.4–1.5, 5.2", "Section 8.2.2", "Sections 2.3.4–2.3.5, 5.2", "relevant device chapters + van der Ziel", "Sections 5.1–5.2", "Section 5.2", "Sections 5.3, 5.5", "Section 5.4", "Section 5.4", "supplementary sources"];
 const TX_SUB = [[": üretilen güç her sıcaklıkta atılan gücü aşıyor, denge noktası yok. Balast direncini artırın veya R", ": generated power exceeds removed power at every temperature; no equilibrium. Increase the ballast resistance or reduce R"], ["Saçma gürültüsü: her örnekte Poisson(λ=4) sayıda yük, beyaz spektrum (seviye ∝ λ)", "Shot noise: Poisson(λ=4) charges per sample, white spectrum (level ∝ λ)"], ["Derecelendirilmiş emetör: sivri engel kayboldu. Bant aralığı farkının tamamı (", "Graded emitter: the spike is gone. The entire band-gap difference ("], ["Si homoeklem: tabandaki elektronlar ile emetördeki holler aynı engeli görür (", "Si homojunction: electrons in the base and holes in the emitter see the same barrier ("], [" meV'luk Ge derecelendirmesi iletim bandını kolektöre doğru eğer (η = ", " meV of Ge grading in the base tilts the conduction band toward the collector (η = "], [" bant kenarına 3kT’den yakın: Boltzmann yaklaşımı geçersiz (5. hafta)", " within 3kT of the band edge: Boltzmann approximation invalid (week 5)"], ["Rastgele telgraf sinyali: tek tuzak, Lorentz spektrumu, köşe f = p/π", "Random telegraph signal: single trap, Lorentzian spectrum, corner f = p/π"], ["n tipi Si'de Auger ömrünün SRH ömrünün altına düştüğü katkı: ", "Doping at which the Auger lifetime falls below the SRH lifetime in n-type Si: "], [" ile büyür; taban hafif katkılı kalmak zorundadır.", "; the base must stay lightly doped."], ["bant kenarları örtüşmüyor: fazla akım + ısıl akım", "band edges no longer overlap: excess + thermal current"], [" (uzun taban: 0.5; kısa taban yaklaşımı W²/3L² = ", " (long base: 0.5; short-base approximation W²/3L² = "], [" &lt; 0'da kolektör eklemi ileri kutuplanır, I", " &lt; 0: collector junction forward biased, I"], ["güç sınırının akım sınırını kestiği gerilim = ", "voltage where power limit meets current limit = "], ["Isıl gürültü: Gauss dağılımlı, beyaz spektrum", "Thermal noise: Gaussian, white spectrum"], [" > 0.1: düşük enjeksiyon varsayımı bozuluyor", " > 0.1: low-injection assumption breaks down"], ["1/f gürültüsü: her onlukta eşit güç, köşesiz", "1/f noise: equal power per decade, no corner"], ["emetör şeridi boyunca konum (μm, 0 = merkez)", "position across emitter stripe (μm, 0 = centre)"], ["düzgün dağılım varsayımıyla yanal düşüm = ", "lateral drop assuming uniform distribution = "], ["ters yön: p valans → n iletim tünellemesi", "reverse: p valence → n conduction tunnelling"], ["ölçülen toplam (yüksek enjeksiyon + R_s)", "measured total (high injection + R_s)"], ["endüktif yükte gerilim yükselme süresi t", "inductive voltage rise time t"], ["kilitlenir (vadiden sonra kapanamaz)", "latches (cannot turn off after the valley)"], [": tükenim yaklaşımı geçersizleşiyor", ": depletion approximation breaks down"], [", β yalnızca ileri aktifte anlamlı)", ", β meaningful only in forward active)"], ["Ani AlGaAs/GaAs: iletim bandında ΔE", "Abrupt AlGaAs/GaAs: conduction-band ΔE"], ["tetiklenmez (tepe akımı sağlanamaz)", "does not fire (peak current not supplied)"], ["Bu dejenerelikte NDR bölgesi yok.", "No NDR region at this degeneracy."], [" eV'luk sivri engel. Holler ek ΔE", " eV spike. Holes see an extra ΔE"], ["β'nın %50'sine düştüğü akımlar: ", "currents where β falls to 50%: "], ["kenar/ortalama akım yoğunluğu = ", "edge/average current density = "], ["kilitlendi: UJT iletimde kalıyor", "latched: UJT stays on"], ["kesim (tepe noktasının altında)", "cutoff (below the peak point)"], [" ≥ |R|: osilasyon mümkün değil", " ≥ |R|: oscillation impossible"], [" μA, tabanda yeniden birleşme ", " μA, recombination in base "], [" eV engel görür ⇒ β kazanımı e", " eV barrier ⇒ β gain e"], ["üretilen P_gen = V_CE·I_C(T_j)", "generated P_gen = V_CE·I_C(T_j)"], ["As (a/4 kaydırılmış alt örgü)", "As (sublattice shifted by a/4)"], ["Si (a/4 kaydırılmış alt örgü)", "Si (sublattice shifted by a/4)"], ["üretim–yeniden birleşme (η=2)", "generation–recombination (η=2)"], ["tepeye doğru: örtüşme büyüyor", "toward the peak: overlap growing"], ["dejenere sınır (4/3√π)η^{3/2}", "degenerate limit (4/3√π)η^{3/2}"], ["Fermi–Dirac + eksik iyonlaşma", "Fermi–Dirac + incomplete ionization"], ["G'nin √2 katına çıktığı ωτ ≈ ", "ωτ at which G reaches √2·G₀ ≈ "], ["yük kontrolün fazla tahmini: ", "charge-control overestimate: "], [" eV) hol engeline eklenir ⇒ e", " eV) adds to the hole barrier ⇒ e"], ["kararlı doyumdaki fazla yük Q", "excess charge in steady saturation Q"], ["fazla hol yoğunluğu (göreli)", "excess hole concentration (relative)"], ["bileşenler: tabana elektron ", "components: electrons into base "], ["n (tabanda azınlık elektron)", "n (minority electrons in base)"], ["aşırı sürme k = βI_B1 / I_Cs", "overdrive k = βI_B1 / I_Cs"], ["tetiklenmiyor: kondansatör V", "not firing: capacitor V"], ["verici seviyesi (P, 45 meV)", "donor level (P, 45 meV)"], ["Fermi–Dirac + tam iyonlaşma", "Fermi–Dirac + complete ionization"], ["'da izin verilen DC akım = ", ": allowed DC current = "], ["x / W_B (emetör → kolektör)", "x / W_B (emitter → collector)"], ["alıcı seviyesi (B, 45 meV)", "acceptor level (B, 45 meV)"], ["g-r köşe frekansı 1/2πτ = ", "g-r corner frequency 1/2πτ = "], ["p (kolektörde azınlık hol)", "p (minority holes in collector)"], ["1 + V/V_A (doğrusal Early)", "1 + V/V_A (linear Early)"], ["p SiGe (derecelendirilmiş)", "p SiGe (graded)"], ["ikincil kırılma başlangıcı", "onset of second breakdown"], ["t / τ_BF (kapanış anından)", "t / τ_BF (from turn-off)"], ["doyum bölgesi (vadi ötesi)", "saturation region (beyond valley)"], ["karışık (tünelleme + çığ)", "mixed (tunnelling + avalanche)"], ["Boltzmann + tam iyonlaşma", "Boltzmann + complete ionization"], [" (ısıl sınır q/kT = 38.7)", " (thermal limit q/kT = 38.7)"], ["yasak aralıktaki durumlar", "gap states"], ["β₀ (bant daralması dahil)", "β₀ (with band-gap narrowing)"], ["kolektör çığ kırılması ≈ ", "collector avalanche breakdown ≈ "], ["güç hiperbolü (uzatılmış)", "power hyperbola (extended)"], ["göreli taşıyıcı dağılımı", "relative carrier distribution"], ["donör seviyesi E_D − E_C", "donor level E_D − E_C"], ["p (emetörde azınlık hol)", "p (minority holes in emitter)"], [" mA (güç sınırı olsaydı ", " mA (power limit alone: "], [" biriminde): dirençli = ", "): resistive = "], ["yük doğrusu V_BB − I_E R", "load line V_BB − I_E R"], [" mV'ta baskın bileşen: ", " mV, dominant component: "], ["bantlar arası tünelleme", "band-to-band tunnelling"], ["t = t_s anındaki profil", "profile at t = t_s"], [" eV). Kazanç yalnızca N", " eV). Gain grows only with N"], [") ⇒ taban geçiş süresi ", ") ⇒ base transit time "], ["atılan (T_j − T_a)/R_th", "removed (T_j − T_a)/R_th"], ["Katkı yoğunluğu (cm⁻³)", "Doping (cm⁻³)"], ["n_p (azınlık elektron)", "n_p (minority electrons)"], ["sıfırda eğrilik |γ| = ", "curvature at zero |γ| = "], [" V'ta (ortak emetörde ", " V (common emitter: "], ["simülasyon (formül), τ", "simulation (formula), in units of τ"], ["t_s (Schottky kenetli)", "t_s (Schottky clamped)"], ["negatif direnç bölgesi", "negative-resistance region"], ["<extra>İletim</extra>", "<extra>Conduction</extra>"], ["<extra>Valans</extra>", "<extra>Valence</extra>"], ["difüzyon (ideal, η=1)", "diffusion (ideal, η=1)"], ["belirgin bir vadi yok", "no distinct valley"], ["2. harmonik/temel = %", "2nd harmonic/fundamental (%) = "], ["taban taşınımı sınırı", "base-transport limit"], ["ideal I_C (60 mV/dek)", "ideal I_C (60 mV/dec)"], ["kenetlemesiz toplam t", "unclamped total t"], ["Boltzmann hatası = %", "Boltzmann error (%) = "], ["Boltzmann hatası (%)", "Boltzmann error (%)"], ["N_D⁺/N_D (sağ eksen)", "N_D⁺/N_D (right axis)"], ["teğet (küçük sinyal)", "tangent (small signal)"], ["1/f köşe frekansı = ", "1/f corner frequency = "], ["Genel en düşük NF = ", "Overall minimum NF = "], ["emetör verimi sınırı", "emitter-efficiency limit"], ["benzetim periyodu = ", "simulated period = "], ["Ga (fcc alt örgü 1)", "Ga (fcc sublattice 1)"], ["Si (fcc alt örgü 1)", "Si (fcc sublattice 1)"], ["dikey (optik) geçiş", "vertical (optical) transition"], ["N(E)F(E) — elektron", "N(E)F(E) — electrons"], ["tepe konumu μ_p·E·t", "peak position μ_p·E·t"], [" kaydırıcısından; N", " slider; N"], ["V ekseni kesimi = V", "V-axis intercept = V"], ["düşük enjeksiyon: p", "low injection: p"], [": örtüşme küçülüyor", ": overlap shrinking"], ["saçma tabanı 2qI = ", "shot floor 2qI = "], ["Schottky kenetli: V", "Schottky clamped: V"], ["Q_BS (doyum sınırı)", "Q_BS (saturation boundary)"], ["Kapanış enerjisi (V", "Turn-off energy (in units of V"], ["N(E)[1−F(E)] — hol", "N(E)[1−F(E)] — holes"], ["dışsal (extrinsic)", "extrinsic"], ["doğrusal değişimli", "linearly graded"], ["i(t)/I_F (sayısal)", "i(t)/I_F (numerical)"], ["β₀ (daralma hariç)", "β₀ (without narrowing)"], ["döngü kazancı S = ", "loop gain S = "], ["A (emetör karşısı)", "A (opposite emitter)"], ["osilasyon aralığı ", "oscillation range "], ["tünelleme (Zener)", "tunnelling (Zener)"], ["p_n (azınlık hol)", "p_n (minority holes)"], ["τ toplam (n tipi)", "τ total (n-type)"], ["standart sapma = ", "standard deviation = "], [" mA, emetöre hol ", " mA, holes into emitter "], ["τ_SCR kolektör TB", "τ_SCR collector SCR"], ["τ_C kolektör şarj", "τ_C collector charging"], ["ters gerilim (V)", "reverse voltage (V)"], ["n_ie²/n_i² (sağ)", "n_ie²/n_i² (right)"], ["τ_Auger (n tipi)", "τ_Auger (n-type)"], ["τ_Auger (p tipi)", "τ_Auger (p-type)"], ["<sub>ileri</sub>", "<sub>fwd</sub>"], ["etkin genişlik S", "effective width S"], ["n(x) (normalize)", "n(x) (normalized)"], ["'de takılı kalır", " stuck"], ["i_E (B1 darbesi)", "i_E (B1 pulse)"], ["E − E_orta (eV)", "E − E_mid (eV)"], [" kullanılmıyor)", " not used)"], ["1/C² (doğrusal)", "1/C² (graded)"], ["yoğunluk (cm⁻³)", "concentration (cm⁻³)"], ["çalışma noktası", "operating point"], ["x (nm, şematik)", "x (nm, schematic)"], ["<sub>ters</sub>", "<sub>rev</sub>"], ["düşük frekans C", "low-frequency C"], ["t / T (periyot)", "t / T (period)"], ["normalize değer", "normalized value"], ["t_s yük kontrol", "t_s charge control"], ["kenar yoğunluğu", "edge concentration"], [" örnek, Welch: ", " samples, Welch: "], ["kestirilen S(f)", "estimated S(f)"], ["f / f_örnekleme", "f / f_sampling"], ["zorlanmış β = β", "forced β = β"], ["τ_E emetör şarj", "τ_E emitter charging"], ["τ_B taban geçiş", "τ_B base transit"], ["kenar/merkez = ", "edge/centre = "], [" en küçük: k = ", " minimum: k = "], [" kΩ (başlangıç ", " kΩ (initial "], ["tepe (I_P, V_P)", "peak (I_P, V_P)"], ["vadi (I_V, V_V)", "valley (I_V, V_V)"], ["'den bağımsız)", " independent)"], ["has benzeri (n", "near-intrinsic (n"], ["μ_n (elektron)", "μ_n (electrons)"], ["ekstrapolasyon", "extrapolation"], [" (difüzyon) = ", " (diffusion) = "], ["p_p (çoğunluk)", "p_p (majority)"], ["n_n (çoğunluk)", "n_n (majority)"], ["ters akım (Si)", "reverse current (Si)"], ["/τ: sayısal = ", "/τ: numerical = "], ["yük kontrol = ", "charge control = "], ["tam yanıt i(t)", "exact response i(t)"], ["doğrusal g_d·v", "linear g_d·v"], [" sınırı: NF ≥ ", " limit: NF ≥ "], ["emetör/taban n", "emitter/base n"], ["Ortak taban: I", "Common base: I"], ["en yüksek β = ", "peak β = "], ["nötr taban W_B", "neutral base W_B"], ["SiGe: tabanda ", "SiGe: "], ["düzgün dağılım", "uniform distribution"], ["negatif direnç", "negative resistance"], ["foton + fonon", "photon + phonon"], ["dolaylı geçiş", "indirect transition"], ["tünelleme J_t", "tunnelling J_t"], ["1/f referansı", "1/f reference"], [", daralmasız ", ", without "], ["Nötr taban (V", "Neutral base (V"], ["çığ kırılması", "avalanche breakdown"], ["taban kontağı", "base contact"], ["kararlı nokta", "stable point"], [" biriminde: t", ": t"], ["fazla yük Q_S", "excess charge Q_S"], [", endüktif = ", ", inductive = "], ["p(t) dirençli", "p(t) resistive"], ["p(t) endüktif", "p(t) inductive"], ["kovalent bağ", "covalent bond"], ["İletim bandı", "Conduction band"], ["Valans bandı", "Valence band"], ["(enjeksiyon)", "(injection)"], ["Ani eklem: d", "Abrupt junction: d"], ["fazla + ısıl", "excess + thermal"], ["DC kayma = %", "DC shift (%) = "], ["(uzun taban)", "(long base)"], ["nötr taban W", "neutral base W"], [": daralmalı ", ": with narrowing "], ["kolektör (n)", "collector (n)"], [", kırılma BV", ", breakdown BV"], ["gecikme (ps)", "delay (ps)"], [" kat kısalır", "× shorter"], ["100 μs darbe", "100 μs pulse"], ["'yi azaltın.", "."], ["dirençli yük", "resistive load"], ["endüktif yük", "inductive load"], ["v_C (emetör)", "v_C (emitter)"], ["Mekanizma: ", "Mechanism: "], ["seçilen N_B", "selected N_B"], [" mA (tünel ", " mA (tunnel "], ["NDR bölgesi", "NDR region"], ["en yüksek f", "highest f"], ["t_s sayısal", "t_s numerical"], ["toplam S(f)", "total S(f)"], ["en düşük NF", "lowest NF"], ["ileri aktif", "forward active"], [" (taban) = ", " (base) = "], ["emetör (n⁺)", "emitter (n⁺)"], ["kazanç (dB)", "gain (dB)"], ["seçili k = ", "selected k = "], ["süre / τ_BF", "time / τ_BF"], [" varsayıldı", " assumed"], ["seçilen I_E", "selected I_E"], ["|eğim|) = ", "|slope|) = "], ["1/C² (ani)", "1/C² (abrupt)"], ["örtüşme = ", "overlap = "], ["fazla akım", "excess current"], ["I(V) üstel", "I(V) exponential"], ["ters aktif", "reverse active"], [" V ⇒ önce ", " V ⇒ first: "], ["1 ms darbe", "1 ms pulse"], ["Isıl kaçak", "Thermal runaway"], ["taban yükü", "base charge"], ["σ/σ₀ (sağ)", "σ/σ₀ (right)"], ["μ_p (hol)", "μ_p (holes)"], ["ρ, n tipi", "ρ, n-type"], ["ρ, p tipi", "ρ, p-type"], ["ani eklem", "abrupt junction"], ["akım payı", "current share"], ["ısıl akım", "thermal current"], ["ara durum", "intermediate state"], ["fazla J_x", "excess J_x"], ["ısıl J_th", "thermal J_th"], ["seçilen δ", "selected δ"], [" (a/4 ≈ %", " (a/4 ≈ "], ["(seçilen)", "(selected)"], ["saçma 2qI", "shot 2qI"], [" oranı = ", " ratio = "], ["taban (p)", "base (p)"], ["delinme: ", "punch-through: "], ["Seçilen I", "At selected I"], ["p⁺ emetör", "p⁺ emitter"], ["tek darbe", "single pulse"], ["tünelleme", "tunnelling"], [" baskın)", " dominates)"], ["J toplam", "J total"], [", fazla ", ", excess "], ["tepe yok", "no peak"], ["toplam I", "total I"], ["vadide I", "at valley I"], ["örnek no", "sample no."], ["delinme!", "punch-through!"], ["/10'da V", "/10: V"], [" mA'de f", " mA: f"], [" °C'de I", " °C: I"], ["Rejim: ", "Regime: "], [", ısıl ", ", thermal "], ["Bölge: ", "Mode: "], ["delinme", "punch-through"], ["Kararlı", "Stable"], ["ancak T", "but T"], ["oran = ", "ratio = "], ["salınır", "oscillates"], [" düşer", " falls"], [" A ve ", " A and "], ["tepe f", "peak f"], ["toplam", "total"], ["'de β", ": β"], [" olur", ""], ["doyum", "saturation"], ["kesim", "cutoff"], ["vadi", "valley"], ["çığ", "avalanche"]];
 const TX_EXACT = {"foton": "photon", "hata": "error", "sinyal": "signal", "kuramsal": "theoretical", "çoğunluk": "majority", "taban": "base", "kolektör": "collector"};
 function tx(str) {
@@ -5340,7 +5240,6 @@ function applyLangChrome() {
 
 /* ---------------- Ders planı ---------------- */
 const WEEKS = [
-  { n:0,  t:"Yarıiletken Fiziği Temelleri", sze:"Bölüm 1 — temel kavramlar", ready:true },
   { n:1,  t:"Yarıiletkenin fiziği ve özellikleri", sze:"Bölüm 1", ready:true },
   { n:2,  t:"p-n eklem diyodu I", sze:"Bölüm 2.1–2.2", ready:true },
   { n:3,  t:"p-n eklem diyodu II", sze:"Bölüm 2.3–2.4", ready:true },
@@ -5386,7 +5285,7 @@ function showWeek(n) {
   const w = WEEKS[wi];
   if (!w) return;
   currentSub = 'anlatim';
-  const unitTitle = w.n === 0 ? L('Bölüm 0', 'Foundation') : `${L('Hafta', 'Week')} ${w.n}`;
+  const unitTitle = `${L('Hafta', 'Week')} ${w.n}`;
   let html = `<div class="week-head"><h2>${unitTitle}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
   if (w.ready) {
     const tabs = n === 0 ? SUBTABS.filter(s => s[0] !== 'urun') : SUBTABS;
@@ -6795,7 +6694,7 @@ PLOTS['p-ujosc'] = el => {
     yaxis2:{ domain:[0, 0.37], title:'i_E (mA)', rangemode:'tozero', color: css('--ink'), gridcolor: css('--rule') } }), CFG);
 };
 
-/* ---------------- Bölüm 0 grafikleri ---------------- */
+/* ---------------- Hafta 1: katkı, taşıyıcı ve rejim grafikleri ---------------- */
 const F0 = { NSI: 5.0e22, gD: 2, gA: 4 };
 // Eksik iyonlaşmalı yük nötrlüğü (Boltzmann): n + N_A⁻ = p + N_D⁺, E_V = 0 referansı
 function f0Solve(ND, NA, T, ED = 0.045, EA = 0.045) {
@@ -7028,7 +6927,7 @@ PLOTS['p-f0-regime'] = el => {
     annotations: R.map(b => b.ann) }), CFG);
 };
 
-/* ---------------- Bölüm 0: saçılma simülasyonu ---------------- */
+/* ---------------- Hafta 1: saçılma simülasyonu ---------------- */
 // Model birimleri: dünya 1000×600 birim; 1 birim ≈ SC.NM nm. Hızlar birim/s.
 const SC = { W:1000, H:600, V0:160, G0:1.2, B0C:3.7e5, NM:0.34, NCAR:22, MAXPAIR:8 };
 const scMat = c => c === 'h' ? { vf:0.8, gf:1.8, af:0.6 } : { vf:1, gf:1, af:1 };

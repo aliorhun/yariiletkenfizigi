@@ -57,11 +57,11 @@ Aşağıdaki fotoğraflar Wikimedia Commons kaynak sayfalarında belirtilen aç�
 Trademark note: product or company marks visible in documentary photographs remain the property of their respective owners. Their appearance here is solely for educational identification and does not imply endorsement.
 
 
-## Week 0 / Bölüm 0 original foundation diagrams
+## Week 1 foundation diagrams (formerly Bölüm 0)
 
 The following diagrams are original educational SVGs created specifically for this repository and contain no copied third-party visual material:
 
-- `assets/images/week00/carrier-pair.svg` — atom → covalent bond → energy band → electron–hole pair relationship.
+- `assets/images/week00/carrier-pair.svg` — atom → covalent bond → energy band → electron–hole pair relationship (used in the Week 1 lecture).
 - `assets/images/week00/carrier-temperature-regimes.svg` — conceptual donor-doped Si temperature plot showing freeze-out, extrinsic and intrinsic regimes.
 
 The temperature-regime graphic is an original teaching diagram based on standard semiconductor-physics relationships; it is not a reproduction of a textbook figure. It is currently kept as a static reference; the lesson page now draws this plot interactively (Plotly) from the charge-neutrality equation.
