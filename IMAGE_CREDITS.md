@@ -13,6 +13,7 @@ The lesson visuals in this repository do not embed copied third-party photograph
 
 ## Dosyalar
 
+- `assets/images/week00/carrier-generation.svg` — saf Si'de elektron–hol çifti oluşumunu anlatan özgün eğitim şeması.
 - `assets/images/week01/band-structure.svg` — Kristal örgü ve enerji bantlarının ilişkisi
 - `assets/images/week02/pn-junction.svg` — p-n eklemi, tükenim bölgesi ve yerleşik elektrik alan
 - `assets/images/week03/diode-iv.svg` — Gerçek diyot I–V eğrisi: ileri iletim, sızıntı ve kırılma
