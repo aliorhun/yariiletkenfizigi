@@ -517,19 +517,6 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 </div>
 
-<div class="pane" data-pane="urun">
-<div class="edu-tr"><div class="product-grid">
-<article class="product-card"><h3>CMOS görüntü sensörü</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Karanlıkta bile termal elektron–hol çiftleri oluşur ve sensörde dark current üretir.</p><div class="product-use"><p><strong>Neden önemli?</strong> \(n_i\) sıcaklıkla arttığı için sıcak sensörde düşük ışık performansı bozulur.</p><p class="benefit"><strong>Faydası:</strong> Aynı taşıyıcı üretimi ışığın elektrik sinyaline çevrilmesini sağlar.</p><p class="limit"><strong>Sınırlama:</strong> İstenmeyen termal üretim gürültü oluşturur.</p></div></article>
-<article class="product-card"><h3>İşlemci / SoC</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Kapalı transistorlarda dahi termal taşıyıcılarla ilişkili sızıntılar sıfır değildir.</p><div class="product-use"><p><strong>Neden önemli?</strong> Sıcaklık yükseldikçe intrinsic ölçek ve leakage önem kazanır.</p><p class="benefit"><strong>Faydası:</strong> Katkılama ile taşıyıcı yoğunluğu mühendislik edilebilir.</p><p class="limit"><strong>Sınırlama:</strong> Isı–sızıntı–güç geri beslemesi oluşabilir.</p></div></article>
-<article class="product-card"><h3>SiC / GaN güç aygıtları</h3><p class="product-relation"><strong>Konu ile ilişkisi:</strong> Geniş bant aralığı aynı sıcaklıkta çok daha düşük \(n_i\) verir.</p><div class="product-use"><p><strong>Neden önemli?</strong> Yüksek sıcaklık ve yüksek gerilimde düşük sızıntı sağlar.</p><p class="benefit"><strong>Faydası:</strong> Daha yüksek alan ve sıcaklıkta çalışma potansiyeli.</p><p class="limit"><strong>Sınırlama:</strong> Malzeme ve üretim maliyeti daha yüksektir.</p></div></article>
-</div></div>
-<div class="edu-en"><div class="product-grid">
-<article class="product-card"><h3>CMOS image sensor</h3><p class="product-relation"><strong>Connection:</strong> Thermal electron–hole generation exists even in darkness and contributes to dark current.</p><div class="product-use"><p><strong>Why it matters:</strong> Higher \(n_i\) at higher temperature worsens low-light noise.</p><p class="benefit"><strong>Benefit:</strong> Carrier generation also converts light into signal.</p><p class="limit"><strong>Limitation:</strong> Unwanted thermal generation adds noise.</p></div></article>
-<article class="product-card"><h3>Processor / SoC</h3><p class="product-relation"><strong>Connection:</strong> Thermally related leakage remains nonzero even when transistors are nominally off.</p><div class="product-use"><p><strong>Why it matters:</strong> Leakage becomes increasingly important as temperature rises.</p><p class="benefit"><strong>Benefit:</strong> Doping lets engineers control carrier populations.</p><p class="limit"><strong>Limitation:</strong> Heat, leakage and power can reinforce one another.</p></div></article>
-<article class="product-card"><h3>SiC / GaN power devices</h3><p class="product-relation"><strong>Connection:</strong> Wider band gaps produce much lower intrinsic carrier concentration at the same temperature.</p><div class="product-use"><p><strong>Why it matters:</strong> Low leakage at high temperature and field.</p><p class="benefit"><strong>Benefit:</strong> Higher-field and higher-temperature operation.</p><p class="limit"><strong>Limitation:</strong> Materials and fabrication are more expensive.</p></div></article>
-</div></div>
-</div>
-
 <div class="pane" data-pane="matematik">
 <div class="prose">
 <h3>Intrinsic yoğunluk ve kütle etkisi</h3>
@@ -5421,13 +5408,13 @@ function showWeek(n) {
   const unitTitle = w.n === 0 ? L('Bölüm 0', 'Foundation') : `${L('Hafta', 'Week')} ${w.n}`;
   let html = `<div class="week-head"><h2>${unitTitle}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
   if (w.ready) {
-    const tabs = SUBTABS;
+    const tabs = n === 0 ? SUBTABS.filter(s => s[0] !== 'urun') : SUBTABS;
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
     main.innerHTML = html;
     main.appendChild(document.getElementById('week' + n + (LANG === 'en' ? '-en' : '')).content.cloneNode(true));
     // Product/manufacturing content is shared between languages in the Turkish template.
     // Clone that pane into the English lesson so the tab stays functional in both modes.
-    if (LANG === 'en' && !main.querySelector('.pane[data-pane="urun"]')) {
+    if (LANG === 'en' && n !== 0 && !main.querySelector('.pane[data-pane="urun"]')) {
       const productPane = document.getElementById('week' + n).content.querySelector('.pane[data-pane="urun"]');
       if (productPane) main.appendChild(productPane.cloneNode(true));
     }
