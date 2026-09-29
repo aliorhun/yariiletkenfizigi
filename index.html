@@ -58,18 +58,14 @@ a { color: var(--elec); }
 
 /* ---------- Üst kısım ---------- */
 .masthead {
-  display: grid; grid-template-columns: 1fr minmax(260px, 420px); gap: 2rem; align-items: end;
-  padding: 2rem clamp(1rem, 4vw, 3rem) 1.5rem; border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; min-height: 3.6rem;
+  padding: .7rem calc(1rem + 150px) .7rem clamp(1rem, 4vw, 3rem); border-bottom: 1px solid var(--rule);
   max-width: 1320px; margin: 0 auto;
 }
 .masthead h1 {
   font-family: var(--serif); font-weight: 700; font-size: clamp(1.35rem, 2.3vw, 2rem);
-  line-height: 1.15; margin: 0 0 .6rem; letter-spacing: -0.01em; white-space: nowrap;
+  line-height: 1.15; margin: 0; letter-spacing: -0.01em; white-space: nowrap;
 }
-.masthead p { margin: 0; color: var(--muted); font-family: var(--sans); font-size: 1rem; max-width: 60ch; }
-.masthead .ref { font-style: italic; font-family: var(--serif); }
-.hero-bands { width: 100%; height: auto; display: block; }
-.hero-bands text { font-family: var(--sans); font-size: 12px; fill: var(--muted); }
 .theme-toggle {
   position: absolute; top: calc(env(safe-area-inset-top, 0px) + .8rem); right: 1rem;
   width: 64px; height: 32px; padding: 0; border-radius: 999px; cursor: pointer;
@@ -204,8 +200,8 @@ olol
 .planned li { margin-bottom: .35rem; }
 
 @media (max-width: 860px) {
-  .masthead { grid-template-columns: 1fr; gap: 1rem; padding-top: 3.4rem; }
-  .masthead h1 { font-size: clamp(1.05rem, 4.6vw, 1.5rem); }
+  .masthead { padding-top: .6rem; padding-bottom: .6rem; }
+  .masthead h1 { font-size: clamp(1.05rem, 4.6vw, 1.5rem); white-space: normal; min-width: 0; }
   .layout { grid-template-columns: 1fr; }
   .week-head { display: block; margin-bottom: .55rem; }
   .week-head .meta { margin-top: .25rem; text-align: left; }
@@ -336,20 +332,7 @@ html[lang="en"] .edu-en { display:block; }
 </button>
 
 <header class="masthead">
-  <div>
-    <h1 id="mastTitle">Yarı İletken Yapılar Fiziğine Giriş</h1>
-    <p id="mastText">Elektronların ve hollerin kristal içinde nasıl davrandığından başlayıp diyotların ve transistörlerin nasıl çalıştığına uzanan bir ders. Soldan haftayı, üstteki sekmelerden bölümü seçin; grafiklerdeki kaydırıcılarla oynayarak konuyu kendiniz keşfedin. Ana kaynak: <span class="ref">Sze, Physics of Semiconductor Devices</span>.</p>
-  </div>
-  <!-- Kahraman görseli: p-n ekleminde bant bükülmesi -->
-  <svg class="hero-bands" viewBox="0 0 420 150" role="img" aria-label="p-n ekleminde bant bükülmesini gösteren şema">
-    <path d="M10 30 H150 C200 30 220 80 270 80 H410" fill="none" stroke="var(--elec)" stroke-width="3"/>
-    <path d="M10 95 H150 C200 95 220 145 270 145 H410" fill="none" stroke="var(--hole)" stroke-width="3" transform="translate(0,-10)"/>
-    <line x1="10" y1="100" x2="410" y2="100" stroke="var(--fermi)" stroke-width="2" stroke-dasharray="6 5" transform="translate(0,-28)"/>
-    <text x="14" y="22">E_C</text><text x="14" y="102">E_V</text><text x="372" y="66">E_F</text>
-    <text x="60" y="140">p</text><text x="340" y="140">n</text>
-    <rect x="150" y="10" width="120" height="130" fill="var(--litho)" opacity=".12"/>
-    <text x="165" y="140" id="heroDep">tükenim bölgesi</text>
-  </svg>
+  <h1 id="mastTitle">Yarı İletken Yapılar Fiziğine Giriş</h1>
 </header>
 
 <div class="layout">
@@ -5342,15 +5325,13 @@ function txDeep(o, key) {
   return o;
 }
 const MAST = {
-  tr: { t: 'Yarı İletken Yapılar Fiziğine Giriş', p: document.getElementById('mastText').innerHTML, dep: 'tükenim bölgesi', doc: 'Yarı İletken Yapılar Fiziğine Giriş' },
-  en: { t: 'Introduction to Semiconductor Structure Physics', p: 'A course that starts from how electrons and holes behave inside a crystal and goes on to how diodes and transistors work. Choose a week on the left and a section from the tabs above; explore each topic yourself by playing with the sliders in the plots. Main reference: <span class="ref">Sze, Physics of Semiconductor Devices</span>.', dep: 'depletion region', doc: 'Introduction to Semiconductor Structure Physics' }
+  tr: { t: 'Yarı İletken Yapılar Fiziğine Giriş', doc: 'Yarı İletken Yapılar Fiziğine Giriş' },
+  en: { t: 'Introduction to Semiconductor Structure Physics', doc: 'Introduction to Semiconductor Structure Physics' }
 };
 function applyLangChrome() {
   const m = MAST[LANG];
   document.documentElement.lang = LANG;
   document.getElementById('mastTitle').textContent = m.t;
-  document.getElementById('mastText').innerHTML = m.p;
-  document.getElementById('heroDep').textContent = m.dep;
   document.title = m.doc;
   const lb = document.getElementById('langBtn'); lb.setAttribute('aria-checked', LANG === 'en');
   document.getElementById('themeBtn').title = L('Açık / koyu tema', 'Light / dark theme');
