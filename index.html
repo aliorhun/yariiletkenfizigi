@@ -259,6 +259,23 @@ olol
 .foundation-figure { margin:1rem 0; border:1px solid var(--rule); border-radius:9px; overflow:hidden; background:var(--panel); }
 .foundation-figure img { display:block; width:100%; height:auto; max-height:560px; object-fit:contain; background:#f8fafc; }
 .foundation-figure figcaption { padding:.55rem .75rem; border-top:1px solid var(--rule); font-family:var(--sans); font-size:.82rem; color:var(--muted); }
+.def-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1rem 0 1.4rem; }
+.def-card { border:1px solid var(--rule); border-top:4px solid var(--elec); border-radius:8px; background:var(--panel); padding:.85rem 1rem; }
+.def-card.acc { border-top-color:var(--hole); }
+.def-card .sym { display:flex; align-items:baseline; gap:.6rem; margin-bottom:.35rem; }
+.def-card .sym b { font-size:1.55rem; line-height:1; }
+.def-card .sym span { font-family:var(--sans); font-size:.95rem; color:var(--muted); }
+.def-card dl { display:grid; grid-template-columns:max-content 1fr; gap:.3rem .8rem; margin:.4rem 0 0; font-size:.97rem; }
+.def-card dt { font-family:var(--sans); font-weight:600; color:var(--muted); }
+.def-card dd { margin:0; }
+.type-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; margin:1rem 0 1.4rem; }
+.type-card { border:1px solid var(--rule); border-left:5px solid var(--elec); border-radius:8px; background:var(--panel); padding:.85rem 1rem; }
+.type-card.p { border-left-color:var(--hole); }
+.type-card h4 { margin:0 0 .4rem; font-size:1.08rem; }
+.type-card.n h4 { color:var(--elec); } .type-card.p h4 { color:var(--hole); }
+.type-card ul { margin:.2rem 0 0; padding-left:1.15rem; }
+.type-card li { margin:.25rem 0; }
+@media (max-width:820px) { .def-grid, .type-grid { grid-template-columns:1fr; } .def-card dl { grid-template-columns:1fr; } .def-card dt { margin-top:.3rem; } }
 .analysis-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; margin:1rem 0; }
 .analysis-card { border:1px solid var(--rule); border-radius:8px; background:var(--panel); padding:.85rem; }
 .analysis-card h4 { margin:0 0 .35rem; font-size:1rem; }
@@ -330,11 +347,13 @@ html[lang="en"] .edu-en { display:block; }
   <main id="main"></main>
 </div>
 
-<!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
+<!-- =========================== BÖLÜM 0 İÇERİĞİ =========================== -->
 <template id="week0">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kristal, enerji bandı ve taşıyıcı kavramlarını birbirine bağlamak.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>Intrinsic carrier concentration \(n_i\)'nin atom sayısı değil, hareketli taşıyıcı yoğunluğu olduğunu anlamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li></ul></div></div>
+<div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu bölüm neyi oturtacak?</div><ul><li>Atom, kovalent bağ, enerji bandı ve hareketli taşıyıcı kavramlarını tek bir zincirde birleştirmek.</li><li>Serbest elektron ile holün ne olduğunu fiziksel olarak açıklamak.</li><li>\(n_i\), \(N_D\), \(N_A\), \(n\) ve \(p\) sembollerinin <b>neyi saydığını</b> karıştırmadan kullanmak.</li><li><b>n tipi</b> ve <b>p tipi</b> silisyumun nasıl elde edildiğini ve neden farklı davrandığını açıklamak.</li><li>Sıcaklık arttıkça freeze-out → extrinsic → intrinsic rejimlerini yorumlamak.</li></ul></div></div>
+<div class="edu-card edu-predict"><div class="edu-tr"><div class="edu-label">🧪 Önce tahmin et</div><p>Silisyuma her 5 milyon atomda bir fosfor atomu eklenirse (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)) oda sıcaklığında serbest elektron sayısı saf silisyuma göre kabaca kaç kat artar? Hol sayısı artar mı, azalır mı?</p></div></div>
+<div class="edu-card edu-mistake"><div class="edu-tr"><div class="edu-label">⚠️ Sık yapılan hata</div><p>“n tipi silisyum negatif yüklüdür” yanlıştır. Her serbest elektronun yanında kristalde sabit bir \(\mathrm{P^+}\) iyonu kalır; malzeme bir bütün olarak <b>elektriksel olarak nötrdür</b>. “n” yalnızca akımı çoğunlukla <b>negatif yüklü taşıyıcıların</b> taşıdığını söyler.</p></div></div>
 
 <div class="foundation-chain">
 <div class="foundation-step"><strong>1. Atom</strong>Si atomunun dört değerlik elektronu vardır.</div>
@@ -342,6 +361,8 @@ html[lang="en"] .edu-en { display:block; }
 <div class="foundation-step"><strong>3. Enerji bantları</strong>Atomik seviyeler valans ve iletim bantlarına dönüşür.</div>
 <div class="foundation-step"><strong>4. Taşıyıcı</strong>Uyarılan elektron hareket eder; geride hareketli bir hol kalır.</div>
 </div>
+
+<figure class="lesson-visual"><img src="assets/images/week00/carrier-pair.svg" alt="Silisyum kovalent bağından elektron-hol taşıyıcı çiftinin oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>Kovalent bağdan kopan bir elektron, bant resminde iletim bandına çıkar ve aynı olayda bir hol oluşur · Özgün teknik şema</figcaption></figure>
 
 <h3>0.1 Serbest elektron nedir?</h3>
 <p>Kristaldeki bütün elektronlar akıma eşit katkı vermez. Si değerlik elektronlarının çoğu kovalent bağların parçasıdır ve <b>bağlı durumdadır</b>. Bir elektron ısı veya ışıkla yeterli enerji kazanıp valans bandından iletim bandına geçtiğinde, bant içindeki boş durumlara geçebilir ve elektrik alan altında sürüklenebilir. Bu elektron artık <b>serbest elektron taşıyıcısıdır</b>.</p>
@@ -351,24 +372,77 @@ html[lang="en"] .edu-en { display:block; }
 <p>Bir elektron valans bandından ayrıldığında arkasında dolmamış bir durum bırakır. Komşu bir elektron bu boşluğu doldurunca boşluk başka yere geçmiş gibi görünür. Bu kolektif hareketi <b>hol</b> olarak modelleriz ve hol pozitif yük \(+q\) taşıyan bir yarı-parçacık gibi davranır.</p>
 <div class="note"><strong>Önemli:</strong> Hol yeni bir temel parçacık değildir; valans bandındaki elektron eksikliğinin kullanışlı fiziksel modelidir.</div>
 
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Silisyum kovalent bağından elektron-hol taşıyıcı çiftinin oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Atom → bağ → bant → taşıyıcı. Bir elektron iletim bandına çıktığında aynı olayda bir elektron–hol çifti oluşur.</figcaption></figure>
-
 <h3>0.3 Intrinsic carrier concentration \(n_i\) nedir?</h3>
-<p><b>Intrinsic carrier concentration</b> veya <b>öz taşıyıcı yoğunluğu</b> \(n_i\), katkısız bir yarıiletkende termal dengede birim hacimde doğal olarak bulunan hareketli elektron ve hol yoğunluğudur. Intrinsic malzemede çift üretimi nedeniyle:</p>
+<p><b>Intrinsic carrier concentration</b> veya <b>öz taşıyıcı yoğunluğu</b> \(n_i\), katkısız bir yarıiletkende termal dengede birim hacimde doğal olarak bulunan hareketli elektron ve hol yoğunluğudur. Intrinsic malzemede her kopan bağ bir elektron ve bir hol ürettiği için:</p>
 <p>\[\boxed{n=p=n_i}\]</p>
-<p>Örneğin \(n_i=10^{10}\ \mathrm{cm^{-3}}\), 1 cm³ malzemede yaklaşık \(10^{10}\) hareketli elektron ve aynı yoğunlukta hol bulunduğu anlamına gelir. Bu değer <b>Si atom yoğunluğu değildir</b>; kristaldeki atom sayısı çok daha büyüktür.</p>
+<p>Si için 300 K'de \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) (Sze: \(9.65\times10^{9}\)). Bu değer <b>Si atom yoğunluğu değildir</b>: 1 cm³ silisyumda yaklaşık \(5\times10^{22}\) atom vardır; yani saf Si'de oda sıcaklığında <b>her ~\(5\times10^{12}\) atoma yalnızca bir serbest elektron</b> düşer. Saf silisyum bu yüzden iyi bir iletken değildir.</p>
 
 <h3>0.4 \(n_i\) neden sıcaklığa çok duyarlıdır?</h3>
 <p>Dejenere olmayan yaklaşımda:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p>
+<p>\(N_C\) ve \(N_V\) yaklaşık \(T^{3/2}\) ile değişse de baskın etki üstel terimdir. <b>Sıcaklık arttıkça</b> daha fazla elektron bant aralığını aşar ve \(n_i\) hızla büyür: Si'de 300 K'den 400 K'e çıkınca \(n_i\) yaklaşık 500 kat artar. <b>\(E_g\) büyüdükçe</b> aynı sıcaklıkta intrinsic taşıyıcı üretimi azalır.</p>
 
-<h3>0.5 Katkılama varken \(n_i\) ne olur?</h3>
-<p>Katkılama \(n_i\)'yi ortadan kaldırmaz. Donör veya akseptörler çoğunluk taşıyıcısını değiştirir; termal dengede ise:</p>
+<h3>0.5 Katkılama: taşıyıcı sayısını neden ve nasıl seçeriz?</h3>
+<p>Saf silisyumun iki sorunu vardır: taşıyıcı sayısı çok azdır ve bu sayı sıcaklıkla üstel olarak değişir. Çözüm, kristale kontrollü miktarda <b>yabancı atom (katkı, dopant)</b> yerleştirmektir. Katkı atomu bir Si atomunun yerine oturur (<b>yer değiştirmeli katkı</b>) ve dört komşusuyla bağ kurar. Katkının değerlik elektron sayısı Si'den farklı olduğu için bir elektron <b>artar</b> ya da <b>eksik</b> kalır; taşıyıcı sayısını artık sıcaklık değil, üretim sırasında seçtiğimiz katkı miktarı belirler.</p>
+
+<h3>0.6 \(N_D\) ve \(N_A\): katkı yoğunluğu tanımı</h3>
+<p>Katkı miktarını, birim hacimdeki katkı atomu sayısıyla ölçeriz. Bu iki sembol dersin geri kalanında her denklemde karşımıza çıkacak:</p>
+<div class="def-grid">
+<div class="def-card"><div class="sym"><b>\(N_D\)</b><span>donör (verici) yoğunluğu</span></div>
+<dl>
+<dt>Ne sayar?</dt><dd>Birim hacimdeki <b>donör atomu</b> sayısı: V. grup atomları (P, As, Sb). Her biri kristale bir fazla elektron “verir”.</dd>
+<dt>Birim</dt><dd>\(\mathrm{cm^{-3}}\) (atom / cm³)</dd>
+<dt>İyonlaşmış kısmı</dt><dd>\(N_D^+\): elektronunu iletim bandına bırakmış, geride sabit \(+q\) yük kalan donörler. Oda sıcaklığında Si'de \(N_D^+\approx N_D\).</dd>
+<dt>Sonucu</dt><dd>\(N_D\gg n_i\) ise \(n\approx N_D\) → <b>n tipi</b></dd>
+</dl></div>
+<div class="def-card acc"><div class="sym"><b>\(N_A\)</b><span>akseptör (alıcı) yoğunluğu</span></div>
+<dl>
+<dt>Ne sayar?</dt><dd>Birim hacimdeki <b>akseptör atomu</b> sayısı: III. grup atomları (B, Al, Ga). Her biri valans bandından bir elektron “alır”.</dd>
+<dt>Birim</dt><dd>\(\mathrm{cm^{-3}}\) (atom / cm³)</dd>
+<dt>İyonlaşmış kısmı</dt><dd>\(N_A^-\): valans bandından elektron yakalamış, geride sabit \(-q\) yük ve hareketli bir hol bırakan akseptörler.</dd>
+<dt>Sonucu</dt><dd>\(N_A\gg n_i\) ise \(p\approx N_A\) → <b>p tipi</b></dd>
+</dl></div>
+</div>
+<p>\(N_D\) ile \(n\) aynı şey değildir: \(N_D\) <b>kaç tane katkı atomu</b> koyduğumuzu, \(n\) ise <b>kaç tane elektronun gerçekten hareket edebildiğini</b> sayar. İkisinin eşit olması (\(n\approx N_D\)) ancak donörlerin hepsi iyonlaştığında ve \(N_D\gg n_i\) olduğunda geçerli bir yaklaşımdır. Katkının ne kadar “seyreltik” olduğunu görmek için Si atom yoğunluğuyla karşılaştıralım:</p>
+<div class="table-wrap"><table class="data">
+<thead><tr><th>\(N_D\) veya \(N_A\) (cm⁻³)</th><th>Kaç Si atomuna 1 katkı?</th><th>Tipik kullanım</th></tr></thead>
+<tbody>
+<tr><td>\(10^{14}\)</td><td>~ 500 milyon</td><td>çok hafif katkı; güç aygıtı sürüklenme bölgesi, dedektör</td></tr>
+<tr><td>\(10^{15}\)–\(10^{16}\)</td><td>~ 50 milyon – 5 milyon</td><td>hafif katkı; pul (wafer) tabanı, BJT kolektörü</td></tr>
+<tr><td>\(10^{17}\)–\(10^{18}\)</td><td>~ 500 bin – 50 bin</td><td>orta/yüksek katkı; BJT tabanı, MOSFET kanal ayarı</td></tr>
+<tr><td>\(\gtrsim 10^{19}\)</td><td>~ 5 bin veya daha az</td><td>yoğun katkı (\(n^+\), \(p^+\)); kontaklar, emetör, kaynak/savak</td></tr>
+</tbody></table></div>
+<div class="note"><strong>Kompanzasyon:</strong> Aynı bölgede hem donör hem akseptör varsa ikisi birbirini kısmen yok eder; donörün fazla elektronu akseptörün eksiğini doldurur. Tip ve çoğunluk taşıyıcı yoğunluğu <b>net katkıyla</b> belirlenir: \(N_D>N_A\) ise \(n\approx N_D-N_A\), \(N_A>N_D\) ise \(p\approx N_A-N_D\).</div>
+
+<h3>0.7 n tipi ve p tipi silisyum ne demek?</h3>
+<div class="type-grid">
+<div class="type-card n"><h4>n tipi silisyum (negatif taşıyıcı çoğunlukta)</h4><ul>
+<li><b>Nasıl yapılır?</b> Si'ye V. grup atomu (P, As, Sb) eklenir: \(N_D>N_A\).</li>
+<li><b>Mikroskobik resim:</b> P'nin 5 değerlik elektronundan 4'ü komşu Si'lerle bağ kurar; 5. elektron çok zayıf bağlıdır.</li>
+<li><b>Bant resmi:</b> Donör seviyesi \(E_D\), \(E_C\)'nin yalnızca ~45 meV altındadır (\(kT\approx26\) meV). Oda sıcaklığında neredeyse tüm donörler iyonlaşır.</li>
+<li><b>Geride kalan:</b> hareket edemeyen \(\mathrm{P^+}\) iyonu. Hol <b>oluşmaz</b>.</li>
+<li><b>Çoğunluk taşıyıcı:</b> elektron, \(n\approx N_D\). <b>Azınlık:</b> hol, \(p\approx n_i^2/N_D\).</li>
+<li><b>Fermi seviyesi:</b> \(E_C\)'ye yaklaşır.</li>
+</ul></div>
+<div class="type-card p"><h4>p tipi silisyum (pozitif taşıyıcı çoğunlukta)</h4><ul>
+<li><b>Nasıl yapılır?</b> Si'ye III. grup atomu (çoğunlukla B) eklenir: \(N_A>N_D\).</li>
+<li><b>Mikroskobik resim:</b> B'nin yalnızca 3 değerlik elektronu vardır; dört bağdan biri bir elektron eksik kalır.</li>
+<li><b>Bant resmi:</b> Akseptör seviyesi \(E_A\), \(E_V\)'nin ~45 meV üstündedir. Komşu bir bağ elektronu kolayca bu seviyeye atlar.</li>
+<li><b>Geride kalan:</b> hareket edemeyen \(\mathrm{B^-}\) iyonu ve valans bandında hareketli bir <b>hol</b>. Serbest elektron <b>oluşmaz</b>.</li>
+<li><b>Çoğunluk taşıyıcı:</b> hol, \(p\approx N_A\). <b>Azınlık:</b> elektron, \(n\approx n_i^2/N_A\).</li>
+<li><b>Fermi seviyesi:</b> \(E_V\)'ye yaklaşır.</li>
+</ul></div>
+</div>
+<p>İki tip de <b>aynı kristaldir</b>; farkı milyonlarca atomda bir yer alan katkı atomları yaratır. Buna rağmen etkisi çok büyüktür: \(N_D=10^{16}\ \mathrm{cm^{-3}}\) ile elektron yoğunluğu \(n_i\)'nin yaklaşık bir milyon katına çıkar, hol yoğunluğu ise yaklaşık bir milyon kat azalır. p-n eklemi, BJT ve MOSFET gibi aygıtların hepsi n ve p bölgelerinin yan yana getirilmesiyle çalışır.</p>
+
+<h3>0.8 Katkılama varken \(n_i\) ne olur?</h3>
+<p>Katkılama \(n_i\)'yi ortadan kaldırmaz. Donör veya akseptörler çoğunluk taşıyıcısını değiştirir; termal dengede ise çarpım sabit kalır (<b>kütle etkisi yasası</b>):</p>
 <p>\[\boxed{np=n_i^2}\]</p>
-<p>Tam iyonlaşmış, kompanzasyonsuz n-tipi malzemede \(N_D\gg n_i\) ise \(n\approx N_D\), azınlık hol yoğunluğu da \(p\approx n_i^2/N_D\) olur.</p>
+<p>Çoğunluk taşıyıcısı artarsa, fazla elektronlar holler ile daha sık karşılaşıp rekombine olduğu için azınlık taşıyıcısı aynı oranda azalır. Tam iyonlaşmış, kompanzasyonsuz n tipi malzemede \(N_D\gg n_i\) ise \(n\approx N_D\) ve \(p\approx n_i^2/N_D\) olur.</p>
 
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Üç yoğunluğu karıştırmayın</div><p><b>Atom yoğunluğu</b> kristaldeki atomları, <b>katkı yoğunluğu</b> eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> ise gerçekten hareket edebilen elektron ve holleri sayar. \(n_i\) üçüncüsüdür.</p></div>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Üç yoğunluğu karıştırmayın</div><p><b>Atom yoğunluğu</b> kristaldeki atomları (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>katkı yoğunluğu</b> (\(N_D\), \(N_A\)) eklenen donör/akseptörleri, <b>taşıyıcı yoğunluğu</b> (\(n\), \(p\), \(n_i\)) ise gerçekten hareket edebilen elektron ve holleri sayar. Görseller sekmesindeki çubuk grafikte üçünü aynı eksende karşılaştırabilirsiniz.</p></div>
+
+<div class="note"><strong>Sze karşılığı:</strong> Bölüm 1, kısım 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic yoğunluk, donörler ve akseptörler).</div>
 </div>
 </div>
 
@@ -387,64 +461,153 @@ html[lang="en"] .edu-en { display:block; }
 
 <div class="pane" data-pane="matematik">
 <div class="prose">
-<h3>Temel bağıntılar</h3>
-<p><b>Intrinsic:</b> \(n=p=n_i\)</p>
-<p><b>Kütle etkisi:</b> \(np=n_i^2\)</p>
-<p><b>Intrinsic yoğunluk:</b></p>
-<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p><b>Tam iyonlaşmış, kompanzasyonsuz n-tipi malzeme:</b></p>
-<p>\[n=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2}\]</p>
-<ul><li>\(n_i\ll N_D\): \(n\approx N_D\) — extrinsic rejim.</li><li>\(n_i\sim N_D\): intrinsic üretim artık ihmal edilemez.</li><li>\(n_i\gg N_D\): \(n\approx n_i\) — intrinsic rejim.</li></ul>
-<div class="note"><strong>Freeze-out:</strong> Çok düşük sıcaklıkta tam iyonlaşma varsayımı geçersizdir; donörlerin önemli kısmı nötr kaldığından \(n&lt;N_D\).</div>
-<h3>Örnek</h3>
-<p>300 K civarında \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) ve \(N_D=10^{15}\ \mathrm{cm^{-3}}\) ise \(n\approx10^{15}\ \mathrm{cm^{-3}}\). Azınlık holler:</p>
-<p>\[p=\frac{n_i^2}{n}\approx10^5\ \mathrm{cm^{-3}}\]</p>
+<h3>Intrinsic yoğunluk ve kütle etkisi</h3>
+<div class="eq">\[ n = p = n_i, \qquad n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right) \propto T^{3/2}e^{-E_g/2kT} \]<span class="cap">Si, 300 K: \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\ \mathrm{cm^{-3}}\), \(E_g=1.12\) eV → \(n_i\approx 10^{10}\ \mathrm{cm^{-3}}\).</span></div>
+<div class="eq">\[ np = n_i^2 \]<span class="cap">Termal dengede, dejenere olmayan malzemede katkıdan bağımsızdır. Katkı yalnızca \(n\) ile \(p\)'nin bu çarpımı nasıl paylaştığını değiştirir.</span></div>
+
+<h3>Yük nötrlüğü ve katkı iyonlaşması</h3>
+<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">Sol taraf negatif, sağ taraf pozitif yükleri sayar. \(N_D^+\) ve \(N_A^-\) sabit (hareketsiz) iyonlardır; \(n\) ve \(p\) hareketli taşıyıcılardır.</span></div>
+<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Taban durumu dejenerelik çarpanları Si için \(g_D=2\), \(g_A=4\). İyonlaşma enerjileri: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
+
+<details class="derive"><summary>Türetim: tam iyonlaşmada \(n\) ve \(p\)</summary><div>
+<p>\(N_D^+=N_D\), \(N_A^-=N_A\) ve \(p=n_i^2/n\) nötrlük denklemine yazılırsa:</p>
+\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
+<p>Aynı işlem hol için yapılırsa:</p>
+\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
+<p>Kök içindeki iki terimin yarışı rejimi belirler:</p>
+<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, çoğunluk yoğunluğu = net katkı.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic üretim artık ihmal edilemez.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic davranış, \(n\approx p\approx n_i\).</li></ul>
+</div></details>
+
+<h3>n tipi ve p tipi için pratik formüller</h3>
+<div class="eq">\[ \text{n tipi } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
+<div class="eq">\[ \text{p tipi } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
+<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n tipi, \(E_F<E_i\) → p tipi. Katkı 10 kat arttığında \(E_F\) yaklaşık \(kT\ln10\approx 60\) meV kayar.</span></div>
+
+<h3>Düşük sıcaklık: freeze-out</h3>
+<details class="derive"><summary>Türetim: kompanzasyonsuz n tipinde freeze-out yaklaşımı</summary><div>
+<p>Çok düşük sıcaklıkta \(p\approx0\), \(N_A=0\) ve donörlerin çoğu nötrdür (\(e^{(E_F-E_D)/kT}\gg1\)). Nötrlük \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\) olur. Bunu \(n=N_C e^{-(E_C-E_F)/kT}\) ile çarpıp \(E_F\)'yi yok edersek:</p>
+\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
+<p>Eğim, intrinsic bölgedeki \(E_g/2\) yerine \((E_C-E_D)/2\) ile belirlenir; bu yüzden freeze-out bölgesi çok daha düşük sıcaklıklarda görülür.</p>
+</div></details>
+
+<h3>Örnekler</h3>
+<p><b>n tipi:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
+<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
+<p><b>p tipi:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
+<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
 </div>
 </div>
 
 <div class="pane" data-pane="gorsel">
-<div class="prose">
-<h3>Görsel 1 — Elektron ve hol nasıl birlikte oluşur?</h3>
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Elektron-hol çifti oluşumu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Bir elektron valans bandından iletim bandına çıktığında bir serbest elektron ve bir hol aynı anda oluşur.</figcaption></figure>
+<p class="legend-key">Renk kodu tüm derste sabittir: <span class="e">mavi</span> elektron ve iletim bandı, <span class="h">kırmızı</span> hol ve valans bandı, <span class="f">yeşil</span> Fermi seviyesi.</p>
 
-<h3>Görsel 2 — Sıcaklık grafiğini nasıl okumalıyız?</h3>
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-temperature-regimes.svg" alt="Donör katkılı silisyumda sıcaklığa göre elektron ve intrinsic taşıyıcı yoğunluğu" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Donör katkılı Si için özgün kavramsal grafik. Geçiş sıcaklıkları dopant ve malzeme parametrelerine bağlıdır.</figcaption></figure>
+<section class="fig">
+  <h3>Kristalden banda: katkı atomları ve taşıyıcılar</h3>
+  <p class="why">Solda iki boyuta indirgenmiş Si örgüsü (her çizgi iki elektronlu bir kovalent bağ), sağda aynı durumun bant diyagramı. Tipi değiştirin: P atomunun 5. elektronu nereye gidiyor, B atomunun eksik bağı nasıl hol oluyor? Sıcaklığı düşürüp freeze-out'u, yükseltip kopan bağları görün. Taşıyıcı sayıları sembolik, alttaki değerler gerçek hesaptır.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Saf Si</button><button aria-pressed="true" data-v="n">n tipi (P)</button><button aria-pressed="false" data-v="p">p tipi (B)</button></span>
+    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
+    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
+  </div>
+  <div class="readout" id="ro-f0-lat"></div>
+  <div class="plot tall" id="p-f0-lattice"></div>
+</section>
 
-<div class="analysis-grid">
-<div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Düşük sıcaklıkta donörlerin önemli kısmı iyonlaşmaz. Bu yüzden \(n\ll N_D\). Sıcaklık arttıkça donörler iyonlaşır ve elektron yoğunluğu hızla yükselir.</p></div>
-<div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler büyük ölçüde iyonlaşmıştır fakat intrinsic üretim küçüktür. Taşıyıcı yoğunluğunu katkılama belirler ve \(n\approx N_D\).</p></div>
-<div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyür. \(n_i\) donör yoğunluğuyla karşılaştırılabilir hale gelince katkılama baskınlığını kaybeder; sonunda \(n\approx p\approx n_i\).</p></div>
-</div>
+<section class="fig">
+  <h3>n tipi mi, p tipi mi? \(N_D\) ile \(N_A\) yarışı</h3>
+  <p class="why">\(N_A\)'yı sabit tutup \(N_D\)'yi süpürdüğümüzde elektron ve hol yoğunlukları. \(N_D=N_A\) çizgisinin solunda malzeme p tipi, sağında n tipidir. Çoğunluk taşıyıcısı arttıkça azınlığın aynı oranda azaldığına dikkat edin: iki eğri her yerde \(np=n_i^2\) ile birbirine bağlıdır.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
+    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
+    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-np"></div>
+  <div class="plot" id="p-f0-sweep"></div>
+</section>
 
-<h3>\(n_i=N_D\) noktası ne anlatıyor?</h3>
-<p>Bu nokta keskin bir faz sınırı değildir. Intrinsic termal üretimin, katkılamayla getirilen taşıyıcı ölçeğine ulaştığını gösterir. Buradan sonra \(n\approx N_D\) yaklaşımı giderek bozulur.</p>
+<section class="fig">
+  <h3>Atom, katkı ve taşıyıcı yoğunlukları aynı eksende</h3>
+  <p class="why">Yukarıdaki kaydırıcılar bu grafiği de günceller. Logaritmik eksende Si atom yoğunluğu, katkı yoğunlukları ve hareketli taşıyıcı yoğunlukları. Katkının ne kadar seyreltik olduğunu ve \(N_D\) ile \(n\)'nin ne zaman aynı çubuk boyuna geldiğini görün.</p>
+  <div class="plot" id="p-f0-bars"></div>
+</section>
 
-<h3>Eksenler ve eğriler</h3>
-<ul>
-<li><b>x:</b> mutlak sıcaklık \(T\) (K).</li>
-<li><b>y:</b> taşıyıcı yoğunluğu \(\mathrm{cm^{-3}}\), log ölçek.</li>
-<li><b>Mavi:</b> gerçek çoğunluk elektron yoğunluğu \(n(T)\).</li>
-<li><b>Siyah kesikli:</b> intrinsic yoğunluk \(n_i(T)\).</li>
-<li><b>Turuncu:</b> sabit donör yoğunluğu \(N_D\).</li>
-</ul>
-
-<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Grafikte sık yapılan hatalar</div><ul><li>Extrinsic platoda \(n_i\)'nin sabit olduğunu sanmak.</li><li>\(n=N_D\) ifadesini her sıcaklıkta geçerli kabul etmek.</li><li>Intrinsic bölgede donörlerin yok olduğunu düşünmek; donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</li></ul></div>
-
-<h3>Kendine sor</h3>
-<ol><li>\(N_D\) artırılırsa extrinsic plato nasıl değişir?</li><li>\(E_g\) daha büyük bir malzemede intrinsic rejim daha erken mi, daha geç mi başlar?</li><li>Freeze-out bölgesinde neden \(n&lt;N_D\)?</li><li>Yüksek sıcaklıkta neden n-tipi etiketi giderek daha az belirleyici olur?</li></ol>
-</div>
+<section class="fig">
+  <h3>Sıcaklıkla üç rejim: freeze-out → extrinsic → intrinsic</h3>
+  <p class="why">Donör katkılı Si'de elektron yoğunluğu, eksik iyonlaşmayı da içeren nötrlük denkleminden hesaplanır. \(N_D\)'yi artırın: extrinsic plato yükselir ve intrinsic geçiş daha yüksek sıcaklığa kayar. İyonlaşma enerjisini artırın: freeze-out bölgesi genişler.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
+    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
+    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
+    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-reg"></div>
+  <div class="plot" id="p-f0-regime"></div>
+  <div class="analysis-grid">
+  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Düşük sıcaklıkta donörlerin önemli kısmı elektronunu tutar, bu yüzden \(n\ll N_D\). Sıcaklık arttıkça donörler iyonlaşır ve \(n\) hızla yükselir.</p></div>
+  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donörler neredeyse tamamen iyonlaşmıştır, intrinsic üretim ise küçüktür. Taşıyıcı sayısını katkı belirler: \(n\approx N_D\). Aygıtların çalışma bölgesi burasıdır.</p></div>
+  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) üstel olarak büyüyüp \(N_D\)'yi yakalar. Katkı baskınlığını kaybeder ve sonunda \(n\approx p\approx n_i\) olur. Donörler hâlâ vardır, yalnızca taşıyıcı sayısını artık onlar belirlemez.</p></div>
+  </div>
+</section>
 </div>
 
 <div class="pane" data-pane="soru">
-<div class="prose">
-<div class="qa"><p class="q">1. \(n_i\) atom yoğunluğu mudur?</p><p>Hayır. Katkısız malzemede termal dengedeki hareketli elektron ve hol yoğunluğudur.</p></div>
-<div class="qa"><p class="q">2. Elektron oluşunca hol neden oluşur?</p><p>Elektron valans bandındaki dolu bir durumdan ayrıldığı için arkasında bir elektron eksikliği bırakır.</p></div>
-<div class="qa"><p class="q">3. Hol gerçek parçacık mıdır?</p><p>Temel parçacık değildir; elektron eksikliğinin kolektif hareketini pozitif yüklü yarı-parçacık olarak modelleriz.</p></div>
-<div class="qa"><p class="q">4. Katkılı malzemede \(np=n_i^2\) neden önemlidir?</p><p>Çoğunluk taşıyıcısı arttığında azınlık taşıyıcısının ne kadar azalacağını termal dengede doğrudan verir.</p></div>
-<div class="qa"><p class="q">5. N-tipi Si yüksek sıcaklıkta neden intrinsic davranır?</p><p>Termal elektron–hol üretimi donörlerin sağladığı taşıyıcı yoğunluğunu aşacak kadar büyür.</p></div>
-</div>
+<div class="qa"><p class="q">1. \(n_i\) atom yoğunluğu mudur? <span class="lvl">temel</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Hayır. Katkısız malzemede termal dengedeki <b>hareketli</b> elektron (ve hol) yoğunluğudur. Si'de 300 K'de \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\), atom yoğunluğu ise \(5\times10^{22}\ \mathrm{cm^{-3}}\); yani yaklaşık her \(5\times10^{12}\) atoma bir serbest elektron düşer.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">2. Saf Si'de elektron oluşunca hol neden oluşur? <span class="lvl">temel</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Elektron valans bandındaki dolu bir durumdan, yani bir kovalent bağdan ayrılır. Arkasında bir elektron eksikliği bırakır; bu eksiklik hol olarak hareket eder. Bu yüzden saf malzemede \(n=p\).</p>
+</div></details></div>
+
+<div class="qa"><p class="q">3. Hol gerçek bir parçacık mıdır? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Temel parçacık değildir. Valans bandındaki çok sayıda elektronun kolektif hareketini, tek bir boş durumun ters yönde hareketi olarak modellemek çok daha kolaydır. Bu boş durum \(+q\) yüklü ve pozitif etkin kütleli bir yarı-parçacık gibi davranır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">4. Si'ye \(N_D=10^{16}\ \mathrm{cm^{-3}}\) fosfor ekleniyor. Kaç Si atomuna bir P düşer? 300 K'de \(n\) ve \(p\) nedir? <span class="lvl">temel</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atomuna bir P}, \qquad n\approx N_D = 10^{16}\ \mathrm{cm^{-3}}, \qquad p=\frac{(9.65\times10^9)^2}{10^{16}}\approx 9.3\times10^{3}\ \mathrm{cm^{-3}}. \]
+<p>Çok seyreltik bir katkı, elektron sayısını \(n_i\)'nin bir milyon katına çıkarırken hol sayısını bir milyon kat düşürür.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">5. \(N_A=10^{17}\ \mathrm{cm^{-3}}\) bor katkılı Si'de 300 K'de çoğunluk ve azınlık taşıyıcı yoğunlukları ile \(E_F-E_V\) nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
+<p>Malzeme p tipidir; Fermi seviyesi valans bandına yaklaşmıştır.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">6. Bir Si bölgesinde \(N_D=3\times10^{16}\) ve \(N_A=10^{16}\ \mathrm{cm^{-3}}\) var. Malzeme hangi tiptir; \(n\) ve \(p\) nedir? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>\(N_D>N_A\) olduğu için <b>n tipidir</b>. Akseptörler donörlerin bir kısmını kompanze eder:</p>
+\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
+<div class="note"><strong>Dikkat:</strong> Taşıyıcı yoğunluğu net katkıya bağlıdır; hareketlilik ise toplam iyon yoğunluğu \(N_D+N_A\) ile belirlenir (1. hafta).</div>
+</div></details></div>
+
+<div class="qa"><p class="q">7. n tipi silisyum negatif yüklü müdür? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Hayır. Her iyonlaşmış donör bir serbest elektron ve bir sabit \(\mathrm{P^+}\) iyonu üretir; toplam yük sıfırdır. Nötrlük \(n+N_A^-=p+N_D^+\) denklemiyle ifade edilir. “n tipi” ifadesi yalnızca çoğunluk taşıyıcısının negatif yüklü olduğunu söyler.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">8. \(N_D=10^{15}\ \mathrm{cm^{-3}}\) Si yaklaşık hangi sıcaklıkta intrinsic davranmaya başlar? <span class="lvl">orta</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Geçiş kabaca \(n_i(T)\approx N_D\) olduğunda başlar. \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) sayısal olarak çözülürse \(n_i=10^{15}\ \mathrm{cm^{-3}}\) yaklaşık <b>545 K</b>'de sağlanır (\(N_D=10^{16}\) için ~650 K). Görseller sekmesindeki rejim grafiğinde \(N_D\)'yi değiştirerek bu kaymayı görebilirsiniz.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">9. Çok düşük sıcaklıkta neden \(n&lt;N_D\) olur? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Donör elektronunu serbest bırakmak için yaklaşık 45 meV gerekir. \(kT\) bu enerjiye göre çok küçük olduğunda (ör. 30 K'de \(kT\approx2.6\) meV) elektronların çoğu donör atomuna bağlı kalır. Bu duruma <b>freeze-out</b> (donma) denir.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">10. Yüksek sıcaklıkta n tipi etiketi neden anlamını yitirir? <span class="lvl">kavramsal</span></p>
+<details><summary>Çözümü göster</summary><div>
+<p>Termal elektron–hol üretimi, yani \(n_i\), üstel olarak artar ve donörlerin sağladığı taşıyıcı yoğunluğunu aşar. Bu durumda \(n\approx p\approx n_i\) olur ve malzemenin davranışını katkı değil sıcaklık belirler. Geniş bant aralıklı malzemelerin (SiC, GaN) yüksek sıcaklıkta tercih edilmesinin nedeni budur.</p>
+</div></details></div>
 </div>
 </template>
+
+<!-- =========================== HAFTA 1 İÇERİĞİ =========================== -->
 <template id="week1">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
@@ -2610,50 +2773,242 @@ html[lang="en"] .edu-en { display:block; }
 <template id="week0-en">
 <div class="pane" data-pane="anlatim">
 <div class="prose">
-<div class="edu-card"><div class="edu-label">🎯 Foundation goals</div><ul><li>Connect atoms, covalent bonds, bands and mobile carriers.</li><li>Distinguish a mobile conduction electron from a bound valence electron.</li><li>Understand a hole as a mobile missing-electron state.</li><li>Interpret \(n_i\), \(np=n_i^2\), and freeze-out / extrinsic / intrinsic regimes.</li></ul></div>
+<div class="edu-card"><div class="edu-label">🎯 What this foundation unit builds</div><ul><li>Connect atoms, covalent bonds, energy bands and mobile carriers into one chain.</li><li>Explain physically what a free electron and a hole are.</li><li>Use the symbols \(n_i\), \(N_D\), \(N_A\), \(n\) and \(p\) without mixing up <b>what each one counts</b>.</li><li>Explain how <b>n-type</b> and <b>p-type</b> silicon are made and why they behave differently.</li><li>Interpret the freeze-out → extrinsic → intrinsic regimes as temperature rises.</li></ul></div>
+<div class="edu-card edu-predict"><div class="edu-label">🧪 Predict first</div><p>If one phosphorus atom is added for every 5 million silicon atoms (\(N_D=10^{16}\ \mathrm{cm^{-3}}\)), by roughly what factor does the free-electron density at room temperature increase compared with pure silicon? Does the hole density go up or down?</p></div>
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Common misconception</div><p>“n-type silicon is negatively charged” is wrong. Every free electron leaves a fixed \(\mathrm{P^+}\) ion behind in the crystal, so the material as a whole is <b>electrically neutral</b>. The “n” only says that current is carried mostly by <b>negatively charged carriers</b>.</p></div>
+
 <div class="foundation-chain"><div class="foundation-step"><strong>1. Atom</strong>Si has four valence electrons.</div><div class="foundation-step"><strong>2. Crystal</strong>Si atoms form a periodic covalent lattice.</div><div class="foundation-step"><strong>3. Bands</strong>Atomic levels broaden into valence and conduction bands.</div><div class="foundation-step"><strong>4. Carrier</strong>An excited electron becomes mobile and leaves a hole.</div></div>
-<h3>0.1 Free electrons</h3>
-<p>Most valence electrons participate in covalent bonds and do not contribute directly to conduction. After gaining enough thermal or optical energy to reach the conduction band, an electron can move through available states and respond to an electric field.</p>
-<h3>0.2 Holes</h3>
-<p>Promoting an electron leaves an empty valence-band state. Neighboring electrons can fill that state, making the vacancy propagate through the crystal. This mobile missing-electron state is modeled as a positively charged <b>hole</b>.</p>
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation in silicon" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>One promoted valence electron produces one conduction electron and one hole.</figcaption></figure>
-<h3>0.3 Intrinsic carrier concentration \(n_i\)</h3>
-<p>\(n_i\) is the equilibrium density of naturally occurring mobile electrons and holes in an undoped semiconductor:</p>
+
+<figure class="lesson-visual"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation from a silicon covalent bond" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('image-error')"><figcaption>An electron released from a covalent bond rises to the conduction band, and a hole is created in the same event · Original technical diagram</figcaption></figure>
+
+<h3>0.1 What is a free electron?</h3>
+<p>Not every electron in the crystal contributes to current. Most Si valence electrons are part of covalent bonds and are <b>bound</b>. When an electron gains enough thermal or optical energy to move from the valence band to the conduction band, it can move into empty states within the band and drift under an electric field. It is now a <b>free-electron carrier</b>.</p>
+<p>“Free” does not mean free as in vacuum. The electron still feels the periodic potential of the crystal; this is included in the model through quantities such as the effective mass \(m^*\).</p>
+
+<h3>0.2 What is a hole?</h3>
+<p>An electron leaving the valence band leaves an unfilled state behind. When a neighbouring electron fills that vacancy, the vacancy appears to have moved. We model this collective motion as a <b>hole</b>, a quasi-particle that behaves as if it carried a positive charge \(+q\).</p>
+<div class="note"><strong>Important:</strong> A hole is not a new fundamental particle; it is a useful physical model of a missing electron in the valence band.</div>
+
+<h3>0.3 What is the intrinsic carrier concentration \(n_i\)?</h3>
+<p>The <b>intrinsic carrier concentration</b> \(n_i\) is the density of mobile electrons and holes that exist naturally per unit volume in an undoped semiconductor at thermal equilibrium. Since every broken bond produces one electron and one hole:</p>
 <p>\[\boxed{n=p=n_i}\]</p>
-<p>It is a carrier density, not the silicon atom density.</p>
-<h3>0.4 Temperature dependence</h3>
+<p>For Si at 300 K, \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) (Sze: \(9.65\times10^{9}\)). This is <b>not the silicon atom density</b>: 1 cm³ of silicon contains about \(5\times10^{22}\) atoms, so at room temperature pure Si has <b>only one free electron for every ~\(5\times10^{12}\) atoms</b>. That is why pure silicon is a poor conductor.</p>
+
+<h3>0.4 Why is \(n_i\) so sensitive to temperature?</h3>
+<p>In the non-degenerate approximation:</p>
 <p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p>The exponential factor makes \(n_i\) rise strongly with temperature and fall strongly as band gap increases.</p>
-<h3>0.5 Doping and mass action</h3>
-<p>Doping changes majority-carrier density but does not remove the intrinsic scale. At thermal equilibrium:</p>
+<p>\(N_C\) and \(N_V\) scale roughly as \(T^{3/2}\), but the exponential dominates. <b>As temperature rises</b>, more electrons cross the band gap and \(n_i\) grows rapidly: in Si, going from 300 K to 400 K increases \(n_i\) about 500-fold. <b>A larger \(E_g\)</b> means fewer intrinsic carriers at the same temperature.</p>
+
+<h3>0.5 Doping: why and how we choose the carrier density</h3>
+<p>Pure silicon has two problems: it has very few carriers, and that number changes exponentially with temperature. The solution is to place a controlled amount of <b>foreign atoms (dopants)</b> into the crystal. A dopant atom takes the place of a Si atom (<b>substitutional doping</b>) and bonds with its four neighbours. Because its number of valence electrons differs from Si, one electron is either <b>left over</b> or <b>missing</b>; the carrier density is now set by the dopant amount chosen during fabrication rather than by temperature.</p>
+
+<h3>0.6 \(N_D\) and \(N_A\): defining dopant concentration</h3>
+<p>We measure the amount of doping as the number of dopant atoms per unit volume. These two symbols appear in nearly every equation for the rest of the course:</p>
+<div class="def-grid">
+<div class="def-card"><div class="sym"><b>\(N_D\)</b><span>donor concentration</span></div>
+<dl>
+<dt>What it counts</dt><dd>The number of <b>donor atoms</b> per unit volume: group-V atoms (P, As, Sb). Each one “donates” one extra electron to the crystal.</dd>
+<dt>Unit</dt><dd>\(\mathrm{cm^{-3}}\) (atoms / cm³)</dd>
+<dt>Ionized part</dt><dd>\(N_D^+\): donors that have released their electron to the conduction band, leaving a fixed \(+q\) charge. In Si at room temperature \(N_D^+\approx N_D\).</dd>
+<dt>Result</dt><dd>If \(N_D\gg n_i\), then \(n\approx N_D\) → <b>n-type</b></dd>
+</dl></div>
+<div class="def-card acc"><div class="sym"><b>\(N_A\)</b><span>acceptor concentration</span></div>
+<dl>
+<dt>What it counts</dt><dd>The number of <b>acceptor atoms</b> per unit volume: group-III atoms (B, Al, Ga). Each one “accepts” an electron from the valence band.</dd>
+<dt>Unit</dt><dd>\(\mathrm{cm^{-3}}\) (atoms / cm³)</dd>
+<dt>Ionized part</dt><dd>\(N_A^-\): acceptors that have captured a valence electron, leaving a fixed \(-q\) charge and a mobile hole.</dd>
+<dt>Result</dt><dd>If \(N_A\gg n_i\), then \(p\approx N_A\) → <b>p-type</b></dd>
+</dl></div>
+</div>
+<p>\(N_D\) and \(n\) are not the same thing: \(N_D\) counts <b>how many dopant atoms</b> we added, while \(n\) counts <b>how many electrons can actually move</b>. Setting them equal (\(n\approx N_D\)) is an approximation that holds only when all donors are ionized and \(N_D\gg n_i\). To see how dilute doping is, compare it with the Si atom density:</p>
+<div class="table-wrap"><table class="data">
+<thead><tr><th>\(N_D\) or \(N_A\) (cm⁻³)</th><th>One dopant per … Si atoms</th><th>Typical use</th></tr></thead>
+<tbody>
+<tr><td>\(10^{14}\)</td><td>~ 500 million</td><td>very light doping; power-device drift region, detectors</td></tr>
+<tr><td>\(10^{15}\)–\(10^{16}\)</td><td>~ 50 million – 5 million</td><td>light doping; wafer substrate, BJT collector</td></tr>
+<tr><td>\(10^{17}\)–\(10^{18}\)</td><td>~ 500 thousand – 50 thousand</td><td>moderate/high doping; BJT base, MOSFET channel adjustment</td></tr>
+<tr><td>\(\gtrsim 10^{19}\)</td><td>~ 5 thousand or fewer</td><td>heavy doping (\(n^+\), \(p^+\)); contacts, emitters, source/drain</td></tr>
+</tbody></table></div>
+<div class="note"><strong>Compensation:</strong> If donors and acceptors are present in the same region, they partially cancel: the donor's extra electron fills the acceptor's missing one. The type and majority-carrier density are set by the <b>net doping</b>: if \(N_D>N_A\), \(n\approx N_D-N_A\); if \(N_A>N_D\), \(p\approx N_A-N_D\).</div>
+
+<h3>0.7 What do n-type and p-type silicon mean?</h3>
+<div class="type-grid">
+<div class="type-card n"><h4>n-type silicon (negative carriers in the majority)</h4><ul>
+<li><b>How it is made:</b> a group-V atom (P, As, Sb) is added to Si: \(N_D>N_A\).</li>
+<li><b>Microscopic picture:</b> four of P's five valence electrons bond with neighbouring Si atoms; the fifth electron is very weakly bound.</li>
+<li><b>Band picture:</b> the donor level \(E_D\) lies only ~45 meV below \(E_C\) (\(kT\approx26\) meV). At room temperature almost all donors are ionized.</li>
+<li><b>Left behind:</b> an immobile \(\mathrm{P^+}\) ion. <b>No</b> hole is created.</li>
+<li><b>Majority carrier:</b> electrons, \(n\approx N_D\). <b>Minority:</b> holes, \(p\approx n_i^2/N_D\).</li>
+<li><b>Fermi level:</b> moves toward \(E_C\).</li>
+</ul></div>
+<div class="type-card p"><h4>p-type silicon (positive carriers in the majority)</h4><ul>
+<li><b>How it is made:</b> a group-III atom (usually B) is added to Si: \(N_A>N_D\).</li>
+<li><b>Microscopic picture:</b> B has only three valence electrons; one of its four bonds is missing an electron.</li>
+<li><b>Band picture:</b> the acceptor level \(E_A\) lies ~45 meV above \(E_V\). A neighbouring bond electron easily jumps into it.</li>
+<li><b>Left behind:</b> an immobile \(\mathrm{B^-}\) ion and a mobile <b>hole</b> in the valence band. <b>No</b> free electron is created.</li>
+<li><b>Majority carrier:</b> holes, \(p\approx N_A\). <b>Minority:</b> electrons, \(n\approx n_i^2/N_A\).</li>
+<li><b>Fermi level:</b> moves toward \(E_V\).</li>
+</ul></div>
+</div>
+<p>Both types are <b>the same crystal</b>; the difference comes from dopant atoms sitting at one site in millions. Their effect is nevertheless enormous: with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) the electron density rises to about a million times \(n_i\), while the hole density falls about a million-fold. Devices such as p-n junctions, BJTs and MOSFETs all work by placing n and p regions next to each other.</p>
+
+<h3>0.8 What happens to \(n_i\) when the material is doped?</h3>
+<p>Doping does not remove \(n_i\). Donors or acceptors change the majority carrier, but at thermal equilibrium the product stays fixed (the <b>mass-action law</b>):</p>
 <p>\[\boxed{np=n_i^2}\]</p>
+<p>When the majority carrier increases, the extra electrons meet holes more often and recombine with them, so the minority carrier decreases by the same factor. In fully ionized, uncompensated n-type material with \(N_D\gg n_i\), \(n\approx N_D\) and \(p\approx n_i^2/N_D\).</p>
+
+<div class="edu-card edu-mistake"><div class="edu-label">⚠️ Do not mix up the three densities</div><p><b>Atom density</b> counts the atoms in the crystal (\(\approx5\times10^{22}\ \mathrm{cm^{-3}}\)), <b>dopant density</b> (\(N_D\), \(N_A\)) counts the added donors/acceptors, and <b>carrier density</b> (\(n\), \(p\), \(n_i\)) counts the electrons and holes that can actually move. The bar chart in the Visuals tab compares all three on the same axis.</p></div>
+
+<div class="note"><strong>Sze reference:</strong> Chapter 1, section 1.4 (Carrier Concentration in Thermal Equilibrium: intrinsic concentration, donors and acceptors).</div>
 </div>
 </div>
 
-<div class="pane" data-pane="matematik"><div class="prose">
-<h3>Core equations</h3>
-<p>Intrinsic: \(n=p=n_i\)</p><p>Mass action: \(np=n_i^2\)</p>
-<p>\[n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right)\]</p>
-<p>For fully ionized uncompensated n-type material:</p>
-<p>\[n=\frac{N_D+\sqrt{N_D^2+4n_i^2}}{2}\]</p>
-<ul><li>\(n_i\ll N_D\): extrinsic, \(n\approx N_D\).</li><li>\(n_i\sim N_D\): intrinsic generation is no longer negligible.</li><li>\(n_i\gg N_D\): intrinsic, \(n\approx n_i\).</li></ul>
-<div class="note"><strong>Freeze-out:</strong> at low temperature many donors remain neutral, so the full-ionization assumption fails and \(n&lt;N_D\).</div>
-</div></div>
+<div class="pane" data-pane="matematik">
+<div class="prose">
+<h3>Intrinsic concentration and mass action</h3>
+<div class="eq">\[ n = p = n_i, \qquad n_i=\sqrt{N_C N_V}\exp\!\left(-\frac{E_g}{2kT}\right) \propto T^{3/2}e^{-E_g/2kT} \]<span class="cap">Si, 300 K: \(N_C = 2.86\times10^{19}\), \(N_V = 2.66\times10^{19}\ \mathrm{cm^{-3}}\), \(E_g=1.12\) eV → \(n_i\approx 10^{10}\ \mathrm{cm^{-3}}\).</span></div>
+<div class="eq">\[ np = n_i^2 \]<span class="cap">Independent of doping at thermal equilibrium in non-degenerate material. Doping only changes how \(n\) and \(p\) share this product.</span></div>
 
-<div class="pane" data-pane="gorsel"><div class="prose">
-<h3>Visual 1 — electron-hole pair generation</h3>
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-pair.svg" alt="Electron-hole pair generation" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Promoting one electron creates one conduction electron and one hole.</figcaption></figure>
-<h3>Visual 2 — carrier density versus temperature</h3>
-<figure class="foundation-figure"><img src="assets/images/week00/carrier-temperature-regimes.svg" alt="Carrier concentration versus temperature in donor-doped silicon" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"><figcaption>Original conceptual plot for donor-doped Si. Transition temperatures depend on dopant and material parameters.</figcaption></figure>
-<div class="analysis-grid"><div class="analysis-card"><h4>❄️ Freeze-out</h4><p>Many donors remain neutral; \(n\ll N_D\).</p></div><div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Most donors are ionized and \(n\approx N_D\).</p></div><div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) becomes comparable to and then exceeds the doping scale.</p></div></div>
-<h3>What does \(n_i=N_D\) mean?</h3><p>It marks the scale where intrinsic thermal generation becomes comparable to the carrier population supplied by doping. It is a crossover, not a sharp phase boundary.</p>
-</div></div>
+<h3>Charge neutrality and dopant ionization</h3>
+<div class="eq">\[ n + N_A^- = p + N_D^+ \]<span class="cap">The left side counts negative charges, the right side positive ones. \(N_D^+\) and \(N_A^-\) are fixed (immobile) ions; \(n\) and \(p\) are mobile carriers.</span></div>
+<div class="eq">\[ N_D^+ = \frac{N_D}{1 + g_D\,e^{(E_F-E_D)/kT}}, \qquad N_A^- = \frac{N_A}{1 + g_A\,e^{(E_A-E_F)/kT}} \]<span class="cap">Ground-state degeneracy factors for Si: \(g_D=2\), \(g_A=4\). Ionization energies: P 45, As 54, Sb 39 meV (\(E_C-E_D\)); B 45, Al 67, Ga 72 meV (\(E_A-E_V\)).</span></div>
 
-<div class="pane" data-pane="soru"><div class="prose">
-<div class="qa"><p class="q">1. Is \(n_i\) an atom density?</p><p>No. It is the equilibrium density of mobile carriers in undoped material.</p></div>
-<div class="qa"><p class="q">2. Why does a hole appear with a conduction electron?</p><p>The promoted electron leaves an empty valence-band state.</p></div>
-<div class="qa"><p class="q">3. Why can \(n\approx N_D\) fail at both low and high temperature?</p><p>At low temperature donors freeze out; at high temperature intrinsic generation dominates.</p></div>
-</div></div>
+<details class="derive"><summary>Derivation: \(n\) and \(p\) with full ionization</summary><div>
+<p>Substituting \(N_D^+=N_D\), \(N_A^-=N_A\) and \(p=n_i^2/n\) into the neutrality equation:</p>
+\[ n^2 - (N_D - N_A)\,n - n_i^2 = 0 \;\;\Rightarrow\;\; n = \frac{N_D - N_A}{2} + \sqrt{\left(\frac{N_D-N_A}{2}\right)^2 + n_i^2}. \]
+<p>Doing the same for holes:</p>
+\[ p = \frac{N_A - N_D}{2} + \sqrt{\left(\frac{N_A-N_D}{2}\right)^2 + n_i^2}. \]
+<p>The competition between the two terms under the square root sets the regime:</p>
+<ul><li>\(|N_D-N_A|\gg n_i\): extrinsic, majority density = net doping.</li><li>\(|N_D-N_A|\sim n_i\): intrinsic generation is no longer negligible.</li><li>\(|N_D-N_A|\ll n_i\): intrinsic behaviour, \(n\approx p\approx n_i\).</li></ul>
+</div></details>
+
+<h3>Practical formulas for n-type and p-type</h3>
+<div class="eq">\[ \text{n-type } (N_D-N_A\gg n_i):\quad n \approx N_D-N_A,\qquad p\approx\frac{n_i^2}{N_D-N_A},\qquad E_C-E_F = kT\ln\frac{N_C}{N_D-N_A} \]</div>
+<div class="eq">\[ \text{p-type } (N_A-N_D\gg n_i):\quad p \approx N_A-N_D,\qquad n\approx\frac{n_i^2}{N_A-N_D},\qquad E_F-E_V = kT\ln\frac{N_V}{N_A-N_D} \]</div>
+<div class="eq">\[ E_F - E_i = kT\ln\frac{n}{n_i} = -kT\ln\frac{p}{n_i} \]<span class="cap">\(E_F>E_i\) → n-type, \(E_F<E_i\) → p-type. A tenfold increase in doping shifts \(E_F\) by about \(kT\ln10\approx 60\) meV.</span></div>
+
+<h3>Low temperature: freeze-out</h3>
+<details class="derive"><summary>Derivation: freeze-out approximation for uncompensated n-type material</summary><div>
+<p>At very low temperature \(p\approx0\), \(N_A=0\) and most donors are neutral (\(e^{(E_F-E_D)/kT}\gg1\)). Neutrality becomes \(n = N_D^+\approx (N_D/g_D)\,e^{(E_D-E_F)/kT}\). Multiplying by \(n=N_C e^{-(E_C-E_F)/kT}\) to eliminate \(E_F\):</p>
+\[ n^2 \approx \frac{N_C N_D}{g_D}\,e^{-(E_C-E_D)/kT} \;\;\Rightarrow\;\; n \approx \sqrt{\frac{N_C N_D}{2}}\;\exp\!\left(-\frac{E_C-E_D}{2kT}\right). \]
+<p>The slope is set by \((E_C-E_D)/2\) instead of \(E_g/2\) in the intrinsic region, which is why freeze-out appears only at much lower temperatures.</p>
+</div></details>
+
+<h3>Examples</h3>
+<p><b>n-type:</b> \(N_D=10^{15}\ \mathrm{cm^{-3}}\), 300 K, \(n_i=9.65\times10^9\ \mathrm{cm^{-3}}\):</p>
+<p>\[ n\approx10^{15}\ \mathrm{cm^{-3}},\qquad p=\frac{n_i^2}{n}\approx9.3\times10^{4}\ \mathrm{cm^{-3}},\qquad E_C-E_F=0.02585\ln\frac{2.86\times10^{19}}{10^{15}}\approx0.265\ \mathrm{eV}. \]</p>
+<p><b>p-type:</b> \(N_A=10^{17}\ \mathrm{cm^{-3}}\), 300 K:</p>
+<p>\[ p\approx10^{17}\ \mathrm{cm^{-3}},\qquad n=\frac{n_i^2}{p}\approx9.3\times10^{2}\ \mathrm{cm^{-3}},\qquad E_F-E_V=0.02585\ln\frac{2.66\times10^{19}}{10^{17}}\approx0.144\ \mathrm{eV}. \]</p>
+</div>
+</div>
+
+<div class="pane" data-pane="gorsel">
+<p class="legend-key">The colour code is fixed throughout the course: <span class="e">blue</span> electrons and conduction band, <span class="h">red</span> holes and valence band, <span class="f">green</span> Fermi level.</p>
+
+<section class="fig">
+  <h3>From crystal to bands: dopant atoms and carriers</h3>
+  <p class="why">Left: a Si lattice reduced to two dimensions (each line is a two-electron covalent bond). Right: the band diagram of the same situation. Switch the type: where does the fifth electron of P go, and how does the missing bond of B become a hole? Lower the temperature to see freeze-out, raise it to see bonds break. Carrier counts are symbolic; the values below are real calculations.</p>
+  <div class="controls">
+    <span class="seg" data-ctl="f0type"><button aria-pressed="false" data-v="i">Pure Si</button><button aria-pressed="true" data-v="n">n-type (P)</button><button aria-pressed="false" data-v="p">p-type (B)</button></span>
+    <label>T <input type="range" id="r-f0-t" min="30" max="700" step="10" value="300"><output id="o-f0-t">300 K</output></label>
+    <label>log₁₀ N <input type="range" id="r-f0-n" min="13" max="18" step="0.1" value="16"><output id="o-f0-n">1e16.0</output></label>
+  </div>
+  <div class="readout" id="ro-f0-lat"></div>
+  <div class="plot tall" id="p-f0-lattice"></div>
+</section>
+
+<section class="fig">
+  <h3>n-type or p-type? The \(N_D\) versus \(N_A\) contest</h3>
+  <p class="why">Electron and hole densities as \(N_D\) is swept with \(N_A\) held fixed. Left of the \(N_D=N_A\) line the material is p-type, right of it n-type. Notice that as the majority carrier rises the minority falls by the same factor: the two curves are tied together everywhere by \(np=n_i^2\).</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-nd" min="10" max="19" step="0.1" value="16"><output id="o-f0-nd">1e16.0</output></label>
+    <label>log₁₀ N<sub>A</sub> <input type="range" id="r-f0-na" min="10" max="19" step="0.1" value="14"><output id="o-f0-na">1e14.0</output></label>
+    <label>T <input type="range" id="r-f0-t2" min="200" max="700" step="10" value="300"><output id="o-f0-t2">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-np"></div>
+  <div class="plot" id="p-f0-sweep"></div>
+</section>
+
+<section class="fig">
+  <h3>Atom, dopant and carrier densities on one axis</h3>
+  <p class="why">The sliders above also update this chart. On a logarithmic axis: the Si atom density, the dopant densities and the mobile carrier densities. See how dilute doping is, and when \(N_D\) and \(n\) reach the same bar length.</p>
+  <div class="plot" id="p-f0-bars"></div>
+</section>
+
+<section class="fig">
+  <h3>Three regimes with temperature: freeze-out → extrinsic → intrinsic</h3>
+  <p class="why">Electron density in donor-doped Si, computed from the neutrality equation including incomplete ionization. Increase \(N_D\): the extrinsic plateau rises and the intrinsic transition moves to higher temperature. Increase the ionization energy: the freeze-out region widens.</p>
+  <div class="controls">
+    <label>log₁₀ N<sub>D</sub> <input type="range" id="r-f0-rn" min="13" max="18" step="0.1" value="15"><output id="o-f0-rn">1e15.0</output></label>
+    <label>E<sub>C</sub> − E<sub>D</sub> <input type="range" id="r-f0-ed" min="20" max="160" step="1" value="45"><output id="o-f0-ed">45 meV</output></label>
+    <span class="seg"><button class="preset" data-set="r-f0-ed:39">Sb</button><button class="preset" data-set="r-f0-ed:45">P</button><button class="preset" data-set="r-f0-ed:54">As</button></span>
+    <label>T <input type="range" id="r-f0-rt" min="30" max="800" step="10" value="300"><output id="o-f0-rt">300 K</output></label>
+  </div>
+  <div class="readout" id="ro-f0-reg"></div>
+  <div class="plot" id="p-f0-regime"></div>
+  <div class="analysis-grid">
+  <div class="analysis-card"><h4>❄️ Freeze-out</h4><p>At low temperature many donors keep their electron, so \(n\ll N_D\). As temperature rises the donors ionize and \(n\) climbs quickly.</p></div>
+  <div class="analysis-card"><h4>⚙️ Extrinsic</h4><p>Donors are almost fully ionized while intrinsic generation is small. Doping sets the carrier density: \(n\approx N_D\). This is where devices operate.</p></div>
+  <div class="analysis-card"><h4>🔥 Intrinsic</h4><p>\(n_i\) grows exponentially and catches up with \(N_D\). Doping loses control and eventually \(n\approx p\approx n_i\). The donors are still there; they simply no longer set the carrier density.</p></div>
+  </div>
+</section>
+</div>
+
+<div class="pane" data-pane="soru">
+<div class="qa"><p class="q">1. Is \(n_i\) an atom density? <span class="lvl">basic</span></p>
+<details><summary>Show solution</summary><div>
+<p>No. It is the density of <b>mobile</b> electrons (and holes) in undoped material at thermal equilibrium. In Si at 300 K, \(n_i\approx10^{10}\ \mathrm{cm^{-3}}\) while the atom density is \(5\times10^{22}\ \mathrm{cm^{-3}}\): about one free electron per \(5\times10^{12}\) atoms.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">2. Why does a hole appear whenever an electron is freed in pure Si? <span class="lvl">basic</span></p>
+<details><summary>Show solution</summary><div>
+<p>The electron leaves a filled valence-band state, i.e. a covalent bond. It leaves a missing electron behind, and that vacancy moves as a hole. Hence \(n=p\) in pure material.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">3. Is a hole a real particle? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>It is not a fundamental particle. It is far easier to model the collective motion of many valence electrons as the opposite motion of a single empty state. That empty state behaves like a quasi-particle with charge \(+q\) and a positive effective mass.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">4. Si is doped with \(N_D=10^{16}\ \mathrm{cm^{-3}}\) phosphorus. How many Si atoms are there per P atom? What are \(n\) and \(p\) at 300 K? <span class="lvl">basic</span></p>
+<details><summary>Show solution</summary><div>
+\[ \frac{5\times10^{22}}{10^{16}} = 5\times10^{6}\ \text{Si atoms per P}, \qquad n\approx N_D = 10^{16}\ \mathrm{cm^{-3}}, \qquad p=\frac{(9.65\times10^9)^2}{10^{16}}\approx 9.3\times10^{3}\ \mathrm{cm^{-3}}. \]
+<p>A very dilute dopant raises the electron density a million-fold above \(n_i\) and lowers the hole density a million-fold.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">5. For Si doped with \(N_A=10^{17}\ \mathrm{cm^{-3}}\) boron at 300 K, find the majority and minority densities and \(E_F-E_V\). <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+\[ p\approx N_A=10^{17}\ \mathrm{cm^{-3}}, \qquad n=\frac{n_i^2}{p}\approx 9.3\times10^{2}\ \mathrm{cm^{-3}}, \qquad E_F-E_V = kT\ln\frac{N_V}{N_A} = 0.02585\ln 266\approx 0.144\ \mathrm{eV}. \]
+<p>The material is p-type; the Fermi level has moved toward the valence band.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">6. A Si region contains \(N_D=3\times10^{16}\) and \(N_A=10^{16}\ \mathrm{cm^{-3}}\). What type is it, and what are \(n\) and \(p\)? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>Since \(N_D>N_A\) it is <b>n-type</b>. The acceptors compensate part of the donors:</p>
+\[ n\approx N_D-N_A = 2\times10^{16}\ \mathrm{cm^{-3}}, \qquad p = \frac{n_i^2}{n}\approx 4.7\times10^{3}\ \mathrm{cm^{-3}}. \]
+<div class="note"><strong>Watch out:</strong> Carrier density depends on the net doping, while mobility depends on the total ion density \(N_D+N_A\) (week 1).</div>
+</div></details></div>
+
+<div class="qa"><p class="q">7. Is n-type silicon negatively charged? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>No. Every ionized donor produces one free electron and one fixed \(\mathrm{P^+}\) ion; the total charge is zero. Neutrality is expressed by \(n+N_A^-=p+N_D^+\). “n-type” only says that the majority carrier is negatively charged.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">8. At roughly what temperature does Si with \(N_D=10^{15}\ \mathrm{cm^{-3}}\) start to behave intrinsically? <span class="lvl">intermediate</span></p>
+<details><summary>Show solution</summary><div>
+<p>The crossover begins roughly where \(n_i(T)\approx N_D\). Solving \(n_i=\sqrt{N_C N_V}(T/300)^{3/2}e^{-E_g(T)/2kT}\) numerically gives \(n_i=10^{15}\ \mathrm{cm^{-3}}\) at about <b>545 K</b> (about 650 K for \(N_D=10^{16}\)). You can watch this shift by changing \(N_D\) in the regime chart in the Visuals tab.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">9. Why is \(n&lt;N_D\) at very low temperature? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>Releasing a donor electron takes about 45 meV. When \(kT\) is much smaller than this (e.g. \(kT\approx2.6\) meV at 30 K), most electrons stay bound to their donor atoms. This is called <b>freeze-out</b>.</p>
+</div></details></div>
+
+<div class="qa"><p class="q">10. Why does the n-type label lose its meaning at high temperature? <span class="lvl">conceptual</span></p>
+<details><summary>Show solution</summary><div>
+<p>Thermal electron–hole generation, i.e. \(n_i\), grows exponentially and overtakes the carrier density supplied by the donors. Then \(n\approx p\approx n_i\), and temperature rather than doping controls the material. This is why wide-band-gap materials (SiC, GaN) are preferred at high temperature.</p>
+</div></details></div>
+</div>
 </template>
 <template id="week1-en">
 <div class="pane" data-pane="anlatim">
@@ -4908,7 +5263,7 @@ const sciH = (x,d=2) => sci(x,d).replace(/\^(-?\d+)/,'<sup>$1</sup>');
 
 /* ---------------- Hafta 1 grafikleri ---------------- */
 const PLOTS = {};
-const state = { lattice:'diamond', ek:'direct', dop:'n', prof:'abrupt', noise:'white', conf:'ce', early:'off', hbt:'homo', clamp:'off' };
+const state = { f0type:'n', lattice:'diamond', ek:'direct', dop:'n', prof:'abrupt', noise:'white', conf:'ce', early:'off', hbt:'homo', clamp:'off' };
 
 PLOTS['p-lattice'] = el => {
   const A = [], B = [];
@@ -6222,6 +6577,234 @@ PLOTS['p-ujosc'] = el => {
     yaxis2:{ domain:[0, 0.37], title:'i_E (mA)', rangemode:'tozero', color: css('--ink'), gridcolor: css('--rule') } }), CFG);
 };
 
+/* ---------------- Bölüm 0 grafikleri ---------------- */
+const F0 = { NSI: 5.0e22, gD: 2, gA: 4 };
+// Eksik iyonlaşmalı yük nötrlüğü (Boltzmann): n + N_A⁻ = p + N_D⁺, E_V = 0 referansı
+function f0Solve(ND, NA, T, ED = 0.045, EA = 0.045) {
+  const m = MAT.Si, kT = K_B*T, g = Eg(m,T);
+  const Nc = m.Nc*Math.pow(T/300,1.5), Nv = m.Nv*Math.pow(T/300,1.5);
+  const Ec = g, Ev = 0, Ed = Ec - ED, Ea = Ev + EA;
+  const parts = EF => ({ n: Nc*Math.exp(-(Ec-EF)/kT), p: Nv*Math.exp(-(EF-Ev)/kT),
+    NDp: ND/(1 + F0.gD*Math.exp((EF-Ed)/kT)), NAm: NA/(1 + F0.gA*Math.exp((Ea-EF)/kT)) });
+  let lo = Ev - 0.2, hi = Ec + 0.2;
+  for (let i=0;i<90;i++) { const mid = (lo+hi)/2, s = parts(mid); (s.p + s.NDp - s.n - s.NAm > 0) ? lo = mid : hi = mid; }
+  const EF = (lo+hi)/2;
+  return Object.assign(parts(EF), { EF, Ec, Ev, Ed, Ea, Eg: g, kT, ni: ni(m,T), Ei: g/2 + 0.5*kT*Math.log(Nv/Nc) });
+}
+// Tam iyonlaşma: net katkıdan n ve p
+function f0Full(ND, NA, T) {
+  const nI = ni(MAT.Si, T), net = ND - NA, h = Math.sqrt(net*net/4 + nI*nI);
+  const n = net >= 0 ? net/2 + h : nI*nI/(h - net/2), p = nI*nI/n;
+  return { n, p, ni: nI };
+}
+const f0Order = (len, seed) => {
+  const a = Array.from({length:len}, (_,i) => i); let s = seed;
+  const r = () => (s = (s*9301 + 49297) % 233280)/233280;
+  for (let i=len-1;i>0;i--) { const j = Math.floor(r()*(i+1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+};
+const f0Sci = (x,d=1) => {
+  if (!(x >= 1)) return '< 1';
+  let e = Math.floor(Math.log10(x)), m = +(x/Math.pow(10,e)).toFixed(d);
+  if (m >= 10) { m /= 10; e += 1; }
+  return m.toFixed(d) + '×10<sup>' + e + '</sup>';
+};
+
+PLOTS['p-f0-lattice'] = el => {
+  const type = state.f0type, T = val('r-f0-t'), N = Math.pow(10, val('r-f0-n'));
+  const s = f0Solve(type === 'n' ? N : 0, type === 'p' ? N : 0, T);
+  const ion = type === 'n' ? s.NDp/N : type === 'p' ? s.NAm/N : 0;
+  const narrow = el.clientWidth < 640, sc = narrow ? Math.max(0.55, el.clientWidth/640) : 1;
+  el.style.height = narrow ? '480px' : '';
+  const NX = 9, NY = 5, ink = css('--ink'), elc = css('--elec'), hol = css('--hole');
+  const dopSites = type === 'i' ? [] : [[1,3],[4,1],[7,3]];
+  const isDop = (i,j) => dopSites.some(d => d[0] === i && d[1] === j);
+  const nIon = Math.round(ion*dopSites.length);
+  const nTh = Math.max(0, Math.min(10, Math.round(type === 'i' ? Math.log10(s.ni) - 5 : 3*s.ni/N)));
+  // bağlar
+  const bonds = [];
+  for (let j=0;j<NY;j++) for (let i=0;i<NX;i++) {
+    if (i < NX-1) bonds.push({ a:[i,j], b:[i+1,j], h:true });
+    if (j < NY-1) bonds.push({ a:[i,j], b:[i,j+1], h:false });
+  }
+  bonds.forEach(b => { b.m = [(b.a[0]+b.b[0])/2, (b.a[1]+b.b[1])/2]; b.dop = isDop(...b.a) || isDop(...b.b); b.missing = false; });
+  const pool = f0Order(bonds.length, 11).filter(k => !bonds[k].dop);
+  const cells = f0Order((NX-1)*(NY-1), 5).map(k => [k % (NX-1) + 0.5, Math.floor(k/(NX-1)) + 0.5]);
+  const freeE = [], holes = [], pairs = [];
+  let pi = 0, ci = 0;
+  // katkı atomları
+  const ringX = [], ringY = [], boundE = [], dopTxt = [], dopHover = [];
+  dopSites.forEach(([i,j], k) => {
+    const ionized = k < nIon;
+    if (type === 'n') {
+      dopTxt.push(ionized ? 'P⁺' : 'P');
+      dopHover.push(ionized ? L('iyonlaşmış donör P⁺ (sabit, hareketsiz)', 'ionized donor P⁺ (fixed, immobile)') : L('nötr donör P: 5. elektron hâlâ bağlı', 'neutral donor P: 5th electron still bound'));
+      if (ionized) freeE.push(cells[ci++]); else boundE.push([i+0.3, j+0.3]);
+    } else {
+      dopTxt.push(ionized ? 'B⁻' : 'B');
+      dopHover.push(ionized ? L('iyonlaşmış akseptör B⁻ (sabit, hareketsiz)', 'ionized acceptor B⁻ (fixed, immobile)') : L('nötr akseptör B: bir bağ eksik elektronlu', 'neutral acceptor B: one bond is missing an electron'));
+      const b = bonds.find(b => b.a[0] === i && b.a[1] === j && b.h);
+      if (ionized) { const hb = bonds[pool[pi++]]; hb.missing = true; holes.push({ b:hb, bound:false }); }
+      else { b.missing = true; holes.push({ b, bound:true }); }
+    }
+    if (!ionized) for (let a=0;a<=40;a++) { ringX.push(i + 0.44*Math.cos(a*Math.PI/20)); ringY.push(j + 0.44*Math.sin(a*Math.PI/20)); }
+    if (!ionized) { ringX.push(null); ringY.push(null); }
+  });
+  // termal olarak kopan bağlar: elektron–hol çifti
+  for (let k=0;k<nTh && pi<pool.length && ci<cells.length;k++) {
+    const b = bonds[pool[pi++]], c = cells[ci++];
+    b.missing = true; holes.push({ b, bound:false }); freeE.push(c); pairs.push([b.m, c]);
+  }
+  // çizim verileri
+  const bx = [], by = [], vx = [], vy = [];
+  bonds.forEach(b => {
+    bx.push(b.a[0], b.b[0], null); by.push(b.a[1], b.b[1], null);
+    const d = [[b.h ? 0 : -0.1, b.h ? -0.1 : 0], [b.h ? 0 : 0.1, b.h ? 0.1 : 0]];
+    d.slice(b.missing ? 1 : 0).forEach(o => { vx.push(b.m[0] + o[0]); vy.push(b.m[1] + o[1]); });
+  });
+  const siX = [], siY = [];
+  for (let j=0;j<NY;j++) for (let i=0;i<NX;i++) if (!isDop(i,j)) { siX.push(i); siY.push(j); }
+  const holeXY = holes.map(({ b }) => [b.m[0] + (b.h ? 0 : -0.1), b.m[1] + (b.h ? -0.1 : 0)]);
+  const freeH = holeXY.filter((_, k) => !holes[k].bound), boundH = holeXY.filter((_, k) => holes[k].bound);
+  const pX = [], pY = [];
+  pairs.forEach(([m, c]) => { pX.push(m[0], c[0], null); pY.push(m[1], c[1], null); });
+  const tr = [
+    { x:bx, y:by, mode:'lines', line:{ color: css('--rule'), width:5 }, hoverinfo:'skip', showlegend:false },
+    { x:pX, y:pY, mode:'lines', line:{ color: css('--muted'), width:1, dash:'dot' }, hoverinfo:'skip', showlegend:false },
+    { x:vx, y:vy, mode:'markers', marker:{ size:5*sc, color: css('--muted') }, name: L('bağ elektronu (bağlı)', 'bond electron (bound)'), hoverinfo:'name' },
+    { x:siX, y:siY, mode: narrow ? 'markers' : 'markers+text', text: siX.map(() => 'Si'), textfont:{ color: ink, size:11 }, marker:{ size:30*sc, color: css('--panel'), line:{ color: ink, width:1.5 } }, name:'Si', hoverinfo:'skip', showlegend:false },
+    { x:ringX, y:ringY, mode:'lines', line:{ color: type === 'p' ? hol : elc, width:1.5, dash:'dash' }, hoverinfo:'skip', name: L('katkıya bağlı taşıyıcı yörüngesi', 'carrier orbit bound to dopant'), showlegend: ringX.length > 0 },
+    { x:dopSites.map(d => d[0]), y:dopSites.map(d => d[1]), mode:'markers+text', text:dopTxt, textfont:{ color:'#1a1300', size:12 }, customdata:dopHover, hovertemplate:'%{customdata}<extra></extra>',
+      marker:{ size:34*sc, color: css('--litho'), line:{ color: ink, width:1.5 } }, name: type === 'n' ? L('donör (P)', 'donor (P)') : L('akseptör (B)', 'acceptor (B)'), showlegend: dopSites.length > 0 },
+    { x:boundE.map(p => p[0]), y:boundE.map(p => p[1]), mode:'markers', marker:{ size:10*sc, color: elc, opacity:.55 }, name: L('donöre bağlı 5. elektron', 'bound 5th electron'), hoverinfo:'name', showlegend: boundE.length > 0 },
+    { x:freeE.map(p => p[0]), y:freeE.map(p => p[1]), mode:'markers', marker:{ size:13*sc, color: elc, line:{ color: ink, width:1 } }, name: L('serbest elektron (hareketli)', 'free electron (mobile)'), hoverinfo:'name' },
+    { x:boundH.map(p => p[0]), y:boundH.map(p => p[1]), mode:'markers', marker:{ size:12*sc, color:'rgba(0,0,0,0)', opacity:.55, line:{ color: hol, width:2 } }, name: L('akseptöre bağlı hol', 'hole bound to acceptor'), hoverinfo:'name', showlegend: boundH.length > 0 },
+    { x:freeH.map(p => p[0]), y:freeH.map(p => p[1]), mode:'markers', marker:{ size:13*sc, color:'rgba(0,0,0,0)', line:{ color: hol, width:2.5 } }, name: L('hol (hareketli, eksik bağ elektronu)', 'hole (mobile, missing bond electron)'), hoverinfo:'name' }
+  ];
+  // bant diyagramı (sağ panel)
+  const g = s.Eg, xs = k => 0.14 + 0.72*k/Math.max(1, dopSites.length - 1);
+  const bandLine = (y, c, nm) => ({ x:[0,1], y:[y,y], xaxis:'x2', yaxis:'y2', mode:'lines', line:{ color:c, width:3 }, name:nm, hoverinfo:'name', showlegend:false });
+  tr.push(bandLine(g, elc, 'E_C'), bandLine(0, hol, 'E_V'),
+    { x:[0,1], y:[s.Ei, s.Ei], xaxis:'x2', yaxis:'y2', mode:'lines', line:{ color: css('--muted'), width:1.5, dash:'dot' }, name:'E_i', hoverinfo:'name', showlegend:false },
+    { x:[0,1], y:[s.EF, s.EF], xaxis:'x2', yaxis:'y2', mode:'lines', line:{ color: css('--fermi'), width:2.5, dash:'dash' }, name:'E_F', hoverinfo:'name+y', showlegend:false });
+  if (dopSites.length) {
+    const lvl = type === 'n' ? s.Ed : s.Ea, lx = [], ly = [], fx = [], fy = [], qx = [], qy = [], qt = [];
+    dopSites.forEach((_, k) => {
+      const x0 = xs(k), ionized = k < nIon;
+      lx.push(x0 - 0.07, x0 + 0.07, null); ly.push(lvl, lvl, null);
+      const filled = type === 'n' ? !ionized : ionized;
+      if (filled) { fx.push(x0); fy.push(lvl); }
+      if (ionized) { qx.push(x0); qy.push(lvl + (type === 'n' ? -0.07 : 0.07)); qt.push(type === 'n' ? '+' : '−'); }
+    });
+    tr.push({ x:lx, y:ly, xaxis:'x2', yaxis:'y2', mode:'lines', line:{ color: css('--litho'), width:4 }, name: type === 'n' ? 'E_D' : 'E_A', hoverinfo:'name', showlegend:false },
+      { x:fx, y:fy, xaxis:'x2', yaxis:'y2', mode:'markers', marker:{ size:10*sc, color: elc, opacity: type === 'n' ? .55 : 1 }, hoverinfo:'skip', showlegend:false },
+      { x:qx, y:qy, xaxis:'x2', yaxis:'y2', mode:'text', text:qt, textfont:{ size:18, color: ink }, hoverinfo:'skip', showlegend:false });
+  }
+  const nE = freeE.length, nH = freeH.length;
+  const cx = k => 0.08 + 0.84*(k + 0.5)/Math.max(nE, 1), hx = k => 0.08 + 0.84*(k + 0.5)/Math.max(nH, 1);
+  tr.push({ x:freeE.map((_, k) => cx(k)), y:freeE.map((_, k) => g + 0.07 + 0.05*(k % 2)), xaxis:'x2', yaxis:'y2', mode:'markers', marker:{ size:11*sc, color: elc, line:{ color: ink, width:1 } }, hoverinfo:'skip', showlegend:false },
+    { x:freeH.map((_, k) => hx(k)), y:freeH.map((_, k) => -0.07 - 0.05*(k % 2)), xaxis:'x2', yaxis:'y2', mode:'markers', marker:{ size:11*sc, color:'rgba(0,0,0,0)', line:{ color: hol, width:2.5 } }, hoverinfo:'skip', showlegend:false });
+  const ann = [
+    { xref:'x2 domain', yref:'y2', x:1, y:g, xanchor:'right', yanchor:'bottom', text:'E_C', showarrow:false, font:{ color: elc } },
+    { xref:'x2 domain', yref:'y2', x:1, y:0, xanchor:'right', yanchor:'top', text:'E_V', showarrow:false, font:{ color: hol } },
+    { xref:'x2 domain', yref:'y2', x:0.5, y:s.EF, xanchor:'center', yanchor:'bottom', text:'E_F', showarrow:false, bgcolor: css('--panel'), font:{ color: css('--fermi') } },
+    { xref:'x domain', yref:'y domain', x:0.5, y:1.02, yanchor:'bottom', text: L('Kristal (gerçek uzay) · E alanı →', 'Crystal (real space) · field E →'), showarrow:false, font:{ color: css('--muted'), size:12 } },
+    { xref:'x2 domain', yref:'y2 domain', x:0.5, y:1.02, yanchor:'bottom', text: L('Bant diyagramı', 'Band diagram'), showarrow:false, font:{ color: css('--muted'), size:12 } }
+  ];
+  if (dopSites.length) ann.push({ xref:'x2 domain', yref:'y2', x:0, y: type === 'n' ? s.Ed : s.Ea, xanchor:'left', yanchor: type === 'n' ? 'top' : 'bottom', text: type === 'n' ? 'E_D' : 'E_A', showarrow:false, font:{ color: css('--litho-ink'), size:12 } });
+  // alan altında sürüklenme yönleri
+  freeE.forEach(p => ann.push({ x:p[0] - 0.42, y:p[1], ax:p[0] - 0.12, ay:p[1], xref:'x', yref:'y', axref:'x', ayref:'y', showarrow:true, arrowhead:2, arrowsize:1, arrowwidth:1.5, arrowcolor: elc, text:'' }));
+  freeH.forEach(p => ann.push({ x:p[0] + 0.36, y:p[1] - 0.16, ax:p[0] + 0.1, ay:p[1] - 0.16, xref:'x', yref:'y', axref:'x', ayref:'y', showarrow:true, arrowhead:2, arrowsize:1, arrowwidth:1.5, arrowcolor: hol, text:'' }));
+  const names = { i: L('Saf (intrinsic) Si', 'Pure (intrinsic) Si'), n: L('n tipi Si (fosfor)', 'n-type Si (phosphorus)'), p: L('p tipi Si (bor)', 'p-type Si (boron)') };
+  const maj = Math.max(s.n, s.p);
+  document.getElementById('ro-f0-lat').innerHTML = `<b>${names[type]}</b>, T = ${T} K &nbsp;|&nbsp; n = ${f0Sci(s.n)} &nbsp;|&nbsp; p = ${f0Sci(s.p)} cm<sup>−3</sup> &nbsp;|&nbsp; ` +
+    (type === 'i' ? `n<sub>i</sub> = ${f0Sci(s.ni)}` : `${L('iyonlaşmış katkı', 'ionized dopants')}: ${(100*ion).toFixed(ion > 0.995 ? 1 : 0)} %`) +
+    ` &nbsp;|&nbsp; E<sub>F</sub> − E<sub>i</sub> = ${(s.EF - s.Ei).toFixed(3)} eV &nbsp;|&nbsp; ` +
+    (maj >= 1 ? L(`her ~${f0Sci(F0.NSI/maj,0)} Si atomuna 1 ${s.n >= s.p ? 'serbest elektron' : 'hol'}`, `one ${s.n >= s.p ? 'free electron' : 'hole'} per ~${f0Sci(F0.NSI/maj,0)} Si atoms`) : L('taşıyıcı yok denecek kadar az', 'practically no carriers'));
+  Plotly.react(el, tr, baseLayout({ margin:{ l:10, r:10, t:30, b:10 }, legend:{ orientation:'h', y:-0.02, yanchor:'top' }, annotations: ann,
+    xaxis:{ domain: narrow ? [0, 1] : [0, 0.6], range:[-0.6, NX - 0.4], visible:false, fixedrange:true },
+    yaxis:{ domain: narrow ? [0.46, 1] : [0, 1], range:[-0.6, NY - 0.4], visible:false, scaleanchor:'x', fixedrange:true },
+    xaxis2:{ domain: narrow ? [0.18, 1] : [0.66, 1], range:[0, 1], visible:false, fixedrange:true },
+    yaxis2:{ domain: narrow ? [0, 0.36] : [0, 1], anchor:'x2', range:[-0.3, g + 0.3], title:{ text: L('E (eV), E_V = 0', 'E (eV), E_V = 0') }, color: ink, gridcolor: css('--rule'), zeroline:false, fixedrange:true },
+    shapes:[
+      { type:'rect', xref:'x2', yref:'y2', x0:0, x1:1, y0:g, y1:g + 0.3, fillcolor: elc, opacity:.08, line:{ width:0 } },
+      { type:'rect', xref:'x2', yref:'y2', x0:0, x1:1, y0:-0.3, y1:0, fillcolor: hol, opacity:.08, line:{ width:0 } }
+    ] }), CFG);
+};
+
+PLOTS['p-f0-sweep'] = el => {
+  const ND = Math.pow(10, val('r-f0-nd')), NA = Math.pow(10, val('r-f0-na')), T = val('r-f0-t2');
+  const xs = []; for (let l=10; l<=19.001; l+=0.02) xs.push(Math.pow(10, l));
+  const cur = f0Full(ND, NA, T), sw = xs.map(x => f0Full(x, NA, T));
+  const EF = K_B*T*Math.log(cur.n/cur.ni), dom = Math.abs(ND - NA) < 10*cur.ni;
+  const type = dom ? L('intrinsic benzeri (n ≈ p)', 'intrinsic-like (n ≈ p)') : ND > NA ? L('<b style="color:var(--elec)">n tipi</b>: çoğunluk elektron', '<b style="color:var(--elec)">n-type</b>: electrons are the majority') : L('<b style="color:var(--hole)">p tipi</b>: çoğunluk hol', '<b style="color:var(--hole)">p-type</b>: holes are the majority');
+  document.getElementById('ro-f0-np').innerHTML = `${type} &nbsp;|&nbsp; N<sub>D</sub> − N<sub>A</sub> = ${ND >= NA ? '' : '−'}${f0Sci(Math.abs(ND - NA))} &nbsp;|&nbsp; n = ${f0Sci(cur.n)} &nbsp;|&nbsp; p = ${f0Sci(cur.p)} cm<sup>−3</sup> &nbsp;|&nbsp; np = ${sciH(cur.n*cur.p)} = n<sub>i</sub><sup>2</sup> &nbsp;|&nbsp; E<sub>F</sub> − E<sub>i</sub> = ${EF.toFixed(3)} eV`;
+  const top = 1e20;
+  Plotly.react(el, [
+    { x:xs, y:sw.map(s => s.n), mode:'lines', name: L('n (elektron)', 'n (electrons)'), line:{ color: css('--elec'), width:3 }, hovertemplate:'N_D = %{x:.2e}<br>n = %{y:.2e} cm⁻³<extra></extra>' },
+    { x:xs, y:sw.map(s => s.p), mode:'lines', name: L('p (hol)', 'p (holes)'), line:{ color: css('--hole'), width:3 }, hovertemplate:'N_D = %{x:.2e}<br>p = %{y:.2e} cm⁻³<extra></extra>' },
+    { x:[xs[0], xs[xs.length-1]], y:[cur.ni, cur.ni], mode:'lines', name:'n_i', line:{ color: css('--fermi'), width:1.5, dash:'dot' }, hoverinfo:'name' },
+    { x:[NA, NA], y:[1, top], mode:'lines', name: L('N_D = N_A (tam kompanzasyon)', 'N_D = N_A (full compensation)'), line:{ color: css('--muted'), width:1.5, dash:'dash' }, hoverinfo:'name' },
+    { x:[ND, ND], y:[cur.n, cur.p], mode:'markers', marker:{ size:11, color:[css('--elec'), css('--hole')], line:{ color: css('--ink'), width:1.5 } }, name: L('seçilen N_D', 'selected N_D'), hoverinfo:'skip' }
+  ], baseLayout({ margin:{ l:65, r:20, t:30, b:50 },
+    xaxis:{ title: L('N_D, donör yoğunluğu (cm⁻³)', 'N_D, donor concentration (cm⁻³)'), type:'log', exponentformat:'power', color: css('--ink'), gridcolor: css('--rule') },
+    yaxis:{ title: L('taşıyıcı yoğunluğu (cm⁻³)', 'carrier density (cm⁻³)'), type:'log', range:[0, 20], exponentformat:'power', color: css('--ink'), gridcolor: css('--rule') },
+    shapes:[
+      { type:'rect', xref:'x', yref:'paper', x0:1e10, x1:NA, y0:0, y1:1, fillcolor: css('--hole'), opacity:.06, line:{ width:0 } },
+      { type:'rect', xref:'x', yref:'paper', x0:NA, x1:1e19, y0:0, y1:1, fillcolor: css('--elec'), opacity:.06, line:{ width:0 } }
+    ],
+    annotations:[
+      ...(NA > 3e10 ? [{ x: Math.log10(Math.sqrt(1e10*NA)), y:1, yref:'paper', yanchor:'bottom', text: L('p tipi', 'p-type'), showarrow:false, font:{ color: css('--hole') } }] : []),
+      ...(NA < 3e18 ? [{ x: Math.log10(Math.sqrt(NA*1e19)), y:1, yref:'paper', yanchor:'bottom', text: L('n tipi', 'n-type'), showarrow:false, font:{ color: css('--elec') } }] : [])
+    ] }), CFG);
+};
+
+PLOTS['p-f0-bars'] = el => {
+  const ND = Math.pow(10, val('r-f0-nd')), NA = Math.pow(10, val('r-f0-na')), T = val('r-f0-t2');
+  const c = f0Full(ND, NA, T);
+  const rows = [
+    [L('Si atomları', 'Si atoms'), F0.NSI, css('--muted')],
+    ['N_D ' + L('(donör)', '(donors)'), ND, css('--litho')],
+    ['N_A ' + L('(akseptör)', '(acceptors)'), NA, css('--litho-ink')],
+    ['n ' + L('(elektron)', '(electrons)'), c.n, css('--elec')],
+    ['p ' + L('(hol)', '(holes)'), c.p, css('--hole')],
+    ['n_i', c.ni, css('--fermi')]
+  ].reverse();
+  Plotly.react(el, [{ type:'bar', orientation:'h', y: rows.map(r => r[0]), x: rows.map(r => Math.max(r[1], 1)), marker:{ color: rows.map(r => r[2]) },
+    text: rows.map(r => f0Sci(r[1]) + (el.clientWidth >= 640 && r[1] >= 1 && r[1] < F0.NSI ? L(` · her ${f0Sci(F0.NSI/r[1],0)} atoma 1`, ` · 1 per ${f0Sci(F0.NSI/r[1],0)} atoms`) : '')),
+    textposition:'outside', cliponaxis:false, hoverinfo:'skip', showlegend:false }],
+    baseLayout({ margin:{ l:120, r:30, t:10, b:50 }, bargap:.35,
+      xaxis:{ title: L('yoğunluk (cm⁻³), log ölçek', 'density (cm⁻³), log scale'), type:'log', range:[0, 27.5], exponentformat:'power', color: css('--ink'), gridcolor: css('--rule') },
+      yaxis:{ color: css('--ink'), gridcolor:'rgba(0,0,0,0)', automargin:true } }), CFG);
+};
+
+PLOTS['p-f0-regime'] = el => {
+  const ND = Math.pow(10, val('r-f0-rn')), ED = val('r-f0-ed')/1000, Tm = val('r-f0-rt');
+  const Ts = []; for (let T=20; T<=800; T+=4) Ts.push(T);
+  const S = Ts.map(T => f0Solve(ND, 0, T, ED));
+  const cur = f0Solve(ND, 0, Tm, ED);
+  // rejim sınırları: n = 0.9 N_D (freeze-out sonu) ve n = 1.1 N_D (intrinsic başlangıcı)
+  const i1 = S.findIndex(s => s.n >= 0.9*ND), T1 = i1 >= 0 ? Ts[i1] : 800;
+  const i2 = S.findIndex(s => s.n >= 1.1*ND), T2 = i2 >= 0 ? Ts[i2] : 800;
+  const reg = cur.n < 0.9*ND && Tm < T2 ? L('❄️ freeze-out', '❄️ freeze-out') : cur.n > 1.1*ND ? L('🔥 intrinsic', '🔥 intrinsic') : L('⚙️ extrinsic', '⚙️ extrinsic');
+  document.getElementById('ro-f0-reg').innerHTML = `T = ${Tm} K &nbsp;|&nbsp; n = ${f0Sci(cur.n)} &nbsp;|&nbsp; p = ${f0Sci(cur.p)} &nbsp;|&nbsp; n<sub>i</sub> = ${f0Sci(cur.ni)} cm<sup>−3</sup> &nbsp;|&nbsp; ${L('iyonlaşmış donör', 'ionized donors')}: ${(100*cur.NDp/ND).toFixed(1)} % &nbsp;|&nbsp; ${L('Rejim', 'Regime')}: <b>${reg}</b>`;
+  const ymin = Math.max(6, Math.floor(Math.log10(ND)) - 6), ymax = Math.log10(ND) + 3.5;
+  const band = (x0, x1, col, txt) => ({ shape:{ type:'rect', xref:'x', yref:'paper', x0, x1, y0:0, y1:1, fillcolor: col, opacity:.07, line:{ width:0 } },
+    ann:{ x:(x0 + x1)/2, y:1, yref:'paper', yanchor:'bottom', text:txt, showarrow:false, font:{ size:12, color: css('--muted') } } });
+  const R = [band(0, T1, css('--elec'), 'freeze-out'), band(T1, T2, css('--fermi'), 'extrinsic'), band(T2, 800, css('--hole'), 'intrinsic')].filter(b => b.shape.x1 - b.shape.x0 > 8);
+  Plotly.react(el, [
+    { x:Ts, y:S.map(s => s.n), mode:'lines', name: L('n(T), elektron', 'n(T), electrons'), line:{ color: css('--elec'), width:3 }, hovertemplate:'T = %{x} K<br>n = %{y:.2e} cm⁻³<extra></extra>' },
+    { x:Ts, y:S.map(s => s.ni), mode:'lines', name:'n_i(T)', line:{ color: css('--ink'), width:2, dash:'dash' }, hovertemplate:'T = %{x} K<br>n_i = %{y:.2e} cm⁻³<extra></extra>' },
+    { x:Ts, y:S.map(s => s.p), mode:'lines', name: L('p(T), azınlık hol', 'p(T), minority holes'), line:{ color: css('--hole'), width:2, dash:'dot' }, hovertemplate:'T = %{x} K<br>p = %{y:.2e} cm⁻³<extra></extra>' },
+    { x:[0, 800], y:[ND, ND], mode:'lines', name:'N_D', line:{ color: css('--litho'), width:2 }, hoverinfo:'name' },
+    { x:[Tm], y:[cur.n], mode:'markers', marker:{ size:11, color: css('--elec'), line:{ color: css('--ink'), width:1.5 } }, name: L('seçilen T', 'selected T'), hoverinfo:'skip' }
+  ], baseLayout({ margin:{ l:65, r:20, t:30, b:50 },
+    xaxis:{ title: L('Sıcaklık T (K)', 'Temperature T (K)'), range:[0, 800], color: css('--ink'), gridcolor: css('--rule') },
+    yaxis:{ title: L('yoğunluk (cm⁻³)', 'density (cm⁻³)'), type:'log', range:[ymin, ymax], exponentformat:'power', color: css('--ink'), gridcolor: css('--rule') },
+    shapes:[...R.map(b => b.shape), { type:'line', x0:Tm, x1:Tm, y0:0, y1:1, yref:'paper', line:{ color: css('--muted'), width:1, dash:'dot' } }],
+    annotations: R.map(b => b.ann) }), CFG);
+};
+
 Object.keys(PLOTS).forEach(k => {
   const f = PLOTS[k];
   PLOTS[k] = el => { f(el); if (LANG === 'en') main.querySelectorAll('.readout').forEach(r => { const h = r.innerHTML, t = tx(h); if (t !== h) r.innerHTML = t; }); };
@@ -6233,6 +6816,9 @@ function renderVisible() {
 function bindWeek(n) {
   const e = v => '1e' + (+v).toFixed(1);
   const R = {
+    'r-f0-t':[v => v+' K', ['p-f0-lattice']], 'r-f0-n':[e, ['p-f0-lattice']],
+    'r-f0-nd':[e, ['p-f0-sweep','p-f0-bars']], 'r-f0-na':[e, ['p-f0-sweep','p-f0-bars']], 'r-f0-t2':[v => v+' K', ['p-f0-sweep','p-f0-bars']],
+    'r-f0-rn':[e, ['p-f0-regime']], 'r-f0-ed':[v => v+' meV', ['p-f0-regime']], 'r-f0-rt':[v => v+' K', ['p-f0-regime']],
     'r-meff':[v => (+v).toFixed(2), ['p-ek']], 'r-ef':[v => (+v).toFixed(2)+' eV', ['p-fd']], 'r-t1':[v => v+' K', ['p-fd']],
     'r-dop':[null, ['p-dop']], 'r-t2':[v => v+' K', ['p-dop']],
     'r-hs-t':[v => (+v).toFixed(2)+' μs', ['p-hs']], 'r-hs-e':[v => v+' V/cm', ['p-hs']], 'r-hs-tau':[v => (+v).toFixed(1)+' μs', ['p-hs']],
@@ -6262,7 +6848,7 @@ function bindWeek(n) {
     const o = document.getElementById('o' + id.slice(1));
     r.addEventListener('input', () => { if (o && fmt) o.textContent = fmt(r.value); plots.forEach(p => PLOTS[p](document.getElementById(p))); });
   });
-  const segTargets = { lattice:['p-lattice'], ek:['p-ek'], dop:['p-dop'], prof:['p-junc'], noise:['p-noise'], conf:['p-oc'], early:['p-oc'], hbt:['p-hbt'], clamp:['p-sw2','p-sw3d2','p-traj'] };
+  const segTargets = { f0type:['p-f0-lattice'], lattice:['p-lattice'], ek:['p-ek'], dop:['p-dop'], prof:['p-junc'], noise:['p-noise'], conf:['p-oc'], early:['p-oc'], hbt:['p-hbt'], clamp:['p-sw2','p-sw3d2','p-traj'] };
   main.querySelectorAll('.seg[data-ctl]').forEach(seg => {
     const cur = state[seg.dataset.ctl];
     seg.querySelectorAll('button').forEach(b => {

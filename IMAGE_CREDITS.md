@@ -64,4 +64,4 @@ The following diagrams are original educational SVGs created specifically for th
 - `assets/images/week00/carrier-pair.svg` — atom → covalent bond → energy band → electron–hole pair relationship.
 - `assets/images/week00/carrier-temperature-regimes.svg` — conceptual donor-doped Si temperature plot showing freeze-out, extrinsic and intrinsic regimes.
 
-The temperature-regime graphic is an original teaching diagram based on standard semiconductor-physics relationships; it is not a reproduction of a textbook figure.
+The temperature-regime graphic is an original teaching diagram based on standard semiconductor-physics relationships; it is not a reproduction of a textbook figure. It is currently kept as a static reference; the lesson page now draws this plot interactively (Plotly) from the charge-neutrality equation.
