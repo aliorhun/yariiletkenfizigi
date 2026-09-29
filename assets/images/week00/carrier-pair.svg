@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="t d">
+<title id="t">From silicon bond to electron-hole carrier pair</title>
+<desc id="d">Original educational schematic connecting silicon atoms and covalent bonds to valence and conduction bands and showing thermal generation of an electron-hole pair.</desc>
+<rect width="960" height="500" rx="22" fill="#f8fafc"/>
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#1f2937}.title{font-size:26px;font-weight:700}.h{font-size:20px;font-weight:700}.s{font-size:15px;fill:#64748b}.tiny{font-size:13px;fill:#64748b}.bond{stroke:#94a3b8;stroke-width:4}.atom{fill:#2563eb}.electron{fill:#0f172a}.hole{fill:none;stroke:#dc2626;stroke-width:4}.arrow{stroke:#d97706;stroke-width:4;fill:none}.band{stroke-width:5}
+</style>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#d97706"/></marker></defs>
+<text x="42" y="48" class="title">Atom → bond → band → mobile carrier</text>
+
+<g transform="translate(45 95)">
+  <text x="0" y="0" class="h">1. Covalent bonds in Si</text>
+  <line x1="55" y1="105" x2="150" y2="55" class="bond"/><line x1="150" y1="55" x2="245" y2="105" class="bond"/>
+  <line x1="55" y1="105" x2="150" y2="165" class="bond"/><line x1="245" y1="105" x2="150" y2="165" class="bond"/>
+  <circle cx="55" cy="105" r="25" class="atom"/><circle cx="150" cy="55" r="25" class="atom"/><circle cx="245" cy="105" r="25" class="atom"/><circle cx="150" cy="165" r="25" class="atom"/>
+  <text x="42" y="112" fill="#fff" font-weight="700">Si</text><text x="137" y="62" fill="#fff" font-weight="700">Si</text><text x="232" y="112" fill="#fff" font-weight="700">Si</text><text x="137" y="172" fill="#fff" font-weight="700">Si</text>
+  <circle cx="102" cy="80" r="7" class="electron"/><circle cx="198" cy="80" r="7" class="electron"/>
+  <text x="35" y="235" class="s">Most valence electrons are bound in the crystal.</text>
+</g>
+
+<path d="M330 225H430" class="arrow" marker-end="url(#a)"/><text x="345" y="204" class="s">thermal energy kT</text><text x="362" y="248" class="s">or photon hν</text>
+
+<g transform="translate(455 80)">
+  <text x="0" y="15" class="h">2. Energy-band picture</text>
+  <rect x="20" y="55" width="390" height="80" rx="10" fill="#dbeafe"/>
+  <rect x="20" y="255" width="390" height="80" rx="10" fill="#fee2e2"/>
+  <line x1="20" y1="135" x2="410" y2="135" stroke="#2563eb" class="band"/>
+  <line x1="20" y1="255" x2="410" y2="255" stroke="#dc2626" class="band"/>
+  <text x="420" y="142" class="s">E_C</text><text x="420" y="262" class="s">E_V</text>
+  <line x1="85" y1="247" x2="85" y2="145" class="arrow" marker-end="url(#a)"/>
+  <text x="96" y="198" class="s">generation</text>
+  <circle cx="85" cy="120" r="10" fill="#0f172a"/><text x="103" y="124" class="s">free electron e⁻</text>
+  <circle cx="85" cy="278" r="10" class="hole"/><text x="103" y="283" class="s">hole h⁺</text>
+  <line x1="340" y1="145" x2="340" y2="245" stroke="#1f2937" stroke-width="2"/>
+  <path d="M333 153L340 140L347 153M333 237L340 250L347 237" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="350" y="201" class="h">E_g</text>
+  <text x="20" y="375" class="s">One promoted electron creates one electron–hole pair.</text>
+  <text x="20" y="401" class="tiny">In intrinsic material at equilibrium: n = p = nᵢ.</text>
+</g>
+</svg>
