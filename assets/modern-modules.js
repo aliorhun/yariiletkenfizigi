@@ -20,7 +20,7 @@
   window.MODERN_EN_SZE = Array(6).fill("graduate supplement");
 
   const style = document.createElement('style');
-  style.textContent = \`
+  style.textContent = `
 .week-group {
   margin:.65rem .35rem .25rem; padding:.45rem .55rem .3rem;
   border-top:1px solid var(--rule); color:var(--muted);
@@ -31,24 +31,24 @@
 .modern-card { border:1px solid var(--rule); border-radius:.65rem; padding:.8rem .9rem; background:var(--panel); }
 .modern-card h4 { margin:.05rem 0 .35rem; }
 .modern-card p { margin:.25rem 0; }
-\`;
+`;
   document.head.appendChild(style);
 
-  const trBloch = String.raw\`
+  const trBloch = String.raw`
 <h4>Kristalden banda köprü: Bloch teoremi, Brillouin bölgesi ve Kronig–Penney</h4>
 <p>Bir kristalde potansiyel periyodiktir: \(V(x+a)=V(x)\). Bu periyodiklik elektron dalga fonksiyonunun da özel bir biçim almasına yol açar. <b>Bloch teoremi</b> bir özdurumun \(\psi_k(x)=u_k(x)e^{ikx}\) biçiminde yazılabileceğini, \(u_k(x)\)'in örgüyle aynı periyoda sahip olduğunu söyler. Böylece elektron ne tamamen serbesttir ne de tek bir atoma bağlıdır; kristalin tamamına yayılmış bir kuantum durumudur.</p>
 <p><b>Kronig–Penney modeli</b>, gerçek kristal potansiyelini basitleştirilmiş periyodik kuyular ve engeller dizisiyle temsil eder. Modelin önemli sonucu ayrıntılı cebir değil, yalnızca belirli enerji aralıklarında gerçek \(k\) çözümlerinin bulunmasıdır. Çözüm bulunan aralıklar <b>izinli bantları</b>, bulunmayan aralıklar ise <b>yasak enerji aralıklarını</b> oluşturur. Yani bant aralığı, periyodik potansiyelde izin verilen dalga çözümlerinin kesintiye uğramasından doğar.</p>
 <p>Kristal momentumu \(k\), ters örgünün periyodikliği nedeniyle eşdeğer bölgelere ayrılır. Bir boyutta ilk <b>Brillouin bölgesi</b> \(-\pi/a \le k \le \pi/a\) aralığıdır. Bölge sınırlarında Bragg yansıması duran dalgalar oluşturur ve enerji seviyeleri ayrılarak bant aralığı açılabilir. Sonraki \(E(k)\) ve etkin kütle grafiklerini bu nedenle yalnızca çizim olarak değil, periyodik kristal potansiyelinin sonucu olarak okumak gerekir.</p>
 <div class="note"><strong>Bu derste gereken düzey:</strong> Bloch teoremini ispatlamak veya Kronig–Penney denklemini ayrıntılı çözmek değil; periyodik potansiyelin neden bantlar ürettiğini, \(k\)'nın neden doğal değişken olduğunu ve bant eğriliğinin etkin kütleye nasıl bağlandığını kavramaktır.</div>
-\`;
+`;
 
-  const enBloch = String.raw\`
+  const enBloch = String.raw`
 <h4>The bridge from crystal to bands: Bloch theorem, Brillouin zone and Kronig–Penney</h4>
 <p>In a crystal the potential is periodic: \(V(x+a)=V(x)\). That periodicity gives electronic wavefunctions a special form. <b>Bloch's theorem</b> states that an eigenstate can be written as \(\psi_k(x)=u_k(x)e^{ikx}\), where \(u_k(x)\) has the periodicity of the lattice. The electron is therefore neither completely free nor attached to a single atom; it is a quantum state extended through the crystal.</p>
 <p>The <b>Kronig–Penney model</b> replaces the real crystal potential by a simplified periodic sequence of wells and barriers. Its key lesson is the existence of energy intervals with real \(k\) solutions and intervals without them. The former are <b>allowed bands</b>; the latter are <b>forbidden gaps</b>.</p>
 <p>Because crystal momentum is periodic in reciprocal space, it is sufficient to work inside the first <b>Brillouin zone</b>; in one dimension \(-\pi/a \le k \le \pi/a\). Bragg reflection at a zone boundary can form standing waves and split energies, opening a gap. The \(E(k)\) diagrams used later should therefore be read as consequences of the periodic lattice, not as arbitrary sketches.</p>
 <div class="note"><strong>Required depth here:</strong> the goal is not to prove Bloch's theorem or solve the full Kronig–Penney equation, but to understand why periodicity creates bands, why \(k\) is the natural coordinate, and why band curvature becomes an effective mass.</div>
-\`;
+`;
 
   function insertBeforeHeading(templateId, prefix, html) {
     const tpl = document.getElementById(templateId);
@@ -59,7 +59,7 @@
   insertBeforeHeading('week1', '1.2 Enerji bantları', trBloch);
   insertBeforeHeading('week1-en', '1.2 Energy bands', enBloch);
 
-  const modernHtml = String.raw\`
+  const modernHtml = String.raw`
 <template id="week15">
 <div class="pane" data-pane="anlatim"><div class="prose">
 <div class="edu-card"><div class="edu-tr"><div class="edu-label">🎯 Bu hafta ne öğreneceğiz?</div><ul><li>Metal–yarıiletken temasında iş fonksiyumu ve elektron ilgisini bant diyagramına bağlamak.</li><li>Schottky ve ohmik temasın neden farklı davrandığını açıklamak.</li><li>Katkılama, bariyer genişliği ve tünelleme arasındaki ilişkiyi kurmak.</li></ul></div></div>
@@ -190,7 +190,7 @@
 <div class="pane" data-pane="gorsel"><div class="prose"><section class="fig"><h3>Trap energy and SRH effectiveness</h3><p class="why">A simplified symmetric model shows why midgap traps can be strong recombination centers.</p><div class="controls"><label>T <input type="range" id="r-trap-t" min="150" max="500" step="10" value="300"><output id="o-trap-t">300 K</output></label></div><div class="readout" id="ro-traps"></div><div class="plot" id="p-traps"></div></section></div></div>
 <div class="pane" data-pane="soru"><div class="qa"><p class="q">Why is XRD alone insufficient to determine electrical quality?</p><details><summary>Show solution</summary><div>It does not directly measure carrier density, mobility, electrically active traps or interface electrostatics.</div></details></div></div>
 </template>
-\`;
+`;
 
   document.body.insertAdjacentHTML('beforeend', modernHtml);
 
