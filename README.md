@@ -1,6 +1,6 @@
 # Yarıiletken Fiziği — İnteraktif Ders Çalışma Yardımcısı
 
-Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil; **fiziksel sezgi, bant diyagramları, taşıyıcı istatistiği, interaktif grafikler ve problem çözme** üzerinden öğrenmeye yardımcı olmak için hazırlanmış 14 haftalık bir ders çalışma dokümanıdır.
+Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil; **fiziksel sezgi, bant diyagramları, taşıyıcı istatistiği, interaktif grafikler ve problem çözme** üzerinden öğrenmeye yardımcı olmak için hazırlanmış **14 haftalık çekirdek ders + 6 modern yarıiletken yapılar modülünden** oluşan bir ders çalışma dokümanıdır.
 
 > **Amaç:** Bir denklemi kullanabilmenin yanında, o denklemin ne anlattığını, hangi büyüklüklerin sonucu nasıl değiştirdiğini ve farklı yarıiletken aygıtlarının aynı temel fizik üzerinden nasıl birbirine bağlandığını görebilmek.
 
@@ -32,11 +32,17 @@ flowchart TD
     K --> L["Yüksek Frekans Davranışı"]
     K --> M["Anahtarlama"]
     G --> N["UJT ve Diğer Aygıt Davranışları"]
+    D --> O["Metal–Yarıiletken Kontaklar"]
+    D --> P["MOS Kapasitör ve MOSFET"]
+    B --> Q["Heteroeklemler ve Kuantum Yapılar"]
+    B --> R["Optoelektronik Yapılar"]
+    D --> S["Hall ve Elektriksel Karakterizasyon"]
+    S --> T["Kusurlar, Arayüzler, XRD/Raman/PL"]
 ```
 
 Bu haritanın önemli mesajı şudur: konular birbirinden bağımsız değildir. Özellikle **enerji bantları → Fermi seviyesi → taşıyıcı yoğunluğu → PN eklemi → diyot/BJT** zinciri dersin omurgasını oluşturur.
 
-## 14 Haftalık Çalışma Rotası
+## Çekirdek 14 Haftalık Çalışma Rotası
 
 | Aşama | Odak | Çalışırken kendine sor |
 |---|---|---|
@@ -56,6 +62,32 @@ Bu haritanın önemli mesajı şudur: konular birbirinden bağımsız değildir.
 | 14 | UJT ve genel tekrar | Farklı aygıtları ortak yarıiletken fiziği üzerinden açıklayabilir miyim? |
 
 > Haftaların başlıkları uygulamadaki ayrıntılı içerikle birlikte kullanılmalıdır. Bu tablo bir **çalışma rotasıdır**, ders içeriğinin yerine geçmez.
+
+## Modern Yarıiletken Yapılar Modülleri
+
+Çekirdek 14 haftalık içerik korunmuştur. Bunun yanına, yüksek lisans düzeyinde yarıiletken **yapılar** fiziğini tamamlamak için aşağıdaki altı modül eklenmiştir:
+
+| Modül | Konu | Ana bağlantı |
+|---|---|---|
+| 15 | Metal–yarıiletken kontaklar | İş fonksiyonu, elektron ilgisi, Schottky bariyeri, termiyonik emisyon, ohmik kontak |
+| 16 | MOS kapasitör ve MOSFET fiziği | Accumulation, depletion, inversion, flat-band, C–V, threshold, kanal oluşumu |
+| 17 | Heteroeklemler ve kuantum yapıları | Band offset, Type-I/II/III, quantum well, boyuta bağlı DOS, HBT/HEMT |
+| 18 | Optoelektronik yarıiletken yapılar | Soğurma, direkt/dolaylı gap, fotodiyot, güneş hücresi, LED/lazer |
+| 19 | Hall etkisi ve elektriksel karakterizasyon | Taşıyıcı tipi/yoğunluğu, mobilite, four-point probe, I–V ve C–V |
+| 20 | Kusurlar, arayüzler ve malzeme karakterizasyonu | SRH tuzakları, yüzey durumları, XRD, Raman, PL, UV–Vis |
+
+Ayrıca 1. haftada **Bloch teoremi, Brillouin bölgesi ve Kronig–Penney modeli** ile “kristal yapıdan enerji bantlarına nasıl geçiyoruz?” sorusu daha açık biçimde bağlanmıştır.
+
+Bu genişletilmiş rota özellikle şu zinciri görünür kılmayı amaçlar:
+
+```text
+Kristal → periyodik potansiyel → E(k) → DOS/Fermi
+        → taşıyıcılar ve transport
+        → PN / Metal-SC / MOS / heteroeklem
+        → optik, kuantum ve gerçek arayüz etkileri
+        → deneysel karakterizasyon
+```
+
 
 ## Her Hafta İçin Öğrenme Hedefi
 
@@ -144,7 +176,7 @@ Bunlardan birini yapamıyorsanız doğrudan formülü tekrar ezberlemek yerine i
 
 ## İçeriğin Kapsamı
 
-Dokümanda yarıiletken fiziğinin temel kavramlarından başlayarak enerji bantları, taşıyıcı istatistiği, katkılama, PN eklemi, diyotlar, tünelleme, yüksek katkılama etkileri, gürültü, BJT fiziği, yüksek frekans davranışı, anahtarlama ve UJT gibi konular interaktif olarak ele alınmaktadır.
+Dokümanda yarıiletken fiziğinin temel kavramlarından başlayarak enerji bantları, taşıyıcı istatistiği, katkılama, PN eklemi, diyotlar, tünelleme, yüksek katkılama etkileri, gürültü, BJT fiziği, yüksek frekans davranışı, anahtarlama ve UJT gibi çekirdek konuların yanında **metal–yarıiletken kontaklar, MOS kapasitör/MOSFET, heteroeklemler, kuantum hapsi, optoelektronik, Hall etkisi, kusurlar ve deneysel karakterizasyon** da interaktif olarak ele alınmaktadır.
 
 İçerik **ders çalışma ve kavramsal öğrenme** amacıyla hazırlanmıştır. Bazı simülasyonlar karmaşık fiziksel süreçleri anlaşılır hale getirmek için ideal veya öğretici modeller kullanabilir; bu nedenle araştırma veya cihaz tasarımında doğrudan sayısal referans olarak kullanılmamalıdır.
 
