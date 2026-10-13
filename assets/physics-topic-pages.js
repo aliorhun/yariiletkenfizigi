@@ -289,7 +289,10 @@ function page(main){return main&&main.querySelector('.physics-topic-page:not([hi
 function showTopic(main,key){
  if(!main||!TOPICS.some(function(x){return x[0]===key;}))return false;
  var all=main.querySelector('[data-physics-pages]');if(!all)return false;
- Array.from(all.children).forEach(function(p){p.hidden=p.dataset.physicsTopic!==key;});
+ Array.from(all.children).forEach(function(p){
+   p.hidden=p.dataset.physicsTopic!==key;
+   p.querySelectorAll('.physics-topic-pane.active').forEach(function(pane){pane.classList.remove('active');});
+ });
  showSub(main,'anlatim');return true;
 }
 function showSub(main,key){
