@@ -14,43 +14,100 @@
     var g=GROUPS.find(function(v){return v.id===id;}) || GROUPS[0];
     return trEn(lang,g.tr,g.en);
   }
-  function renderNavigation(nav,weeks,titleFor,lang,active,current,onWeek,onGroup) {
-    var groups=document.getElementById('courseSections');
-    if(!groups)return;
-    groups.innerHTML='';
-    groups.setAttribute('aria-label',trEn(lang,'Ana bölümler','Course parts'));
-    GROUPS.forEach(function(g){
-      var b=document.createElement('button');
-      b.type='button';b.className='course-section-btn';b.dataset.course=g.id;
-      b.setAttribute('aria-pressed',g.id===active?'true':'false');
-      var num=document.createElement('span');num.className='course-section-number';num.textContent=g.number;
-      var title=document.createElement('span');title.textContent=trEn(lang,g.tr,g.en);
-      b.appendChild(num);b.appendChild(title);
-      b.addEventListener('click',function(){onGroup(g.id);});
-      groups.appendChild(b);
+  function renderHome(main,lang,onGroup) {
+    main.innerHTML = '';
+    var intro=document.createElement('div');
+    intro.className='course-home-intro';
+    var eyebrow=document.createElement('p');
+    eyebrow.className='course-home-eyebrow';
+    eyebrow.textContent=trEn(lang,'Ders içerikleri','Course contents');
+    var h=document.createElement('h2');
+    h.textContent=trEn(lang,'Ne öğrenmek istiyorsunuz?','What would you like to study?');
+    var p=document.createElement('p');
+    p.textContent=trEn(lang,
+      'Önce yarıiletkenlerin temel fiziğini öğrenin veya bu ilkelerin cihazlardaki uygulamalarına geçin.',
+      'Start with the underlying physics, or explore how these principles are applied in semiconductor devices.');
+    intro.appendChild(eyebrow);intro.appendChild(h);intro.appendChild(p);
+    main.appendChild(intro);
+    var cards=document.createElement('div');cards.className='course-home-cards';
+    GROUPS.forEach(function(group){
+      var b=document.createElement('button');b.type='button';b.className='course-home-card';
+      b.dataset.course=group.id;
+      var num=document.createElement('span');num.className='course-home-num';num.textContent=group.number;
+      var body=document.createElement('span');body.className='course-home-card-body';
+      var name=document.createElement('strong');name.textContent=trEn(lang,group.tr,group.en);
+      var desc=document.createElement('span');desc.className='course-home-card-desc';
+      desc.textContent=group.id==='physics'
+        ?trEn(lang,'Kristal yapı, elektronlar, bant teorisi, durum yoğunluğu, Fermi seviyesi ve taşıyıcılar.',
+                 'Crystal structures, electrons, band theory, density of states, Fermi levels and carriers.')
+        :trEn(lang,'p-n eklemleri, diyotlar, transistörler, MOSFET ve gelişmiş yarıiletken aygıtlar.',
+                 'p-n junctions, diodes, transistors, MOSFETs and advanced semiconductor devices.');
+      body.appendChild(name);body.appendChild(desc);
+      var arrow=document.createElement('span');arrow.className='course-home-arrow';
+      arrow.setAttribute('aria-hidden','true');arrow.textContent='→';
+      b.appendChild(num);b.appendChild(body);b.appendChild(arrow);
+      b.addEventListener('click',function(){onGroup(group.id);});
+      cards.appendChild(b);
     });
-    nav.innerHTML='';
-    var visible=weeks.filter(function(w){return groupForWeek(w.n)===active;});
-    visible.forEach(function(w,i){
-      if(w.modern && (i===0||!visible[i-1].modern)){
-        var caption=document.createElement('div');
-        caption.className='week-group';
-        caption.textContent=trEn(lang,'İleri konular','Advanced topics');
-        nav.appendChild(caption);
-      }
+    main.appendChild(cards);
+  }
+  function renderNavigation(nav,weeks,titleFor,lang,active,current,selectedTopic,onWeek,onTopic,onBack) {
+    var top=document.getElementById('courseSections');
+    if(!top)return;
+    top.innerHTML='';nav.innerHTML='';
+    if(!active)return;
+    top.setAttribute('aria-label',trEn(lang,'Seçili bölüm','Selected part'));
+    var back=document.createElement('button');back.type='button';back.className='course-back';
+    var backArrow=document.createElement('span');backArrow.setAttribute('aria-hidden','true');backArrow.textContent='←';
+    var backText=document.createElement('span');backText.textContent=trEn(lang,'Geri · Ana bölümler','Back · Course parts');
+    back.appendChild(backArrow);back.appendChild(backText);
+    back.addEventListener('click',onBack);
+    top.appendChild(back);
+    var currentGroup=GROUPS.find(function(g){return g.id===active;});
+    var heading=document.createElement('div');heading.className='course-current-heading';
+    var roman=document.createElement('span');roman.className='course-current-number';
+    roman.textContent=currentGroup.number;
+    var title=document.createElement('strong');
+    title.textContent=trEn(lang,currentGroup.tr,currentGroup.en);
+    heading.appendChild(roman);heading.appendChild(title);top.appendChild(heading);
+    nav.setAttribute('aria-label',trEn(lang,'Bölüm konuları','Topics in this part'));
+    nav.removeAttribute('role');
+    function separator(trText,enText){
+      var a=document.createElement('div');a.className='course-nav-caption';
+      a.textContent=trEn(lang,trText,enText);nav.appendChild(a);
+    }
+    function navButton(id,number,textLabel,selected,cb){
       var b=document.createElement('button');b.type='button';
-      b.setAttribute('role','tab');b.dataset.week=String(w.n);
-      b.setAttribute('aria-selected',String(w.n===current));
-      var n=document.createElement('span');n.className='n';n.textContent=String(w.n);
-      var label=document.createElement('span');label.className='t';label.textContent=titleFor(w);
-      if(!w.ready){
-        var soon=document.createElement('span');soon.className='soon';
-        soon.textContent=trEn(lang,'hazırlanıyor','in preparation');label.appendChild(soon);
-      }
-      b.appendChild(n);b.appendChild(label);
-      b.addEventListener('click',function(){onWeek(w.n);});
-      nav.appendChild(b);
-    });
+      b.className='course-nav-item';b.dataset[id.indexOf('topic:')===0?'topic':'week']=id.split(':')[1];
+      if(selected){b.classList.add('is-current');b.setAttribute('aria-current','location');}
+      var num=document.createElement('span');num.className='course-nav-number';num.textContent=number;
+      var label=document.createElement('span');label.className='course-nav-label';label.textContent=textLabel;
+      b.appendChild(num);b.appendChild(label);
+      b.addEventListener('click',cb);nav.appendChild(b);
+    }
+    if(active==='physics'){
+      separator('Temel konular','Foundations');
+      LESSONS.forEach(function(topic,index){
+        navButton('topic:'+topic[0],String(index+1).padStart(2,'0'),
+          trEn(lang,topic[1],topic[2]),current===1&&topic[0]===selectedTopic,
+          function(){onTopic(topic[0]);});
+      });
+      separator('Diğer fizik konuları','Other physics topics');
+      weeks.filter(function(w){return groupForWeek(w.n)==='physics'&&w.n!==1;}).forEach(function(w){
+        navButton('week:'+w.n,String(w.n),titleFor(w),current===w.n,function(){onWeek(w.n);});
+      });
+    }else{
+      separator('Cihaz konuları','Device topics');
+      var visible=weeks.filter(function(w){return groupForWeek(w.n)==='devices';});
+      visible.forEach(function(w,i){
+        if(w.modern&&(i===0||!visible[i-1].modern))separator('İleri cihazlar ve yapılar','Advanced devices and structures');
+        navButton('week:'+w.n,String(w.n),titleFor(w),current===w.n,function(){onWeek(w.n);});
+      });
+    }
+  }
+  function topicLabel(lang,id) {
+    var topic=LESSONS.find(function(v){return v[0]===id;});
+    return topic?trEn(lang,topic[1],topic[2]):'';
   }
   var LESSONS=[
     ['crystal',       'Kristal yapı ve atomlar', 'Crystal structure and atoms','1.1'],
@@ -116,7 +173,7 @@
   }
   function mountLesson(main,lang) {
     var prose=main.querySelector('.pane[data-pane="anlatim"] .prose');
-    if(!prose || prose.querySelector('.course-topic-guide'))return;
+    if(!prose || prose.querySelector('#course-topic-bloch-electron'))return;
     var headings=Array.from(prose.querySelectorAll('h3'));
     function heading(prefix){
       return headings.find(function(el){return el.textContent.trim().indexOf(prefix)===0;});
@@ -143,36 +200,9 @@
     appendAfter(doping,'doping');
     appendAfter(transport,'transport');
     equilibrium.id='course-topic-equilibrium-existing';
-    var guide=document.createElement('nav');
-    guide.className='course-topic-guide';
-    guide.setAttribute('aria-label',trEn(lang,'Yarıiletken fiziği konu haritası','Semiconductor physics topic map'));
-    var headingLabel=document.createElement('h3');
-    headingLabel.textContent=trEn(lang,'Bölüm I · Temelden başlayalım','Part I · Start with the fundamentals');
-    guide.appendChild(headingLabel);
-    var desc=document.createElement('p');
-    desc.textContent=trEn(lang,
-      'Her başlığı sırayla açın. Önce “hangi durumlar var?”, sonra “hangileri dolu?”, son olarak “nasıl hareket ediyorlar?” sorularını çözün.',
-      'Follow the topics in order: first which states exist, then which are occupied, finally how carriers move.');
-    guide.appendChild(desc);
-    var grid=document.createElement('div');grid.className='course-topic-grid';
-    LESSONS.forEach(function(topic,i){
-      var link=document.createElement('a');
-      link.className='course-topic-link';link.href='#course-topic-'+topic[0];
-      var num=document.createElement('span');num.className='course-topic-number';num.textContent=String(i+1).padStart(2,'0');
-      var title=document.createElement('span');title.textContent=trEn(lang,topic[1],topic[2]);
-      link.appendChild(num);link.appendChild(title);
-      link.addEventListener('click',function(ev){
-        ev.preventDefault();
-        var target=main.querySelector('#course-topic-'+topic[0]);
-        if(target){target.scrollIntoView({behavior:'smooth',block:'start'});}
-      });
-      grid.appendChild(link);
-    });
-    guide.appendChild(grid);
-    // Place the roadmap before the initial 4-step atom → crystal → band → carrier summary.
-    prose.insertBefore(guide,prose.firstChild);
+
   }
   window.SemiconductorCourseOutline={
-    groupForWeek:groupForWeek,groupTitle:groupTitle,renderNavigation:renderNavigation,mountLesson:mountLesson
+    groupForWeek:groupForWeek,groupTitle:groupTitle,renderHome:renderHome,renderNavigation:renderNavigation,topicLabel:topicLabel,mountLesson:mountLesson
   };
 })();
