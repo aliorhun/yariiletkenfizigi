@@ -95,9 +95,9 @@ Grafiklerin şekli \(E-E_c=0.20\) eV değerinde normalize edilir. Sayısal DOS �
 
 Yeni grafik kodunun dış bağımlılıksız sayısal regresyon testi:
 
-\`\`\`bash
+```bash
 node tests/solid-state-foundations.test.js
-\`\`\`
+```
 
 Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını, atom sayısına bağlı bant yakınsamasını, seçilen üç malzemenin denge aralığı kalibrasyonunu, 1B–3B DOS enerji/etkin kütle üslerini ve ana sayfa entegrasyonunu kontrol eder. Gerçek tarayıcı arayüzünün görsel regresyonu ayrı doğrulama gerektirir.
 
