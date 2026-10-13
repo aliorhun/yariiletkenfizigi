@@ -329,6 +329,7 @@ html[lang="en"] .edu-en { display:block; }
 </style>
 <link rel="stylesheet" href="assets/course-structure.css">
 <link rel="stylesheet" href="assets/solid-state-foundations.css">
+<link rel="stylesheet" href="assets/physics-topic-pages.css">
 </head>
 <body>
 
@@ -5396,6 +5397,7 @@ html[lang="en"] .edu-en { display:block; }
 <script src="assets/semiconductor-fundamentals.js"></script>
 <script src="assets/course-structure.js"></script>
 <script src="assets/solid-state-foundations.js"></script>
+<script src="assets/physics-topic-pages.js"></script>
 <script>
 /* ---------------- Dil / Language ---------------- */
 let LANG = 'tr';
@@ -5487,16 +5489,18 @@ function buildNav() {
   );
 }
 function showTopic(id) {
-  if (activeCourse !== 'physics') setCourse('physics');
-  currentTopic = id;
-  if (current !== 1) showWeek(1);
-  else buildNav();
-  if (currentSub !== 'anlatim') showSub('anlatim');
-  const target = main.querySelector('#course-topic-' + id);
-  if (target) {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  if (!window.PhysicsTopicPages.topicIds.includes(id)) return;
+  if (activeCourse !== 'physics') {
+    activeCourse = 'physics';
+    document.querySelector('.layout').classList.remove('course-home-layout');
+    main.classList.remove('is-course-home');
   }
+  currentTopic = id;
+  if (current !== 1 || !main.querySelector('[data-physics-pages]')) showWeek(1);
+  else window.PhysicsTopicPages.showTopic(main, id);
+  currentSub = 'anlatim';
+  buildNav();
+  window.scrollTo({ top: 0 });
 }
 
 function showWeek(n) {
@@ -5527,7 +5531,10 @@ function showWeek(n) {
     main.querySelectorAll('.subtabs button').forEach(b => b.addEventListener('click', () => showSub(b.dataset.sub)));
     if (n === 1) window.SemiconductorCourseOutline.mountLesson(main, LANG);
     bindWeek(n);
-    if (n === 1) window.SolidStateFoundations.mount(main, LANG);
+    if (n === 1) {
+      window.SolidStateFoundations.mount(main, LANG);
+      window.PhysicsTopicPages.mount(main, LANG, currentTopic);
+    }
   } else {
     html += `<div class="planned prose"><span class="badge">Bu hafta sonraki adımda eklenecek</span>
       <p>Planlanan içerik:</p><ul>${w.plan.map(p=>`<li>${p}</li>`).join('')}</ul>
@@ -5539,9 +5546,13 @@ function showWeek(n) {
 }
 
 function showSub(id) {
+  if (current === 1 && activeCourse === 'physics' && main.querySelector('[data-physics-pages]')) {
+    if (!window.PhysicsTopicPages.showSub(main, id)) return;
+  } else {
+    main.querySelectorAll('.subtabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.sub === id));
+    main.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.dataset.pane === id));
+  }
   currentSub = id;
-  main.querySelectorAll('.subtabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.sub === id));
-  main.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.dataset.pane === id));
   if (id === 'gorsel') renderVisible();
 }
 
