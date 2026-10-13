@@ -1,0 +1,28 @@
+/* Independent topic pages: one visible article and its own four tabs at a time. */
+.physics-topic-page[hidden] { display:none!important; }
+.physics-topic-pages { width:100%; min-width:0; }
+.physics-topic-page { min-width:0; }
+.physics-lesson-heading { display:flex; gap:.8rem; align-items:baseline; padding:.15rem 0 .8rem; }
+.physics-lesson-heading h2 { font:700 clamp(1.35rem,2.4vw,1.95rem)/1.22 var(--serif); margin:0; }
+.physics-lesson-index { font:700 1rem var(--sans); color:var(--elec); font-variant-numeric:tabular-nums; }
+.physics-topic-tabs { margin:0 0 1rem; }
+.physics-topic-pane { min-width:0; }
+.physics-topic-pane:not(.active) { display:none!important; }
+.physics-topic-pane .ss-lab { margin:0 0 1.2rem; }
+.physics-topic-pane .sf-interactive { margin:0 0 1.2rem; }
+.physics-topic-formula { border:1px solid var(--rule); border-left:3px solid var(--elec); border-radius:7px; background:var(--panel); padding:1rem 1.1rem; margin:.8rem 0 1.5rem; }
+.physics-topic-formula h3 { margin:.1rem 0 .6rem; font:600 1.1rem/1.4 var(--sans); }
+.physics-topic-formula p { margin:.6rem 0 0; }
+.physics-formula { padding:.55rem 0; overflow-x:auto; }
+.physics-topic-question { border-left:3px solid var(--fermi); }
+.physics-hole-sim { border:1px solid var(--rule); border-radius:9px; padding:clamp(.8rem,2vw,1.3rem); background:var(--panel); }
+.physics-hole-sim h3 { margin:.15rem 0 .5rem; }
+.physics-hole-sites { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:.35rem; margin:1.2rem 0; }
+.physics-site { display:flex; justify-content:center; align-items:center; aspect-ratio:1; border-radius:8px; border:1px solid var(--rule); background:var(--bg); color:var(--elec); font-size:clamp(1rem,2.8vw,2.2rem); }
+.physics-site.is-hole { color:var(--hole); border-color:var(--hole); background:rgba(200,53,74,.07); }
+.physics-hole-controls { display:flex; flex-wrap:wrap; gap:.5rem; }
+.physics-hole-note { font-family:var(--sans); font-variant-numeric:tabular-nums; color:var(--muted); }
+.physics-optional-products { margin:1.5rem 0; border:1px solid var(--rule); border-radius:8px; padding:.7rem; }
+.physics-optional-products summary { cursor:pointer; font-family:var(--sans); font-weight:600; }
+.physics-optional-products > div { margin-top:.65rem; }
+@media(max-width:860px) { .physics-topic-tabs button { font-size:.94rem; padding:.45rem .62rem; } .physics-lesson-heading { gap:.55rem; } }
