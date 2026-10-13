@@ -18,11 +18,11 @@ Bu simülasyonlar sitenin mevcut Plotly bağımlılığını kullanır, ayrıca 
 
 ## Yeni içerik organizasyonu: iki ana bölüm
 
-Arayüzde artık **iki üst düzey başlık** bulunur. Var olan 20 ders/modülün içeriği ve orijinal hafta kimlikleri korunmuştur; sıralama, ezberlenecek eski hafta numaralarından çok kavramsal öğrenme yoluna göre gruplanmıştır.
+Başlangıç ekranında yalnızca **I. Yarıiletken Fiziği** ve **II. Yarıiletken Cihazları** kartları bulunur. Kart seçildiğinde sol menüde **Geri · Ana bölümler** düğmesi, seçilen bölümün başlığı ve yalnızca o bölümdeki konular listelenir. Var olan 20 ders/modülün içeriği ve hafta kimlikleri korunmuştur.
 
 ### I. Yarıiletken Fiziği
 
-Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etkisi ve elektriksel karakterizasyon) ve **20** (kusurlar, arayüzler ve malzeme karakterizasyonu). Ders 1'in **Anlatım** sekmesine on konuluk tıklanabilir kavram haritası ve Türkçe/İngilizce başlangıç düzeyi açıklamalar eklendi:
+Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etkisi ve elektriksel karakterizasyon) ve **20** (kusurlar, arayüzler ve malzeme karakterizasyonu). Ders 1'e ait **on konu, sayfa içindeki büyük kutular yerine sol menüye taşınmıştır**. Konu seçimi Anlatım sekmesini açıp doğrudan ilgili açıklamaya kaydırır. Türkçe/İngilizce başlangıç düzeyi açıklamalar ve bilimsel grafikler korunmuştur:
 
 1. Kristal yapı ve atomlar
 2. Kristal içindeki elektron (Bloch dalgaları, E(k))
@@ -37,11 +37,22 @@ Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etki
 
 **Öğrenme sırası:** izin verilen kuantum durumları → bu durumların sayısı → doluluk olasılığı → elektron/hol yoğunlukları → denge → yük taşınımı. Ders 1'in mevcut matematiksel temel, özgün simülasyonlar, görseller ve soru-cevap içerikleri değişmeden kalır.
 
+
+### Arayüz regresyon kontrolü
+
+Geçişler, 10 fizik konusu, ileri fizik dersleri ve 16 cihaz dersi için bağımsız Node testi:
+
+```bash
+node tests/course-navigation.test.js
+```
+
+Bu test gezinme modelini ve sayfa kodu bağlantılarını denetler; gerçek tarayıcıdaki görsel görünümü tek başına doğrulamaz.
+
 ### II. Yarıiletken Cihazları
 
 Ders **2–4, 6–18**: p-n eklem diyotları, tünel diyot, büyük/küçük sinyal, fazla akım, gürültü, BJT ve yüksek frekans/güç/anahtarlama cihazları, UJT; ayrıca metal–yarıiletken temaslar, MOS/MOSFET, heteroeklemler, kuantum yapılar ve optoelektronik cihazlar.
 
-**Teknik not:** İki üst bölüm yalnızca menü organizasyonudur; ders şablonları taşınmadığı veya silinmediği için daha önce saklanmış hafta numaraları ve görsel kontroller çalışmaya devam eder. Mobilde iki ana bölüm yatay seçim tuşlarıyla görüntülenir.
+**Teknik not:** İki üst bölüm menü organizasyonudur; ders şablonları taşınmadığı veya silinmediği için önceki derslerin içerikleri ve görsel kontroller çalışmaya devam eder. Uygulama her yüklemede iki kartlı giriş ekranından başlar; bölüm seçimi sonrası mobilde geri düğmesi ve başlık üstte, konu bağlantıları yatay kaydırılabilir şeritte görünür. Kayıtlı hafta numarası silinmez, ancak otomatik olarak içeriğe girilmez. Dil değiştirme açık bölümde kalır; Geri düğmesi iki kartlı giriş ekranına döner.
 
 
 ## Bölüm I için ileri anlatım: Bloch, atomik seviyeler ve durum yoğunluğu

@@ -5459,31 +5459,59 @@ const SUBTABS = [
 
 const nav = document.getElementById('weekNav');
 const main = document.getElementById('main');
-let current = 1, currentSub = 'anlatim', activeCourse = 'physics';
+let current = 1, currentSub = 'anlatim', activeCourse = null, currentTopic = null;
 const wIndex = w => WEEKS.indexOf(w);
 const wTitle = w => L(w.t, EN_TITLES[wIndex(w)]);
 
+function showHome(scroll = true) {
+  activeCourse = null;
+  currentTopic = null;
+  document.querySelector('.layout').classList.add('course-home-layout');
+  main.classList.add('is-course-home');
+  nav.innerHTML = '';
+  document.getElementById('courseSections').innerHTML = '';
+  window.SemiconductorCourseOutline.renderHome(main, LANG, setCourse);
+  if (scroll) window.scrollTo({ top: 0 });
+}
 function setCourse(id) {
-  if (id === activeCourse) return;
+  if (id !== 'physics' && id !== 'devices') return;
   activeCourse = id;
+  currentTopic = id === 'physics' ? 'crystal' : null;
+  document.querySelector('.layout').classList.remove('course-home-layout');
+  main.classList.remove('is-course-home');
   showWeek(id === 'physics' ? 1 : 2);
 }
 function buildNav() {
-  window.SemiconductorCourseOutline.renderNavigation(nav, WEEKS, wTitle, LANG, activeCourse, current, showWeek, setCourse);
+  window.SemiconductorCourseOutline.renderNavigation(
+    nav, WEEKS, wTitle, LANG, activeCourse, current, currentTopic, showWeek, showTopic, showHome
+  );
 }
-buildNav();
+function showTopic(id) {
+  if (activeCourse !== 'physics') setCourse('physics');
+  currentTopic = id;
+  if (current !== 1) showWeek(1);
+  else buildNav();
+  if (currentSub !== 'anlatim') showSub('anlatim');
+  const target = main.querySelector('#course-topic-' + id);
+  if (target) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  }
+}
 
 function showWeek(n) {
   activeCourse = window.SemiconductorCourseOutline.groupForWeek(n);
   current = n;
+  if (n !== 1) currentTopic = null;
+  else if (!currentTopic) currentTopic = 'crystal';
   buildNav();
   try { localStorage.setItem('ydf-week', n); } catch(e) {}
   const wi = WEEKS.findIndex(w => w.n === n);
   const w = WEEKS[wi];
   if (!w) return;
   currentSub = 'anlatim';
-  const unitTitle = `${L('Hafta', 'Week')} ${w.n}`;
-  let html = `<div class="course-part-label">${window.SemiconductorCourseOutline.groupTitle(LANG, activeCourse)}</div><div class="week-head"><h2>${unitTitle}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
+  const lessonTitle = n === 1 ? L('Temel fizik kavramları', 'Fundamentals of semiconductor physics') : wTitle(w);
+  let html = `<div class="week-head"><h2>${lessonTitle}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
   if (w.ready) {
     const tabs = n === 0 ? SUBTABS.filter(s => s[0] !== 'urun') : SUBTABS;
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
@@ -5528,7 +5556,12 @@ document.getElementById('langBtn').addEventListener('click', () => {
   LANG = LANG === 'en' ? 'tr' : 'en';
   try { localStorage.setItem('ydf-lang', LANG); } catch(e) {}
   const sub = currentSub, y = window.scrollY;
-  applyLangChrome(); buildNav(); showWeek(current);
+  applyLangChrome();
+  if (activeCourse === null) {
+    showHome(false);
+    return;
+  }
+  showWeek(current);
   if (sub !== 'anlatim' && main.querySelector(`.subtabs button[data-sub="${sub}"]`)) showSub(sub);
   window.scrollTo({ top: y });
 });
@@ -7652,13 +7685,8 @@ function bindWeek(n) {
   });
 }
 
-let start = 1;
-try {
-  const savedWeek = Number(localStorage.getItem('ydf-week'));
-  if (Number.isFinite(savedWeek)) start = savedWeek;
-} catch(e) {}
-const startWeek = WEEKS.find(w => w.n === start && w.ready);
-showWeek(startWeek ? start : 1);
+// The landing page presents only the two course parts.
+showHome(false);
 </script>
 </body>
 </html>
