@@ -1,0 +1,27 @@
+/* Week 1 — physically scoped, interactive solid-state foundations */
+.ss-deep-explain { margin-top:.75rem; }
+.ss-deep-explain h5 { margin:.9rem 0 .2rem; font:600 1.01rem var(--sans); color:var(--ink); }
+.ss-deep-explain p { margin:.3rem 0 .75rem; }
+.ss-deep-explain .ss-equation { border-left:3px solid var(--rule); background:var(--bg); padding:.6rem .75rem; margin:.65rem 0; overflow-x:auto; }
+.ss-deep-explain .ss-question { border:1px solid var(--rule); border-radius:6px; margin:.7rem 0; }
+.ss-deep-explain .ss-question summary { cursor:pointer; font-family:var(--sans); font-weight:600; padding:.4rem .6rem; }
+.ss-deep-explain .ss-question p { padding:0 .7rem .6rem; margin:.25rem 0; }
+.ss-deep-explain .ss-lab-note { color:var(--muted); font-family:var(--sans); font-size:.95rem; }
+.ss-lab { display:grid; gap:1.25rem; margin:0 0 1.3rem; }
+.ss-lab > .fig { border:1px solid var(--rule); border-radius:9px; padding:clamp(.7rem,2vw,1.2rem); background:var(--panel); margin:0; }
+.ss-lab .ss-controls { display:flex; align-items:end; flex-wrap:wrap; gap:.6rem 1.25rem; margin:.65rem 0 .7rem; }
+.ss-lab .ss-controls label { display:flex; flex-direction:column; flex:1 1 155px; min-width:0; gap:.1rem; font-family:var(--sans); font-size:.95rem; }
+.ss-lab .ss-controls output { font-variant-numeric:tabular-nums; font-weight:700; }
+.ss-lab input[type="range"] { width:100%; accent-color:var(--elec); }
+.ss-lab select { min-height:2.1rem; padding:.35rem .55rem; border-radius:6px; border:1px solid var(--rule); color:var(--ink); background:var(--panel); font:inherit; }
+.ss-lab .ss-plot { width:100%; min-height:360px; }
+.ss-lab .ss-side-by-side { display:grid; grid-template-columns:1fr 1fr; gap:.45rem; }
+.ss-lab .ss-side-by-side .ss-plot { min-height:350px; }
+.ss-lab .ss-readout { margin:.55rem 0; padding:.55rem .75rem; color:var(--ink); background:var(--bg); border:1px solid var(--rule); border-radius:6px; font-family:var(--sans); font-size:.94rem; line-height:1.5; font-variant-numeric:tabular-nums; }
+.ss-lab .ss-limits { color:var(--muted); font-size:.87rem; line-height:1.45; margin:.55rem 0 0; }
+.ss-lab .ss-lab-title { font:700 .82rem var(--sans); letter-spacing:.05em; text-transform:uppercase; color:var(--muted); }
+@media (max-width:790px) {
+  .ss-lab .ss-side-by-side { grid-template-columns:1fr; }
+  .ss-lab .ss-plot { min-height:305px; }
+  .ss-lab .ss-side-by-side .ss-plot { min-height:305px; }
+}
