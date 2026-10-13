@@ -328,6 +328,7 @@ html[lang="en"] .edu-en { display:block; }
 \n@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 <link rel="stylesheet" href="assets/course-structure.css">
+<link rel="stylesheet" href="assets/solid-state-foundations.css">
 </head>
 <body>
 
@@ -5394,6 +5395,7 @@ html[lang="en"] .edu-en { display:block; }
 <script src="assets/modern-modules.js"></script>
 <script src="assets/semiconductor-fundamentals.js"></script>
 <script src="assets/course-structure.js"></script>
+<script src="assets/solid-state-foundations.js"></script>
 <script>
 /* ---------------- Dil / Language ---------------- */
 let LANG = 'tr';
@@ -5497,6 +5499,7 @@ function showWeek(n) {
     main.querySelectorAll('.subtabs button').forEach(b => b.addEventListener('click', () => showSub(b.dataset.sub)));
     if (n === 1) window.SemiconductorCourseOutline.mountLesson(main, LANG);
     bindWeek(n);
+    if (n === 1) window.SolidStateFoundations.mount(main, LANG);
   } else {
     html += `<div class="planned prose"><span class="badge">Bu hafta sonraki adımda eklenecek</span>
       <p>Planlanan içerik:</p><ul>${w.plan.map(p=>`<li>${p}</li>`).join('')}</ul>
@@ -7572,6 +7575,7 @@ Object.keys(PLOTS).forEach(k => {
 function renderVisible() {
   main.querySelectorAll('.pane.active .plot').forEach(el => { if (PLOTS[el.id]) PLOTS[el.id](el); });
   if (window.SemiconductorFundamentals) window.SemiconductorFundamentals.render();
+  if (window.SolidStateFoundations) window.SolidStateFoundations.render();
 }
 
 function bindWeek(n) {
