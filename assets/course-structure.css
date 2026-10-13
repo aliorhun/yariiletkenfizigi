@@ -1,0 +1,34 @@
+
+/* Two major parts: Physics / Devices. Retains the existing week tabs. */
+.course-sidebar { position:sticky; top:env(safe-area-inset-top,0px); align-self:start; max-height:100vh; overflow-y:auto; border-right:1px solid var(--rule); background:var(--bg); }
+.course-sidebar .weeks { position:static; max-height:none; overflow:visible; border-right:0; padding-top:.15rem; }
+.course-categories { display:flex; flex-direction:column; gap:.3rem; padding:.8rem .45rem .65rem; border-bottom:1px solid var(--rule); }
+.course-section-btn { width:100%; display:flex; align-items:center; gap:.55rem; padding:.7rem .6rem; font-family:var(--sans); font-size:1.03rem; font-weight:600; line-height:1.2; text-align:left; border:1px solid transparent; border-radius:7px; cursor:pointer; background:transparent; color:var(--ink); }
+.course-section-btn:hover { background:var(--panel); }
+.course-section-btn[aria-pressed="true"] { border-color:var(--rule); background:var(--panel); box-shadow:inset 3px 0 0 var(--litho); }
+.course-section-number { flex:0 0 1.65rem; font-variant-numeric:tabular-nums; font-weight:700; color:var(--litho-ink); }
+.course-part-label { font-family:var(--sans); color:var(--muted); font-size:.85rem; font-weight:700; letter-spacing:.045em; text-transform:uppercase; padding:.2rem 0 .4rem; }
+.course-topic-guide { border:1px solid var(--rule); border-radius:10px; background:var(--panel); padding:clamp(.75rem,2vw,1.35rem); margin:.7rem 0 1.35rem; }
+.course-topic-guide h3 { margin:.05rem 0 .4rem; font-size:1.28rem; }
+.course-topic-guide p { color:var(--muted); font-size:.95rem; margin:.2rem 0 .7rem; line-height:1.5; }
+.course-topic-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.42rem; }
+.course-topic-link { display:flex; align-items:flex-start; gap:.55rem; min-width:0; color:var(--ink); text-decoration:none; border:1px solid var(--rule); border-radius:6px; font-family:var(--sans); line-height:1.3; padding:.5rem .55rem; background:var(--bg); font-size:.97rem; }
+.course-topic-link:hover, .course-topic-link:focus-visible { border-color:var(--elec); background:var(--panel); }
+.course-topic-number { color:var(--elec); font-size:.78rem; font-weight:700; flex:0 0 1.35rem; padding-top:.09rem; }
+.course-concept { scroll-margin-top:8rem; border-left:3px solid var(--elec); background:var(--panel); margin:.8rem 0 1.25rem; padding:.7rem 1rem; border-radius:0 8px 8px 0; }
+.course-concept h4 { font-family:var(--sans); font-size:1.05rem; margin:0 0 .4rem; color:var(--ink); }
+.course-concept p { margin:.45rem 0; }
+.prose h3[id^="course-topic-"] { scroll-margin-top:8rem; }
+@media(max-width:860px) {
+ .course-sidebar { max-height:none; position:sticky; top:env(safe-area-inset-top,0px); z-index:6; border-right:0; border-bottom:1px solid var(--rule); }
+ .course-categories { flex-direction:row; padding:.3rem .55rem; gap:.35rem; }
+ .course-section-btn { font-size:.87rem; flex:1 1 0; justify-content:center; padding:.6rem .35rem; min-width:0; }
+ .course-section-number { flex:0 0 auto; }
+ .course-sidebar .weeks { position:static; display:flex; overflow-x:auto; overflow-y:hidden; padding:0; }
+ .course-sidebar .weeks button { flex:0 0 auto; }
+ .course-sidebar .weeks .week-group { white-space:nowrap; align-self:center; }
+ .course-topic-grid { grid-template-columns:1fr; }
+ .course-concept { scroll-margin-top:11rem; }
+ .prose h3[id^="course-topic-"] { scroll-margin-top:11rem; }
+}
+@media(prefers-reduced-motion:reduce){.course-topic-link { scroll-behavior:auto; }}
