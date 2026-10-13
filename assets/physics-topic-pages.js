@@ -225,8 +225,9 @@ function holeDemo(view,lang){
    cells.appendChild(cell);
   }
   status.textContent=(lang==='en'?'Vacancy at site ':'Holün konumu: ')+(vacancy+1)+'/7';
+  next.disabled=step>=6;
  }
- next.addEventListener('click',function(){step=(step+1)%7;draw();});
+ next.addEventListener('click',function(){step=Math.min(6,step+1);draw();});
  reset.addEventListener('click',function(){step=0;draw();});
  controls.appendChild(next);controls.appendChild(reset);
  root.appendChild(title);root.appendChild(help);root.appendChild(cells);root.appendChild(controls);
