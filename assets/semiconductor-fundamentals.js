@@ -133,8 +133,8 @@
   function dos(de,mass) { return de<=0?0:DOS_FACTOR*Math.pow(mass,1.5)*Math.sqrt(de); }
   function plotBands() {
     var m=material(), r0=m.bond, eAtom=m.eg+4.4, x=[],vl=[],vu=[],cl=[],cu=[];
-    for(var i=0;i<=140;i++){
-      var r=r0*(0.98+(2.10-0.98)*i/140), w=2.2*Math.exp(-3.0*(r/r0-1));
+    for(var i=0;i<=224;i++){
+      var r=r0*(0.98+(2.10-0.98)*i/224), w=2.2*Math.exp(-3.0*(r/r0-1));
       x.push(r); vl.push(-eAtom/2-w); vu.push(-eAtom/2+w);
       cl.push(eAtom/2-w); cu.push(eAtom/2+w);
     }
