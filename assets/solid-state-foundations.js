@@ -10,7 +10,7 @@
     ge:{name:'Ge',r0:2.45,eg:0.66},
     gaas:{name:'GaAs',r0:2.45,eg:1.42}
   };
-  var values={k:0.35,width:0.29,n:16,ratio:1,material:'si',dimension:3,mass:0.26,probe:0.20};
+  var values={k:0.35,width:0.29,vg:0.17,n:16,ratio:1,material:'si',dimension:3,mass:0.26,probe:0.20};
   var root=null,lang='tr';
   function tr(trText,enText){return lang==='en'?enText:trText;}
   function el(selector){return root&&root.querySelector(selector);}
@@ -136,10 +136,12 @@
       tr('Atomlar arası mesafe a ile ölçeklenmiş bir boyutlu periyodik zincirde dalganın gerçek kısmını, periyodik Bloch çarpanını ve olasılık yoğunluğunu karşılaştırın.',
          'Compare the real Bloch wave, its periodic factor, and its probability density on a 1D periodic chain with positions normalized by lattice spacing a.'),
       range('k',tr('Dalga vektörü k / (π/a)','Wave vector k / (π/a)'),-1,1,0.05)+
-      range('width',tr('Orbital yayılımı σ/a','Orbital spread σ/a'),0.16,0.45,0.01),
-      'bloch',panel('bloch'),
-      tr('Şematik 1B Bloch toplamı: komşu hücrelerde aynı Gauss-tipi yerel orbital, faz çarpanı exp(ikna). Kenar etkisini azaltmak için çizim aralığının dışındaki atomlar da hesaba katılır; bu gerçek Si dalga fonksiyonu veya Schrödinger özdeğer çözümü değildir.',
-         'Illustrative 1D Bloch sum: repeating Gaussian-like orbitals with phases exp(ikna). Atoms beyond the plot window suppress edge artefacts. This is not a real Si wavefunction or solved Schrödinger eigenstate.')
+      range('width',tr('Orbital yayılımı σ/a','Orbital spread σ/a'),0.16,0.45,0.01)+
+      range('vg',tr('Periyodik potansiyel karışımı |Vᴳ| (eV)','Periodic-potential coupling |Vᴳ| (eV)'),0,0.5,0.01),
+      'bloch',panel('bloch')+
+      '<p class="why"><b>'+tr('Bragg sınırında enerji ayrışması:','Band splitting at the Bragg boundary:')+'</b> '+tr('Birinci Brillouin sınırındaki iki düzlem dalgasının etkileşimi, iki enerji kolu arasına yasak aralık açabilir.','Coupling two plane waves at the first Brillouin-zone edge can open a gap between two energy branches.')+'</p>'+panel('bragg'),
+      tr('Şematik 1B Bloch toplamı: komşu hücrelerde aynı Gauss-tipi yerel orbital, faz çarpanı exp(ikna). Kenar etkisini azaltmak için çizim aralığının dışındaki atomlar da hesaba katılır; bu gerçek Si dalga fonksiyonu veya Schrödinger özdeğer çözümü değildir. Bragg grafiği de yaklaşık iki-düzlem-dalga modelidir; boşluk Δ=2|Vᴳ| olup gerçek kristalin bant aralığı değildir.',
+         'Illustrative 1D Bloch sum: repeating Gaussian-like orbitals with phases exp(ikna). Atoms beyond the plot window suppress edge artefacts. This is not a real Si wavefunction or solved Schrödinger eigenstate. The Bragg chart is a two-plane-wave approximation; Δ=2|Vᴳ| is not a measured material band gap.')
     ));
     group.appendChild(lab(
       tr('2. Ayrık atomik seviyelerden izinli bantlara','2. From discrete atomic levels to allowed bands'),
@@ -198,6 +200,34 @@
     if(ro)ro.innerHTML='<b>k = '+num(ratio,2)+' π/a</b> · ka = '+num(180*ratio,0)+'° · '+
       tr('Komşu hücre fazı: ','Cell-to-cell phase: ')+'e<sup>ika</sup> · '+
       tr('İç bölgede Bloch eşitliği sayısal hatası: ','Numerical Bloch relation error in the interior: ')+err.toExponential(1);
+  }
+
+  // Nearly-free electron: two plane-wave basis states coupled by V_G.
+  // k is measured in π/a; G=2π/a. This is a local two-wave approximation.
+  function braggBands(vg){
+    var q=[],lower=[],upper=[],alpha=0.45;
+    for(var i=0;i<=220;i++){
+      var ki=i*2/220,e1=alpha*ki*ki,e2=alpha*(ki-2)*(ki-2);
+      var middle=(e1+e2)/2,delta=(e1-e2)/2,split=Math.hypot(delta,vg);
+      q.push(ki);lower.push(middle-split);upper.push(middle+split);
+    }
+    return {q:q,lower:lower,upper:upper,gap:2*vg};
+  }
+  function braggData(){
+    var spectrum=braggBands(values.vg);
+    var lower=col('--hole','#c8354a'),upper=col('--elec','#2b5fd9'),ink=col('--ink','#16202b');
+    draw('bragg',[
+      trace(tr('Alt enerji kolu','Lower energy branch'),spectrum.q,spectrum.lower,lower),
+      trace(tr('Üst enerji kolu','Upper energy branch'),spectrum.q,spectrum.upper,upper)
+    ],{
+      xaxis:{title:'k / (π/a)',range:[0,2],gridcolor:col('--rule','#ccd6de')},
+      yaxis:{title:tr('Enerji (model eV)','Energy (model eV)'),gridcolor:col('--rule','#ccd6de'),range:[0,2]},
+      shapes:[{type:'line',x0:1,x1:1,y0:0,y1:1,yref:'paper',line:{color:ink,dash:'dash',width:1.4}}],
+      annotations:[{x:1,y:.45,showarrow:false,text:'Δ = 2|Vᴳ| = '+num(spectrum.gap,2)+' eV',yshift:-18,font:{size:12}}],
+      margin:{l:62,r:20,t:36,b:63}
+    });
+    var readout=el('[data-ss-output-area="bloch"]');
+    if(readout)readout.innerHTML+=' · '+tr('Bragg sınırındaki model bant boşluğu: ','Model Bragg gap: ')+num(spectrum.gap,2)+' eV';
   }
   function tightBindingSpectrum(key,n,ratio){
     var m=MATERIALS[key],r=m.r0*ratio,
@@ -299,6 +329,7 @@
       var out=root.querySelector('[data-ss-output="'+key+'"]');if(!out)return;
       out.textContent=key==='k'?num(values[key],2)+' π/a':
         key==='width'?num(values[key],2)+' a':
+        key==='vg'?num(values[key],2)+' eV':
         key==='ratio'?num(values[key],2)+' r₀':
         key==='mass'?num(values[key],2)+' m₀':
         key==='probe'?num(values[key],2)+' eV':
@@ -311,7 +342,7 @@
   function render(target){
     if(!visualActive())return;
     updateControls();
-    if(!target||target==='bloch')blochData();
+    if(!target||target==='bloch'){blochData();braggData();}
     if(!target||target==='levels')levelsData();
     if(!target||target==='ekdos')dispersionData();
   }
@@ -327,7 +358,7 @@
       input.value=values[key];
       input.addEventListener(input.tagName==='SELECT'?'change':'input',function(){
         values[key]=(key==='material')?input.value:Number(input.value);
-        var group=(key==='k'||key==='width')?'bloch':(key==='n'||key==='ratio'||key==='material')?'levels':'ekdos';
+        var group=(key==='k'||key==='width'||key==='vg')?'bloch':(key==='n'||key==='ratio'||key==='material')?'levels':'ekdos';
         render(group);
       });
     });
@@ -336,6 +367,6 @@
   window.SolidStateFoundations={
     mount:mount,render:render,
     // Expose small deterministic model primitives for regression testing.
-    _test:{blochAt:blochAt,numericDOS:numericDOS,tightBindingSpectrum:tightBindingSpectrum,hbarCoefficient:HBAR2_OVER_2M0}
+    _test:{blochAt:blochAt,braggBands:braggBands,numericDOS:numericDOS,tightBindingSpectrum:tightBindingSpectrum,hbarCoefficient:HBAR2_OVER_2M0}
   };
 })();
