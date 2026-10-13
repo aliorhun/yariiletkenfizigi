@@ -15,6 +15,34 @@ Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil;
 
 Bu simülasyonlar sitenin mevcut Plotly bağımlılığını kullanır, ayrıca paket veya yeni CDN eklemez. Denge uzaklıkları *en yakın komşu bağ uzunluklarıdır*; kübik örgü sabiti değildir.
 
+
+## Yeni içerik organizasyonu: iki ana bölüm
+
+Arayüzde artık **iki üst düzey başlık** bulunur. Var olan 20 ders/modülün içeriği ve orijinal hafta kimlikleri korunmuştur; sıralama, ezberlenecek eski hafta numaralarından çok kavramsal öğrenme yoluna göre gruplanmıştır.
+
+### I. Yarıiletken Fiziği
+
+Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etkisi ve elektriksel karakterizasyon) ve **20** (kusurlar, arayüzler ve malzeme karakterizasyonu). Ders 1'in **Anlatım** sekmesine on konuluk tıklanabilir kavram haritası ve Türkçe/İngilizce başlangıç düzeyi açıklamalar eklendi:
+
+1. Kristal yapı ve atomlar
+2. Kristal içindeki elektron (Bloch dalgaları, E(k))
+3. Enerji band teorisi
+4. Değerlik ve iletim bantları
+5. Bantlarda durum yoğunluğu (DOS)
+6. Hol kavramı
+7. Fermi seviyesi ve doluluk olasılığı
+8. Elektron–hol dengesi ve kütle etkisi yasası
+9. Has ve katkılı yarıiletkenler
+10. Sürüklenme, difüzyon ve cihaz fiziğine geçiş
+
+**Öğrenme sırası:** izin verilen kuantum durumları → bu durumların sayısı → doluluk olasılığı → elektron/hol yoğunlukları → denge → yük taşınımı. Ders 1'in mevcut matematiksel temel, özgün simülasyonlar, görseller ve soru-cevap içerikleri değişmeden kalır.
+
+### II. Yarıiletken Cihazları
+
+Ders **2–4, 6–18**: p-n eklem diyotları, tünel diyot, büyük/küçük sinyal, fazla akım, gürültü, BJT ve yüksek frekans/güç/anahtarlama cihazları, UJT; ayrıca metal–yarıiletken temaslar, MOS/MOSFET, heteroeklemler, kuantum yapılar ve optoelektronik cihazlar.
+
+**Teknik not:** İki üst bölüm yalnızca menü organizasyonudur; ders şablonları taşınmadığı veya silinmediği için daha önce saklanmış hafta numaraları ve görsel kontroller çalışmaya devam eder. Mobilde iki ana bölüm yatay seçim tuşlarıyla görüntülenir.
+
 ## Nasıl çalışılmalı?
 
 Her konuyu mümkünse şu sırayla çalışın:
