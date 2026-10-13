@@ -160,4 +160,15 @@ for(const lang of ['tr','en']){
   assert.ok(!api.showSub(main,'nonexistent'));
   assert.ok(!api.showTopic(main,'nonexistent'));
 }
-console.log('PASS: 10 independent lessons, 40 tabs, 19 figures, 32 QAs, content retention, TR/EN');
+// A missing legacy note must never cause the valence/conduction explanation to disappear.
+const sparse=fixture();
+const edgeLegacy=[...sparse.descendants()].find(e=>e.id==='course-note-edges');
+assert.ok(edgeLegacy,'fixture must contain a legacy edge note');
+edgeLegacy.remove();
+api.mount(sparse,'tr','edges');
+const edgePage=[...sparse.descendants()].find(e=>e.dataset.physicsTopic==='edges');
+const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0];
+assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
+assert.ok(edgeProse.children[0].children.length>=7);
+assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
+console.log('PASS: 10 lessons × 4 tabs, 19 figures, 32 QAs, substantial TR/EN narratives, missing-note fallback');
