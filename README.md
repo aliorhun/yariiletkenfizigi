@@ -112,6 +112,38 @@ node tests/solid-state-foundations.test.js
 
 Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını, atom sayısına bağlı bant yakınsamasını, seçilen üç malzemenin denge aralığı kalibrasyonunu, 1B–3B DOS enerji/etkin kütle üslerini ve ana sayfa entegrasyonunu kontrol eder. Gerçek tarayıcı arayüzünün görsel regresyonu ayrı doğrulama gerektirir.
 
+## On ayrı fizik dersi ve dört sekme
+
+**I. Yarıiletken Fiziği → Temel Konular** altındaki 10 başlık artık tek sayfadaki kaydırma hedefleri değil, **birbirinden ayrı ders sayfalarıdır**. Her derste dört sekme bulunur: **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap**. Konu başlığı ve içerik seçime göre değişir; sol menüde aktif konu işaretlenir.
+
+| No | Konu | Ana simülasyon |
+|---|---|---|
+| 01 | Kristal yapı ve atomlar | Elmas / zincblende örgüleri, atomlar arası mesafe |
+| 02 | Kristal içindeki elektron | Bloch dalgaları ve Bragg ayrışması |
+| 03 | Enerji band teorisi | Tight-binding, atomik seviyelerin bantlara dönüşmesi |
+| 04 | Değerlik ve iletim bandı | E(k), doğrudan/dolaylı aralık, bant enerjileri |
+| 05 | Durum yoğunluğu | 1B/2B/3B DOS ve seçili enerji aralığı |
+| 06 | Hol kavramı | Elektron atlaması ve holün ters yönde hareketi |
+| 07 | Fermi seviyesi | Fermi–Dirac, sıcaklık ve Boltzmann |
+| 08 | Elektron–hol dengesi | Has taşıyıcı yoğunluğu ve termal denge |
+| 09 | Has ve katkılı yarıiletkenler | Donör/akseptör, freeze-out, taşıyıcı yoğunlukları |
+| 10 | Taşıyıcı hareketi ve geçiş | Sürüklenme, difüzyon, saçılma ve rekombinasyon |
+
+### İçerik koruma ve teknik yaklaşım
+
+Yeni **assets/physics-topic-pages.js**, mevcut 1. hafta şablonundaki DOM elemanlarını **kopyalamadan** ilgili konu ve sekmeye taşır. Böylece eski grafik ID'leri ve slider olayları korunur. Yeni **assets/physics-topic-pages.css** yalnızca seçilen ders ve seçilen sekmenin gösterilmesini sağlar. Eski 20 ders/modülün geri kalanı, tema ve iki dil seçeneği korunur.
+
+Matematiksel temel sekmelerinde her başlığa özgü formül özeti bulunur, mevcut ayrıntılı türetimler ilgili konulara ayrılır. Mevcut 22 soru korunmuştur; 10 yeni kavramsal soruyla **32 soru** sunulur. Hol konusundaki yeni yedi durumlu boşluk hareketi görseli şematik bir doluluk modelidir, gerçek zamanlı kuantum dinamiği değildir.
+
+Regresyon testleri:
+
+```bash
+node tests/physics-topic-pages.test.js
+node tests/solid-state-foundations.test.js
+```
+
+İlk test Türkçe ve İngilizce 10 dersin 40 sekmesini, 19 görsel bölümünü, 32 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
+
 ## Nasıl çalışılmalı?
 
 Her konuyu mümkünse şu sırayla çalışın:

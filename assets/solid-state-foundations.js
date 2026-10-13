@@ -30,7 +30,7 @@
   var config={responsive:true,displaylogo:false,scrollZoom:false,modeBarButtonsToRemove:['lasso2d','select2d']};
   function draw(id,traces,layout){
     var target=el('[data-ss-plot="'+id+'"]');
-    if(!target)return;
+    if(!target || target.closest('.physics-topic-page[hidden]'))return;
     if(!window.Plotly){target.textContent=tr('Grafik kitaplığı henüz yüklenmedi.','Chart library did not load.');return;}
     var result=window.Plotly.react(target,traces,legendLayout(layout),config);
     if(result&&typeof result.catch==='function')result.catch(function(){target.textContent=tr('Grafik çizilemedi.','Unable to draw chart.');});

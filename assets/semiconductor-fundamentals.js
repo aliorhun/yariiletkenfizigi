@@ -38,7 +38,7 @@
   var config={responsive:true,displaylogo:false,scrollZoom:false,modeBarButtonsToRemove:['lasso2d','select2d','autoScale2d']};
   function plot(target, traces, options) {
     var el=query(target);
-    if (!el) return;
+    if (!el || el.closest('.physics-topic-page[hidden]')) return;
     if (!window.Plotly) {
       el.textContent=t('Grafik kütüphanesi yüklenemedi. İnternet bağlantısını kontrol edin.','Chart library unavailable. Check your internet connection.');
       return;
