@@ -43,6 +43,64 @@ Ders **2–4, 6–18**: p-n eklem diyotları, tünel diyot, büyük/küçük sin
 
 **Teknik not:** İki üst bölüm yalnızca menü organizasyonudur; ders şablonları taşınmadığı veya silinmediği için daha önce saklanmış hafta numaraları ve görsel kontroller çalışmaya devam eder. Mobilde iki ana bölüm yatay seçim tuşlarıyla görüntülenir.
 
+
+## Bölüm I için ileri anlatım: Bloch, atomik seviyeler ve durum yoğunluğu
+
+**Yarıiletken Fiziği → Ders 1** altında Türkçe ve İngilizce açıklamalar genişletildi. **Anlatım** sekmesindeki ilgili üç kavram kutusu formüller, fiziksel sezgi ve kontrol sorularını içerir. **Görseller** sekmesinin başına üç etkileşimli laboratuvar ve Bloch laboratuvarı içinde ayrıca Bragg bant ayrışması eklenmiştir.
+
+### 1. Periyodik örgüde elektron: Bloch teoremi
+
+Bir boyutlu periyodik potansiyelde \(V(x+a)=V(x)\) için Bloch durumu
+
+\[
+\psi_k(x)=e^{ikx}u_k(x),\qquad u_k(x+a)=u_k(x)
+\]
+
+biçimindedir. \(\psi_k(x+a)=e^{ika}\psi_k(x)\): komşu hücrede dalganın **fazı** değişir; olasılık yoğunluğu periyodiktir. İnteraktif grafikte \(\psi_k(x)=\sum_n e^{ikna}\phi(x-na)\) şeklinde Gauss-benzeri yerel orbital toplamı kullanılır (çizim bölgesinin dışında da atomlar alınır). Bu bir **nitel, tek boyutlu Bloch örneğidir**; silisyumun gerçek dalga fonksiyonu veya Schrödinger denkleminin sayısal özdeğer çözümü değildir.
+
+Bragg alt grafiğinde neredeyse serbest elektron yaklaşımının yalnızca **iki düzlem dalga bileşeni** birlikte kullanılır:
+
+\[
+H(k)=\begin{pmatrix}\alpha k^2 & V_G \\ V_G & \alpha(k-G)^2\end{pmatrix},\quad G=\frac{2\pi}{a}.
+\]
+
+Bölge sınırı \(k=G/2\) için enerji ayrışması \(\Delta=2|V_G|\) olur. \(V_G=0\) iken seviyeler kesişir, \(V_G>0\) iken ayrışır. Bu, periyodik potansiyelin bant boşluğu **açabilmesinin** basit bir mekanizmasıdır; gerçek Si/Ge bant aralıklarının hesabı değildir.
+
+### 2. Atomik seviyelerin bantlara dönüşümü
+
+Açık uçlu, \(N\) atomlu bir boyutlu, yakın-komşu *tight-binding* zincirde tek etkin orbitalin seviyeleri:
+
+\[
+E_j=\varepsilon_0-2t\cos\left(\frac{j\pi}{N+1}\right),\quad j=1,\ldots,N.
+\]
+
+Modelde iki **bağımsız etkin orbital ailesi** alınır (bağlayıcı/değerlik ve karşıt-bağlayıcı/iletim). Her aile için \(N\) seviye vardır; spin iki katlı degenerelik olarak ayrıca değerlendirilir. Seçilen Si, Ge ve GaAs için 300 K referans \(E_g\) değerleri, **sonsuz zincir ve seçili denge mesafesi limitinde** model parametresine eşlenmiştir.
+
+Etkileşim \(t(r)=t_0 e^{-2.8(r/r_0-1)}\), \(t_0=0.72\) eV şeklinde **gösterim amacıyla** seçilmiştir. \(N\to\infty\) durumunda her bandın genişliği yaklaşık \(4t\) olur. \(N\) artarken seviyeler sıklaşır; bant genişliği sınırsız büyümez. Bu model gerçek sp³ orbitalleri, çoklu vadiler, elektron-elektron etkileşimi, deneysel bağ enerjisi veya basınç altında \(E_g(r)\) tahmini değildir.
+
+### 3. \(E(k)\) geometrisinden 1B, 2B, 3B DOS'a
+
+İzotropik bir parabolik bant kenarında
+
+\[
+E-E_c=\frac{\hbar^2 k^2}{2m^*},\qquad
+\mathcal N_d(E)\propto(E-E_c)^{d/2}.
+\]
+
+Dolayısıyla \(g_d(E)=d\mathcal N_d/dE\propto(E-E_c)^{d/2-1}\). **1B:** ters karekök tekilliği; **2B:** sabit DOS; **3B:** karekök artışı. 1B, 2B, 3B k-uzayında **farklı sayma geometrileridir**; DOS, tek bir \(E(k)\) kesitinden doğrudan okunamaz.
+
+Grafiklerin şekli \(E-E_c=0.20\) eV değerinde normalize edilir. Sayısal DOS ölçümü, spin iki katlı ve tek izotropik vadi için boyuta özgü \(\mathrm{cm}^{-d}\,\mathrm{eV}^{-1}\) birimleriyle verilir. Birim dönüşümü için \(\hbar^2/(2m_0)=0.03809982\ \mathrm{eV\,nm^2}\) kullanılmıştır. Gerçek Si gibi anizotropik, çok vadili kristaller bu modelin kapsamı dışındadır. **DOS, doluluk olasılığı değildir:** taşıyıcı yoğunluğu için \(n=\int g_c(E)f(E,T)dE\) ayrıca hesaplanmalıdır.
+
+### Sayısal doğrulama
+
+Yeni grafik kodunun dış bağımlılıksız sayısal regresyon testi:
+
+```bash
+node tests/solid-state-foundations.test.js
+```
+
+Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını, atom sayısına bağlı bant yakınsamasını, seçilen üç malzemenin denge aralığı kalibrasyonunu, 1B–3B DOS enerji/etkin kütle üslerini ve ana sayfa entegrasyonunu kontrol eder. Gerçek tarayıcı arayüzünün görsel regresyonu ayrı doğrulama gerektirir.
+
 ## Nasıl çalışılmalı?
 
 Her konuyu mümkünse şu sırayla çalışın:
