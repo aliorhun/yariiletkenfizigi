@@ -199,19 +199,31 @@
       tr('Komşu hücre fazı: ','Cell-to-cell phase: ')+'e<sup>ika</sup> · '+
       tr('İç bölgede Bloch eşitliği sayısal hatası: ','Numerical Bloch relation error in the interior: ')+err.toExponential(1);
   }
-  function levelsData(){
-    var m=MATERIALS[values.material],n=values.n,r=m.r0*values.ratio,
-      t=T0*Math.exp(-2.8*(values.ratio-1)),delta=m.eg+4*T0,
-      valx=[],valy=[],conx=[],cony=[];
+  function tightBindingSpectrum(key,n,ratio){
+    var m=MATERIALS[key],r=m.r0*ratio,
+      t=T0*Math.exp(-2.8*(ratio-1)),delta=m.eg+4*T0,
+      valence=[],conduction=[];
     for(var j=1;j<=n;j++){
       var shift=-2*t*Math.cos(j*Math.PI/(n+1));
-      var eV=-delta/2+shift,eC=delta/2+shift;
+      valence.push(-delta/2+shift);
+      conduction.push(delta/2+shift);
+    }
+    var valenceTop=valence[n-1],conductionBottom=conduction[0];
+    return {material:m,r:r,t:t,delta:delta,valence:valence,conduction:conduction,
+      gap:conductionBottom-valenceTop,bandwidth:valenceTop-valence[0],
+      gapBulk:delta-4*t,valenceTop:valenceTop,conductionBottom:conductionBottom};
+  }
+  function levelsData(){
+    var n=values.n,model=tightBindingSpectrum(values.material,n,values.ratio),
+      m=model.material,r=model.r,t=model.t,delta=model.delta,
+      gap=model.gap,bw=model.bandwidth,
+      valenceTop=model.valenceTop,conductionBottom=model.conductionBottom,
+      valx=[],valy=[],conx=[],cony=[];
+    for(var j=0;j<n;j++){
+      var eV=model.valence[j],eC=model.conduction[j];
       valx.push(.24,.88,null);valy.push(eV,eV,null);
       conx.push(1.12,1.76,null);cony.push(eC,eC,null);
     }
-    var halfWidth=2*t*Math.cos(Math.PI/(n+1));
-    var valenceTop=-delta/2+halfWidth,conductionBottom=delta/2-halfWidth;
-    var gap=conductionBottom-valenceTop, bw=2*halfWidth;
     var val=col('--hole','#c8354a'),cond=col('--elec','#2b5fd9'),fermi=col('--fermi','#1f8a5b');
     draw('levels',[
       trace(tr('Değerlik — N izinli seviye','Valence — N allowed levels'),valx,valy,val,{line:{color:val,width:n>55?1.4:2}}),
@@ -243,7 +255,7 @@
   }
   function dispersionData(){
     var mass=values.mass, dim=values.dimension, a=HBAR2_OVER_2M0/mass,
-      kmax=Math.sqrt(.75/a),ks=[],en=[],eng=[],normalized=[];
+      kmax=5,ks=[],en=[],eng=[],normalized=[];
     for(var i=0;i<=220;i++){
       var k=-kmax+i*2*kmax/220;ks.push(k);en.push(a*k*k);
     }
@@ -257,7 +269,7 @@
       trace('E(k) = ℏ²k²/(2m*)',ks,en,blue,{hovertemplate:'k = %{x:.2f} nm⁻¹<br>E−Ec = %{y:.3f} eV<extra></extra>'})
     ],{
       xaxis:{title:'k (nm⁻¹)',gridcolor:rule,range:[-kmax,kmax]},
-      yaxis:{title:'E−Ec (eV)',gridcolor:rule,range:[0,.79]},
+      yaxis:{title:'E−Ec (eV)',gridcolor:rule,range:[0,1.05]},
       shapes:[{type:'line',x0:-kmax,x1:kmax,y0:values.probe,y1:values.probe,line:{color:green,width:1.5,dash:'dash'}}],
       margin:{l:61,r:15,t:30,b:58},showlegend:false
     });
@@ -324,6 +336,6 @@
   window.SolidStateFoundations={
     mount:mount,render:render,
     // Expose small deterministic model primitives for regression testing.
-    _test:{blochAt:blochAt,numericDOS:numericDOS,hbarCoefficient:HBAR2_OVER_2M0}
+    _test:{blochAt:blochAt,numericDOS:numericDOS,tightBindingSpectrum:tightBindingSpectrum,hbarCoefficient:HBAR2_OVER_2M0}
   };
 })();
