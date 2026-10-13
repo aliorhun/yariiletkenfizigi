@@ -138,7 +138,7 @@ function moveMath(source,views,lang){
  Array.from(prose.children).forEach(function(n){
    if(n.tagName==='H3')section++;
    var key=section<=2?'edges':section===3?'dos':section===4?'equilibrium':
-    section>=5&&section<=9?'doping':'transport';
+    section>=5&&section<=8?'doping':'transport';
    views[key].matematik.appendChild(n);
  });
  TOPICS.forEach(function(t){
