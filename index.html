@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Yarı İletken Yapılar Fiziğine Giriş</title>
+<link rel="stylesheet" href="assets/semiconductor-fundamentals.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
@@ -5387,6 +5388,7 @@ html[lang="en"] .edu-en { display:block; }
 </div>
 </template>
 <script src="assets/modern-modules.js"></script>
+<script src="assets/semiconductor-fundamentals.js"></script>
 <script>
 /* ---------------- Dil / Language ---------------- */
 let LANG = 'tr';
@@ -7569,6 +7571,7 @@ Object.keys(PLOTS).forEach(k => {
 });
 function renderVisible() {
   main.querySelectorAll('.pane.active .plot').forEach(el => { if (PLOTS[el.id]) PLOTS[el.id](el); });
+  if (window.SemiconductorFundamentals) window.SemiconductorFundamentals.render();
 }
 
 function bindWeek(n) {
@@ -7629,6 +7632,7 @@ function bindWeek(n) {
   main.querySelectorAll('.preset').forEach(b => b.addEventListener('click', () => {
     b.dataset.set.split(',').forEach(kv => { const [id, v] = kv.split(':'); const r = document.getElementById(id); r.value = v; r.dispatchEvent(new Event('input')); });
   }));
+  if (n === 1 && window.SemiconductorFundamentals) window.SemiconductorFundamentals.mount(main, LANG);
   const nn = document.getElementById('noise-new');
   if (nn) nn.addEventListener('click', () => { delete NOISE_DATA[state.noise]; PLOTS['p-noise'](document.getElementById('p-noise')); });
   [['hs-play','r-hs-t',0.05,3,0.05],['td-play','r-td-v',-0.15,0.5,0.005]].forEach(([bid, rid, a, b, st]) => {
