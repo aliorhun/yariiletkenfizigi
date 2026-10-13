@@ -273,6 +273,8 @@ function mount(main,lang,initialTopic){
  });
  main.appendChild(wrapper);
  moveNarrative(old.anlatim,views);
+ // Each lesson owns a complete conceptual introduction independent of legacy Week 1 anchors.
+ if(window.PhysicsLessonExplanations)window.PhysicsLessonExplanations.inject(views,lang);
  moveMath(old.matematik,views,lang);
  moveVisuals(old.gorsel,views,lang);
  moveQuestions(old.soru,views,lang);
