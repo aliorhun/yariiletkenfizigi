@@ -327,6 +327,7 @@ html[lang="en"] .edu-tr { display:none; }
 html[lang="en"] .edu-en { display:block; }
 \n@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
+<link rel="stylesheet" href="assets/course-structure.css">
 </head>
 <body>
 
@@ -345,7 +346,10 @@ html[lang="en"] .edu-en { display:block; }
 </header>
 
 <div class="layout">
-  <nav class="weeks" id="weekNav" role="tablist" aria-label="Haftalar"></nav>
+  <aside class="course-sidebar" aria-label="Ders bölümleri">
+    <div class="course-categories" id="courseSections" role="group" aria-label="Ana bölümler"></div>
+    <nav class="weeks" id="weekNav" role="tablist" aria-label="Bölüm dersleri"></nav>
+  </aside>
   <main id="main"></main>
 </div>
 
@@ -5389,6 +5393,7 @@ html[lang="en"] .edu-en { display:block; }
 </template>
 <script src="assets/modern-modules.js"></script>
 <script src="assets/semiconductor-fundamentals.js"></script>
+<script src="assets/course-structure.js"></script>
 <script>
 /* ---------------- Dil / Language ---------------- */
 let LANG = 'tr';
@@ -5424,7 +5429,8 @@ function applyLangChrome() {
   document.title = m.doc;
   const lb = document.getElementById('langBtn'); lb.setAttribute('aria-checked', LANG === 'en');
   document.getElementById('themeBtn').title = L('Açık / koyu tema', 'Light / dark theme');
-  document.getElementById('weekNav').setAttribute('aria-label', L('Haftalar', 'Weeks'));
+  document.getElementById('weekNav').setAttribute('aria-label', L('Bölüm dersleri', 'Lessons in this part'));
+  document.querySelector('.course-sidebar').setAttribute('aria-label', L('Ders bölümleri', 'Course parts'));
 }
 
 /* ---------------- Ders planı ---------------- */
@@ -5451,38 +5457,31 @@ const SUBTABS = [
 
 const nav = document.getElementById('weekNav');
 const main = document.getElementById('main');
-let current = 1, currentSub = 'anlatim';
+let current = 1, currentSub = 'anlatim', activeCourse = 'physics';
 const wIndex = w => WEEKS.indexOf(w);
 const wTitle = w => L(w.t, EN_TITLES[wIndex(w)]);
 
+function setCourse(id) {
+  if (id === activeCourse) return;
+  activeCourse = id;
+  showWeek(id === 'physics' ? 1 : 2);
+}
 function buildNav() {
-  nav.innerHTML = '';
-  WEEKS.forEach((w, idx) => {
-    if (w.modern && (idx === 0 || !WEEKS[idx - 1].modern)) {
-      const g = document.createElement('div');
-      g.className = 'week-group';
-      g.textContent = L('Modern yapılar', 'Modern structures');
-      nav.appendChild(g);
-    }
-    const b = document.createElement('button');
-    b.type = 'button'; b.setAttribute('role','tab'); b.dataset.week = w.n;
-    b.innerHTML = `<span class="n">${w.n}</span><span class="t">${wTitle(w)}${w.ready ? '' : '<span class="soon">' + L('hazırlanıyor', 'in preparation') + '</span>'}</span>`;
-    b.addEventListener('click', () => showWeek(w.n));
-    nav.appendChild(b);
-  });
+  window.SemiconductorCourseOutline.renderNavigation(nav, WEEKS, wTitle, LANG, activeCourse, current, showWeek, setCourse);
 }
 buildNav();
 
 function showWeek(n) {
+  activeCourse = window.SemiconductorCourseOutline.groupForWeek(n);
   current = n;
+  buildNav();
   try { localStorage.setItem('ydf-week', n); } catch(e) {}
-  nav.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', b.dataset.week == n));
   const wi = WEEKS.findIndex(w => w.n === n);
   const w = WEEKS[wi];
   if (!w) return;
   currentSub = 'anlatim';
   const unitTitle = `${L('Hafta', 'Week')} ${w.n}`;
-  let html = `<div class="week-head"><h2>${unitTitle}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
+  let html = `<div class="course-part-label">${window.SemiconductorCourseOutline.groupTitle(LANG, activeCourse)}</div><div class="week-head"><h2>${unitTitle}: ${wTitle(w)}</h2><p class="meta">Sze &amp; Ng, ${L(w.sze, EN_SZE[wi])}</p></div>`;
   if (w.ready) {
     const tabs = n === 0 ? SUBTABS.filter(s => s[0] !== 'urun') : SUBTABS;
     html += `<div class="subtabs" role="tablist">` + tabs.map((s,i)=>`<button type="button" role="tab" data-sub="${s[0]}" aria-selected="${i===0}">${L(s[1], s[2])}</button>`).join('') + `</div>`;
@@ -5496,6 +5495,7 @@ function showWeek(n) {
     }
     main.querySelector('.pane').classList.add('active');
     main.querySelectorAll('.subtabs button').forEach(b => b.addEventListener('click', () => showSub(b.dataset.sub)));
+    if (n === 1) window.SemiconductorCourseOutline.mountLesson(main, LANG);
     bindWeek(n);
   } else {
     html += `<div class="planned prose"><span class="badge">Bu hafta sonraki adımda eklenecek</span>
