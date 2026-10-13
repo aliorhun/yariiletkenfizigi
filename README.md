@@ -112,6 +112,20 @@ node tests/solid-state-foundations.test.js
 
 Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını, atom sayısına bağlı bant yakınsamasını, seçilen üç malzemenin denge aralığı kalibrasyonunu, 1B–3B DOS enerji/etkin kütle üslerini ve ana sayfa entegrasyonunu kontrol eder. Gerçek tarayıcı arayüzünün görsel regresyonu ayrı doğrulama gerektirir.
 
+## Fizik derslerinde eksik anlatımların tamamlanması
+
+10 bağımsız fizik dersinin **Anlatım** sekmesi, artık eski 1. hafta başlıklarına veya sonradan yerleştirilen kısa notlara bağımlı olmadan, her ders için ayrı hazırlanmış **Türkçe ve İngilizce öğretici açıklamalar** içerir. Yeni içerikler `assets/physics-lesson-explanations.js` içinde ders kimliğine göre tutulur, sayfa açıldığında mevcut anlatımın başına eklenir. Önceki uzun teorik açıklamalar, matematiksel türetimler, 19 görsel ve 32 soru-cevap korunur.
+
+### Özellikle 04 · Değerlik ve iletim bandı
+
+Bu dersin Anlatım sekmesi sekiz alt konuda genişletildi: (1) izinli ve dolu bant ayrımı, (2) valans/iletim bandı kenarları ve Eg, (3) elektron–hol çiftinin oluşumu, (4) tamamen dolu bandın neden net akım taşımadığı, (5) doğrudan/dolaylı bant aralığı ve fononun rolü, (6) Si/Ge/GaAs/GaN karşılaştırması, (7) Fermi seviyesinin anlamı, (8) kavramsal kontrol sorusu. Gerekli enerji bağıntıları MathJax ile gösterilir. Metinler başlangıç seviyesinden teknik ifadeye doğru ilerler.
+
+### Diğer dokuz ders
+
+Kristal yapı, Bloch elektronları, bant oluşumu, durum yoğunluğu, hol, Fermi–Dirac, elektron–hol dengesi, has/katkılı yarıiletkenler ve sürüklenme/difüzyon başlıklarının her biri en az üç bağımsız açıklama alt bölümü içerir. Bu sayede eski 1. hafta aktarımı eksik olsa bile Anlatım sekmesi boş kalmaz.
+
+`node tests/physics-topic-pages.test.js` artık her iki dilde 10 dersin bağımsız anlatımlarını, uzunluk/başlık kontrolünü, Eg tanımını ve eski bant kenarı notu hiç yokken bile 04. dersin açılabilmesini doğrular.
+
 ## On ayrı fizik dersi ve dört sekme
 
 **I. Yarıiletken Fiziği → Temel Konular** altındaki 10 başlık artık tek sayfadaki kaydırma hedefleri değil, **birbirinden ayrı ders sayfalarıdır**. Her derste dört sekme bulunur: **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap**. Konu başlığı ve içerik seçime göre değişir; sol menüde aktif konu işaretlenir.

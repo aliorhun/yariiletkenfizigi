@@ -4,10 +4,13 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const dir=path.join(__dirname,'..');
 const code=fs.readFileSync(path.join(dir,'assets/physics-topic-pages.js'),'utf8');
+const narrativeCode=fs.readFileSync(path.join(dir,'assets/physics-lesson-explanations.js'),'utf8');
 const index=fs.readFileSync(path.join(dir,'index.html'),'utf8');
 new vm.Script(code);
+new vm.Script(narrativeCode);
 for(const marker of [
   'assets/physics-topic-pages.js','assets/physics-topic-pages.css',
+  'assets/physics-lesson-explanations.js','assets/physics-lesson-explanations.css',
   'PhysicsTopicPages.mount(main, LANG, currentTopic)',
   'PhysicsTopicPages.showTopic(main, id)',
   'PhysicsTopicPages.showSub(main, id)'
@@ -109,6 +112,7 @@ function fixture(){
   return main;
 }
 const win={showSub(){}},document={createElement:tag=>new Element(tag)};
+vm.runInNewContext(narrativeCode,{window:win,document});
 vm.runInNewContext(code,{window:win,document});
 const api=win.PhysicsTopicPages;
 for(const lang of ['tr','en']){
@@ -123,6 +127,27 @@ for(const lang of ['tr','en']){
   assert.equal(main.children.filter(e=>e.classList.contains('pane')).length,0);
   assert.equal(pages[0].children[1].children.length,4);
   assert.ok(all.some(e=>e.classList.contains('physics-hole-sim')));
+  const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
+  assert.equal(narratives.length,10,'exactly one standalone narrative per topic');
+  for(const page of pages){
+    const prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
+    assert.ok(prose && prose.children[0]?.classList.contains('physics-lesson-intro'),
+      'intro must be first in '+page.dataset.physicsTopic);
+    const intro=prose.children[0];
+    assert.ok(intro.children.length>=3,'missing multi-section explanation: '+page.dataset.physicsTopic);
+    let content='';
+    for(const block of intro.children){
+      assert.ok(block.children[0].textContent.length>8,'heading missing in '+page.dataset.physicsTopic);
+      content+=block.children[1].innerHTML;
+    }
+    assert.ok(content.length>=550,'narrative too brief: '+page.dataset.physicsTopic);
+    assert.ok(content.includes('\\('),'missing mathematical context: '+page.dataset.physicsTopic);
+    if(page.dataset.physicsTopic==='edges'){
+      assert.ok(intro.children.length>=7,'valence/conduction explanation must be detailed');
+      assert.ok(content.length>2500,'valence/conduction topic needs substantive material');
+      assert.ok(content.includes('E_g=E_c-E_v'),'gap definition missing');
+    }
+  }
   for(const page of pages){
     const panes=page.children.filter(e=>e.classList.contains('physics-topic-pane'));
     assert.equal(panes.length,4);
@@ -135,4 +160,15 @@ for(const lang of ['tr','en']){
   assert.ok(!api.showSub(main,'nonexistent'));
   assert.ok(!api.showTopic(main,'nonexistent'));
 }
-console.log('PASS: 10 independent lessons, 40 tabs, 19 figures, 32 QAs, content retention, TR/EN');
+// A missing legacy note must never cause the valence/conduction explanation to disappear.
+const sparse=fixture();
+const edgeLegacy=[...sparse.descendants()].find(e=>e.id==='course-note-edges');
+assert.ok(edgeLegacy,'fixture must contain a legacy edge note');
+edgeLegacy.remove();
+api.mount(sparse,'tr','edges');
+const edgePage=[...sparse.descendants()].find(e=>e.dataset.physicsTopic==='edges');
+const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0];
+assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
+assert.ok(edgeProse.children[0].children.length>=7);
+assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
+console.log('PASS: 10 lessons × 4 tabs, 19 figures, 32 QAs, substantial TR/EN narratives, missing-note fallback');

@@ -1,0 +1,8 @@
+/* Standalone, bilingual narratives for ten physical concepts. */
+.physics-lesson-intro { margin:0 0 1.5rem; }
+.physics-lesson-intro-section { margin:0 0 1rem; padding:.15rem 0 .4rem; border-bottom:1px solid var(--rule); }
+.physics-lesson-intro-section:last-child { border-bottom:0; }
+.physics-lesson-intro h3 { font:700 clamp(1.04rem,1.6vw,1.17rem)/1.35 var(--sans); color:var(--ink); margin:.45rem 0 .55rem; }
+.physics-lesson-intro p { margin:.25rem 0 .85rem; line-height:1.65; max-width:82ch; }
+.physics-lesson-intro .physics-lesson-equation { max-width:100%; overflow-x:auto; padding:.35rem .7rem; margin:.5rem 0 .9rem; background:var(--panel); border-left:3px solid var(--elec); }
+@media(max-width:650px){.physics-lesson-intro-section { padding-bottom:.5rem; }.physics-lesson-intro p { line-height:1.55; }}
