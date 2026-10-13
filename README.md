@@ -4,6 +4,17 @@ Bu çalışma, yarıiletken fiziğini yalnızca formülleri ezberleyerek değil;
 
 > **Amaç:** Bir denklemi kullanabilmenin yanında, o denklemin ne anlattığını, hangi büyüklüklerin sonucu nasıl değiştirdiğini ve farklı yarıiletken aygıtlarının aynı temel fizik üzerinden nasıl birbirine bağlandığını görebilmek.
 
+
+## 1. Hafta: atomlar arası uzaklık, DOS ve taşıyıcı istatistiği
+
+**Görseller** sekmesinin başına üç bağlantılı, etkileşimli eğitim aracı eklendi. Türkçe/İngilizce anlatımda 1.2 Enerji Bantları başlığı altında konuların ön koşulları ve formüllerin fiziksel yorumları açıklanır.
+
+1. **Bant oluşumu ve denge uzaklığı:** Si, Ge, GaAs, GaN ve 4H-SiC için en yakın komşu atom uzaklıkları ile 300 K bant aralığı karşılaştırılır. Soldaki elektronik bant genişliği için **üstel örtüşmeye dayalı şematik bir model**, sağdaki normalize bağ potansiyeli için **Morse eğrisi** kullanılır. Bu grafikler *ab initio* hesap, gerçek atomik 3s/3p spektrumu veya basınç altındaki malzeme bant yapısı tahmini değildir. Bağ enerjisi grafiği ile elektron bant enerjisi grafiği farklı fiziksel büyüklükleri gösterir.
+2. **Durum yoğunluğu:** İdeal üç boyutlu parabolik bant yaklaşımında \(g(E)\propto (m^*)^{3/2}\sqrt{|E-E_{\rm edge}|}\). DOS ekseni 10²¹ durum / (cm³·eV) cinsindedir. Etkin DOS kütleleri yaklaşık değerlerdir; spin ve ilgili vadi çokluğu etkin kütleye dahildir. Seçili enerji dilimindeki durum sayısı \(\int_{E_1}^{E_2}g_c(E)\,dE\) ile hesaplanır. Yasak aralıkta ideal hacimsel DOS sıfırdır (kusurlar ve kuyruk durumları dahil değildir).
+3. **Fermi–Dirac / Boltzmann:** 0, 100, 300, 600 K ve kullanıcı sıcaklığında \(f(E,T)\) karşılaştırılır. Boltzmann elektron kuyruğu \(f_B=\exp[-(E-E_F)/(k_BT)]\) sadece \(E\ge E_F\) tarafında çizilir. **Bağıl hata** \( (f_B-f_{\rm FD})/f_{\rm FD} = \exp[-(E-E_F)/(k_BT)] \); bu yüzden \(E-E_F\ge3k_BT\) sınırında hata en çok %4,98 olur. Olasılık ile DOS karıştırılmamalıdır: \(n=\int g_c(E)f(E,T)\,dE\).
+
+Bu simülasyonlar sitenin mevcut Plotly bağımlılığını kullanır, ayrıca paket veya yeni CDN eklemez. Denge uzaklıkları *en yakın komşu bağ uzunluklarıdır*; kübik örgü sabiti değildir.
+
 ## Nasıl çalışılmalı?
 
 Her konuyu mümkünse şu sırayla çalışın:
