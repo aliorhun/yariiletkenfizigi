@@ -68,3 +68,53 @@
  .physics-topic-tabs{flex-wrap:wrap;overflow:visible;box-shadow:none;border-bottom:1px solid var(--rule);}
  .physics-topic-tabs button{flex:1 0 auto;font-size:.83rem;padding:.42rem .55rem;}
 }
+
+
+/* Per-lesson Oyun 1 / Oyun 2 navigator; only the selected game is visible. */
+.physics-game-switch { display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 .85rem; }
+.physics-game-switch-button {
+ border:1px solid var(--rule);border-radius:9px;background:var(--panel);color:var(--ink);
+ padding:.62rem 1.15rem;font:700 .9rem/1.3 var(--sans);cursor:pointer;
+}
+.physics-game-switch-button[aria-selected="true"] { border-color:var(--elec);background:var(--elec);color:#fff; }
+.physics-game-switch-button:focus-visible,.physics-game-lesson-link:focus-visible { outline:3px solid var(--elec);outline-offset:2px; }
+.physics-game-instance[hidden] { display:none!important; }
+.physics-game-result { display:block;font:700 .94rem/1.4 var(--sans); }
+.physics-game-feedback { border-radius:9px;border:1px solid var(--rule);padding:.8rem 1rem;background:var(--bg); }
+.physics-game-feedback.is-correct { border-left:4px solid #157246; }
+.physics-game-feedback.is-incorrect { border-left:4px solid #b24736; }
+.physics-game-brief,.physics-game-why { font:400 .87rem/1.55 var(--sans);margin:.42rem 0; }
+.physics-game-why { color:var(--ink); }
+.physics-game-lesson-link {
+ display:inline-block;max-width:100%;margin-top:.35rem;padding:.4rem .5rem;
+ border:1px solid var(--rule);border-radius:7px;background:var(--panel);
+ color:var(--elec);text-align:left;font:600 .82rem/1.4 var(--sans);cursor:pointer;
+}
+.physics-game-lesson-link:hover { background:var(--bg);border-color:var(--elec); }
+.physics-game-tetra { width:min(100%,220px);display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:8px;align-items:center;justify-items:center; }
+.physics-game-tetra-dot { width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--elec);background:var(--panel);font:700 .85rem var(--sans); }
+.physics-game-tetra-dot.is-core { grid-column:2;grid-row:2;background:var(--elec);color:#fff; }
+.physics-game-tetra-dot:nth-child(1) { grid-column:2;grid-row:1; }
+.physics-game-tetra-dot:nth-child(2) { grid-column:1;grid-row:2; }
+.physics-game-tetra-dot:nth-child(4) { grid-column:3;grid-row:2; }
+.physics-game-tetra-dot:nth-child(5) { grid-column:2;grid-row:3; }
+.physics-game-tetra-dot.is-neighbour { color:#9a650f;border-color:#c78a1e;background:rgba(199,138,30,.10); }
+.physics-game-double-ladders { display:flex;gap:1rem;align-items:center;justify-content:center;width:100%; }
+.physics-game-ladder-panel { flex:1;max-width:200px;min-width:0;text-align:center; }
+.physics-game-ladder-panel > strong { display:block;margin:.2rem 0 .6rem;font:.83rem var(--sans); }
+.physics-game-ladder-panel .physics-game-energy-ladder { width:100%;height:155px; }
+.physics-game-drift-track { display:grid;gap:.55rem;width:min(100%,310px);font:600 .92rem/1.5 var(--sans); }
+.physics-game-drift-track > div { padding:.65rem .85rem;border:1px solid var(--rule);border-radius:8px;text-align:center; }
+.physics-game-drift-electron { color:var(--elec); }
+.physics-game-drift-hole { color:#a56b13; }
+.physics-game-prob-row { display:grid;grid-template-columns:4.2rem minmax(0,1fr) 3.3rem;gap:.5rem;align-items:center;width:min(100%,370px);font:600 .83rem var(--sans); }
+.physics-game-prob-track { height:18px;border-radius:6px;background:var(--panel);border:1px solid var(--rule);overflow:hidden; }
+.physics-game-prob-bar { display:block;height:100%;background:var(--elec);transition:width .15s; }
+@media(max-width:620px){
+ .physics-game-switch-button { flex:1;padding:.55rem .7rem; }
+ .physics-game-feedback { padding:.65rem .75rem; }
+ .physics-game-tetra-dot { width:38px;height:38px;font-size:.75rem; }
+ .physics-game-double-ladders { gap:.65rem; }
+}
+
+.physics-game-covered { font:500 .79rem/1.45 var(--sans);color:var(--muted);margin:1rem 0 0;padding-top:.6rem;border-top:1px dashed var(--rule); }

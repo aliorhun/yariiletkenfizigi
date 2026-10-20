@@ -184,7 +184,8 @@ for(const lang of ['tr','en']){
   const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
   assert.equal(narratives.length,10,'exactly one standalone narrative per topic');
   const topicsWithGames=['crystal','bloch-electron','bands','edges','dos','holes','fermi'];
-  const gamesByTopic={};
+  const gamesByTopic={},secondGamesByTopic={};
+  const gameSwitchers={};
   for(const page of pages){
     const key=page.dataset.physicsTopic,prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
     const last=prose.children[prose.children.length-1];
@@ -192,8 +193,18 @@ for(const lang of ['tr','en']){
     if(topicsWithGames.includes(key)){
       assert.ok(last.classList.contains('physics-learning-outcomes'),'outcomes must end '+key+' explanation');
       assert.equal(last.children[1].children.length,4,'exactly four measurable outcomes: '+key);
-      assert.ok(gamePane&&gamePane.children.length===1,'missing game on '+key);
-      gamesByTopic[key]=gamePane.children[0];
+      assert.ok(gamePane&&gamePane.children.length===3,'each topic needs the Oyun 1 / Oyun 2 selector and both games: '+key);
+      const switcher=gamePane.children[0],first=gamePane.children[1],second=gamePane.children[2];
+      assert.ok(switcher.classList.contains('physics-game-switch'));
+      assert.equal(switcher.children.length,2);
+      assert.equal(first.hidden,false,'first game should be the default');
+      assert.equal(second.hidden,true,'second game should start hidden');
+      gamesByTopic[key]=first.children[0];secondGamesByTopic[key]=second.children[0];gameSwitchers[key]=switcher;
+      switcher.children[1].listeners.click();
+      assert.equal(first.hidden,true);assert.equal(second.hidden,false);
+      assert.equal(switcher.children[1].attributes['aria-selected'],'true');
+      switcher.children[0].listeners.click();
+      assert.equal(first.hidden,false);assert.equal(second.hidden,true);
     }else{
       assert.ok(!gamePane,'only the first seven lessons have a game tab');
       assert.ok(!last.classList.contains('physics-learning-outcomes'));
@@ -201,13 +212,19 @@ for(const lang of ['tr','en']){
   }
   // Each game has a topic-specific choice and feedback loop in both languages.
   const crystalGame=gamesByTopic.crystal;
+  crystalGame.children[4].children[0].listeners.click();
+  assert.ok(crystalGame.children[5].classList.contains('is-incorrect'));
   crystalGame.children[4].children[2].listeners.click();
   assert.ok(crystalGame.children[5].classList.contains('is-correct'));
   const blochGame=gamesByTopic['bloch-electron'];
   blochGame.children[4].children[0].children[2].listeners.click(); // k=π/a
+  blochGame.children[4].children[1].children[0].listeners.click(); // incorrect prediction
+  assert.ok(blochGame.children[5].classList.contains('is-incorrect'));
   blochGame.children[4].children[1].children[2].listeners.click(); // 180°
   assert.ok(blochGame.children[5].classList.contains('is-correct'));
   const bandsGame=gamesByTopic.bands;
+  bandsGame.children[4].children[1].listeners.click(); // wrong level count
+  assert.ok(bandsGame.children[5].classList.contains('is-incorrect'));
   bandsGame.children[4].children[0].listeners.click(); // two levels
   assert.ok(bandsGame.children[5].classList.contains('is-correct'));
   bandsGame.children[6].listeners.click(); // target four levels
@@ -215,6 +232,8 @@ for(const lang of ['tr','en']){
   assert.ok(bandsGame.children[5].classList.contains('is-correct'));
   const edgesGame=gamesByTopic.edges;
   edgesGame.children[4].children[0].children[0].listeners.click(); // 0.6 eV
+  edgesGame.children[4].children[1].children[0].listeners.click(); // wrong excitation
+  assert.ok(edgesGame.children[5].classList.contains('is-incorrect'));
   edgesGame.children[4].children[1].children[1].listeners.click(); // no excitation
   assert.ok(edgesGame.children[5].classList.contains('is-correct'));
   edgesGame.children[4].children[0].children[3].listeners.click(); // 1.8 eV
@@ -222,6 +241,8 @@ for(const lang of ['tr','en']){
   assert.ok(edgesGame.children[5].classList.contains('is-correct'));
   const dosGame=gamesByTopic.dos;
   dosGame.children[4].children[0].children[0].listeners.click(); // 1D
+  dosGame.children[4].children[1].children[2].listeners.click(); // wrong trend
+  assert.ok(dosGame.children[5].classList.contains('is-incorrect'));
   dosGame.children[4].children[1].children[0].listeners.click(); // decreases
   assert.ok(dosGame.children[5].classList.contains('is-correct'));
   dosGame.children[4].children[0].children[1].listeners.click(); // 2D
@@ -235,11 +256,96 @@ for(const lang of ['tr','en']){
   assert.equal(holesGame.children[2].children[0].children.filter(e=>e.classList.contains('is-hole')&&e.classList.contains('is-target')).length,1);
   const fermiGame=gamesByTopic.fermi;
   fermiGame.children[4].children[0].children[0].listeners.click(); // E-EF < 0
+  fermiGame.children[4].children[2].children[0].listeners.click(); // wrong range
+  assert.ok(fermiGame.children[5].classList.contains('is-incorrect'));
   fermiGame.children[4].children[2].children[2].listeners.click(); // >75%
   assert.ok(fermiGame.children[5].classList.contains('is-correct'));
   fermiGame.children[4].children[0].children[1].listeners.click(); // E=EF
   fermiGame.children[4].children[2].children[1].listeners.click(); // 50%
   assert.ok(fermiGame.children[5].classList.contains('is-correct'));
+  // A second complementary game per topic must test the previously uncovered concepts.
+  const attempts=[
+    ['crystal',0,1],['bloch-electron',0,1],['bands',0,1],
+    ['edges',0,1],['dos',0,1],['holes',0,1],['fermi',0,1]
+  ];
+  for(const [key] of attempts){
+    const game=secondGamesByTopic[key];
+    assert.ok(game&&game.classList.contains('physics-learning-game'),'missing second game '+key);
+    assert.ok(game.children[4].children.length>=1,'second game must offer choices '+key);
+    assert.ok(game.children[3].textContent.length>15,'missing question '+key);
+  }
+  function choice(game,group,index){
+    game.children[4].children[group].children[index].listeners.click();
+    return game.children[5];
+  }
+  const crystal2=secondGamesByTopic.crystal;
+  assert.ok(choice(crystal2,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(crystal2,1,1).classList.contains('is-correct'));
+  crystal2.children[6].listeners.click();
+  assert.ok(choice(crystal2,1,1).classList.contains('is-correct'));
+  crystal2.children[6].listeners.click();
+  assert.ok(choice(crystal2,1,0).classList.contains('is-correct'));
+  const bloch2=secondGamesByTopic['bloch-electron'];
+  assert.ok(choice(bloch2,1,1).classList.contains('is-incorrect'));
+  assert.ok(choice(bloch2,1,0).classList.contains('is-correct'));
+  bloch2.children[6].listeners.click();
+  assert.ok(choice(bloch2,1,1).classList.contains('is-correct'));
+  const bands2=secondGamesByTopic.bands;
+  assert.ok(choice(bands2,0,1).classList.contains('is-incorrect'));
+  assert.ok(choice(bands2,0,0).classList.contains('is-correct'));
+  bands2.children[6].listeners.click();
+  assert.ok(choice(bands2,0,0).classList.contains('is-correct'));
+  bands2.children[6].listeners.click();
+  assert.ok(choice(bands2,0,1).classList.contains('is-correct'));
+  const edges2=secondGamesByTopic.edges;
+  assert.ok(choice(edges2,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(edges2,1,1).classList.contains('is-correct'));
+  edges2.children[6].listeners.click();
+  assert.ok(choice(edges2,1,1).classList.contains('is-correct'));
+  const dos2=secondGamesByTopic.dos;
+  assert.ok(choice(dos2,2,1).classList.contains('is-incorrect'));
+  assert.ok(choice(dos2,2,0).classList.contains('is-correct'));
+  choice(dos2,0,1);choice(dos2,1,1);
+  assert.ok(choice(dos2,2,2).classList.contains('is-correct'));
+  const holes2=secondGamesByTopic.holes;
+  assert.ok(choice(holes2,1,2).classList.contains('is-incorrect'));
+  assert.ok(choice(holes2,1,0).classList.contains('is-correct'));
+  holes2.children[6].listeners.click();
+  assert.ok(choice(holes2,1,1).classList.contains('is-correct'));
+  const fermi2=secondGamesByTopic.fermi;
+  assert.ok(choice(fermi2,1,2).classList.contains('is-incorrect'));
+  assert.ok(choice(fermi2,1,0).classList.contains('is-correct'));
+  choice(fermi2,0,0);
+  assert.ok(choice(fermi2,1,2).classList.contains('is-correct'));
+  choice(fermi2,0,1);
+  assert.ok(choice(fermi2,1,1).classList.contains('is-correct'));
+  // Both correct and wrong choices must teach the scientific reason and link to a real Explanation heading.
+  for(const [key,game] of Object.entries(secondGamesByTopic)){
+    const reason=game.children[5],link=reason.children.find(e=>e.classList.contains('physics-game-lesson-link'));
+    assert.ok(link,'lesson reference missing: '+key);
+    assert.ok(reason.children.find(e=>e.classList.contains('physics-game-why'))?.textContent.length>45,
+      'pedagogical explanation too brief '+key);
+    assert.ok(link.textContent.includes(lang==='en'?'Explanation: ':'Anlatım: '));
+    const topicPage=pages.find(p=>p.dataset.physicsTopic===key);
+    const lessonIntro=topicPage.children.find(p=>p.dataset.pane==='anlatim').children[0].children[0];
+    assert.ok(lessonIntro.children.some(section=>link.textContent.includes(section.children[0].textContent)),
+      'game must link to an exact existing narrative heading: '+key);
+    link.listeners.click();
+    assert.equal(win.lastSub,'anlatim','link should open lesson narrative');
+  }
+  for(const [key,game] of Object.entries(gamesByTopic)){
+    const reason=game.children[5];
+    assert.ok(reason.children.some(e=>e.classList.contains('physics-game-why')),'first-game pedagogy missing '+key);
+    assert.ok(reason.children.some(e=>e.classList.contains('physics-game-lesson-link')),'first-game narrative reference missing '+key);
+  }
+  const coverage=win.PhysicsLearningGames.coverage;
+  for(const key of topicsWithGames){
+    const parts=coverage[key];
+    assert.equal(parts.length,2);
+    const union=new Set(parts.flat());
+    assert.equal(union.size,4,'each of four objectives must be exercised across two games: '+key);
+    for(let n=1;n<=4;n++)assert.ok(union.has(n),'uncovered objective '+key+' #'+n);
+  }
   for(const page of pages){
     const prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
     assert.ok(prose && prose.children[0]?.classList.contains('physics-lesson-intro'),
@@ -284,4 +390,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 32 correct/misconception explanations, 7 games, 28 learning outcomes, 10 topics');
+console.log('PASS: 32 QA explanations, 14 complementary games, pedagogical feedback, 28 outcomes, 10 topics');

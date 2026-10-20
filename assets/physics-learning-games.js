@@ -60,17 +60,33 @@ function setChoices(into,items,onPick){
  into.innerHTML='';
  items.forEach(function(item,i){into.appendChild(button(item,function(){onPick(i);}));});
 }
-function feedback(elm,good,text){
- elm.textContent=text;elm.className='physics-game-feedback '+(good?'is-correct':'is-incorrect');
+function feedback(elm,good,explanation){
+ elm.innerHTML='';
+ elm.className='physics-game-feedback '+(good?'is-correct':'is-incorrect');
  elm.setAttribute('role','status');
+ var context=elm._learning||{},lang=context.lang||'tr';
+ elm.appendChild(el('strong','physics-game-result',good?L('✓ Doğru seçim','✓ Correct choice',lang):L('↻ Bir daha düşün','↻ Think again',lang)));
+ textRow(elm,'physics-game-brief',explanation);
+ var topic=GAME_GUIDANCE[context.key],part=topic&&topic[context.part-1];
+ var entry=part&&part[context.focus||0];
+ if(entry){
+  var pair=entry[lang==='en'?1:0],why=good?pair[0]:pair[1];
+  textRow(elm,'physics-game-why',
+   (good?L('Doğru çünkü: ','Correct because: ',lang):L('Yanlış çünkü: ','Not quite because: ',lang))+why);
+  var link=button(L('Anlatım: ','Explanation: ',lang)+pair[2]+' →',function(){
+   if(typeof window.showSub==='function')window.showSub('anlatim');
+  },'physics-game-lesson-link');
+  elm.appendChild(link);
+ }
 }
 function frame(target,lang,title,help){
  var root=el('section','physics-learning-game');
  root.appendChild(el('h3','',title));
  textRow(root,'physics-game-help',help);
  var scene=el('div','physics-game-scene'),question=el('p','physics-game-question');
- var controls=el('div','physics-game-choices'),response=el('p','physics-game-feedback');
+ var controls=el('div','physics-game-choices'),response=el('div','physics-game-feedback');
  response.setAttribute('role','status');
+ response._learning={key:target.dataset.gameKey,part:Number(target.dataset.gamePart)||1,focus:0,lang:lang};
  root.appendChild(scene);root.appendChild(question);root.appendChild(controls);root.appendChild(response);
  target.appendChild(root);
  return {root:root,scene:scene,question:question,controls:controls,response:response};
@@ -111,8 +127,8 @@ function gameCrystal(target,lang){
   v.scene.appendChild(title);v.scene.appendChild(map);
  }
  function draw(){
-  var row=rounds[round];v.question.textContent=L(row.q[0],row.q[1],lang);
-  next.hidden=true;v.response.textContent='';grid(round===0?0:2);
+  var row=rounds[round];v.response._learning.focus=round;v.question.textContent=L(row.q[0],row.q[1],lang);
+  next.hidden=true;v.response.innerHTML='';grid(round===0?0:2);
   setChoices(v.controls,row.opts.map(function(a){return L(a[0],a[1],lang);}),function(i){
    grid(round===0?i:2);
    feedback(v.response,i===row.ok,(i===row.ok?L('Doğru! ','Correct! ',lang):L('Tekrar düşün. ','Try again. ',lang))+L(row.why[0],row.why[1],lang));
@@ -140,7 +156,7 @@ function gameBloch(target,lang){
   }
   v.scene.appendChild(cells);
  }
- function pickK(i){chosen=i;v.response.textContent='';v.question.textContent=L('Komşu hücrelerin faz farkı kaç derece?','What is the phase difference between adjacent cells?',lang);draw(false);
+ function pickK(i){chosen=i;v.response.innerHTML='';v.question.textContent=L('Komşu hücrelerin faz farkı kaç derece?','What is the phase difference between adjacent cells?',lang);draw(false);
   Array.from(kBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===chosen));});
  }
  setChoices(kBar,kOptions,pickK);
@@ -171,7 +187,7 @@ function gameBands(target,lang){
   textRow(v.scene,'physics-game-visual-label',L(n+' atom → '+n+' orbital enerji düzeyi',n+' atoms → '+n+' orbital energy levels',lang));
  }
  function draw(){
-  next.hidden=true;v.response.textContent='';v.question.textContent=L('Hedef: '+targets[round]+' farklı orbital enerji düzeyi oluştur.','Target: create '+targets[round]+' distinct orbital energy levels.',lang);
+  next.hidden=true;v.response.innerHTML='';v.question.textContent=L('Hedef: '+targets[round]+' farklı orbital enerji düzeyi oluştur.','Target: create '+targets[round]+' distinct orbital energy levels.',lang);
   ladder(2);
  }
  setChoices(v.controls,['2 '+L('atom','atoms',lang),'4 '+L('atom','atoms',lang),'8 '+L('atom','atoms',lang)],function(i){
@@ -200,7 +216,7 @@ function gameEdges(target,lang){
   textRow(v.scene,'physics-game-visual-label',
    L('Seçilen foton: ','Selected photon: ',lang)+energies[chosen].toFixed(1)+' eV');
  }
- function pickEnergy(i){chosen=i;revealed=false;v.response.textContent='';render();
+ function pickEnergy(i){chosen=i;revealed=false;v.response.innerHTML='';render();
   Array.from(energyBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
  }
  setChoices(energyBar,energies.map(function(e){return e.toFixed(1)+' eV';}),pickEnergy);
@@ -239,7 +255,7 @@ function gameDos(target,lang){
    L('Enerji: Ec’den başlayıp sağa artar. Bu grafik durumları gösterir, elektron doluluğunu değil.',
      'Energy increases rightward from Ec. These bars show available states, not occupied electrons.',lang));
  }
- function setDim(i){chosen=dimensions[i];v.response.textContent='';plot();
+ function setDim(i){chosen=dimensions[i];v.response.innerHTML='';plot();
   Array.from(dimensionBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
  }
  setChoices(dimensionBar,['1B · 1D','2B · 2D','3B · 3D'],setDim);
@@ -286,7 +302,7 @@ function gameHoles(target,lang){
   var deltas=[[-1,0],[1,0],[0,-1],[0,1]];moveElectron(deltas[i][0],deltas[i][1]);
  });
  var reset=button(L('Yeniden başla','Restart',lang),function(){
-  hole={x:1,y:1};moves=0;finished=false;v.response.textContent='';draw();
+  hole={x:1,y:1};moves=0;finished=false;v.response.innerHTML='';draw();
  },'sim-btn');
  v.root.appendChild(reset);
  v.question.textContent=L('Hol iki hücre sağa, bir hücre aşağı ulaşmalı. Elektronlara hangi yönde hareket ettirirsin?',
@@ -313,10 +329,10 @@ function gameFermi(target,lang){
    L('Hesaplanan doluluk: ','Calculated occupancy: ',lang)+(100*probability()).toFixed(1)+'%':
    L('Tahminini seç; 20 kutu doluluk yüzdesini gösterecek.','Make a prediction; 20 cells will show the occupancy percentage.',lang));
  }
- function pickEnergy(i){offsetIndex=i;revealed=false;v.response.textContent='';display();
+ function pickEnergy(i){offsetIndex=i;revealed=false;v.response.innerHTML='';display();
   Array.from(energyBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
  }
- function pickTemperature(i){T=i===0?300:600;revealed=false;v.response.textContent='';display();
+ function pickTemperature(i){T=i===0?300:600;revealed=false;v.response.innerHTML='';display();
   Array.from(tempBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
  }
  setChoices(energyBar,['E−EF = −0.10 eV','E = EF','E−EF = +0.10 eV'],pickEnergy);
@@ -329,16 +345,463 @@ function gameFermi(target,lang){
  v.question.textContent=L('Bu enerji durumunun dolu olma olasılığı hangi aralıkta?','Which range contains the occupation probability?',lang);
  pickEnergy(2);pickTemperature(0);
 }
+
+/* Each pair: correct reasoning, specific misconception, matching Explanation heading. */
+var GAME_GUIDANCE={
+ crystal:[
+  [
+   [['Elmas-kübik örgü dört tetrahedral komşuya sahiptir.','Silisyumu basit veya hacim-merkezli kübik saymak komşu geometrisini değiştirir.','Silisyum kristalini düşünelim'],
+    ['Diamond-cubic silicon has four tetrahedral neighbours.','Treating Si as simple or body-centred cubic changes its nearest-neighbour geometry.','Consider a silicon crystal']],
+   [['Her Si atomu dört en yakın atomla kovalent bağ yapar.','6 veya 8 komşu farklı kristal geometrilerine aittir.','Silisyum kristalini düşünelim'],
+    ['Every Si atom bonds to four nearest neighbours.','Six or eight neighbours correspond to different crystal geometries.','Consider a silicon crystal']],
+   [['Kübik elmas yapıda komşu uzunluğu d=√3a/4 olur.','Birim hücre kenarını komşu bağ uzunluğuyla eşitlemek yanlıştır.','Silisyum kristalini düşünelim'],
+    ['Diamond-cubic geometry gives d=√3a/4.','A unit-cell edge is not a nearest-neighbour bond.','Consider a silicon crystal']]
+  ],
+  [
+   [['Formülde önce seçilen a değerini kullanıp √3/4 ile çarpmalısın.','a/2 veya a seçmek elmas-kübik bağ geometrisini göz ardı eder.','Silisyum kristalini düşünelim'],
+    ['Multiply the chosen a by √3/4.','Using a/2 or a ignores diamond-cubic bonding geometry.','Consider a silicon crystal']],
+   [['İki boyutlu resim, tetrahedral komşuların uzayda dağıldığını göstermek için sadeleştirilmiştir.','Resimde dört noktayı görmek dört bağın aynı düzlemde olduğu anlamına gelmez.','Silisyum kristalini düşünelim'],
+    ['The 2D drawing simplifies the tetrahedral arrangement in space.','Four points on a picture do not mean all four bonds are coplanar.','Consider a silicon crystal']],
+   [['Birim hücre tekrar eden en küçük uygun yapı örneğidir; a kübik geometriyi belirtir.','Birim hücre tek atom olmak zorunda değildir ve a doğrudan Si–Si bağı değildir.','Kristal düzeni neden önemli?'],
+    ['A unit cell is a repeated structural building block and a defines the cubic geometry.','A unit cell need not be one atom, and a is not the Si–Si bond length.','Why is crystalline order important?']]
+  ]
+ ],
+ 'bloch-electron':[
+  [[['Hücreler arası faz farkı ka olduğundan k=0, π/(2a), π/a için sırasıyla 0°, 90°, 180° olur.','Fazı ka yerine yalnızca k sayısı veya atomlar arası mesafeden bağımsız okumak doğru değildir.','Bloch dalgasında ne tekrar eder?'],
+    ['The phase step ka is 0°, 90°, or 180° at the three selected k values.','The phase difference comes from ka, not k without lattice spacing.','What repeats in a Bloch wave?']]],
+  [
+   [['Bloch fazı değişse bile eşdeğer hücre konumlarında |ψ|² tekrarlanır.','İşaret veya faz değişimini olasılık yoğunluğunun sıfırlanması sanma.','Bloch dalgasında ne tekrar eder?'],
+    ['Bloch phase may change while |ψ|² repeats at equivalent lattice sites.','A phase or sign change does not force probability density to vanish.','What repeats in a Bloch wave?']],
+   [['Kristal potansiyeli periyodiktir; Bloch durumu birden çok hücreye yayılabilir.','Tek atomdaki yerel orbital ile kristale yayılmış Bloch durumunu özdeşleştirme.','Tek atomdaki elektron neden farklıdır?'],
+    ['Periodic crystals can support Bloch states extending through many cells.','Do not confuse a localized atomic orbital with an extended Bloch state.','Why is an electron in a crystal different?']]
+  ]
+ ],
+ bands:[
+  [[['Tek-orbitalli N atomlu zincirde spin hariç N orbital durumu bulunur.','Bir atomun eklenmesini yeni bir izinli durum oluşmayacak sanmak yanlıştır.','Aynı atomik enerjiden çok sayıda enerjiye'],
+    ['An N-site single-orbital chain has N orbital states, ignoring spin.','Adding sites increases the allowed orbital-state count.','From atomic levels to many crystal states']]],
+  [
+   [['İki atom etkileşince bağlayıcı ve karşı-bağlayıcı bileşimlerin enerjileri ayrılır.','İki bağımsız atomunki gibi aynı enerjide kalmaları yalnızca etkileşim yokken geçerlidir.','Aynı atomik enerjiden çok sayıda enerjiye'],
+    ['Coupling splits bonding and antibonding energies.','Their degenerate energy persists only without coupling.','From atomic levels to many crystal states']],
+   [['Çok atom aynı sınırlı enerji aralığında daha fazla izinli düzey oluşturur.','Düzey sayısı artarken bant genişliğinin sınırsız artması gerekmez.','Bantların genişliğini ne belirler?'],
+    ['Many sites produce more allowed levels within a finite energy band.','More sites do not force unlimited bandwidth growth.','What controls the bandwidth?']],
+   [['Bu model 1B ve tek orbitallidir; Si gerçek durumda 3B ve çok orbitallidir.','Öğretici zinciri silisyumun gerçek tam bant diyagramıyla eşitleme.','Bantların genişliğini ne belirler?'],
+    ['The teaching chain is 1D with one orbital; real Si is 3D and multi-orbital.','This is not a full silicon band-structure calculation.','What controls the bandwidth?']]
+  ]
+ ],
+ edges:[
+  [[['Eşik Eg civarını geçen foton yeterli enerjiyi sağlayabilir; gerçek geçişte momentum seçimi de önemlidir.','Eşiğin altındaki foton tek başına bu basit banttan banda geçişe yetmez.','Elektron enerji kazanırsa ne olur?'],
+    ['A photon above the gap can supply enough energy, although momentum conditions also matter.','A subgap photon cannot cause this idealized band-to-band transition by itself.','What happens when an electron is excited?']]],
+  [
+   [['Yasak aralık iki bant kenarı arasındaki farktır: Eg=Ec−Ev.','Ec veya Ev değerini tek başına Eg sanmak ya da toplamını almak yanlıştır.','Bant kenarları: Ev, Ec ve yasak enerji aralığı'],
+    ['The gap is a difference, Eg=Ec−Ev.','Neither edge alone, nor their sum, is the band gap.','Band edges Ev and Ec, and the forbidden gap']],
+   [['İletim bandı kristalin kendi elektronik durumlarının bir kümesidir.','İletim elektronunu kristalden dışarı atılmış serbest elektronla karıştırma.','Önce temel fikir: “bant” ve “dolu bant” aynı şey mi?'],
+    ['Conduction-band states still belong to the solid.','Do not confuse excitation within a crystal with ejecting a free electron outside.','First distinction: an allowed band is not necessarily filled']]
+  ]
+ ],
+ dos:[
+  [[['Boyuta göre parabolik banttaki DOS, (E−Ec)^(d/2−1) eğilimi gösterir.','1B’de artan yerine azalan, 2B’de eğimli yerine sabit, 3B’de azalan biçim seçilmez.','Durum yoğunluğu neyi sayar?'],
+    ['For a parabolic band, DOS follows (E−Ec)^(d/2−1).','1D decreases, 2D is constant, and 3D increases away from the edge.','What exactly does DOS count?']]],
+  [
+   [['Belirli enerji aralığındaki beklenen dolu durum sayısı kullanılabilir durum sayısı ile f(E) çarpımıdır.','DOS değerinin tamamını dolu elektron saymak boş durumları yok sayar.','Grafikten hangi hesap yapılır?'],
+    ['Expected occupied states equal available states in an energy bin times f(E).','Equating DOS with electrons incorrectly counts empty states as occupied.','What can we calculate from DOS?']]
+  ]
+ ],
+ holes:[
+  [[['Komşu elektron boş yere ilerlediğinde hol elektronun ters yönünde yer değiştirir.','Holü tek başına hareket eden bir proton gibi düşünmek taşıyıcı modelini bozar.','Elektron sağa giderse hol neden sola gider?'],
+    ['When a neighbour electron fills the vacancy, the hole shifts the opposite way.','A hole is not a physical proton moving independently through the lattice.','Why does a hole move opposite to an electron hop?']]],
+  [
+   [['Elektrik alan kuvveti yük işaretine bağlıdır: elektron −q, hol etkin +q taşır.','İki taşıyıcının da alan yönünde sürüklendiğini varsaymak negatif elektron yükünü unutur.','Hol neden bir parçacık gibi ele alınır?'],
+    ['Drift direction follows charge sign: electron −q, effective hole +q.','Both carriers do not drift with the field because electrons are negative.','Why describe a missing electron as a particle?']],
+   [['Hol, değerlik bandındaki eksik elektron doluluğunu temsil eden etkin taşıyıcıdır.','Gerçek proton ile elektriksel olarak pozitif görünen kuaziparçacık aynı değildir.','Hol neden bir parçacık gibi ele alınır?'],
+    ['A hole is a missing valence electron represented as an effective carrier.','An effective positive quasiparticle is not an actual proton.','Why describe a missing electron as a particle?']]
+  ]
+ ],
+ fermi:[
+  [[['E−EF enerji farkı ve kBT, f(E) değerini belirler; E=EF için sonuç %50’dir.','Enerjinin EF üstünde olması o durumun mutlaka boş, altında olması mutlaka dolu olduğu anlamına gelmez.','Sıcaklık doluluk olasılığını değiştirir'],
+    ['E−EF and kBT determine f(E), which is exactly 50% at E=EF.','A state above EF is not necessarily empty and one below is not certainly full at finite T.','Temperature changes occupancy']]],
+  [
+   [['Yüksek sıcaklık EF çevresindeki doluluk geçişini genişletir; üstteki doluluk artarken alttaki azalır.','Isınmanın tüm enerjilerde doluluğu aynı yönde değiştirdiğini düşünmek yanlıştır.','Sıcaklık doluluk olasılığını değiştirir'],
+    ['Higher T broadens occupancy around EF: above-EF occupancy increases, below-EF decreases.','Heating does not move occupancy in the same direction at all energies.','Temperature changes occupancy']]
+  ]
+ ]
+};
+
+/* Follow-up learning games: each asks learners to predict a complementary concept. */
+function secondCrystal(target,lang){
+ var v=frame(target,lang,L('Birim hücre ve bağ uzunluğu','Unit cell and bond length',lang),
+  L('Örgü sabitini seç; uzaklığı hesapla ve 2B çizimin 3B yapıyı nasıl temsil ettiğini sorgula.','Choose a lattice constant, calculate the bond distance, then interpret a 2D diagram of 3D bonding.',lang));
+ var values=[5.431,6.000],aIndex=0,round=0,ready=false;
+ var setting=el('div','physics-game-options');v.controls.appendChild(setting);
+ var picks=el('div','physics-game-options');v.controls.appendChild(picks);
+ var next=button(L('Sonraki aşama','Next stage',lang),function(){round=(round+1)%3;ready=false;draw();},'sim-btn');
+ v.root.appendChild(next);
+ setChoices(setting,values.map(function(a){return 'a = '+a.toFixed(3)+' Å';}),function(i){aIndex=i;ready=false;draw();});
+ function diagram(){
+  var tile=el('div','physics-game-tetra');
+  ['+z','−z','Si','+z','−z'].forEach(function(label,i){
+   var dot=el('span','physics-game-tetra-dot '+(i===2?'is-core':'is-neighbour'),label);
+   if(i!==2)dot.classList.add('is-depth');
+   tile.appendChild(dot);
+  });
+  v.scene.appendChild(tile);
+  textRow(v.scene,'physics-game-visual-label',L(
+   'Şematik izdüşüm: 4 komşu 3B uzaydadır; işaretler yaklaşık derinliği anlatır.',
+   'Schematic projection: four neighbours are arranged in 3D; labels indicate approximate depth.',lang));
+ }
+ function draw(){
+  var a=values[aIndex],d=a*Math.sqrt(3)/4;
+  Array.from(setting.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===aIndex));});
+  v.scene.innerHTML='';v.response._learning.focus=round;diagram();
+  next.hidden=!ready;v.response.innerHTML='';
+  if(round===0){
+   v.question.textContent=L('a = '+a.toFixed(3)+' Å için en yakın Si–Si bağı yaklaşık kaç Å?','For a = '+a.toFixed(3)+' Å, what is the nearest Si–Si distance?',lang);
+   var options=[a/2,d,a];
+   setChoices(picks,options.map(function(x){return x.toFixed(2)+' Å';}),function(i){
+    var ok=i===1;ready=ok;
+    feedback(v.response,ok,(ok?L('Doğru. ','Correct. ',lang):L('Bu uzaklık uygun değil. ','Not that distance. ',lang))+
+     L('Birim hücre kenarı a, bağ uzunluğu d=√3a/4 ≈ '+d.toFixed(2)+' Å.','Cell edge a differs from d=√3a/4 ≈ '+d.toFixed(2)+' Å.',lang));
+    next.hidden=!ok;
+   });
+  }else if(round===1){
+   v.question.textContent=L('Bu 2B çizim dört Si–Si bağının aynı düzlemde olduğunu kanıtlar mı?','Does this 2D diagram prove all four Si–Si bonds lie in one plane?',lang);
+   setChoices(picks,[L('Evet, hepsi düzlemsel','Yes, all are coplanar',lang),L('Hayır, 3B yapı izdüşümü','No, it represents 3D',lang)],function(i){
+    var ok=i===1;ready=ok;
+    feedback(v.response,ok,(ok?L('Doğru. ','Correct. ',lang):L('İzdüşümü tekrar yorumla. ','Revisit the projection. ',lang))+
+     L('Si elmas-kübik yapıdadır; dört bağ tetrahedral doğrultulara yönelir.','Diamond-cubic Si has four bonds in tetrahedral directions.',lang));
+    next.hidden=!ok;
+   });
+  }else{
+   v.question.textContent=L('Birim hücre ve örgü sabiti tanımlarından hangisi doğrudur?','Which description of unit cell and lattice constant is correct?',lang);
+   setChoices(picks,[
+    L('Birim hücre tekrarlanan yapı, a kübik hücrenin kenarı','Unit cell repeats; a is the cubic edge',lang),
+    L('Birim hücre tek atom, a her zaman bağ uzunluğu','Unit cell is one atom; a always equals bond length',lang)
+   ],function(i){
+    var ok=i===0;ready=ok;
+    feedback(v.response,ok,(ok?L('Doğru. ','Correct. ',lang):L('Tanımları yeniden ayır. ','Separate the definitions. ',lang))+
+     L('Birim hücre periyodik yapıyı tekrarlar; örgü sabiti a bir geometrik parametredir ve Si–Si bağına eşit değildir.','A unit cell repeats the lattice; a is a geometric parameter, not the Si–Si bond length.',lang));
+    next.hidden=!ok;
+   });
+  }
+ }
+ draw();
+}
+function secondBloch(target,lang){
+ var v=frame(target,lang,L('Faz ve yoğunluk ayrımı','Phase versus density',lang),
+  L('Aynı Bloch durumundaki komşu hücrelerin fazlarını ve göreli yoğunluklarını karşılaştır.','Compare the phase and relative density in neighbouring cells of one Bloch state.',lang));
+ var phaseIndex=1,phases=[0,180],round=0,ready=false;
+ var controls=el('div','physics-game-options'),picks=el('div','physics-game-options');
+ v.controls.appendChild(controls);v.controls.appendChild(picks);
+ var next=button(L('Sonraki soru','Next question',lang),function(){round=(round+1)%2;ready=false;draw();},'sim-btn');
+ v.root.appendChild(next);
+ setChoices(controls,['k = 0','k = π/a'],function(i){phaseIndex=i;ready=false;draw();});
+ function draw(){
+  v.response._learning.focus=round;
+  Array.from(controls.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===phaseIndex));});
+  v.scene.innerHTML='';var cells=el('div','physics-game-phase-cells');
+  for(var i=0;i<4;i++){
+   var cell=el('div','physics-game-phase-cell');
+   var arrow=el('span','physics-game-phase-arrow','↑');
+   arrow.setAttribute('style','transform:rotate('+(i*phases[phaseIndex])+'deg)');
+   cell.appendChild(arrow);cell.appendChild(el('span','',L('Aynı |ψ|²','Equal |ψ|²',lang)));cells.appendChild(cell);
+  }
+  v.scene.appendChild(cells);
+  textRow(v.scene,'physics-game-visual-label',L(
+   'Bir Bloch durumunda örgü çevirisi fazı değiştirir; aynı bağıl konumun |ψ|² değeri hücreler arasında aynıdır.',
+   'For one Bloch state, lattice translation changes phase but preserves |ψ|² at equivalent positions.',lang));
+  v.response.innerHTML='';next.hidden=!ready;
+  if(round===0){
+   v.question.textContent=L('Komşu hücrelerdeki faz değişimi tek başına hangi sonucu gerektirir?','What does phase advance alone imply between neighbouring cells?',lang);
+   setChoices(picks,[L('Faz değişebilir, yoğunluk aynı kalır','Phase changes; density can stay equal',lang),
+    L('Yoğunluk mutlaka dönüşümlü sıfırlanır','Density must alternate to zero',lang)],function(i){
+    var good=i===0;ready=good;feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Faz ile yoğunluğu ayır. ','Distinguish phase from density. ',lang))+
+     L('Çünkü |e^(ika)|²=1; faz çarpanı olasılık yoğunluğunu değiştirmez.','Because |e^(ika)|²=1, the phase factor alone does not change probability density.',lang));next.hidden=!good;
+   });
+  }else{
+   v.question.textContent=L('Bloch durumu tek bir atomun çevresine hapsolmuş bir orbital midir?','Is a Bloch state an orbital confined to just one atom?',lang);
+   setChoices(picks,[L('Evet, yalnız tek atomdadır','Yes, confined to one atom',lang),
+    L('Hayır, kristale yayılabilir','No, it can extend across the crystal',lang)],function(i){
+    var good=i===1;ready=good;feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Kristal periyodunu düşün. ','Consider crystal periodicity. ',lang))+
+     L('Bloch durumu periyodik örgü boyunca uzanabilir; yerel atomik orbitalden farklıdır.','A Bloch state may extend through a periodic lattice, unlike a localized atomic orbital.',lang));next.hidden=!good;
+   });
+  }
+ }
+ draw();
+}
+function secondBands(target,lang){
+ var v=frame(target,lang,L('Etkileşimden bantlara','Interactions to bands',lang),
+  L('Önce iki atomun düzey ayrışmasını, sonra çok atomlu zinciri yorumla.','First inspect two-atom splitting, then interpret a longer chain.',lang));
+ var round=0,ready=false;
+ var picks=el('div','physics-game-options');v.controls.appendChild(picks);
+ var next=button(L('Sonraki aşama','Next stage',lang),function(){round=(round+1)%3;ready=false;draw();},'sim-btn');
+ v.root.appendChild(next);
+ function draw(){
+  v.response._learning.focus=round;
+  v.scene.innerHTML='';v.response.innerHTML='';next.hidden=!ready;
+  var ladder=el('div','physics-game-double-ladders');
+  var ns=round===0?[2,2]:[2,8];
+  ns.forEach(function(n,index){
+   var panel=el('div','physics-game-ladder-panel');
+   panel.appendChild(el('strong','',round===0?(index===0?L('Etkileşim yok','No coupling',lang):L('Etkileşim var','Coupling',lang)):n+' '+L('atom','atoms',lang)));
+   var track=el('div','physics-game-energy-ladder');
+   for(var j=1;j<=n;j++){
+    var e=round===0&&index===0?0:-2*Math.cos(j*Math.PI/(n+1));
+    var line=el('span','physics-game-energy-level');
+    line.setAttribute('style','bottom:'+(50+e*21)+'%');track.appendChild(line);
+   }
+   panel.appendChild(track);ladder.appendChild(panel);
+  });v.scene.appendChild(ladder);
+  if(round===0){
+   v.question.textContent=L('İki özdeş atom etkileşmeye başlayınca enerji düzeylerine ne olur?','When two identical atoms interact, what happens to their energy levels?',lang);
+   setChoices(picks,[L('İki düzeye ayrışır','They split into two levels',lang),L('Tek düzey olarak kalır','They remain one level',lang)],function(i){
+    evaluate(i===0,L('Etkileşim, bağlanan ve karşı-bağlanan bileşimleri farklı enerjilere ayırır.','Coupling splits bonding and antibonding combinations in energy.',lang));
+   });
+  }else if(round===1){
+   v.question.textContent=L('Aynı enerji aralığında 2 yerine 8 atomun düzeyi olursa ne değişir?','If eight instead of two levels occupy a comparable energy range, what changes?',lang);
+   setChoices(picks,[L('Düzeyler sıklaşır','Levels become denser',lang),L('Düzey sayısı azalır','There are fewer levels',lang)],function(i){
+    evaluate(i===0,L('N atomlu basit zincir N orbital durumu verir; çok atomda düzeyler bant gibi sıklaşır.','A simple N-site chain yields N orbital states, crowding into a band for large N.',lang));
+   });
+  }else{
+   v.question.textContent=L('Bu tek-orbitalli 1B zincir Si’nin tam gerçek bant yapısı mıdır?','Is this 1D single-orbital chain silicon’s complete band structure?',lang);
+   setChoices(picks,[L('Evet, tam model','Yes, complete model',lang),L('Hayır, öğretici yaklaşım','No, a teaching model',lang)],function(i){
+    evaluate(i===1,L('Gerçek Si çok orbitalli, 3B kristal bantları gerektirir.','Real silicon needs a three-dimensional, multi-orbital band description.',lang));
+   });
+  }
+ }
+ function evaluate(good,msg){
+  ready=good;feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Tekrar değerlendir. ','Reconsider. ',lang))+msg);next.hidden=!good;
+ }
+ draw();
+}
+function secondEdges(target,lang){
+ var v=frame(target,lang,L('Bant kenarı hesaplayıcısı','Band-edge calculator',lang),
+  L('Ev ve Ec konumlarını değiştirerek yasak aralığı hesapla; sonra iletim elektronunun nerede olduğunu düşün.','Change Ev and Ec to compute the gap, then reason about where the conduction electron remains.',lang));
+ var settings=[[0,1.1],[0.4,1.7]],selection=0,round=0,ready=false;
+ var config=el('div','physics-game-options'),picks=el('div','physics-game-options');
+ v.controls.appendChild(config);v.controls.appendChild(picks);
+ var next=button(L('Sonraki aşama','Next stage',lang),function(){round=(round+1)%2;ready=false;draw();},'sim-btn');
+ v.root.appendChild(next);
+ setChoices(config,settings.map(function(x){return 'Ev='+x[0].toFixed(1)+' / Ec='+x[1].toFixed(1)+' eV';}),function(i){selection=i;ready=false;draw();});
+ function draw(){
+  Array.from(config.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===selection));});
+  var a=settings[selection],gap=a[1]-a[0];v.response._learning.focus=round;
+  v.scene.innerHTML='';
+  var band=el('div','physics-game-bands');
+  band.appendChild(el('div','physics-game-band is-conduction','Ec = '+a[1].toFixed(1)+' eV'));
+  band.appendChild(el('div','physics-game-gap','Eg = Ec − Ev = ?'));
+  band.appendChild(el('div','physics-game-band is-valence','Ev = '+a[0].toFixed(1)+' eV'));
+  v.scene.appendChild(band);
+  v.response.innerHTML='';next.hidden=!ready;
+  if(round===0){
+   v.question.textContent=L('Bu iki bant kenarı arasındaki yasak bant aralığı kaç eV?','What is the gap between these band edges?',lang);
+   setChoices(picks,['0.7 eV','1.1 eV','1.3 eV','1.7 eV'],function(i){
+    var opts=[.7,1.1,1.3,1.7],good=Math.abs(opts[i]-gap)<.001;ready=good;
+    feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Çıkarma yapmayı dene. ','Subtract the edges. ',lang))+
+     'Eg = '+a[1].toFixed(1)+' − '+a[0].toFixed(1)+' = '+gap.toFixed(1)+' eV.');next.hidden=!good;
+   });
+  }else{
+   v.question.textContent=L('Bir elektron Ec üzerinde izinli duruma uyarıldığında katıyı terk etmiş midir?','Does an electron leave the solid when excited into an allowed state above Ec?',lang);
+   setChoices(picks,[L('Evet, dışarı çıkar','Yes, it leaves the solid',lang),L('Hayır, kristal içinde kalabilir','No, it can remain in the crystal',lang)],function(i){
+    var good=i===1;ready=good;
+    feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('İletim bandının tanımını düşün. ','Recall what the conduction band means. ',lang))+
+     L('İletim bandı kristalin izinli enerji durumlarından oluşur; iyonlaşmayla aynı şey değildir.','The conduction band consists of allowed crystal states; excitation is not necessarily ionization.',lang));next.hidden=!good;
+   });
+  }
+ }
+ draw();
+}
+
+function secondDos(target,lang){
+ var v=frame(target,lang,L('Durum mu, dolu elektron mu?','Available states or occupied electrons?',lang),
+  L('Dar bir enerji aralığındaki durum sayısını ve doluluk olasılığını seç; beklenen dolu durum sayısını bul.','Choose the available states and occupancy in a narrow energy bin; calculate the expected occupied count.',lang));
+ var totals=[10,20],probs=[.2,.8],ni=0,pi=0,revealed=false;
+ var nBar=el('div','physics-game-options'),fBar=el('div','physics-game-options'),choices=el('div','physics-game-options');
+ v.controls.appendChild(nBar);v.controls.appendChild(fBar);v.controls.appendChild(choices);
+ setChoices(nBar,totals.map(function(n){return 'g(E)ΔE = '+n;}),function(i){ni=i;revealed=false;draw();});
+ setChoices(fBar,probs.map(function(p){return 'f(E) = '+(p*100)+'%';}),function(i){pi=i;revealed=false;draw();});
+ function draw(){
+  Array.from(nBar.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===ni));});
+  Array.from(fBar.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===pi));});
+  var total=totals[ni],occupied=Math.round(total*probs[pi]);
+  v.scene.innerHTML='';var dots=el('div','physics-game-fermi-dots');
+  for(var i=0;i<total;i++){
+   var dot=el('span','physics-game-fermi-dot');
+   if(revealed&&i<occupied)dot.classList.add('is-filled');
+   dots.appendChild(dot);
+  }
+  v.scene.appendChild(dots);
+  textRow(v.scene,'physics-game-visual-label',L(
+   'Mavi kutular yalnızca tahminden sonra görünen beklenen doluluğu temsil eder.',
+   'Blue cells show the expected occupancy only after a prediction.',lang));
+  v.question.textContent=L('Bu enerji diliminde beklenen dolu durum sayısı kaçtır?','How many occupied states are expected in this energy bin?',lang);
+  v.response.innerHTML='';
+  var choicesNum=[Math.round(total*.2),Math.round(total*.5),Math.round(total*.8)];
+  setChoices(choices,choicesNum.map(function(n){return n+' '+L('durum','states',lang);}),function(i){
+   revealed=true;var good=choicesNum[i]===occupied;
+   var expected=total+' × '+probs[pi].toFixed(1)+' = '+occupied;
+   drawResult(good,L('Beklenen dolu sayı = g(E)ΔE × f(E) = '+expected+'. DOS, elektron sayısını tek başına vermez.',
+    'Expected occupied count = g(E)ΔE × f(E) = '+expected+'. DOS alone does not count occupied electrons.',lang));
+  });
+ }
+ function drawResult(good,msg){
+  var total=totals[ni],occupied=Math.round(total*probs[pi]);
+  v.scene.innerHTML='';var dots=el('div','physics-game-fermi-dots');
+  for(var i=0;i<total;i++){var dot=el('span','physics-game-fermi-dot');if(i<occupied)dot.classList.add('is-filled');dots.appendChild(dot);}
+  v.scene.appendChild(dots);
+  textRow(v.scene,'physics-game-visual-label',L('Mavi: beklenen dolu / açık: kullanılabilir ama boş','Blue: expected occupied / pale: available but empty',lang));
+  feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Bu sayı değil. ','Not this count. ',lang))+msg);
+ }
+ draw();
+}
+function secondHoles(target,lang){
+ var v=frame(target,lang,L('Elektrik alan yön oyunu','Electric-field direction game',lang),
+  L('Elektrik alanın yönünü seç; elektron ve holün sürüklenme yönlerini ayırt et.','Choose the electric-field direction and compare electron versus hole drift.',lang));
+ var direction=1,round=0,ready=false;
+ var fields=el('div','physics-game-options'),picks=el('div','physics-game-options');
+ v.controls.appendChild(fields);v.controls.appendChild(picks);
+ var next=button(L('Sonraki aşama','Next stage',lang),function(){round=(round+1)%2;ready=false;draw();},'sim-btn');
+ v.root.appendChild(next);
+ setChoices(fields,[L('Alan ←','Field ←',lang),L('Alan →','Field →',lang)],function(i){direction=i;ready=false;draw();});
+ function draw(){
+  v.response._learning.focus=round;
+  Array.from(fields.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===direction));});
+  v.scene.innerHTML='';
+  var fieldArrow=direction===1?'→':'←',electron=direction===1?'←':'→',hole=fieldArrow;
+  var track=el('div','physics-game-drift-track');
+  track.appendChild(el('div','',L('Elektrik alan E: ','Electric field E: ',lang)+fieldArrow));
+  track.appendChild(el('div','physics-game-drift-electron',L('Elektron (−q): ','Electron (−q): ',lang)+(ready?electron:'?')));
+  track.appendChild(el('div','physics-game-drift-hole',L('Hol (+q): ','Hole (+q): ',lang)+(ready?hole:'?')));
+  v.scene.appendChild(track);
+  v.response.innerHTML='';next.hidden=!ready;
+  if(round===0){
+   v.question.textContent=L('Alan '+fieldArrow+' yönündeyken hangi sürüklenme çifti doğrudur?','For a field '+fieldArrow+', which drift pair is correct?',lang);
+   var choices=[L('Elektron ←, hol →','Electron ←, hole →',lang),L('Elektron →, hol ←','Electron →, hole ←',lang),
+    L('İkisi de alan yönünde','Both follow the field',lang)];
+   var ok=direction===1?0:1;
+   setChoices(picks,choices,function(i){
+    ready=i===ok;
+    feedback(v.response,ready,(ready?L('Doğru. ','Correct. ',lang):L('Yük işaretlerini incele. ','Check charge signs. ',lang))+
+     L('Negatif elektron alanın tersine, pozitif etkin yüklü hol alan yönüne sürüklenir.','Negative electrons drift opposite the field; effective positive holes drift with it.',lang));
+    next.hidden=!ready;drawTrack();
+   });
+  }else{
+   v.question.textContent=L('Holü bu modelde proton gibi ayrı bir pozitif parçacık saymak doğru mudur?','Should a hole be treated as a separate positive elementary particle such as a proton?',lang);
+   setChoices(picks,[L('Evet, bir protondur','Yes, it is a proton',lang),L('Hayır, değerlik elektronunun eksikliğidir','No, it is a valence-electron vacancy',lang)],function(i){
+    ready=i===1;
+    feedback(v.response,ready,(ready?L('Doğru. ','Correct. ',lang):L('Holün tanımına dön. ','Recall the hole definition. ',lang))+
+     L('Hol bir eksik doluluk durumudur; +q yük ve sürüklenme yönü etkin taşıyıcı tanımıdır.','A hole is a missing occupied state; +q and drift direction are effective carrier properties.',lang));
+    next.hidden=!ready;drawTrack();
+   });
+  }
+ }
+ function drawTrack(){
+  var fieldArrow=direction===1?'→':'←',electron=direction===1?'←':'→';
+  v.scene.innerHTML='';
+  var track=el('div','physics-game-drift-track');
+  track.appendChild(el('div','',L('Alan E: ','Field E: ',lang)+fieldArrow));
+  track.appendChild(el('div','physics-game-drift-electron',L('Elektron (−q): ','Electron (−q): ',lang)+(ready?electron:'?')));
+  track.appendChild(el('div','physics-game-drift-hole',L('Hol (+q): ','Hole (+q): ',lang)+(ready?fieldArrow:'?')));
+  v.scene.appendChild(track);
+ }
+ draw();
+}
+function secondFermi(target,lang){
+ var v=frame(target,lang,L('Sıcaklık etkisi karşılaştırması','Temperature broadening challenge',lang),
+  L('Enerjiyi EF’ye göre seç ve sıcaklık 300 K’den 600 K’ye çıktığında doluluk eğilimini tahmin et.','Choose an energy relative to EF and predict the occupancy change from 300 K to 600 K.',lang));
+ var offsets=[-.10,0,.10],selected=2,revealed=false;
+ var choices=el('div','physics-game-options'),predict=el('div','physics-game-options');
+ v.controls.appendChild(choices);v.controls.appendChild(predict);
+ setChoices(choices,['E−EF = −0.10 eV','E = EF','E−EF = +0.10 eV'],function(i){selected=i;revealed=false;draw();});
+ function probability(delta,T){return 1/(1+Math.exp(delta/(8.617333262145e-5*T)));}
+ function draw(){
+  Array.from(choices.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===selected));});
+  v.scene.innerHTML='';
+  var p300=probability(offsets[selected],300),p600=probability(offsets[selected],600);
+  [300,600].forEach(function(t){
+   var p=t===300?p300:p600,row=el('div','physics-game-prob-row');
+   row.appendChild(el('span','',t+' K'));
+   var track=el('span','physics-game-prob-track'),bar=el('span','physics-game-prob-bar');
+   bar.setAttribute('style','width:'+(revealed?(p*100).toFixed(1):0)+'%');
+   track.appendChild(bar);row.appendChild(track);
+   row.appendChild(el('span','',revealed?(100*p).toFixed(1)+'%':'?'));
+   v.scene.appendChild(row);
+  });
+  textRow(v.scene,'physics-game-visual-label',
+   L('Bir durumun doluluk olasılığı: f(E)=1/[1+exp((E−EF)/kBT)].',
+     'Occupancy of an available state: f(E)=1/[1+exp((E−EF)/kBT)].',lang));
+  v.question.textContent=L('600 K’ye çıkınca doluluk olasılığı nasıl değişir?','What happens to occupancy on warming to 600 K?',lang);
+  v.response.innerHTML='';
+  setChoices(predict,[L('Artar','Increases',lang),L('Aynı kalır','Stays the same',lang),L('Azalır','Decreases',lang)],function(i){
+   revealed=true;var expected=selected===0?2:selected===1?1:0,good=i===expected;
+   var before=(100*p300).toFixed(1)+'%',after=(100*p600).toFixed(1)+'%';
+   drawResult(good,L('300 K: '+before+', 600 K: '+after+'. Artan T, geçişi %50 etrafında genişletir; E=EF için f=%50 sabit kalır.',
+    '300 K: '+before+', 600 K: '+after+'. Higher T broadens the transition about 50%; f(EF)=50% stays fixed.',lang));
+  });
+ }
+ function drawResult(good,msg){
+  v.scene.innerHTML='';
+  [300,600].forEach(function(t){
+   var p=probability(offsets[selected],t),row=el('div','physics-game-prob-row');
+   row.appendChild(el('span','',t+' K'));
+   var track=el('span','physics-game-prob-track'),bar=el('span','physics-game-prob-bar');
+   bar.setAttribute('style','width:'+(p*100).toFixed(1)+'%');track.appendChild(bar);row.appendChild(track);
+   row.appendChild(el('span','',(100*p).toFixed(1)+'%'));v.scene.appendChild(row);
+  });
+  feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Sıcaklık eğilimini tekrar incele. ','Recheck thermal broadening. ',lang))+msg);
+ }
+ draw();
+}
+
 var GAMES={
  'crystal':gameCrystal,'bloch-electron':gameBloch,'bands':gameBands,
  'edges':gameEdges,'dos':gameDos,'holes':gameHoles,'fermi':gameFermi
+};
+var SECOND_GAMES={
+ crystal:secondCrystal,'bloch-electron':secondBloch,bands:secondBands,
+ edges:secondEdges,dos:secondDos,holes:secondHoles,fermi:secondFermi
+};
+/* Indices refer to the four measurable objectives per topic, starting at 1. */
+var GAME_COVERAGE={
+ crystal:[[1,2,3],[1,3,4]],
+ 'bloch-electron':[[2,4],[1,3]],
+ bands:[[2,3],[1,3,4]],
+ edges:[[1,3],[1,2,4]],
+ dos:[[2,3],[1,4]],
+ holes:[[2,4],[1,3]],
+ fermi:[[1,2,3],[1,4]]
 };
 function mount(views,lang){
  KEYS.forEach(function(key){
   if(!views[key]||!views[key].anlatim||!views[key].oyun)return;
   addOutcomes(views[key].anlatim,lang,key);
-  GAMES[key](views[key].oyun,lang);
+  var pane=views[key].oyun;
+  var switcher=el('div','physics-game-switch');
+  switcher.setAttribute('role','tablist');
+  switcher.setAttribute('aria-label',L('Oyun seçimi','Game selection',lang));
+  var screens=[el('div','physics-game-instance'),el('div','physics-game-instance')];
+  screens.forEach(function(screen,index){
+   screen.dataset.gameKey=key;screen.dataset.gamePart=String(index+1);
+   screen.setAttribute('id','physics-'+key+'-game-'+(index+1));
+   pane.appendChild(screen);
+  });
+  var buttons=[1,2].map(function(n,i){
+   var b=button(L('Oyun ','Game ',lang)+n,function(){show(i);},'physics-game-switch-button');
+   b.setAttribute('role','tab');
+   b.setAttribute('aria-controls',screens[i].attributes.id);
+   switcher.appendChild(b);return b;
+  });
+  pane.insertBefore(switcher,screens[0]);
+  GAMES[key](screens[0],lang);
+  SECOND_GAMES[key](screens[1],lang);
+  screens.forEach(function(screen,i){
+   screen.firstChild.appendChild(el('p','physics-game-covered',
+    L('Bu oyunun hedeflediği kazanımlar: ','Learning objectives in this game: ',lang)+GAME_COVERAGE[key][i].join(', ')));
+  });
+  function show(active){
+   screens.forEach(function(screen,i){screen.hidden=i!==active;screen.setAttribute('role','tabpanel');});
+   buttons.forEach(function(b,i){b.setAttribute('aria-selected',String(i===active));b.setAttribute('tabindex',i===active?'0':'-1');});
+  }
+  show(0);
  });
 }
-window.PhysicsLearningGames={mount:mount,topicIds:KEYS.slice(),outcomes:OUTCOMES};
+window.PhysicsLearningGames={mount:mount,topicIds:KEYS.slice(),outcomes:OUTCOMES,coverage:GAME_COVERAGE};
 })();
