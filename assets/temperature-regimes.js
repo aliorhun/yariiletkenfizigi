@@ -23,8 +23,8 @@
     return Math.sqrt(NC300*NV300)*scale*Math.exp(-bandgap(T)/(2*kT));
   }
   function solve(ND,NA,T) {
-    var Eg=bandgap(T),kT=KB*T,scale=Math.pow(T/300,1.5);
-    var NC=NC300*scale,NV=NV300*scale,donor=Eg-0.045,acceptor=0.045;
+    var scales=energyScales(T),Eg=scales.gap,kT=KB*T,scale=Math.pow(T/300,1.5);
+    var NC=NC300*scale,NV=NV300*scale,donor=Eg-scales.donor,acceptor=scales.acceptor;
     function at(EF) {
       var n=NC*Math.exp((EF-Eg)/kT),p=NV*Math.exp(-EF/kT);
       var a=2*Math.exp((EF-donor)/kT),b=4*Math.exp((acceptor-EF)/kT);
@@ -38,7 +38,8 @@
       var mid=(lo+hi)/2,s=at(mid);
       if(s.p+s.signed>s.n)lo=mid;else hi=mid;
     }
-    var result=at((lo+hi)/2);
+    var EF=(lo+hi)/2,result=at(EF);
+    result.EF=EF;result.ED=donor;result.EA=acceptor;
     result.ni=intrinsic(T);
     result.net=Math.abs(result.signed);
     result.major=Math.max(result.n,result.p);
@@ -59,6 +60,216 @@
     }
   }
   function notation(n) { return n===0?'0':n.toExponential(2).replace('e+',' × 10^'); }
+  function renderDopantExplanation(view,lang) {
+    var en=lang==='en',rows=en?[
+      ['Total dopants, ionized dopants and mobile carriers are different quantities',
+        '<p><b>N_D</b> counts all donor atoms per cubic centimetre; <b>N_D⁰</b> counts neutral donors with their extra electron still bound; <b>N_D⁺</b> counts donors that have released it. Thus <b>N_D=N_D⁰+N_D⁺</b>. Likewise <b>N_A=N_A⁰+N_A⁻</b>: an acceptor becomes negatively charged when it accepts an electron. These are <b>number concentrations (cm⁻³)</b>, not the energy levels E_D and E_A measured in eV. In an isolated sample with single shallow dopants, each site contributes at most one such carrier.</p>'],
+      ['Follow the electron: neutral and ionized phosphorus or boron',
+        '<p><b>Si:P donor:</b> \\(D^0\\rightleftharpoons D^+ + e_c^-\\). An occupied donor level corresponds to neutral P⁰; after its weakly bound electron moves into a delocalized conduction-band state, a <b>fixed positive P⁺</b> remains. <b>Si:B acceptor:</b> \\(A^0+e_v^-\\rightleftharpoons A^-+h_v^+\\). Accepting a valence electron leaves a <b>mobile hole</b> and fixed <b>negative B⁻</b>. Positive donor ions and negative acceptor ions are not mobile holes or conduction electrons.</p>'],
+      ['Hydrogen-like donor inside silicon: why the fifth electron is weakly bound',
+        '<p>Phosphorus substitutes for an Si atom while retaining four covalent bonds. The remaining electron is not a tiny planet orbiting a literal hydrogen nucleus: it occupies a <b>spread-out effective-mass donor state</b> attracted to the screened P⁺ centre. Silicon has relative dielectric permittivity near 11.7, weakening the Coulomb attraction. The rough hydrogenic estimates are \\(a_B^*=\varepsilon_r(m_e/m^*)a_0\\) and \\(E_B^*\approx13.6\,\mathrm{eV}(m^*/m_e)/\varepsilon_r^2\\). With a simplified \\(m^*=0.26m_e\\), the radius is about 2.4 nm and binding about 0.026 eV; real Si:P has approximately 0.045 eV because anisotropic valleys and central-cell effects go beyond this one-mass approximation. This is a <b>shallow localized state</b>, not a free electron within the forbidden gap.</p>'],
+      ['Energy levels are not concentrations',
+        '<p>In the band-gap diagram \\(E_c-E_D\\simeq0.045\\,\\mathrm{eV}\\) for phosphorus, while \\(E_A-E_v\\simeq0.046\\,\\mathrm{eV}\\) for boron. Here <b>E_D/E_A have eV units</b>; <b>N_D/N_A have cm⁻³ units</b>. The 300 K value \\(k_BT\\approx0.026\\,\\mathrm{eV}\\) is the thermal scale, and \\(E_g\\approx1.12\\,\\mathrm{eV}\\) is the full silicon band gap. A shallow impurity level inside the gap is an allowed localized state, unlike the gap states of ideal undoped silicon.</p>'],
+      ['Why is the formula a Fermi-occupancy problem?',
+        '<p>A donor is <b>ionized when its donor state is empty</b>; an acceptor is <b>ionized when its acceptor state is occupied by an electron</b>. Both probabilities depend on the relative position of the chemical potential \\(E_F\\) and the impurity energy, temperature and statistical degeneracy. In the standard isolated shallow-level convention \\(g_D=2\\) (donor spin options) and \\(g_A=4\\) (acceptor ground-state degeneracy). These factors mean that simply inserting the free-electron Fermi function without counting impurity-state multiplicities gives a different result.</p>'],
+      ['Read the exponent and its sign carefully',
+        '<p>For donors, \\(N_D^+=N_D/[1+g_D e^{(E_F-E_D)/k_BT}]\\). If \\(E_F\\) rises well <b>above</b> \\(E_D\\), the exponent increases, the neutral donor becomes more probable and <b>N_D⁺ decreases</b>. If \\(E_F\\) falls below \\(E_D\\), donors tend to ionize. For acceptors, \\(N_A^-=N_A/[1+g_A e^{(E_A-E_F)/k_BT}]\\): a higher \\(E_F\\) makes electron acceptance more favourable. The exponent signs are opposite. A generic expression with \\(E_D-E_F\\) in the donor <em>ionized</em>-fraction denominator generally swaps the donor’s occupied and empty probabilities.</p>'],
+      ['What happens at exactly E_F=E_D or E_F=E_A?',
+        '<p>At \\(E_F=E_D\\), the donor formula predicts \\(N_D^+/N_D=1/(1+2)=1/3\\); at \\(E_F=E_A\\), the acceptor model with \\(g_A=4\\) gives \\(N_A^-/N_A=1/(1+4)=1/5\\). <b>Not 1/2!</b> Degeneracy affects occupancy. These equal-energy examples illustrate the statistics; \\(E_F\\) itself must be found self-consistently rather than chosen arbitrarily for a real sample.</p>'],
+      ['Charge neutrality, compensation and majority carriers',
+        '<p>In equilibrium, \\(n+N_A^-=p+N_D^+\\), or \\(n-p=N_D^+-N_A^-\\). With no acceptors and negligible holes, \\(n\\approx N_D^+\\), not automatically \\(N_D\\). In fully ionized compensated material with \\(N_D=10^{16}\\) and \\(N_A=2\\times10^{15}\\,\\mathrm{cm^{-3}}\\), the net donor contribution is \\(8\\times10^{15}\\,\\mathrm{cm^{-3}}\\), not \\(1.2\\times10^{16}\\). Thermal electron–hole pairs are still present; \\(np=n_i^2\\) holds in the nondegenerate equilibrium model.</p>'],
+      ['Cold, warm and hot samples—and validity limits',
+        '<p><b>Freeze-out:</b> shallow states may be only partly ionized, so \\(N_D^+\\ll N_D\\) or \\(N_A^-\\ll N_A\\). <b>Extrinsic range:</b> impurities are mostly ionized and their net charge controls majority carriers. <b>Intrinsic range:</b> thermally generated electron–hole pairs become dominant, even though dopants remain. The energy and charge-state equations here assume isolated shallow substitutional impurities, nondegenerate band carriers and thermal equilibrium; deep traps, severe compensation and degenerate heavy doping need richer models.</p>']
+    ]:[
+      ['Toplam katkı, iyonlaşmış katkı ve hareketli taşıyıcı aynı şey değildir',
+        '<p><b>N_D</b> birim hacimdeki <b>tüm donör atomlarının</b> sayısıdır (cm⁻³). <b>N_D⁰</b>, beşinci elektronu hâlâ bağlı olan <b>nötr donörleri</b>; <b>N_D⁺</b>, elektronunu vermiş <b>pozitif donör iyonlarını</b> sayar: <b>N_D=N_D⁰+N_D⁺</b>. Benzer şekilde <b>N_A=N_A⁰+N_A⁻</b>; elektron alan akseptör negatiftir. Bunlar <b>yoğunluk</b> birimleridir. <b>E_D, E_A</b> ise eV birimindeki <b>enerji seviyeleridir</b>; N ile E’yi karıştırmamak gerekir. İzole sığ katkı modelinde bir atom en fazla bir taşıyıcı sağlar.</p>'],
+      ['Elektronu takip edelim: nötr ve iyonlaşmış P/B',
+        '<p><b>Si:P donörü:</b> \\(D^0\\rightleftharpoons D^+ + e_c^-\\). Donör seviyesi elektronla doluyken fosfor nötrdür (P⁰). Zayıf bağlı elektron iletim bandına geçerse kristalde <b>sabit pozitif P⁺ iyonu</b> kalır; elektron hareketlidir. <b>Si:B akseptörü:</b> \\(A^0+e_v^-\\rightleftharpoons A^-+h_v^+\\). Bor, değerlik bandından elektron alınca <b>sabit negatif B⁻</b> olur; değerlik bandında <b>hareketli hol</b> ortaya çıkar. Donör ve akseptör iyonları kafes içinde yer değiştiren hareketli taşıyıcılar değildir.</p>'],
+      ['Silisyum içinde hidrojen benzeri donör: beşinci elektron neden zayıf bağlı?',
+        '<p>Fosfor, Si atomunun yerine geçer ve dört kovalent bağı korur. Kalan elektron, gerçek bir hidrojen çekirdeği çevresinde gezegen gibi dönmez; <b>kristal içine yayılmış etkin-kütle donör durumu</b> oluşturur. Si’nin bağıl dielektrik sabiti yaklaşık 11,7 olduğundan P⁺ merkezinin Coulomb çekimi ekranlanır. Elektronun etkin kütlesi de serbest elektronunkinden farklıdır. Basit hidrojenik yaklaşımda \\(a_B^*=\varepsilon_r(m_e/m^*)a_0\\), \\(E_B^*\approx13{,}6\,\mathrm{eV}(m^*/m_e)/\varepsilon_r^2\\). Örnek \\(m^*=0{,}26m_e\\) alınırsa yarıçap yaklaşık 2,4 nm, bağlanma enerjisi yaklaşık 0,026 eV çıkar; gerçek Si:P için yaklaşık 0,045 eV ölçülür. Fark, Si’nin anizotropik vadileri ve merkez-hücre etkilerinden kaynaklanır. Yani bu elektron <b>bant aralığındaki yerelleşmiş sığ seviyede</b> bulunur; serbest iletim elektronu değildir.</p>'],
+      ['Enerji seviyesi ile yoğunluk birimleri farklıdır',
+        '<p>Bant diyagramında fosfor için \\(E_c-E_D\\simeq0{,}045\\,\\mathrm{eV}\\), bor için \\(E_A-E_v\\simeq0{,}046\\,\\mathrm{eV}\\). <b>E_D/E_A eV biriminde enerjidir</b>; <b>N_D/N_A cm⁻³ biriminde sayıca yoğunluktur</b>. 300 K’de \\(k_BT\\approx0{,}026\\,\\mathrm{eV}\\) ısıl ölçeği, \\(E_g\\approx1{,}12\\,\\mathrm{eV}\\) ise tüm Si bant aralığıdır. Sığ katkı, ideal katkısız bant aralığında bulunmayan yerelleşmiş izinli durum ekler.</p>'],
+      ['Formül neden Fermi doluluğuna dayanır?',
+        '<p>Donör <b>seviyesi boşaldığında pozitif iyonlaşır</b>; akseptör ise <b>seviyeye elektron yerleşince negatif iyonlaşır</b>. Bu iki olayın olasılığı \\(E_F\\) Fermi enerjisine göre katkı seviyesinin konumuna, sıcaklığa ve istatistiksel <b>dejenerasyon katsayısına</b> bağlıdır. İzole sığ katkı için yaygın kabul \\(g_D=2\\) (donör spin seçenekleri) ve \\(g_A=4\\) (akseptör temel durum çokluğu) şeklindedir. Bunlar katsayıdır; ayrı enerji seviyeleri veya iyon sayıları değildir.</p>'],
+      ['Üsteldeki işareti dikkatle okuyalım',
+        '<p><b>Donör:</b> \\(N_D^+=N_D/[1+g_D e^{(E_F-E_D)/k_BT}]\\). \\(E_F\\), \\(E_D\\)’nin <b>çok üstüne</b> çıkarsa üstel terim büyür, elektronun bağlı kalma olasılığı artar ve <b>N_D⁺ azalır</b>. \\(E_F\\) daha aşağıda ise donör iyonlaşmaya yönelir. <b>Akseptör:</b> \\(N_A^-=N_A/[1+g_A e^{(E_A-E_F)/k_BT}]\\). \\(E_F\\) yükseldikçe akseptörün elektron alması kolaylaşır. Üstel ifadelerin yönü <b>ters</b>tir. Donörün <em>iyonlaşmış payı</em> için paydaya doğrudan \\(e^{(E_D-E_F)/k_BT}\\) koymak genellikle nötr/dolu durumunu iyonlaşmış/boş durumla karıştırır.</p>'],
+      ['E_F=E_D veya E_F=E_A ise neden yüzde 50 değil?',
+        '<p>\\(E_F=E_D\\) olduğunda donörde \\(N_D^+/N_D=1/(1+2)=1/3\\) çıkar. \\(E_F=E_A\\) ve \\(g_A=4\\) için akseptörde \\(N_A^-/N_A=1/(1+4)=1/5\\) bulunur. <b>Yüzde 50 değildir!</b> Çünkü donörün/akseptörün nötr ve iyonlaşmış durumlarının istatistiksel çokluğu farklıdır. Bunlar eşit enerji örnekleridir; gerçek numunede \\(E_F\\) dışarıdan keyfî seçilmez, yük nötrlüğünden birlikte bulunur.</p>'],
+      ['Yük nötrlüğü, kompanzasyon ve çoğunluk taşıyıcıları',
+        '<p>Isıl dengede \\(n+N_A^-=p+N_D^+\\) veya \\(n-p=N_D^+-N_A^-\\). Akseptör yok ve hol ihmal edilebilir ise \\(n\\approx N_D^+\\) olur; bu <b>otomatik olarak N_D değildir</b>. Tam iyonlaşmış örnekte \\(N_D=10^{16}\\), \\(N_A=2\\times10^{15}\\,\\mathrm{cm^{-3}}\\) için net donör katkısı \\(8\\times10^{15}\\,\\mathrm{cm^{-3}}\\)’tür; toplamları olan \\(1{,}2\\times10^{16}\\) değildir. Elektron–hol çiftleri yine de mevcuttur ve dejenere olmayan dengede \\(np=n_i^2\\) geçerlidir.</p>'],
+      ['Soğuk, orta ve sıcak örnekler; modelin sınırları',
+        '<p><b>Freeze-out:</b> katkıların bir kısmı nötr kalır, \\(N_D^+\\ll N_D\\) veya \\(N_A^-\\ll N_A\\). <b>Extrinsic:</b> sığ katkıların çoğu iyonlaşır; net iyonlaşmış yük çoğunluk taşıyıcılarını belirler. <b>Intrinsic:</b> ısıl üretilen elektron–hol çiftleri baskın olur ama katkı atomları yok olmaz. Bu bağıntılar izole sığ yer değiştirme katkıları, dejenere olmayan bant taşıyıcıları ve ısıl denge için kullanılır; derin tuzaklar ve çok yüksek katkılama farklı model gerektirir.</p>']
+    ];
+    var wrapper=element('section','ionization-explanation');
+    rows.forEach(function(row){
+      var block=element('section','physics-lesson-intro-section');
+      block.appendChild(element('h3','',row[0]));
+      var body=element('div');body.innerHTML=row[1];block.appendChild(body);wrapper.appendChild(block);
+    });
+    var last=view.children[view.children.length-1];
+    if(last&&last.classList.contains('physics-learning-outcomes'))view.insertBefore(wrapper,last);
+    else view.appendChild(wrapper);
+  }
+  function renderDopantMath(view,lang) {
+    var block=element('section','ionization-math');
+    block.appendChild(element('h3','',txt(lang,'Donör ve akseptör iyonlaşması — adım adım','Donor and acceptor ionization — step by step')));
+    block.appendChild(element('p','',txt(lang,
+      'ND ve NA toplam atom yoğunluğudur; iyonlaşma payı 0 ile 1 arasındadır. ED/EA enerji seviyesi, EF Fermi seviyesi, g istatistiksel çokluk, kB Boltzmann sabitidir.',
+      'ND and NA are total atomic concentrations, while ionized fractions lie between 0 and 1. ED/EA are energy levels, EF is the Fermi level, g a degeneracy factor and kB the Boltzmann constant.')));
+    var math=element('div','physics-topic-formula');
+    math.innerHTML='\\[N_D=N_D^0+N_D^+,\\qquad N_A=N_A^0+N_A^-\\]'+
+      '\\[\\frac{N_D^0}{N_D^+}=g_D\\exp\\!\\left(\\frac{E_F-E_D}{k_BT}\\right),\\quad g_D=2\\]'+
+      '\\[\\boxed{N_D^+=\\frac{N_D}{1+g_D\\exp[(E_F-E_D)/(k_BT)]}}\\]'+
+      '\\[\\frac{N_A^0}{N_A^-}=g_A\\exp\\!\\left(\\frac{E_A-E_F}{k_BT}\\right),\\quad g_A=4\\]'+
+      '\\[\\boxed{N_A^-=\\frac{N_A}{1+g_A\\exp[(E_A-E_F)/(k_BT)]}}\\]'+
+      '\\[n+N_A^-=p+N_D^+,\\quad np=n_i^2\\]';
+    block.appendChild(math);
+    block.appendChild(element('p','',txt(lang,
+      'Önce nötr/iyonlaşmış durumların oranı yazılır, sonra ND=ND0+ND+ veya NA=NA0+NA− yerine konur. Paydadaki sabit 1, aynı katkının iki olası yük durumunu normalleştirmekten gelir; tek başına g çarpanı değil, 1+g×üstel vardır.',
+      'First write the neutral-to-ionized population ratio; then substitute ND=ND0+ND+ or NA=NA0+NA−. The leading 1 in the denominator normalizes the two possible charge states; the denominator is 1+g×exponential, not merely g times an exponential.')));
+    var sample=element('div','physics-topic-formula');
+    sample.innerHTML='\\[E_F=E_D:\\quad N_D^+/N_D=\\tfrac{1}{1+2}=\\tfrac13\\]'+
+      '\\[E_F=E_A:\\quad N_A^-/N_A=\\tfrac{1}{1+4}=\\tfrac15\\]'+
+      '\\[\\left(\\frac{N_D^+}{N_D}\\right)_{E_F\\ll E_D}\\to1,\\quad'+
+      '\\left(\\frac{N_D^+}{N_D}\\right)_{E_F\\gg E_D}\\to0\\]';
+    block.appendChild(sample);
+    block.appendChild(element('p','',txt(lang,
+      'Kullanıcının yazdığı E_l−E_F biçimi, E_l=E_D ise donörün iyonlaşmış payı için işaret açısından ters olur. Bu üstel nötr durum olasılığının eşdeğer yazımında kullanılabilir: ND0/ND=1/[1+(1/gD)exp((ED−EF)/kBT)]. Farklı kaynaklar g katsayısını ters tanımlayabildiğinden yük durumu ve tanım mutlaka kontrol edilmelidir.',
+      'An expression using E_l−E_F, with E_l=E_D, has the opposite exponent sign for the donor ionized fraction. It can appear in the equivalent neutral fraction ND0/ND=1/[1+(1/gD)exp((ED−EF)/kBT)]. Some sources use reciprocal degeneracy conventions: always verify the charge state and definition.')));
+    var neutral=element('div','physics-topic-formula');
+    neutral.innerHTML='\\[\\frac{N_D^0}{N_D}=\\frac{1}{1+g_D^{-1}\\exp[(E_D-E_F)/(k_BT)]}\\]';
+    block.appendChild(neutral);
+    block.appendChild(element('h4','',txt(lang,'Zayıf bağlanmanın hidrojenik yaklaşımı','Hydrogenic estimate for weak binding')));
+    var hydrogen=element('div','physics-topic-formula');
+    hydrogen.innerHTML='\\[a_B^*=\\varepsilon_r\\frac{m_e}{m^*}a_0,\\qquad '+
+      'E_B^*\\approx13.6\\,\\mathrm{eV}\\frac{m^*/m_e}{\\varepsilon_r^2}\\]'+
+      '\\[\\varepsilon_r=11.7,\\quad m^*/m_e=0.26:\\quad '+
+      'a_B^*\\approx2.38\\,\\mathrm{nm},\\quad E_B^*\\approx0.026\\,\\mathrm{eV}\\]';
+    block.appendChild(hydrogen);
+    block.appendChild(element('p','',txt(lang,
+      'Bu tek etkin-kütleli model yalnızca bir ölçek tahminidir: gerçek Si:P iyonlaşma enerjisi yaklaşık 0,045 eV’dir. Modelin 0,026 eV sonucu ile 300 K’deki kBT≈0,026 eV sayısal olarak benzese de biri bağlanma, diğeri ısıl enerji ölçeğidir; aynı fiziksel nicelik değildir. Si vadilerinin anizotropisi ve merkez-hücre düzeltmeleri gerçek farkı açıklar.',
+      'This one-effective-mass model only estimates the scale: actual Si:P ionization is about 0.045 eV. Its 0.026 eV estimate happens to resemble kBT≈0.026 eV at 300 K numerically, but binding energy and thermal energy are different physical quantities. Anisotropic valleys and central-cell corrections account for the real difference.')));
+    view.appendChild(block);
+  }
+  function renderDopantQuestions(view,lang) {
+    var rows=lang==='en'?[
+      ['If N_D=10¹⁶ cm⁻³, must N_D⁺ also be 10¹⁶ cm⁻³?','No. N_D is the total phosphorus donor concentration and N_D⁺ counts only the positively ionized donors.','N_D=N_D⁰+N_D⁺; equality is only a good approximation if essentially all donors are ionized.','Treating all donor atoms as free electrons at every temperature ignores freeze-out.'],
+      ['Is a B⁻ acceptor ion the same particle as a mobile hole?','No. B⁻ is a fixed negative ionic centre; a hole is a positive mobile quasiparticle in the valence band.','Accepting a valence electron creates B⁻ and leaves a hole behind; their signs and mobility differ.','The superscript minus on B labels its fixed ionic charge, not a negative free carrier.'],
+      ['In N_D⁺=N_D/[1+2 exp((E_F−E_D)/kBT)], what if E_F rises above E_D?','N_D⁺/N_D decreases: more donors retain their electrons in the neutral D⁰ state.','A higher E_F favours occupied donor states; the exponent grows and the ionized fraction falls.','Reversing the exponent to E_D−E_F while keeping the N_D⁺ label predicts the opposite trend.'],
+      ['With E_F=E_D and g_D=2, does half the donor population ionize?','No. The formula gives N_D⁺/N_D=1/(1+2)=1/3.','The twofold multiplicity of the neutral donor configuration makes equal-energy populations differ.','Naively applying 1/2 electron occupancy ignores the donor statistical-degeneracy factor.'],
+      ['Why is the fifth electron of phosphorus weakly bound in silicon?','It feels a screened Coulomb attraction and has an effective mass in the crystal.','The effective-mass hydrogenic model predicts a larger spatial extent and a smaller binding energy than free atomic hydrogen. Real Si:P is about 45 meV, not 13.6 eV.','Calling it a literal free hydrogen atom or assuming the 1.12 eV Si band gap equals its donor binding energy is incorrect.']
+    ]:[
+      ['N_D=10¹⁶ cm⁻³ ise N_D⁺ mutlaka 10¹⁶ cm⁻³ müdür?','Hayır. N_D toplam fosfor donör yoğunluğu, N_D⁺ yalnızca pozitif iyonlaşmış donör yoğunluğudur.','N_D=N_D⁰+N_D⁺. İkisi ancak donörlerin neredeyse tamamı iyonlaşmışsa yaklaşık eşittir.','Tüm donörleri her sıcaklıkta serbest elektron saymak freeze-out olayını yok sayar.'],
+      ['B⁻ akseptör iyonu hareketli hol ile aynı parçacık mıdır?','Hayır. B⁻ sabit negatif iyon merkezidir; hol ise değerlik bandındaki hareketli pozitif kuaziparçacıktır.','Bor elektron alınca B⁻ olur; geride değerlik bandında hol kalır. Yükleri ve hareketleri farklıdır.','B üzerindeki eksi işaretini hareketli negatif taşıyıcı sanmak yük nötrlüğünü bozar.'],
+      ['N_D⁺=N_D/[1+2 exp((E_F−E_D)/kBT)] denkleminde E_F, E_D üstüne çıkarsa ne olur?','N_D⁺/N_D azalır; daha çok donör elektronu bağlı tutarak D⁰ kalır.','E_F yükseldiğinde donör seviyesinin dolu olması kolaylaşır; üstel büyür ve iyonlaşma payı düşer.','N_D⁺ ifadesinde üstelin yönünü E_D−E_F şeklinde değiştirmek ters fiziksel sonuç üretir.'],
+      ['E_F=E_D ve g_D=2 ise donörlerin yarısı mı iyonlaşır?','Hayır. İyonlaşma payı 1/(1+2)=1/3 olur.','Nötr donörün iki katlı istatistiksel durumu nedeniyle eşit enerjide bile iki yük durumu yüzde 50–50 değildir.','Sıradan tek durumlu Fermi işlevini doğrudan uygulamak dejenerasyon katsayısını unutturur.'],
+      ['Fosforun beşinci elektronu Si içinde neden zayıf bağlıdır?','Coulomb çekimi Si tarafından ekranlanır ve elektron kristalde etkin kütleye sahiptir.','Etkin-kütleli hidrojenik model, elektron durumunun geniş bir alana yayılmasını ve bağlanma enerjisinin serbest hidrojen atomundan küçük olmasını açıklar. Gerçek Si:P yaklaşık 45 meV’dir.','Fosforu gerçek bir hidrojen atomu gibi çizmek veya 1,12 eV Si bant aralığını beşinci elektronun bağlanma enerjisi sanmak yanlıştır.']
+    ];
+    rows.forEach(function(row){
+      var qa=element('div','qa physics-topic-question');
+      qa.appendChild(element('p','q',row[0]));
+      var details=element('details');details.appendChild(element('summary','',txt(lang,'Çözümü göster','Show solution')));
+      details.appendChild(element('p','',row[1]));
+      var reasons=element('div','physics-qa-reason');
+      var yes=element('p','physics-qa-correct');yes.appendChild(element('strong','',txt(lang,'Doğru çünkü: ','Correct because: ')));
+      yes.appendChild(element('span','',row[2]));reasons.appendChild(yes);
+      var no=element('p','physics-qa-misconception');no.appendChild(element('strong','',txt(lang,'Sık yanılgı: ','Common mistake: ')));
+      no.appendChild(element('span','',row[3]));reasons.appendChild(no);
+      var back=element('button','physics-qa-reference',txt(lang,'İlgili konuyu Anlatımda incele →','Review the Explanation →'));
+      back.type='button';back.addEventListener('click',function(){if(typeof window.showSub==='function')window.showSub('anlatim');});
+      reasons.appendChild(back);details.appendChild(reasons);qa.appendChild(details);view.appendChild(qa);
+    });
+  }
+  function renderDopantIonizationLab(view,lang) {
+    var root=element('section','ionization-lab');
+    root.appendChild(element('h3','',txt(lang,'Nötr ve iyonlaşmış katkı — canlı hesaplama','Neutral and ionized dopants — live calculation')));
+    root.appendChild(element('p','ionization-lab-lead',txt(lang,
+      'T, katkı yoğunluğu ve P/B türünü değiştirin. Her örneğin Fermi seviyesi yük nötrlüğünden hesaplanır; iyonlaşma oranı keyfî seçilmez.',
+      'Change temperature, dopant concentration and P/B type. The Fermi level is solved from charge neutrality rather than chosen arbitrarily.')));
+    var controls=element('div','ionization-lab-controls');
+    var sampleField=element('label','regime-field'),sampleSelect=element('select');
+    sampleField.appendChild(element('span','',txt(lang,'Katkılama senaryosu','Doping scenario')));
+    [['donor','Si:P — donör'],['acceptor','Si:B — '+txt(lang,'akseptör','acceptor')],
+      ['compensated',txt(lang,'Si:P + Si:B — %80 kompanzasyon','Si:P + Si:B — 80% compensation')]].forEach(function(opt){
+      var option=element('option','',opt[1]);option.value=opt[0];sampleSelect.appendChild(option);
+    });
+    sampleSelect.value='donor';sampleField.appendChild(sampleSelect);controls.appendChild(sampleField);
+    function control(label,min,max,step,value){
+      var wrap=element('label','regime-field'),input=element('input'),out=element('output');
+      input.type='range';input.min=min;input.max=max;input.step=step;input.value=value;
+      wrap.appendChild(element('span','',label));wrap.appendChild(input);wrap.appendChild(out);controls.appendChild(wrap);
+      return {input:input,out:out};
+    }
+    var concentration=control(txt(lang,'log₁₀ toplam katkı (cm⁻³)','log₁₀ total dopants (cm⁻³)'),12,17,1,16);
+    var temperature=control(txt(lang,'Sıcaklık T','Temperature T'),50,600,10,300);
+    root.appendChild(controls);
+    var bars=element('div','ionization-state-grid');
+    function stateCard(heading,color) {
+      var card=element('div','ionization-state-card');
+      card.appendChild(element('h4','',heading));
+      var metric=element('strong','ionization-state-value'),track=element('div','ionization-track');
+      track.setAttribute('role','progressbar');track.setAttribute('aria-valuemin','0');track.setAttribute('aria-valuemax','100');
+      var fill=element('div','ionization-fill');fill.setAttribute('style','background:'+color);track.appendChild(fill);
+      var detail=element('p','ionization-state-detail');card.appendChild(metric);card.appendChild(track);card.appendChild(detail);
+      bars.appendChild(card);return {metric:metric,track:track,fill:fill,detail:detail};
+    }
+    var donor=stateCard('N_D⁺ / N_D','#16835c'),acceptor=stateCard('N_A⁻ / N_A','#ce6b28');
+    root.appendChild(bars);
+    var summary=element('div','ionization-lab-summary');summary.setAttribute('aria-live','polite');root.appendChild(summary);
+    var hydrogenModel=element('section','ionization-hydrogen-model');
+    hydrogenModel.appendChild(element('h4','',txt(lang,
+      'Fosfor donörünün yayılmış elektron bulutu','Delocalized electron cloud around phosphorus')));
+    var cloudRow=element('div','ionization-hydrogen-row');
+    var cloud=element('div','ionization-donor-cloud');
+    cloud.setAttribute('role','img');
+    cloud.setAttribute('aria-label',txt(lang,
+      'Ortada sabit P artı iyonu ve çevresine yayılan elektron olasılık bulutu',
+      'Fixed central P plus ion surrounded by a diffuse bound-electron probability cloud'));
+    cloud.appendChild(element('span','ionization-donor-core','P⁺'));
+    cloudRow.appendChild(cloud);
+    var cloudNote=element('div','ionization-hydrogen-facts');
+    cloudNote.appendChild(element('strong','',txt(lang,
+      'Bulut bir klasik elektron yörüngesi değildir.','The cloud is not a classical electron orbit.')));
+    cloudNote.appendChild(element('p','',
+      'εᵣ ≈ 11.7  ·  a* ≈ 2.4 nm  ·  Si:P Eᵢₒₙ ≈ 0.045 eV'));
+    cloudNote.appendChild(element('p','',txt(lang,
+      'Si kristalinin elektriksel ekranlaması çekimi zayıflatır. Bağlı elektron dalga fonksiyonu birkaç örgü aralığına yayılır; ısıl uyarılınca iletim bandına geçebilir.',
+      'Dielectric screening weakens the attraction. The bound-electron wavefunction extends across many lattice spacings and can be excited into the conduction band.')));
+    cloudRow.appendChild(cloudNote);hydrogenModel.appendChild(cloudRow);
+    root.appendChild(hydrogenModel);
+    root.appendChild(element('p','ionization-lab-caution',txt(lang,
+      'P⁺ / B⁻ kafeste sabittir; n ve p hareketli taşıyıcılardır. Tek enerjili sığ katkı, ısıl denge ve dejenere olmayan Boltzmann bant modeli kullanılır. Aşırı katkı ve derin tuzaklar kapsam dışındadır.',
+      'P⁺ / B⁻ are fixed lattice ions; n and p are mobile carriers. This assumes single shallow levels, thermal equilibrium and nondegenerate Boltzmann band statistics. Heavy doping and deep traps are excluded.')));
+    view.appendChild(root);
+    function show(card,total,ionized,label){
+      if(total===0){
+        card.metric.textContent=txt(lang,'Bu örnekte yok','Absent in this sample');
+        card.track.setAttribute('aria-valuenow','0');card.fill.setAttribute('style','width:0%');
+        card.detail.textContent=label+' = 0';return;
+      }
+      var pct=100*ionized/total;
+      card.metric.textContent=pct.toFixed(1)+'% '+txt(lang,'iyonlaşmış','ionized');
+      card.track.setAttribute('aria-valuenow',pct.toFixed(2));
+      card.fill.setAttribute('style','width:'+Math.min(100,Math.max(0,pct))+'%;background:'+(card===donor?'#16835c':'#ce6b28'));
+      card.detail.textContent=label+' = '+notation(total)+' cm⁻³ · '+txt(lang,'iyon','ion')+' = '+
+        notation(ionized)+' · '+txt(lang,'nötr','neutral')+' = '+notation(Math.max(0,total-ionized));
+    }
+    function render(){
+      var sample=sampleSelect.value,T=Number(temperature.input.value),total=Math.pow(10,Number(concentration.input.value));
+      var ND=sample==='acceptor'?0:total,NA=sample==='donor'?0:sample==='compensated'?.8*total:total;
+      var s=solve(ND,NA,T);
+      concentration.out.textContent='10^'+concentration.input.value+' cm⁻³';
+      temperature.out.textContent=T+' K';
+      show(donor,ND,s.NDp,'N_D');
+      show(acceptor,NA,s.NAm,'N_A');
+      summary.textContent='T = '+T+' K · E_F = '+s.EF.toFixed(3)+' eV ('+txt(lang,'E_v=0 referansı','E_v=0 reference')+') · '+
+        'E_D = '+s.ED.toFixed(3)+' eV · E_A = '+s.EA.toFixed(3)+' eV · '+
+        'n = '+notation(s.n)+' · p = '+notation(s.p)+' cm⁻³ · '+
+        txt(lang,'Yük kontrolü: n+N_A⁻ = p+N_D⁺','Charge balance: n+N_A⁻ = p+N_D⁺');
+    }
+    sampleSelect.addEventListener('change',render);concentration.input.addEventListener('input',render);
+    temperature.input.addEventListener('input',render);render();
+  }
   function renderExplanation(view,lang) {
     var en=lang==='en',items=en?[
       ['First separate dopant type from temperature regime','<p><b>Donor/acceptor</b> identifies the impurity: phosphorus has five valence electrons and donates a weakly bound electron; boron has three and accepts an electron, leaving a mobile hole. <b>Freeze-out, extrinsic and intrinsic</b> describe which mechanism controls the free carriers at a given temperature. They are not three dopant species.</p>'],
@@ -445,6 +656,12 @@
     view.appendChild(tabs);view.appendChild(root);
   }
   function mount(views,lang) {
+    if(views.doping){
+      renderDopantExplanation(views.doping.anlatim,lang);
+      renderDopantMath(views.doping.matematik,lang);
+      renderDopantIonizationLab(views.doping.gorsel,lang);
+      renderDopantQuestions(views.doping.soru,lang);
+    }
     if(!views.regimes)return;
     renderExplanation(views.regimes.anlatim,lang);
     renderOutcomes(views.regimes.anlatim,lang);

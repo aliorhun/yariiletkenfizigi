@@ -54,8 +54,11 @@ var OUTCOMES={
  doping:[
   ['Has silisyumda dengede n=p=ni olduğunu, n/p tipinde çoğunluk taşıyıcısını ayırt eder.','Identify n=p=ni in intrinsic Si and the majority carrier in n/p-type material.'],
   ['P donör, B akseptör katkısının iyonlaşmış sabit yükünü ve elektriksel nötrlüğü açıklar.','Describe ionized P donors, B acceptors, and electrical neutrality.'],
+  ['Toplam katkı N_D/N_A ile nötr N_D⁰/N_A⁰ ve iyonlaşmış N_D⁺/N_A⁻ yoğunluklarını ayırır.','Distinguish total N_D/N_A, neutral N_D⁰/N_A⁰ and ionized N_D⁺/N_A⁻ dopant concentrations.'],
+  ['N_D⁺ ve N_A⁻ formüllerindeki Fermi seviyesi, üstel işareti ve dejenerasyon katsayılarını açıklar.','Interpret the Fermi level, exponent signs and degeneracy factors in N_D⁺ and N_A⁻ formulas.'],
   ['Tam iyonlaşma varsayımında çoğunluk ve azınlık yoğunluklarını np=ni² ile ilişkilendirir.','Relate majority/minority concentrations using np=ni² under complete ionization.'],
-  ['Donma, katkı baskın ve öz taşıyıcı baskın sıcaklık rejimlerini tanır; n≈ND sınırını bilir.','Recognize freeze-out, extrinsic, and intrinsic regimes and limits of n≈ND.']
+  ['Donma, katkı baskın ve öz taşıyıcı baskın sıcaklık rejimlerini tanır; n≈ND sınırını bilir.','Recognize freeze-out, extrinsic, and intrinsic regimes and limits of n≈ND.'],
+  ['Si:P donörünün zayıf bağlanmasını dielektrik ekranlama, etkin kütle ve hidrojenik model üzerinden açıklar.','Explain weak binding of an Si:P donor through dielectric screening, effective mass and the hydrogenic model.']
  ],
  transport:[
   ['Elektron ve hol sürüklenmesini E alanına göre ayırır; elektron hızını konvansiyonel akımdan ayırır.','Predict electron/hole drift relative to E and distinguish electron velocity from conventional current.'],
@@ -604,13 +607,23 @@ var GAME_GUIDANCE={
    [['Has Si için n=p=ni; donör elektronları, akseptör ise holleri çoğunluk taşıyıcı yapabilir.','Katkı türüyle hareketli taşıyıcının yükünü karıştırmak n/p tipini ters yorumlatır.','Katkılama ile n ve p tipi nasıl oluşur?'],
     ['Intrinsic Si has n=p=ni; donors favour electrons and acceptors favour holes.','Confusing dopant type with mobile-carrier charge reverses n/p-type behaviour.','How do n-type and p-type materials arise?']],
    [['İyonlaşmış donör sabit +, iyonlaşmış akseptör sabit − iyon bırakır; hareketli yükler bunları dengeler.','n tipi numunenin toplamda eksi yüklü olduğunu sanmak yük nötrlüğünü atlar.','Katkılama ile n ve p tipi nasıl oluşur?'],
-    ['An ionized donor is a fixed positive ion; an ionized acceptor is fixed negative; mobile carriers balance them.','N-type does not mean the whole sample is negatively charged.','How do n-type and p-type materials arise?']]
+    ['An ionized donor is a fixed positive ion; an ionized acceptor is fixed negative; mobile carriers balance them.','N-type does not mean the whole sample is negatively charged.','How do n-type and p-type materials arise?']],
+   [['İyonlaşmış yoğunluk toplam katkı yoğunluğu çarpı iyonlaşma oranıdır; kalan katkılar nötrdür.','Katkı atomlarının hepsini iyonlaşmış saymak düşük sıcaklıktaki eksik iyonlaşmayı gözden kaçırır.','Toplam katkı, iyonlaşmış katkı ve hareketli taşıyıcı aynı şey değildir'],
+    ['Ionized concentration is total dopant concentration times its ionized fraction; the remaining dopants are neutral.','Counting all dopants as ionized ignores incomplete ionization at low temperature.','Total dopants, ionized dopants and mobile carriers are different quantities']],
+   [['P donörü elektronunu bırakınca D⁺; B akseptörü değerlik elektronu alınca A⁻ olur.','Donör ile akseptörün atom yüklerini veya hareketli taşıyıcıların işaretini eşitlemek yanlıştır.','Elektronu takip edelim: nötr ve iyonlaşmış P/B'],
+    ['A P donor becomes D⁺ after releasing an electron; a B acceptor becomes A⁻ after accepting a valence electron.','Confusing donor/acceptor charge states also confuses their mobile carriers.','Follow the electron: neutral and ionized phosphorus or boron']],
+   [['Si’nin büyük dielektrik sabiti çekimi ekranlar; etkin kütle ile hidrojenik model sığ P donör düzeyini açıklar.','1,12 eV bant aralığını 0,045 eV donör bağlanma enerjisiyle veya kristalde yayılmış elektron bulutunu klasik yörüngeyle karıştırmak yanlıştır.','Silisyum içinde hidrojen benzeri donör: beşinci elektron neden zayıf bağlı?'],
+    ['Silicon dielectric screening and effective mass give a shallow phosphorus donor level in the hydrogenic picture.','Confusing the 1.12 eV band gap with 0.045 eV donor binding or the diffuse cloud with an electron orbit is incorrect.','Hydrogen-like donor inside silicon: why the fifth electron is weakly bound']]
   ],
   [
    [['Tam iyonlaşma ve az kompanzasyonda çoğunluk yaklaşık 10¹⁵ cm⁻³ ise ni=10¹⁰ için azınlık 10⁵ cm⁻³ olur.','Azınlığı ni veya katkı yoğunluğuna eşitlemek np=ni² bağıntısını ihlal eder.','Neden katkı sayısı her zaman taşıyıcı sayısı değildir?'],
     ['With full ionization and weak compensation, majority 10¹⁵ cm⁻³ and ni=10¹⁰ imply minority 10⁵ cm⁻³.','Setting minority density equal to ni or dopants violates np=ni².','Why aren\'t all dopants always free carriers?']],
    [['Düşük T donma, orta T katkı baskın, yüksek T ise termal öz taşıyıcılar baskın olabilir.','n≈ND her sıcaklıkta geçerli değildir; iyonlaşma ve öz üretim sıcaklıkla değişir.','Neden katkı sayısı her zaman taşıyıcı sayısı değildir?'],
-    ['Low T may show freeze-out, moderate T extrinsic dominance, and high T intrinsic dominance.','n≈ND is not universal across temperatures because ionization and intrinsic generation change.','Why aren\'t all dopants always free carriers?']]
+    ['Low T may show freeze-out, moderate T extrinsic dominance, and high T intrinsic dominance.','n≈ND is not universal across temperatures because ionization and intrinsic generation change.','Why aren\'t all dopants always free carriers?']],
+   [['Donör için N_D⁺/N_D=1/[1+2exp((E_F−E_D)/kBT)]; E_F yükseldikçe dolu nötr durumun payı büyür.','E_F−E_D üsteli yerine E_D−E_F koymak N_D⁺ ile N_D⁰ olasılıklarını karıştırır.','Üsteldeki işareti dikkatle okuyalım'],
+    ['For donors N_D⁺/N_D=1/[1+2exp((E_F−E_D)/kBT)]; raising E_F favours occupied neutral donors.','Reversing E_F−E_D confuses the ionized D⁺ fraction with the neutral D⁰ fraction.','Read the exponent and its sign carefully']],
+   [['Donörde g_D=2 ve akseptörde g_A=4 katsayılarıyla üsteller zıt yöndedir; bunlar yük durumlarının istatistiksel çokluklarını sayar.','Fermi seviyesinde katkı iyonlaşma payını her zaman yüzde 50 almak veya g katsayısını yok saymak yanlıştır.','E_F=E_D veya E_F=E_A ise neden yüzde 50 değil?'],
+    ['Donor g_D=2 and acceptor g_A=4 give oppositely signed exponents; the factors count charge-state multiplicities.','Assuming 50% ionization at every matching energy or dropping degeneracy factors is incorrect.','What happens at exactly E_F=E_D or E_F=E_A?']]
   ]
  ],
  transport:[
@@ -1140,7 +1153,7 @@ function dopingGame(target,lang){
   'Ortadaki atomun katkı türünü seç.','Select the dopant at the centre.');
  var answers=choiceGroup(v.controls,lang,2,'Taşıyıcı ve iyon yorumu','Carrier and ion interpretation',
   'Hareketli yükleri sabit iyonlardan ayır.','Separate mobile carriers from fixed ions.');
- var next=button(L('Sonraki inceleme','Next investigation',lang),function(){round=(round+1)%2;draw();},'sim-btn');v.root.appendChild(next);
+ var next=button(L('Sonraki inceleme','Next investigation',lang),function(){round=(round+1)%5;draw();},'sim-btn');v.root.appendChild(next);
  function visual(){
   v.scene.innerHTML='';
   var grid=el('div','physics-game-dopant-lattice');
@@ -1156,6 +1169,15 @@ function dopingGame(target,lang){
            selected===1?L('P donör · elektron çoğunluk','P donor · electrons majority',lang):
            L('B akseptör · hol çoğunluk','B acceptor · holes majority',lang);
   textRow(v.scene,'physics-game-visual-label',revealed?pair:L('Taşıyıcı türünü tahmin et; sonra sonucu gör.','Predict the carrier type, then reveal it.',lang));
+  if(round===4){
+   textRow(v.scene,'physics-game-metric-headline',selected===0?
+    L('Katkısız Si: sığ P/B seviyesi yok','Undoped Si: no shallow P/B state',lang):
+    selected===1?'Si:P · εᵣ≈11.7 · Eᵢₒₙ≈0.045 eV':
+    'Si:B · εᵣ≈11.7 · Eᵢₒₙ≈0.046 eV');
+   textRow(v.scene,'physics-game-visual-label',L(
+    'Bant aralığı ≈1,12 eV; sığ katkı iyonlaşması yalnızca ≈0,045 eV. Enerji ölçeklerini ayır.',
+    'Band gap ≈1.12 eV; shallow dopant ionization ≈0.045 eV. Distinguish these scales.',lang));
+  }
   textRow(v.scene,'physics-game-footnote',L('Katkı iyonunun işareti, onun saldığı/aldığı hareketli taşıyıcının işaretinden farklıdır.','The fixed dopant-ion sign differs from the mobile carrier it donates or accepts.',lang));
  }
  function draw(){
@@ -1174,7 +1196,7 @@ function dopingGame(target,lang){
      L('Bor akseptörü değerlikte eksik elektron durumu yaratabilir; p tipi holler çoğunluktadır.','Boron acceptors create valence-electron vacancies, giving p-type hole majority.',lang));
     next.hidden=!good;return good;
    });
-  }else{
+  }else if(round===1){
    v.question.textContent=L('Uygun şekilde iyonlaştığında ortadaki katkı atomunun sabit iyon yükü nedir?','After ionization, what fixed ionic charge remains on the central dopant?',lang);
    setChoices(answers,[
     [L('Sabit iyon yok','No dopant ion',lang),L('Has silisyumda katkı bulunmaz','No intentional dopant in intrinsic silicon',lang)],
@@ -1185,6 +1207,59 @@ function dopingGame(target,lang){
      L('Has örnekte katkı atomu ve buna bağlı sabit iyon yoktur.','The intrinsic example contains no dopant or associated fixed dopant ion.',lang):
      selected===1?L('Donör elektron verince P⁺ sabit iyonu kalır; hareketli elektron yüküyle nötrlük sağlanır.','After donating an electron, P⁺ remains fixed and charge neutrality is preserved.',lang):
      L('Akseptör elektron alınca B⁻ sabit iyonu oluşur; hareketli hol ile yük dengelenir.','After accepting an electron, fixed B⁻ is balanced by mobile holes.',lang));
+    next.hidden=!good;return good;
+   });
+  }else if(round===2){
+   v.question.textContent=selected===0?
+    L('Has silisyumda N_D=N_A=0. İyonlaşmış katkı yoğunluğu nedir?','In intrinsic silicon N_D=N_A=0. What is the ionized dopant concentration?',lang):
+    L('10¹⁶ cm⁻³ katkının %40’ının iyonlaştığını varsayalım. N_D⁺ veya N_A⁻ kaçtır?',
+     'Assume 40% of 10¹⁶ cm⁻³ dopants ionize. What is N_D⁺ or N_A⁻?',lang);
+   setChoices(answers,[
+    ['0',L('Katkısız örnekte iyon merkezi yok','No dopant ions in intrinsic sample',lang)],
+    ['4 × 10¹⁵ cm⁻³',L('Toplamın %40’ı N_D⁺ veya N_A⁻','40% of total N_D⁺ or N_A⁻',lang)],
+    ['10¹⁶ cm⁻³',L('Toplam yoğunluk N_D veya N_A','Total N_D or N_A concentration',lang)]
+   ],function(i){var good=i===(selected===0?0:1);revealed=true;visual();
+    feedback(v.response,good,selected===0?
+     L('Has örnekte N_D=N_A=0 ve iyonlaşmış katkı bulunmaz.','With no dopants, N_D=N_A=0 and no dopant ions exist.',lang):
+     L('İyonlaşmış pay = 0,40 × 10¹⁶ = 4 × 10¹⁵ cm⁻³. Kalan 6 × 10¹⁵ cm⁻³ atom nötrdür; N_D ile N_D⁺ veya N_A ile N_A⁻ birbirine eşit olmak zorunda değildir.',
+      'Ionized = 0.40 × 10¹⁶ = 4 × 10¹⁵ cm⁻³. The remaining 6 × 10¹⁵ cm⁻³ centres are neutral; N_D need not equal N_D⁺, or N_A equal N_A⁻.',lang));
+    next.hidden=!good;return good;
+   });
+  }else if(round===3){
+   v.question.textContent=L('Ortadaki atomun nötr ve iyonlaşmış yük durumları hangi tepkimeyle ilişkilidir?',
+    'Which reaction correctly describes the central atom’s neutral and ionized charge states?',lang);
+   setChoices(answers,[
+    ['Si',L('Has Si: donör/akseptör katkısı yok','Intrinsic Si: no donor or acceptor',lang)],
+    ['D⁰ ⇌ D⁺ + e⁻',L('Si:P elektronunu iletim bandına bırakır','Si:P releases a conduction electron',lang)],
+    ['A⁰ + e⁻ ⇌ A⁻ + h⁺',L('Si:B değerlik elektronu kabul eder, hol bırakır','Si:B takes a valence electron and leaves a hole',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,selected===0?
+     L('Katkı yoksa N_D ve N_A sıfırdır; kristalde yalnızca ısıl elektron–hol çiftleri bulunabilir.','Without dopants N_D and N_A are zero; thermal electron–hole pairs may still exist.',lang):
+     selected===1?
+     L('P⁰ seviyesi elektronla doludur. Elektronunu iletime bırakınca sabit P⁺ oluşur ve N_D⁺ sayısı artar.','P⁰ has a bound electron; release to conduction leaves fixed P⁺ and raises N_D⁺.',lang):
+     L('B⁰ değerlik elektronu kabul edince B⁻ olarak iyonlaşır ve hareketli hol bırakır. N_A⁻ sayısı artar.','When B⁰ accepts a valence electron it becomes B⁻ and leaves a mobile hole; N_A⁻ rises.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L(
+    'Bu Si örneğinde sığ donör/akseptör seviyesinin varlığını ve küçük iyonlaşma enerjisini hangi açıklama doğru yorumlar?',
+    'Which explanation correctly describes shallow impurity levels and their small ionization energy in this Si sample?',lang);
+   setChoices(answers,[
+    [L('Katkısız Si’de sığ donör/akseptör seviyesi bulunmaz','No shallow dopant state in undoped Si',lang),
+      L('N_D=N_A=0 olan has numune','Intrinsic specimen with N_D=N_A=0',lang)],
+    [L('Si ekranlaması ve etkin kütle katkı bağını zayıflatır','Si screening and effective mass weaken dopant binding',lang),
+      L('P için Eᵢₒₙ≈0,045 eV; B için benzer sığ seviye','P has Eᵢₒₙ≈0.045 eV; B is also shallow',lang)],
+    [L('İyonlaşma için mutlaka tüm 1,12 eV bant aralığı gerekir','Ionization always needs the full 1.12 eV gap',lang),
+      L('Sığ katkı ile banttan banda uyarımı karıştırır','Confuses shallow dopants with band-to-band excitation',lang)]
+   ],function(i){var good=i===(selected===0?0:1);revealed=true;visual();
+    feedback(v.response,good,selected===0?
+     L('Has Si’de kasıtlı P/B katkısı olmadığından E_D/E_A sığ katkı seviyeleri yoktur. Isıl elektron–hol üretimi yine olabilir.',
+       'Without P/B dopants intrinsic Si has no associated shallow E_D/E_A levels, although thermal pairs still exist.',lang):
+     selected===1?
+     L('P’nin bağlı elektronu Si tarafından ekranlanır ve kristalde etkin kütle taşır. Sığ bağlanma yaklaşık 0,045 eV’dir; Si bant aralığı olan 1,12 eV değildir.',
+       'The P electron sees dielectric screening and an effective mass. Shallow binding is around 0.045 eV, not the full 1.12 eV band gap.',lang):
+     L('B akseptörü de sığ bir seviye oluşturur. Si ekranlaması ve hol bant yapısı bağlanma ölçeğini belirler; hol, B⁻ iyon merkezinden ayrı hareketli taşıyıcıdır.',
+       'B is also a shallow acceptor. Screening and the valence-hole band structure set its binding scale; the hole is mobile while B⁻ is fixed.',lang));
     next.hidden=!good;return good;
    });
   }
@@ -1199,39 +1274,57 @@ function dopingGame(target,lang){
 }
 function dopingSecondGame(target,lang){
  var v=frame(target,lang,L('Azınlık taşıyıcısı ve sıcaklık rejimleri','Minority carriers and temperature regimes',lang),
-  L('Tam iyonlaşma varsayımında bir azınlık yoğunluğu hesapla; ardından donma, katkı ve öz taşıyıcı rejimlerini ayırt et.','Calculate minority carriers under full ionization, then distinguish freeze-out, extrinsic and intrinsic regimes.',lang));
+  L('Azınlık yoğunluğu, sıcaklık rejimleri, iyonlaşma payı ve N_D⁺/N_A⁻ denklemlerini adım adım çalış.','Work through minority concentration, temperature regimes, ionization fractions and the N_D⁺/N_A⁻ equations.',lang));
  var round=0,selected=0,revealed=false;
  var options=choiceGroup(v.controls,lang,1,'Deney koşulu','Experiment conditions',
-  'İlk soruda n/p tipi, ikinci soruda nitel sıcaklık rejimi.','Choose n/p type first; then choose a qualitative temperature range.');
+  'Sıcaklık rejimi, Fermi konumu veya katkı türünü seç.','Choose a temperature regime, Fermi position or dopant type.');
  var answers=choiceGroup(v.controls,lang,2,'Sonucu tahmin et','Predict the result',
   'Seçilen koşula göre fiziksel sonucu belirle.','Choose the physical consequence of the selected conditions.');
- var next=button(L('Sonraki deney','Next experiment',lang),function(){round=(round+1)%2;selected=0;draw();},'sim-btn');v.root.appendChild(next);
+ var next=button(L('Sonraki deney','Next experiment',lang),function(){round=(round+1)%4;selected=0;draw();},'sim-btn');v.root.appendChild(next);
  function setParameterCards(){
-  setChoices(options,round===0?[
+  var cases=round===0?[
     [L('n tipi · donör','N-type · donor',lang),L('n ≈ ND = 10¹⁵ cm⁻³','n ≈ ND = 10¹⁵ cm⁻³',lang)],
     [L('p tipi · akseptör','P-type · acceptor',lang),L('p ≈ NA = 10¹⁵ cm⁻³','p ≈ NA = 10¹⁵ cm⁻³',lang)]
-   ]:[
+   ]:round===1?[
     [L('Çok düşük T','Very low T',lang),L('Eksik iyonlaşma olası','Incomplete ionization possible',lang)],
     [L('Orta T','Moderate T',lang),L('Katkı baskın olabilir','Dopant dominated',lang)],
     [L('Çok yüksek T','Very high T',lang),L('Termal çiftler önem kazanır','Thermal pairs grow important',lang)]
-   ],function(i){selected=i;draw();});
+   ]:round===2?[
+    ['E_F = E_D',L('Enerjiler eşit · g_D=2','Equal energies · g_D=2',lang)],
+    ['E_F = E_D + 3kBT',L('Fermi donörün üzerinde','Fermi above donor level',lang)],
+    ['E_F = E_D − 3kBT',L('Fermi donörün altında','Fermi below donor level',lang)]
+   ]:[
+    ['N_D⁺',L('Donörün iyonlaşmış payı','Ionized donor population',lang)],
+    ['N_A⁻',L('Akseptörün iyonlaşmış payı','Ionized acceptor population',lang)]
+   ];
+  setChoices(options,cases,function(i){selected=i;draw();});
  }
  function visual(){
   v.scene.innerHTML='';
   v.scene.appendChild(el('strong','physics-game-metric-headline',round===0?
    L('ni = 10¹⁰ cm⁻³ · çoğunluk = 10¹⁵ cm⁻³','ni = 10¹⁰ cm⁻³ · majority = 10¹⁵ cm⁻³',lang):
-   L('Şematik taşıyıcı rejimleri','Schematic carrier regimes',lang)));
+   round===1?L('Şematik taşıyıcı rejimleri','Schematic carrier regimes',lang):
+   round===2?'N_D⁺ / N_D = 1 / [1 + 2e^((E_F−E_D)/kBT)]':
+   selected===0?'g_D = 2 · D⁰ ⇌ D⁺ + e⁻':'g_A = 4 · A⁰ + e⁻ ⇌ A⁻ + h⁺'));
   if(round===0){
    learningMeter(v.scene,selected===0?'n':'p','10¹⁵ cm⁻³',90,'is-electron');
    learningMeter(v.scene,selected===0?'p':'n',revealed?'10⁵ cm⁻³':'?',revealed?12:0,'is-hole');
-  }else{
+  }else if(round===1){
    var names=[L('İyonlaşmış katkı payı','Ionized dopant fraction',lang),L('Katkı taşıyıcıları','Dopant carriers',lang),L('Öz taşıyıcılar','Intrinsic carriers',lang)];
    var widths=[[10,15,2],[90,78,6],[98,78,96]][selected];
    names.forEach(function(name,i){learningMeter(v.scene,name,revealed?L('Nitel eğilim','Qualitative trend',lang):'?',revealed?widths[i]:0,i===2?'is-hole':'is-electron');});
+  }else if(round===2){
+   var percentages=[100/3,100/(1+2*Math.exp(3)),100/(1+2*Math.exp(-3))];
+   learningMeter(v.scene,L('İyonlaşmış P⁺ payı','Ionized P⁺ fraction',lang),
+    revealed?percentages[selected].toFixed(1)+'%':'?',revealed?percentages[selected]:0,'is-electron');
+  }else{
+   learningMeter(v.scene,selected===0?'N_D⁺ / N_D':'N_A⁻ / N_A',
+    revealed?(selected===0?'33.3%':'20%'):'?',revealed?(selected===0?33.3:20):0,selected===0?'is-electron':'is-hole');
   }
   textRow(v.scene,'physics-game-visual-label',round===0?
    L('Model: dengede, dejenere değil ve katkı tam iyonlaşmış.','Model: equilibrium, nondegenerate, fully ionized dopants.',lang):
-   L('Sıcaklıklar ve oranlar nitel örnektir; geçiş sınırları katkı yoğunluğuna bağlıdır.','Qualitative illustration; regime boundaries depend on dopant concentration.',lang));
+   round===1?L('Sıcaklıklar ve oranlar nitel örnektir; geçiş sınırları katkı yoğunluğuna bağlıdır.','Qualitative illustration; regime boundaries depend on dopant concentration.',lang):
+   L('İyonlaşma payı = iyonlaşmış katkı / toplam katkı; g katsayısı enerji değil durum çokluğudur.','Ionized fraction = ionized dopants / total dopants; g is state multiplicity, not an energy.',lang));
  }
  function draw(){
   revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
@@ -1248,7 +1341,7 @@ function dopingSecondGame(target,lang){
     feedback(v.response,good,L('np=ni²: 10²⁰ / 10¹⁵ = 10⁵ cm⁻³.','np=ni²: 10²⁰ / 10¹⁵ = 10⁵ cm⁻³.',lang));
     next.hidden=!good;return good;
    });
-  }else{
+  }else if(round===1){
    v.question.textContent=L('Bu koşulda hangi fiziksel rejim baskın olmaya en uygundur?',
     'Which physical regime best represents this condition?',lang);
    setChoices(answers,[
@@ -1258,6 +1351,30 @@ function dopingSecondGame(target,lang){
    ],function(i){var good=i===selected;revealed=true;visual();
     feedback(v.response,good,L('Düşük T: donma; orta T: katkı baskın; çok yüksek T: öz taşıyıcılar baskınlaşabilir. n≈ND ancak uygun bölgede geçerlidir.',
      'Low T: freeze-out; moderate T: extrinsic; very high T: intrinsic carriers may dominate. n≈ND requires appropriate conditions.',lang));
+    next.hidden=!good;return good;
+   });
+  }else if(round===2){
+   v.question.textContent=L('Seçilen E_F−E_D değerinde fosfor donörlerinin yüzde kaçı pozitif iyonlaşır?',
+    'For the selected E_F−E_D, what percentage of phosphorus donors ionize positively?',lang);
+   setChoices(answers,[
+    ['33.3%',L('E_F = E_D → 1/(1+2)','E_F = E_D → 1/(1+2)',lang)],
+    ['2.4%',L('E_F − E_D = +3kBT','E_F − E_D = +3kBT',lang)],
+    ['90.9%',L('E_F − E_D = −3kBT','E_F − E_D = −3kBT',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,L('N_D⁺/N_D=1/[1+2 exp((E_F−E_D)/kBT)]. E_F yükseldikçe donör seviyesi dolu kalır ve P⁺ azalır. E_F, E_D altına düştükçe iyonlaşmış pay artar.',
+     'N_D⁺/N_D=1/[1+2 exp((E_F−E_D)/kBT)]. A higher E_F favours the occupied, neutral donor and decreases P⁺; lowering E_F below E_D raises ionization.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Seçilen N_D⁺ veya N_A⁻ yoğunluğu için Fermi ve enerji seviyeleri hangi formülde doğru yerleştirilmiştir?',
+    'Which equation correctly places the Fermi and impurity energies for the selected N_D⁺ or N_A⁻ population?',lang);
+   setChoices(answers,[
+    ['N_D⁺ = N_D/[1+2e^((E_F−E_D)/kBT)]',L('Donör · elektronunu kaybetmiş D⁺','Donor · electron released from D⁺',lang)],
+    ['N_A⁻ = N_A/[1+4e^((E_A−E_F)/kBT)]',L('Akseptör · elektron kabul etmiş A⁻','Acceptor · electron accepted into A⁻',lang)],
+    ['N_D⁺ = N_D/[1+2e^((E_D−E_F)/kBT)]',L('Üstelin işareti ters yazılmış','Exponent sign reversed',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,L('Donörün iyonlaşmış durumunda üs E_F−E_D, akseptörün iyonlaşmış durumunda ise E_A−E_F şeklindedir. Paydadaki 1+g×üstel, nötr ve iyonlaşmış yük durumlarını birlikte sayar.',
+     'The ionized donor uses exponent E_F−E_D; the ionized acceptor uses E_A−E_F. The denominator 1+g×exponential counts both the neutral and ionized configurations.',lang));
     next.hidden=!good;return good;
    });
   }
@@ -1434,7 +1551,7 @@ var SECOND_GAMES={
  edges:secondEdges,dos:secondDos,holes:secondHoles,fermi:secondFermi,
  equilibrium:equilibriumSecondGame,doping:dopingSecondGame,transport:transportSecondGame
 };
-/* Indices refer to the four measurable objectives per topic, starting at 1. */
+/* Indices refer to each topic's measurable learning objectives, starting at 1. */
 var GAME_COVERAGE={
  crystal:[[1,2,3],[1,3,4]],
  'bloch-electron':[[2,4],[1,3]],
@@ -1444,7 +1561,7 @@ var GAME_COVERAGE={
  holes:[[2,4],[1,3]],
  fermi:[[1,2,3],[1,4]],
  equilibrium:[[2,3],[1,4]],
- doping:[[1,2],[3,4]],
+ doping:[[1,2,3,7],[4,5,6]],
  transport:[[1,2],[3,4]]
 };
 function mount(views,lang){
