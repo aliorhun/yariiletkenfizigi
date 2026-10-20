@@ -309,41 +309,101 @@ function gameHoles(target,lang){
   'The hole must move two cells right and one cell down. Which electron moves will achieve this?',lang);
  draw();
 }
+
+/* Fermi controls use labelled card groups rather than ungrouped button rows. */
+function fermiGroup(controls,heading,hint,extra){
+ var field=el('fieldset','physics-fermi-option-group'+(extra?' '+extra:''));
+ field.appendChild(el('legend','physics-fermi-option-heading',heading));
+ field.appendChild(el('p','physics-fermi-option-hint',hint));
+ var items=el('div','physics-fermi-option-grid');
+ field.appendChild(items);controls.appendChild(field);return items;
+}
+function fermiCards(into,items,onPick){
+ into.innerHTML='';
+ items.forEach(function(item,i){
+  var choice=el('button','physics-fermi-card');choice.type='button';
+  choice.setAttribute('aria-pressed','false');
+  choice.appendChild(el('strong','physics-fermi-card-value',item[0]));
+  choice.appendChild(el('span','physics-fermi-card-caption',item[1]));
+  choice.addEventListener('click',function(){onPick(i);});
+  into.appendChild(choice);
+ });
+}
+function fermiSelection(group,index){
+ Array.from(group.children).forEach(function(button,i){button.setAttribute('aria-pressed',String(index===i));});
+}
+function fermiClearAnswer(group){
+ Array.from(group.children).forEach(function(button){
+  button.setAttribute('aria-pressed','false');
+  button.classList.remove('is-correct-answer');
+  button.classList.remove('is-incorrect-answer');
+ });
+}
+function fermiAnswer(group,index,good){
+ fermiClearAnswer(group);
+ var chosen=group.children[index];
+ if(chosen){chosen.setAttribute('aria-pressed','true');chosen.classList.add(good?'is-correct-answer':'is-incorrect-answer');}
+}
+
 function gameFermi(target,lang){
  var v=frame(target,lang,L('Fermi olasılık oyunu','Fermi probability game',lang),
-  L('Enerji farkı ve sıcaklığı seç; mevcut bir durumun doluluk olasılığını tahmin et.','Choose energy difference and temperature; predict occupancy of an available state.',lang));
- var offsets=[-0.1,0,0.1],offsetIndex=2,T=300,revealed=false;
- var energyBar=el('div','physics-game-options'),tempBar=el('div','physics-game-options'),predict=el('div','physics-game-options');
- v.controls.appendChild(energyBar);v.controls.appendChild(tempBar);v.controls.appendChild(predict);
+  L('Önce enerji ile sıcaklığı belirle, sonra Fermi–Dirac doluluk olasılığını tahmin et.','Set energy and temperature, then predict the Fermi–Dirac occupation probability.',lang));
+ v.root.classList.add('physics-fermi-game');
+ v.controls.classList.add('physics-fermi-controls');
+ var offsets=[-.1,0,.1],offsetIndex=2,T=300,revealed=false;
+ var energyBar=fermiGroup(v.controls,L('01 · Enerji konumu','01 · Energy position',lang),
+  L('Fermi seviyesine (EF) göre seç','Choose relative to the Fermi level (EF)',lang));
+ var tempBar=fermiGroup(v.controls,L('02 · Sıcaklık','02 · Temperature',lang),
+  L('Termal etkisini değiştir','Change thermal excitation',lang));
+ var predict=fermiGroup(v.controls,L('03 · Doluluk tahmini','03 · Occupancy prediction',lang),
+  L('Bu durumun dolu olma olasılığını seç','Pick the chance that this state is occupied',lang),'is-prediction');
  function probability(){return 1/(1+Math.exp(offsets[offsetIndex]/(8.617333262145e-5*T)));}
  function display(){
   v.scene.innerHTML='';
-  var dots=el('div','physics-game-fermi-dots'),count=revealed?Math.round(probability()*20):0;
-  for(var i=0;i<20;i++){
-   var dot=el('span','physics-game-fermi-dot');
-   if(i<count)dot.classList.add('is-filled');
-   dots.appendChild(dot);
-  }
-  v.scene.appendChild(dots);
-  textRow(v.scene,'physics-game-visual-label',revealed?
-   L('Hesaplanan doluluk: ','Calculated occupancy: ',lang)+(100*probability()).toFixed(1)+'%':
-   L('Tahminini seç; 20 kutu doluluk yüzdesini gösterecek.','Make a prediction; 20 cells will show the occupancy percentage.',lang));
+  var p=probability(),percent=(p*100).toFixed(1);
+  var card=el('div','physics-fermi-meter');
+  card.appendChild(el('span','physics-fermi-meter-overline',L('FERMİ–DİRAC OLASILIĞI','FERMI–DIRAC PROBABILITY',lang)));
+  card.appendChild(el('strong','physics-fermi-meter-value',revealed?percent+'%':'?'));
+  card.appendChild(el('span','physics-fermi-meter-subtitle',revealed?
+   L('Seçilen enerji durumunun doluluk olasılığı','Occupation probability for the selected energy',lang):
+   L('Tahmininden sonra kesin değer gösterilecek','The calculated value appears after your prediction',lang)));
+  var meter=el('div','physics-fermi-meter-track');
+  meter.setAttribute('role','progressbar');
+  meter.setAttribute('aria-label',L('Doluluk olasılığı','Occupation probability',lang));
+  meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax','100');
+  if(revealed)meter.setAttribute('aria-valuenow',percent);
+  var fill=el('div','physics-fermi-meter-fill');
+  fill.setAttribute('style','width:'+(revealed?percent:0)+'%');
+  meter.appendChild(fill);card.appendChild(meter);
+  var ticks=el('div','physics-fermi-meter-ticks');
+  ['0%','50%','100%'].forEach(function(x){ticks.appendChild(el('span','',x));});
+  card.appendChild(ticks);v.scene.appendChild(card);
  }
- function pickEnergy(i){offsetIndex=i;revealed=false;v.response.innerHTML='';display();
-  Array.from(energyBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
+ function resetPrediction(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';fermiClearAnswer(predict);display();
  }
- function pickTemperature(i){T=i===0?300:600;revealed=false;v.response.innerHTML='';display();
-  Array.from(tempBar.children).forEach(function(b,n){b.setAttribute('aria-pressed',String(n===i));});
- }
- setChoices(energyBar,['E−EF = −0.10 eV','E = EF','E−EF = +0.10 eV'],pickEnergy);
- setChoices(tempBar,['T = 300 K','T = 600 K'],pickTemperature);
- setChoices(predict,[L('%25’ten az','Below 25%',lang),L('Yaklaşık %50','About 50%',lang),L('%75’ten fazla','Above 75%',lang)],function(i){
+ fermiCards(energyBar,[
+  ['−0.10 eV',L('Fermi altında','Below EF',lang)],
+  ['E = EF',L('Fermi düzeyinde','At EF',lang)],
+  ['+0.10 eV',L('Fermi üstünde','Above EF',lang)]
+ ],function(i){offsetIndex=i;fermiSelection(energyBar,i);resetPrediction();});
+ fermiCards(tempBar,[
+  ['300 K',L('Oda sıcaklığına yakın','Near room temperature',lang)],
+  ['600 K',L('Daha sıcak','Warmer material',lang)]
+ ],function(i){T=i===0?300:600;fermiSelection(tempBar,i);resetPrediction();});
+ fermiCards(predict,[
+  [L('Düşük','Low',lang),L('%25’ten az','Below 25%',lang)],
+  [L('Orta','Mid-range',lang),L('Yaklaşık %50','Around 50%',lang)],
+  [L('Yüksek','High',lang),L('%75’ten fazla','Above 75%',lang)]
+ ],function(i){
   revealed=true;var p=probability(),expected=p<.25?0:p>.75?2:1,good=i===expected;
-  display();feedback(v.response,good,(good?L('Doğru! ','Correct! ',lang):L('Yeniden değerlendir. ','Try again. ',lang))+
+  fermiAnswer(predict,i,good);display();
+  feedback(v.response,good,(good?L('Doğru! ','Correct! ',lang):L('Yeniden değerlendir. ','Try again. ',lang))+
    L('f(E)=1/[1+exp((E−EF)/kBT)] ve E=EF için f=%50.','f(E)=1/[1+exp((E−EF)/kBT)], with 50% occupancy at E=EF.',lang));
  });
- v.question.textContent=L('Bu enerji durumunun dolu olma olasılığı hangi aralıkta?','Which range contains the occupation probability?',lang);
- pickEnergy(2);pickTemperature(0);
+ v.question.textContent=L('Seçtiğin enerji ve sıcaklıkta bu durumun doluluk olasılığı kaçtır?',
+  'At your selected energy and temperature, how likely is this state to be occupied?',lang);
+ fermiSelection(energyBar,offsetIndex);fermiSelection(tempBar,0);display();
 }
 
 /* Each pair: correct reasoning, specific misconception, matching Explanation heading. */
@@ -704,20 +764,22 @@ function secondHoles(target,lang){
  }
  draw();
 }
+
 function secondFermi(target,lang){
  var v=frame(target,lang,L('Sıcaklık etkisi karşılaştırması','Temperature broadening challenge',lang),
-  L('Enerjiyi EF’ye göre seç ve sıcaklık 300 K’den 600 K’ye çıktığında doluluk eğilimini tahmin et.','Choose an energy relative to EF and predict the occupancy change from 300 K to 600 K.',lang));
+  L('Enerjiyi EF’ye göre seç; sıcaklık 300 K’den 600 K’ye çıkınca olasılığın nasıl değişeceğini tahmin et.','Choose energy relative to EF; predict what changes when temperature rises from 300 K to 600 K.',lang));
+ v.root.classList.add('physics-fermi-game');
+ v.controls.classList.add('physics-fermi-controls');v.controls.classList.add('is-comparison');
  var offsets=[-.10,0,.10],selected=2,revealed=false;
- var choices=el('div','physics-game-options'),predict=el('div','physics-game-options');
- v.controls.appendChild(choices);v.controls.appendChild(predict);
- setChoices(choices,['E−EF = −0.10 eV','E = EF','E−EF = +0.10 eV'],function(i){selected=i;revealed=false;draw();});
+ var choices=fermiGroup(v.controls,L('01 · Enerji konumu','01 · Energy position',lang),
+  L('Karşılaştırılacak enerji durumunu seç','Select the state to compare',lang));
+ var predict=fermiGroup(v.controls,L('02 · Sıcaklığın etkisi','02 · Thermal effect',lang),
+  L('300 K → 600 K olduğunda ne olur?','What happens from 300 K to 600 K?',lang),'is-prediction');
  function probability(delta,T){return 1/(1+Math.exp(delta/(8.617333262145e-5*T)));}
  function draw(){
-  Array.from(choices.children).forEach(function(b,i){b.setAttribute('aria-pressed',String(i===selected));});
   v.scene.innerHTML='';
-  var p300=probability(offsets[selected],300),p600=probability(offsets[selected],600);
   [300,600].forEach(function(t){
-   var p=t===300?p300:p600,row=el('div','physics-game-prob-row');
+   var p=probability(offsets[selected],t),row=el('div','physics-game-prob-row');
    row.appendChild(el('span','',t+' K'));
    var track=el('span','physics-game-prob-track'),bar=el('span','physics-game-prob-bar');
    bar.setAttribute('style','width:'+(revealed?(p*100).toFixed(1):0)+'%');
@@ -725,30 +787,30 @@ function secondFermi(target,lang){
    row.appendChild(el('span','',revealed?(100*p).toFixed(1)+'%':'?'));
    v.scene.appendChild(row);
   });
-  textRow(v.scene,'physics-game-visual-label',
-   L('Bir durumun doluluk olasılığı: f(E)=1/[1+exp((E−EF)/kBT)].',
-     'Occupancy of an available state: f(E)=1/[1+exp((E−EF)/kBT)].',lang));
-  v.question.textContent=L('600 K’ye çıkınca doluluk olasılığı nasıl değişir?','What happens to occupancy on warming to 600 K?',lang);
-  v.response.innerHTML='';
-  setChoices(predict,[L('Artar','Increases',lang),L('Aynı kalır','Stays the same',lang),L('Azalır','Decreases',lang)],function(i){
-   revealed=true;var expected=selected===0?2:selected===1?1:0,good=i===expected;
-   var before=(100*p300).toFixed(1)+'%',after=(100*p600).toFixed(1)+'%';
-   drawResult(good,L('300 K: '+before+', 600 K: '+after+'. Artan T, geçişi %50 etrafında genişletir; E=EF için f=%50 sabit kalır.',
-    '300 K: '+before+', 600 K: '+after+'. Higher T broadens the transition about 50%; f(EF)=50% stays fixed.',lang));
-  });
+  textRow(v.scene,'physics-game-visual-label',L('f(E)=1/[1+exp((E−EF)/kBT)] · EF’de %50 sabit.',
+   'f(E)=1/[1+exp((E−EF)/kBT)] · 50% exactly at EF.',lang));
  }
- function drawResult(good,msg){
-  v.scene.innerHTML='';
-  [300,600].forEach(function(t){
-   var p=probability(offsets[selected],t),row=el('div','physics-game-prob-row');
-   row.appendChild(el('span','',t+' K'));
-   var track=el('span','physics-game-prob-track'),bar=el('span','physics-game-prob-bar');
-   bar.setAttribute('style','width:'+(p*100).toFixed(1)+'%');track.appendChild(bar);row.appendChild(track);
-   row.appendChild(el('span','',(100*p).toFixed(1)+'%'));v.scene.appendChild(row);
-  });
-  feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Sıcaklık eğilimini tekrar incele. ','Recheck thermal broadening. ',lang))+msg);
- }
- draw();
+ fermiCards(choices,[
+  ['−0.10 eV',L('Fermi altında','Below EF',lang)],
+  ['E = EF',L('Fermi düzeyinde','At EF',lang)],
+  ['+0.10 eV',L('Fermi üstünde','Above EF',lang)]
+ ],function(i){selected=i;fermiSelection(choices,i);revealed=false;fermiClearAnswer(predict);v.response.innerHTML='';v.response.className='physics-game-feedback';draw();});
+ fermiCards(predict,[
+  [L('Artar','Increases',lang),L('Doluluk yükselir','More likely occupied',lang)],
+  [L('Değişmez','No change',lang),L('Aynı olasılık','Same probability',lang)],
+  [L('Azalır','Decreases',lang),L('Doluluk düşer','Less likely occupied',lang)]
+ ],function(i){
+  revealed=true;var expected=selected===0?2:selected===1?1:0,good=i===expected;
+  var before=(100*probability(offsets[selected],300)).toFixed(1)+'%';
+  var after=(100*probability(offsets[selected],600)).toFixed(1)+'%';
+  fermiAnswer(predict,i,good);draw();
+  feedback(v.response,good,(good?L('Doğru. ','Correct. ',lang):L('Sıcaklık etkisini tekrar incele. ','Revisit thermal broadening. ',lang))+
+   L('300 K: '+before+'; 600 K: '+after+'. Isınma, Fermi çevresindeki geçişi %50 etrafında genişletir.',
+     '300 K: '+before+'; 600 K: '+after+'. Warming broadens the transition around 50%.',lang));
+ });
+ v.question.textContent=L('Sıcaklık yükseldiğinde seçtiğin durumun doluluk olasılığı nasıl değişir?',
+  'As temperature increases, how does the selected state’s occupancy change?',lang);
+ fermiSelection(choices,selected);draw();
 }
 
 var GAMES={
