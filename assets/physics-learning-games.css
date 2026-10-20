@@ -1,0 +1,69 @@
+/* Independent learning outcomes and choice-driven topic games. */
+.physics-learning-outcomes {
+  border:1px solid var(--rule);border-left:4px solid var(--elec);
+  border-radius:9px;background:var(--panel);padding:1rem 1.15rem;margin:1.5rem 0 .6rem;
+}
+.physics-learning-outcomes h3 { font:700 1.12rem/1.35 var(--sans);margin:.1rem 0 .65rem; }
+.physics-learning-outcomes ol { padding-left:1.4rem;margin:.5rem 0 0; }
+.physics-learning-outcomes li { margin:.45rem 0;line-height:1.5; }
+.physics-learning-game { border:1px solid var(--rule);border-radius:12px;background:var(--panel);padding:clamp(.85rem,2vw,1.35rem); }
+.physics-learning-game h3 { font:700 1.16rem/1.3 var(--sans);margin:.1rem 0 .55rem; }
+.physics-game-help { color:var(--muted);font:400 .92rem/1.55 var(--sans);margin:.2rem 0 .9rem; }
+.physics-game-scene { min-width:0;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;
+  border:1px solid var(--rule);border-radius:10px;background:var(--bg);padding:.85rem;margin:.6rem 0 1rem; }
+.physics-game-question { font:600 1rem/1.45 var(--sans);margin:.9rem 0 .65rem; }
+.physics-game-choices { display:grid;gap:.6rem; }
+.physics-game-options { display:flex;flex-wrap:wrap;gap:.45rem;align-items:center; }
+.physics-game-choice { border:1px solid var(--rule);background:var(--panel);border-radius:8px;color:var(--ink);padding:.55rem .85rem;
+ font:600 .89rem/1.3 var(--sans);cursor:pointer;transition:border-color .14s,background .14s; }
+.physics-game-choice:hover { border-color:var(--elec);background:var(--bg); }
+.physics-game-choice[aria-pressed="true"] { color:#fff;background:var(--elec);border-color:var(--elec); }
+.physics-game-choice:focus-visible,.physics-learning-game .sim-btn:focus-visible { outline:3px solid var(--elec);outline-offset:2px; }
+.physics-game-feedback { min-height:1.35rem;margin:.75rem 0 0;font:600 .89rem/1.55 var(--sans);color:var(--muted); }
+.physics-game-feedback.is-correct { color:#157246; }
+.physics-game-feedback.is-incorrect { color:#b24736; }
+.physics-game-visual-label { margin:.25rem 0 0;text-align:center;color:var(--muted);font:500 .81rem/1.45 var(--sans); }
+.physics-game-footnote { margin:.9rem 0 0;font:.81rem/1.5 var(--sans);color:var(--muted); }
+.physics-learning-game > .sim-btn { margin:.75rem 0 0; }
+/* Crystal lattice projection */
+.physics-game-atom-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(100%,230px); }
+.physics-game-atom { aspect-ratio:1;border:1px solid var(--rule);border-radius:7px;display:grid;place-items:center;background:var(--panel); }
+.physics-game-atom::before { content:"";height:55%;width:55%;border-radius:50%;background:var(--elec); }
+.physics-game-atom.is-centre::before { background:#C78313; }
+.physics-game-atom.is-bond { background:rgba(45,121,196,.10);border-color:var(--elec); }
+/* Bloch phase cards */
+.physics-game-phase-cells { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(3px,.7vw,9px);width:min(100%,360px); }
+.physics-game-phase-cell { min-width:0;aspect-ratio:1;border:1px solid var(--rule);border-radius:9px;background:var(--panel);
+ display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;font:500 .78rem var(--sans); }
+.physics-game-phase-arrow { color:var(--elec);font-size:1.8rem;line-height:1;display:inline-block; }
+/* Finite-chain levels and two-band gate */
+.physics-game-energy-ladder { position:relative;height:165px;width:min(100%,250px);border-left:2px solid var(--ink);border-bottom:1px solid var(--rule); }
+.physics-game-energy-level { position:absolute;height:3px;left:16%;right:12%;border-radius:4px;background:var(--elec); }
+.physics-game-bands { width:min(100%,300px);display:grid;gap:.3rem; }
+.physics-game-band { min-height:47px;border:1px solid var(--rule);border-radius:8px;padding:.7rem;text-align:center;
+ background:var(--panel);font:600 .9rem var(--sans); }
+.physics-game-band.is-conduction { border-color:var(--elec); }
+.physics-game-band.is-valence { background:rgba(45,121,196,.09); }
+.physics-game-band.is-excited { background:rgba(21,114,70,.15);box-shadow:inset 0 0 0 2px #157246; }
+.physics-game-gap { font:600 .85rem var(--sans);text-align:center;color:var(--muted);padding:.55rem; }
+/* DOS shape predictor */
+.physics-game-dos-bars { display:flex;align-items:end;gap:5px;width:min(100%,340px);height:130px;border-bottom:2px solid var(--ink); }
+.physics-game-dos-bar { flex:1;min-width:0;border-radius:4px 4px 0 0;background:var(--elec); }
+/* Electron moves / hole follows the opposite direction */
+.physics-game-hole-grid { display:grid;grid-template-columns:repeat(5,1fr);gap:5px;width:min(100%,260px); }
+.physics-game-hole-cell { aspect-ratio:1;border:2px solid var(--rule);border-radius:8px;display:grid;place-items:center;background:var(--panel); }
+.physics-game-hole-cell::before { content:"";width:56%;height:56%;border-radius:50%;background:var(--elec); }
+.physics-game-hole-cell.is-target { border-color:#157246;box-shadow:inset 0 0 0 1px #157246; }
+.physics-game-hole-cell.is-hole::before { background:transparent;border:3px solid #C78313;box-sizing:border-box; }
+/* Occupied-state probability */
+.physics-game-fermi-dots { display:grid;grid-template-columns:repeat(10,1fr);gap:6px;width:min(100%,300px); }
+.physics-game-fermi-dot { aspect-ratio:1;border-radius:5px;background:var(--panel);border:1px solid var(--rule); }
+.physics-game-fermi-dot.is-filled { background:var(--elec);border-color:var(--elec); }
+@media(max-width:620px){
+ .physics-learning-game{padding:.8rem;}
+ .physics-game-choice{padding:.48rem .6rem;font-size:.83rem;}
+ .physics-game-options{gap:.35rem;}
+ .physics-game-phase-arrow{font-size:1.3rem;}
+ .physics-learning-outcomes{padding:.8rem;}
+ .physics-topic-tabs button{font-size:.88rem;padding:.45rem .62rem;}
+}
