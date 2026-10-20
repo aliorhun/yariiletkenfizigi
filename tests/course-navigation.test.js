@@ -34,6 +34,7 @@ let selected=null,topic=null,selectedWeek=null,backs=0;
 // Landing screen must show only two course cards, not mixed lessons.
 course.renderHome(main,'tr',id=>{selected=id});
 assert.equal(main.children.length,2);
+assert.equal(main.children[0].children[1].textContent,'Ana bölümler');
 const homeCards=main.children[1].children;
 assert.equal(homeCards.length,2);
 assert.equal(homeCards[0].children[1].children[0].textContent,'Yarıiletken Fiziği');
@@ -62,7 +63,7 @@ sections.children[0].events.click();
 assert.equal(backs,1);
 
 course.renderHome(main,'en',id=>{selected=id});
-assert.equal(main.children[0].children[1].textContent,'What would you like to study?');
+assert.equal(main.children[0].children[1].textContent,'Course parts');
 assert.equal(main.children[1].children[0].children[1].children[0].textContent,'Semiconductor Physics');
 course.renderNavigation(nav,weeks,w=>'Week '+w.n,'en','devices',2,null,
   n=>{selectedWeek=n},id=>{topic=id},()=>{backs++});
@@ -84,8 +85,9 @@ for(const required of [
   'function showHome(',
   'function showTopic(',
   "target.scrollIntoView(",
-  "showHome(false);",
+  "setCourse('physics');",
   'window.SolidStateFoundations.mount(main, LANG)',
   'window.SemiconductorFundamentals.render()'
 ])assert.ok(html.includes(required),'Missing page integration: '+required);
+assert.match(html, /setCourse\('physics'\);\s*<\/script>\s*<\/body>/, 'Start in physics course by default');
 console.log('PASS — home, back, physics topics, device chapters, i18n and page hooks');
