@@ -204,34 +204,210 @@ function moveQuestions(source,views,lang){
  });
 }
 function holeDemo(view,lang){
- var root=elem('section','physics-hole-sim');
- var title=elem('h3');title.textContent=lang==='en'?'Motion of a hole':'Holün hareketi';
- var help=elem('p');help.textContent=lang==='en'?
-  'One electron fills the neighbouring empty state; the vacancy effectively moves in the opposite direction.':
-  'Komşu elektron boş durumu doldurur; boşluk, yani hol, etkin olarak ters yönde ilerler.';
- var cells=elem('div','physics-hole-sites');cells.setAttribute('role','img');
- var controls=elem('div','physics-hole-controls'),next=elem('button','sim-btn'),reset=elem('button','sim-btn');
- var status=elem('p','physics-hole-note');
- next.type=reset.type='button';next.textContent=lang==='en'?'Electron → / hole ←':'Elektron → / hol ←';
- reset.textContent=lang==='en'?'Reset':'Sıfırla';
- var step=0;
- function draw(){
-  cells.innerHTML='';
-  var vacancy=6-step;
-  for(var i=0;i<7;i++){
-   var cell=elem('span',vacancy===i?'physics-site is-hole':'physics-site is-electron');
-   cell.textContent=vacancy===i?'○':'●';cell.setAttribute('aria-label',
-      lang==='en'?(vacancy===i?'Vacant state':'Occupied state'):(vacancy===i?'Boş durum':'Dolu durum'));
-   cells.appendChild(cell);
-  }
-  status.textContent=(lang==='en'?'Vacancy at site ':'Holün konumu: ')+(vacancy+1)+'/7';
-  next.disabled=step>=6;
+ var en=lang==='en',root=elem('section','physics-hole-sim');
+ var title=elem('h3');title.textContent=en?'Electron and hole: a 2D model':'Elektron ve hol: 2B model';
+ var lead=elem('p','physics-hole-help');
+ lead.textContent=en?
+  'The blue dots represent occupied valence states; the orange ring marks a missing electron (a hole). Select a neighbouring electron or advance one step. This is an analogy for charge transport, not a literal picture of localized electrons in silicon.':
+  'Mavi noktalar dolu değerlik durumlarını, turuncu halka eksik elektronu (holü) gösterir. Komşu bir elektronu seçin veya bir adım ilerleyin. Bu gösterim, silisyumdaki elektronların gerçek konumlarını değil taşıyıcı hareketinin analojisini anlatır.';
+ var modeBar=elem('div','physics-hole-modebar');
+ modeBar.setAttribute('role','group');
+ modeBar.setAttribute('aria-label',en?'Simulation mode':'Simülasyon modu');
+ var modes=[
+  ['transfer',en?'1 · Hole motion':'1 · Hol hareketi'],
+  ['pair',en?'2 · Pair creation':'2 · Çift oluşumu'],
+  ['field',en?'3 · Electric field':'3 · Elektrik alan']
+ ];
+ var modeButtons={};
+ var controls=elem('div','physics-hole-controls');
+ var next=elem('button','sim-btn'),auto=elem('button','sim-btn'),reset=elem('button','sim-btn');
+ next.type=auto.type=reset.type='button';
+ reset.textContent=en?'Reset':'Sıfırla';
+ var inputs=elem('div','physics-hole-inputs');
+ var pairInput=elem('label','physics-hole-input');
+ var energyText=elem('span'),energy=elem('input'),energyOut=elem('strong');
+ energy.type='range';energy.min='0.5';energy.max='2';energy.step='0.1';energy.value='1.5';
+ energy.setAttribute('aria-label',en?'Photon energy in electronvolts':'Foton enerjisi (eV)');
+ energyText.textContent=en?'Photon energy':'Foton enerjisi';
+ pairInput.appendChild(energyText);pairInput.appendChild(energy);pairInput.appendChild(energyOut);
+ var fieldInput=elem('label','physics-hole-input');
+ var fieldText=elem('span'),field=elem('input'),fieldOut=elem('strong');
+ field.type='range';field.min='-3';field.max='3';field.step='1';field.value='1';
+ field.setAttribute('aria-label',en?'Electric field direction and strength':'Elektrik alanın yönü ve şiddeti');
+ fieldText.textContent=en?'Electric field':'Elektrik alan';
+ fieldInput.appendChild(fieldText);fieldInput.appendChild(field);fieldInput.appendChild(fieldOut);
+ inputs.appendChild(pairInput);inputs.appendChild(fieldInput);
+ var legend=elem('div','physics-hole-legend');
+ var electronLabel=elem('span'),holeLabel=elem('span');
+ electronLabel.textContent=en?'● Filled state / electron':'● Dolu durum / elektron';
+ holeLabel.textContent=en?'○ Empty state / hole':'○ Boş durum / hol';
+ electronLabel.className='physics-hole-legend-electron';
+ holeLabel.className='physics-hole-legend-hole';
+ legend.appendChild(electronLabel);legend.appendChild(holeLabel);
+ var boards=elem('div','physics-hole-boards');
+ var valence=elem('section','physics-hole-board'),conduction=elem('section','physics-hole-board');
+ var valenceTitle=elem('h4'),conductionTitle=elem('h4');
+ valenceTitle.textContent=en?'Valence states (top view)':'Değerlik durumları (üstten görünüm)';
+ conductionTitle.textContent=en?'Conduction states (top view)':'İletim durumları (üstten görünüm)';
+ var valenceCells=elem('div','physics-hole-sites'),conductionCells=elem('div','physics-hole-sites');
+ valenceCells.setAttribute('role','group');
+ valenceCells.setAttribute('aria-label',en?'Valence-state grid':'Değerlik durumu örgüsü');
+ conductionCells.setAttribute('role','img');
+ conductionCells.setAttribute('aria-label',en?'Conduction-state grid':'İletim durumu örgüsü');
+ valence.appendChild(valenceTitle);valence.appendChild(valenceCells);
+ conduction.appendChild(conductionTitle);conduction.appendChild(conductionCells);
+ boards.appendChild(valence);boards.appendChild(conduction);
+ var status=elem('p','physics-hole-note'),caution=elem('p','physics-hole-caution');
+ caution.textContent=en?
+  'Conceptual grid only: actual band states are quantum-mechanical and can extend across the crystal. The 1.1 eV photon threshold is illustrative; silicon also requires momentum conservation (often phonons). Recombination is not necessarily light-emitting.':
+  'Kavramsal örgü modeli: gerçek bant durumları kristale yayılabilen kuantum durumlarıdır. Foton için kullanılan 1,1 eV eşik örnektir; silisyumda momentum korunumu (çoğu kez fonon) da önemlidir. Yeniden birleşme mutlaka ışık yaymaz.';
+ var mode='transfer',hole={x:2,y:2},carrier={x:4,y:2},pair=false,step=0,timer=null;
+ var cols=7,rows=5,Eg=1.1,lastMove='';
+ function stop(){
+  if(timer!==null){clearInterval(timer);timer=null;}
+  auto.textContent=en?'Play':'Oynat';
  }
- next.addEventListener('click',function(){step=Math.min(6,step+1);draw();});
- reset.addEventListener('click',function(){step=0;draw();});
- controls.appendChild(next);controls.appendChild(reset);
- root.appendChild(title);root.appendChild(help);root.appendChild(cells);root.appendChild(controls);
- root.appendChild(status);view.appendChild(root);draw();
+ function resetState(){
+  stop();hole={x:2,y:2};carrier={x:4,y:2};pair=false;step=0;lastMove='';
+ }
+ function direction(dx,dy){
+  if(dx>0)return en?'right':'sağa';
+  if(dx<0)return en?'left':'sola';
+  if(dy>0)return en?'down':'aşağı';
+  return en?'up':'yukarı';
+ }
+ function moveHole(x,y){
+  var dx=x-hole.x,dy=y-hole.y;
+  if(Math.abs(dx)+Math.abs(dy)!==1||x<0||x>=cols||y<0||y>=rows)return false;
+  hole={x:x,y:y};step++;
+  lastMove=en?
+   'Electron moved '+direction(-dx,-dy)+'; hole appears to move '+direction(dx,dy)+'.':
+   'Elektron '+direction(-dx,-dy)+' geçti; hol '+direction(dx,dy)+' ilerlemiş gibi göründü.';
+  return true;
+ }
+ function advance(){
+  if(mode==='transfer'){
+   var deltas=[[1,0],[0,1],[-1,0],[0,-1]];
+   var offset=step%4,found=false;
+   for(var j=0;j<4;j++){
+    var d=deltas[(offset+j)%4];
+    if(moveHole(hole.x+d[0],hole.y+d[1])){found=true;break;}
+   }
+   return found;
+  }
+  if(mode==='field'){
+   var sign=Math.sign(Number(field.value));
+   if(!sign){lastMove=en?'No net drift when E = 0.':'E = 0 iken net sürüklenme yoktur.';return false;}
+   var holeX=Math.max(0,Math.min(cols-1,hole.x+sign));
+   var electronX=Math.max(0,Math.min(cols-1,carrier.x-sign));
+   if(holeX===hole.x&&electronX===carrier.x){
+    lastMove=en?'Carriers reached the model boundary.':'Taşıyıcılar model sınırına ulaştı.';return false;
+   }
+   hole.x=holeX;carrier.x=electronX;step++;
+   lastMove=en?
+    'Hole drifts '+direction(sign,0)+'; conduction electron drifts '+direction(-sign,0)+'.':
+    'Hol '+direction(sign,0)+', iletim elektronu '+direction(-sign,0)+' sürüklenir.';
+   return true;
+  }
+  return false;
+ }
+ function makeSite(x,y,kind,interactive){
+  var cls='physics-site '+(kind==='hole'?'is-hole':kind==='electron'?'is-electron':kind==='carrier'?'is-carrier':'is-empty');
+  var cell=elem(interactive?'button':'span',cls);
+  cell.dataset.x=String(x);cell.dataset.y=String(y);
+  if(interactive){
+   cell.type='button';
+   var near=Math.abs(x-hole.x)+Math.abs(y-hole.y)===1;
+   cell.disabled=!near;
+   if(near)cell.classList.add('is-available');
+   cell.addEventListener('click',function(){if(moveHole(x,y)){stop();draw();}});
+  }
+  cell.setAttribute('aria-label',(en?
+   (kind==='hole'?'Hole, empty state':kind==='electron'?'Occupied valence state':kind==='carrier'?'Conduction electron':'Empty conduction state'):
+   (kind==='hole'?'Hol, boş durum':kind==='electron'?'Dolu değerlik durumu':kind==='carrier'?'İletim elektronu':'Boş iletim durumu'))+' ('+(x+1)+','+(y+1)+')');
+  return cell;
+ }
+ function renderGrid(target,isConduction){
+  target.innerHTML='';
+  for(var y=0;y<rows;y++)for(var x=0;x<cols;x++){
+   var occupied=isConduction?
+    (mode==='field'||(mode==='pair'&&pair))&&x===carrier.x&&y===carrier.y:
+    !(mode==='pair'&&!pair)&&(x===hole.x&&y===hole.y);
+   var kind=isConduction?(occupied?'carrier':'empty'):(occupied?'hole':'electron');
+   target.appendChild(makeSite(x,y,kind,mode==='transfer'&&!isConduction&&kind==='electron'));
+  }
+ }
+ function draw(){
+  modes.forEach(function(m){
+   var active=mode===m[0],b=modeButtons[m[0]];
+   b.setAttribute('aria-pressed',String(active));b.classList.toggle('is-active',active);
+  });
+  boards.classList.toggle('is-double',mode!=='transfer');
+  conduction.hidden=mode==='transfer';
+  pairInput.hidden=mode!=='pair';fieldInput.hidden=mode!=='field';
+  renderGrid(valenceCells,false);
+  if(mode!=='transfer')renderGrid(conductionCells,true);
+  energyOut.textContent=Number(energy.value).toFixed(1)+' eV';
+  var e=Number(field.value);
+  fieldOut.textContent=e===0?'E = 0':(e>0?'E → ':'E ← ')+Math.abs(e);
+  next.textContent=mode==='pair'?
+   (pair?(en?'Recombine':'Yeniden birleştir'):(en?'Send photon':'Foton gönder')):
+   (en?'One step':'Bir adım');
+  auto.hidden=mode==='pair';
+  if(mode==='transfer')status.textContent=lastMove||(en?
+    'Select an adjacent blue electron. An electron fills the hole, leaving a new hole at its former position.':
+    'Turuncu halkaya komşu mavi elektrona dokunun. Elektron boşluğu doldururken eski konumunda yeni bir hol oluşur.');
+  else if(mode==='pair')status.textContent=lastMove||(en?
+    'Send a photon to lift one electron from a valence state into a conduction state.':
+    'Bir foton göndererek elektronun değerlik durumundan iletim durumuna uyarılmasını gözleyin.');
+  else status.textContent=lastMove||(en?
+    'E → : holes drift right, conduction electrons drift left. Change the field and advance.':
+    'E → : holler sağa, iletim elektronları sola sürüklenir. Alanı değiştirip adım ilerleyin.');
+ }
+ function chooseMode(id){
+  mode=id;resetState();draw();
+ }
+ modes.forEach(function(m){
+  var b=elem('button','physics-hole-mode');b.type='button';b.textContent=m[1];
+  b.addEventListener('click',function(){chooseMode(m[0]);});
+  b.dataset.mode=m[0];modeButtons[m[0]]=b;modeBar.appendChild(b);
+ });
+ next.addEventListener('click',function(){
+  if(mode==='pair'){
+   if(pair){pair=false;lastMove=en?
+    'Recombination: a conduction electron fills the hole.':
+    'Yeniden birleşme: iletim elektronu boş değerlik durumunu doldurur.';}
+   else if(Number(energy.value)<Eg){lastMove=en?
+    'Photon energy is below the illustrative 1.1 eV band gap; no pair is created.':
+    'Foton enerjisi örnek 1,1 eV bant aralığının altında; çift oluşmadı.';}
+   else{pair=true;hole={x:3,y:2};carrier={x:3,y:2};lastMove=en?
+    'An electron–hole pair formed: one conduction electron and one empty valence state.':
+    'Elektron–hol çifti oluştu: bir iletim elektronu ve bir boş değerlik durumu.';}
+  }else{
+   var moved=advance();
+   if(!moved)stop();
+  }
+  draw();
+ });
+ auto.addEventListener('click',function(){
+  if(timer!==null){stop();return;}
+  if(mode==='pair')return;
+  timer=setInterval(function(){
+   var page=root.closest&&root.closest('.physics-topic-page');
+   var pane=root.closest&&root.closest('.physics-topic-pane');
+   if(!root.isConnected||(page&&page.hidden)||(pane&&!pane.classList.contains('active'))){stop();return;}
+   if(!advance()){stop();draw();return;}
+   draw();
+  },mode==='field'?Math.max(250,950-150*Math.abs(Number(field.value))):650);
+  auto.textContent=en?'Pause':'Duraklat';
+ });
+ reset.addEventListener('click',function(){resetState();draw();});
+ energy.addEventListener('input',function(){lastMove='';draw();});
+ field.addEventListener('input',function(){stop();lastMove='';draw();});
+ controls.appendChild(next);controls.appendChild(auto);controls.appendChild(reset);
+ root.appendChild(title);root.appendChild(lead);root.appendChild(modeBar);root.appendChild(legend);
+ root.appendChild(boards);root.appendChild(inputs);root.appendChild(controls);
+ root.appendChild(status);root.appendChild(caution);view.appendChild(root);draw();
 }
 function createPage(topic,i,lang,views){
  var page=elem('article','physics-topic-page');page.dataset.physicsTopic=topic[0];page.hidden=true;

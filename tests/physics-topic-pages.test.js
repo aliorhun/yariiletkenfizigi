@@ -127,6 +127,43 @@ for(const lang of ['tr','en']){
   assert.equal(main.children.filter(e=>e.classList.contains('pane')).length,0);
   assert.equal(pages[0].children[1].children.length,4);
   assert.ok(all.some(e=>e.classList.contains('physics-hole-sim')));
+  // The hole lesson must have an interactive 2D lattice and three learning modes.
+  const simulation=all.find(e=>e.classList.contains('physics-hole-sim'));
+  const modeButtons=simulation.children[2].children;
+  const boards=simulation.children[4],valence=boards.children[0].children[1],conduction=boards.children[1].children[1];
+  const actions=simulation.children[6].children;
+  assert.equal(modeButtons.length,3);
+  assert.equal(valence.children.length,35);
+  assert.equal(valence.children.filter(e=>e.classList.contains('is-hole')).length,1);
+  const adjacent=valence.children.find(e=>e.dataset.x==='3'&&e.dataset.y==='2');
+  assert.ok(adjacent.classList.contains('is-available'),'adjacent electron must be clickable');
+  adjacent.listeners.click();
+  assert.equal(valence.children.find(e=>e.classList.contains('is-hole')).dataset.x,'3');
+  // Photon below the illustrative gap cannot create a pair.
+  modeButtons[1].listeners.click();
+  assert.equal(valence.children.filter(e=>e.classList.contains('is-hole')).length,0);
+  const photonSlider=simulation.children[5].children[0].children[1];
+  photonSlider.value='0.8';photonSlider.listeners.input();
+  actions[0].listeners.click();
+  assert.equal(conduction.children.filter(e=>e.classList.contains('is-carrier')).length,0);
+  photonSlider.value='1.5';photonSlider.listeners.input();
+  actions[0].listeners.click();
+  assert.equal(valence.children.filter(e=>e.classList.contains('is-hole')).length,1);
+  assert.equal(conduction.children.filter(e=>e.classList.contains('is-carrier')).length,1);
+  actions[0].listeners.click();
+  assert.equal(valence.children.filter(e=>e.classList.contains('is-hole')).length,0);
+  // In +E, a hole drifts right and a conduction electron drifts left.
+  modeButtons[2].listeners.click();
+  assert.equal(conduction.hidden,false);
+  actions[0].listeners.click();
+  assert.equal(valence.children.find(e=>e.classList.contains('is-hole')).dataset.x,'3');
+  assert.equal(conduction.children.find(e=>e.classList.contains('is-carrier')).dataset.x,'3');
+  const fieldSlider=simulation.children[5].children[1].children[1];
+  fieldSlider.value='-2';fieldSlider.listeners.input();
+  actions[0].listeners.click();
+  assert.equal(valence.children.find(e=>e.classList.contains('is-hole')).dataset.x,'2');
+  assert.equal(conduction.children.find(e=>e.classList.contains('is-carrier')).dataset.x,'4');
+
   const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
   assert.equal(narratives.length,10,'exactly one standalone narrative per topic');
   for(const page of pages){
@@ -171,4 +208,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 10 lessons × 4 tabs, 19 figures, 32 QAs, substantial TR/EN narratives, missing-note fallback');
+console.log('PASS: 10 lessons × 4 tabs, 2D electron-hole lab modes, 19 figures, 32 QAs, TR/EN narratives');
