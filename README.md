@@ -22,7 +22,7 @@ Başlangıç ekranında yalnızca **I. Yarıiletken Fiziği** ve **II. Yarıilet
 
 ### I. Yarıiletken Fiziği
 
-Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etkisi ve elektriksel karakterizasyon) ve **20** (kusurlar, arayüzler ve malzeme karakterizasyonu). Ders 1'e ait **on konu, sayfa içindeki büyük kutular yerine sol menüye taşınmıştır**. Konu seçimi Anlatım sekmesini açıp doğrudan ilgili açıklamaya kaydırır. Türkçe/İngilizce başlangıç düzeyi açıklamalar ve bilimsel grafikler korunmuştur:
+Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etkisi ve elektriksel karakterizasyon) ve **20** (kusurlar, arayüzler ve malzeme karakterizasyonu). Ders 1'e ait **on temel konuya sıcaklık rejimleri başlığı da eklenerek toplam on bir konu sol menüde sunulur**. Konu seçimi Anlatım sekmesini açar. Türkçe/İngilizce açıklamalar ve bilimsel grafikler korunmuştur:
 
 1. Kristal yapı ve atomlar
 2. Kristal içindeki elektron (Bloch dalgaları, E(k))
@@ -33,14 +33,15 @@ Ders **1** (temel fizik), **5** (yüksek katkılama etkileri), **19** (Hall etki
 7. Fermi seviyesi ve doluluk olasılığı
 8. Elektron–hol dengesi ve kütle etkisi yasası
 9. Has ve katkılı yarıiletkenler
-10. Sürüklenme, difüzyon ve cihaz fiziğine geçiş
+10. Sıcaklık rejimleri ve katkılama senaryoları (Si:P, Si:B, freeze-out, extrinsic, intrinsic)
+11. Sürüklenme, difüzyon ve cihaz fiziğine geçiş
 
 **Öğrenme sırası:** izin verilen kuantum durumları → bu durumların sayısı → doluluk olasılığı → elektron/hol yoğunlukları → denge → yük taşınımı. Ders 1'in mevcut matematiksel temel, özgün simülasyonlar, görseller ve soru-cevap içerikleri değişmeden kalır.
 
 
 ### Arayüz regresyon kontrolü
 
-Geçişler, 10 fizik konusu, ileri fizik dersleri ve 16 cihaz dersi için bağımsız Node testi:
+Geçişler, 11 fizik konusu, ileri fizik dersleri ve 16 cihaz dersi için bağımsız Node testi:
 
 ```bash
 node tests/course-navigation.test.js
@@ -114,21 +115,21 @@ Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını
 
 ## Fizik derslerinde eksik anlatımların tamamlanması
 
-10 bağımsız fizik dersinin **Anlatım** sekmesi, artık eski 1. hafta başlıklarına veya sonradan yerleştirilen kısa notlara bağımlı olmadan, her ders için ayrı hazırlanmış **Türkçe ve İngilizce öğretici açıklamalar** içerir. Yeni içerikler `assets/physics-lesson-explanations.js` içinde ders kimliğine göre tutulur, sayfa açıldığında mevcut anlatımın başına eklenir. Önceki uzun teorik açıklamalar, matematiksel türetimler, 19 görsel ve 32 soru-cevap korunur.
+İlk 10 fizik dersinin **Anlatım** sekmesi, eski 1. hafta başlıklarına bağımlı olmadan Türkçe ve İngilizce açıklamalar içerir. Bu içerikler `assets/physics-lesson-explanations.js` içinde saklanır. On birinci sıcaklık rejimleri dersinin bağımsız anlatımı ise `assets/temperature-regimes.js` tarafından sağlanır. Önceki matematiksel türetimler, 19 eski görsel ve 32 eski soru-cevap korunur; yeni bölümle toplam 37 soru-cevap bulunur.
 
 ### Özellikle 04 · Değerlik ve iletim bandı
 
 Bu dersin Anlatım sekmesi sekiz alt konuda genişletildi: (1) izinli ve dolu bant ayrımı, (2) valans/iletim bandı kenarları ve Eg, (3) elektron–hol çiftinin oluşumu, (4) tamamen dolu bandın neden net akım taşımadığı, (5) doğrudan/dolaylı bant aralığı ve fononun rolü, (6) Si/Ge/GaAs/GaN karşılaştırması, (7) Fermi seviyesinin anlamı, (8) kavramsal kontrol sorusu. Gerekli enerji bağıntıları MathJax ile gösterilir. Metinler başlangıç seviyesinden teknik ifadeye doğru ilerler.
 
-### Diğer dokuz ders
+### Diğer temel dersler
 
 Kristal yapı, Bloch elektronları, bant oluşumu, durum yoğunluğu, hol, Fermi–Dirac, elektron–hol dengesi, has/katkılı yarıiletkenler ve sürüklenme/difüzyon başlıklarının her biri en az üç bağımsız açıklama alt bölümü içerir. Bu sayede eski 1. hafta aktarımı eksik olsa bile Anlatım sekmesi boş kalmaz.
 
-`node tests/physics-topic-pages.test.js` artık her iki dilde 10 dersin bağımsız anlatımlarını, uzunluk/başlık kontrolünü, Eg tanımını ve eski bant kenarı notu hiç yokken bile 04. dersin açılabilmesini doğrular.
+`node tests/physics-topic-pages.test.js` her iki dilde 11 dersin bağımsız anlatımlarını, uzunluk/başlık kontrolünü, Eg tanımını ve eski bant kenarı notu bulunmasa bile 04. dersin açılabilmesini doğrular.
 
-## On ayrı fizik dersi ve dört sekme
+## On bir ayrı fizik dersi ve öğrenme sekmeleri
 
-**I. Yarıiletken Fiziği → Temel Konular** altındaki 10 başlık artık tek sayfadaki kaydırma hedefleri değil, **birbirinden ayrı ders sayfalarıdır**. Her derste dört sekme bulunur: **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap**. Konu başlığı ve içerik seçime göre değişir; sol menüde aktif konu işaretlenir.
+**I. Yarıiletken Fiziği → Temel Konular** altındaki 11 başlık **birbirinden ayrı ders sayfalarıdır**. Her dersin **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap** ve iki tamamlayıcı etkinlikten oluşan **Oyun** sekmesi vardır. Böylece önceki 20 oyun korunur ve yeni bölümle toplam 22 oyun sunulur.
 
 | No | Konu | Ana simülasyon |
 |---|---|---|
@@ -141,22 +142,32 @@ Kristal yapı, Bloch elektronları, bant oluşumu, durum yoğunluğu, hol, Fermi
 | 07 | Fermi seviyesi | Fermi–Dirac, sıcaklık ve Boltzmann |
 | 08 | Elektron–hol dengesi | Has taşıyıcı yoğunluğu ve termal denge |
 | 09 | Has ve katkılı yarıiletkenler | Donör/akseptör, freeze-out, taşıyıcı yoğunlukları |
-| 10 | Taşıyıcı hareketi ve geçiş | Sürüklenme, difüzyon, saçılma ve rekombinasyon |
+| 10 | Sıcaklık rejimleri ve katkılama senaryoları | Si:P/Si:B/kompanzasyon; T ve 1000/T üzerinde üç yoğunluk katkısı |
+| 11 | Taşıyıcı hareketi ve geçiş | Sürüklenme, difüzyon, saçılma ve rekombinasyon |
 
 ### İçerik koruma ve teknik yaklaşım
 
 Yeni **assets/physics-topic-pages.js**, mevcut 1. hafta şablonundaki DOM elemanlarını **kopyalamadan** ilgili konu ve sekmeye taşır. Böylece eski grafik ID'leri ve slider olayları korunur. Yeni **assets/physics-topic-pages.css** yalnızca seçilen ders ve seçilen sekmenin gösterilmesini sağlar. Eski 20 ders/modülün geri kalanı, tema ve iki dil seçeneği korunur.
 
-Matematiksel temel sekmelerinde her başlığa özgü formül özeti bulunur, mevcut ayrıntılı türetimler ilgili konulara ayrılır. Mevcut 22 soru korunmuştur; 10 yeni kavramsal soruyla **32 soru** sunulur. Hol konusundaki yeni yedi durumlu boşluk hareketi görseli şematik bir doluluk modelidir, gerçek zamanlı kuantum dinamiği değildir.
+Matematiksel temel sekmelerinde her başlığa özgü formül özeti bulunur, mevcut ayrıntılı türetimler ilgili konulara ayrılır. Mevcut 22 soru ve ilk 10 konuya ait 10 kavramsal soru korunur; sıcaklık rejiminde 5 ek soruyla **37 soru** sunulur. Hol konusundaki boşluk hareketi görseli şematik bir doluluk modelidir, gerçek zamanlı kuantum dinamiği değildir.
 
 Regresyon testleri:
 
 ```bash
 node tests/physics-topic-pages.test.js
 node tests/solid-state-foundations.test.js
+node tests/temperature-regimes.test.js
 ```
 
-İlk test Türkçe ve İngilizce 10 dersin 40 sekmesini, 19 görsel bölümünü, 32 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
+İlk test Türkçe ve İngilizce 11 dersin 55 sekmesini, 22 öğrenme oyununu, 19 mevcut görsel bölümünü, 37 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. Son test sıcaklığa bağlı tam/eksik katkı iyonlaşmasını, elektron–hol dengesi ve kompanzasyonu sayısal olarak sınar. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
+
+### 10 · Sıcaklık rejimleri ve katkılama senaryoları
+
+Yeni dersin **Anlatım** sekmesinde P donörü ve B akseptörü, hidrojen benzeri sığ bağlanma, düşük sıcaklıkta **freeze-out**, ara sıcaklıkta **extrinsic**, yüksek sıcaklıkta **intrinsic** davranış, çok hafif ve yüksek katkılama ile kompanzasyon senaryoları açıklanır. Her kavram Türkçe/İngilizce sunulur; altı öğrenme kazanımı ve doğru/yanlış gerekçeleri ile iki oyun bulunur.
+
+**Görsel / Simülasyon** sekmesindeki sayısal model n-tipi Si:P, p-tipi Si:B, has Si, n/p baskın kompanzasyon ve eşit donör–akseptör senaryolarını kapsar. Sıcaklık, katkı yoğunluğu ve **T / 1000/T** ekseni seçilebilir. İlk grafik görünümünde mavi eğri çoğunluk taşıyıcısı, yeşil eğri iyonlaşmış net katkı yoğunluğu ve turuncu eğri azınlık taşıyıcı yoğunluğuna eşit ısıl çift katkısıdır. İkinci grafik görünümü ise **Si:P için üç farklı donör yoğunluğunun (10¹⁴, 10¹⁶, 10¹⁷ cm⁻³) n(T) eğrilerini** aynı eksende karşılaştırır. Model, sıcaklığa bağlı bant aralığı ve durum yoğunluğu ile yük nötrlüğü ve eksik iyonlaşmayı birlikte çözer.
+
+**Önemli sınır:** Bu hesap homojen, termal dengedeki ve dejenere olmayan silisyum içindir. Çok yoğun katkılamada (örneğin 10¹⁹ cm⁻³ Si:P) tekil donör/akseptör resmi fiziksel geçerliliğini yitirir. Bu senaryoda bilerek hatalı bir çizim üretilmez; modelin sınırlaması gösterilir. Rejimler arasında evrensel sabit sıcaklık sınırları yoktur.
 
 ## Nasıl çalışılmalı?
 

@@ -119,6 +119,7 @@
     ['fermi',         'Fermi seviyesi ve olasılık','Fermi level and occupancy','1.4'],
     ['equilibrium',   'Elektron–hol dengesi','Electron–hole equilibrium','fermi'],
     ['doping',        'Has ve katkılı yarıiletkenler','Intrinsic and doped semiconductors','1.5'],
+    ['regimes',       'Sıcaklık rejimleri ve katkılama senaryoları','Temperature regimes and doping scenarios','doping'],
     ['transport',     'Taşıyıcı hareketi ve geçiş','Carrier transport and next steps','1.12']
   ];
   // All additions supplement (rather than replace) the original technical content.

@@ -6,14 +6,17 @@ const dir=path.join(__dirname,'..');
 const code=fs.readFileSync(path.join(dir,'assets/physics-topic-pages.js'),'utf8');
 const narrativeCode=fs.readFileSync(path.join(dir,'assets/physics-lesson-explanations.js'),'utf8');
 const gamesCode=fs.readFileSync(path.join(dir,'assets/physics-learning-games.js'),'utf8');
+const regimesCode=fs.readFileSync(path.join(dir,'assets/temperature-regimes.js'),'utf8');
 const index=fs.readFileSync(path.join(dir,'index.html'),'utf8');
 new vm.Script(code);
 new vm.Script(narrativeCode);
 new vm.Script(gamesCode);
+new vm.Script(regimesCode);
 for(const marker of [
   'assets/physics-topic-pages.js','assets/physics-topic-pages.css',
   'assets/physics-lesson-explanations.js','assets/physics-lesson-explanations.css',
   'assets/physics-learning-games.js','assets/physics-learning-games.css',
+  'assets/temperature-regimes.js','assets/temperature-regimes.css',
   'PhysicsTopicPages.mount(main, LANG, currentTopic)',
   'PhysicsTopicPages.showTopic(main, id)',
   'PhysicsTopicPages.showSub(main, id)'
@@ -117,18 +120,19 @@ function fixture(){
 const win={lastSub:null,showSub(tab){this.lastSub=tab;}},document={createElement:tag=>new Element(tag)};
 vm.runInNewContext(narrativeCode,{window:win,document});
 vm.runInNewContext(gamesCode,{window:win,document});
+vm.runInNewContext(regimesCode,{window:win,document});
 vm.runInNewContext(code,{window:win,document});
 const api=win.PhysicsTopicPages;
 for(const lang of ['tr','en']){
   const main=fixture();api.mount(main,lang,'crystal');
   const all=[...main.descendants()];
   const pages=all.filter(e=>e.classList.contains('physics-topic-page'));
-  assert.equal(pages.length,10);
-  assert.equal(pages.filter(e=>e.hidden).length,9);
-  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,50);
-  assert.equal(all.filter(e=>e.classList.contains('qa')).length,32);
+  assert.equal(pages.length,11);
+  assert.equal(pages.filter(e=>e.hidden).length,10);
+  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,55);
+  assert.equal(all.filter(e=>e.classList.contains('qa')).length,37);
   const whyPanels=all.filter(e=>e.classList.contains('physics-qa-reason'));
-  assert.equal(whyPanels.length,32,'all ten topic prompts and 22 legacy physics questions need a reason');
+  assert.equal(whyPanels.length,37,'all eleven topic prompts, four regime questions and 22 legacy questions need a reason');
   for(const reason of whyPanels){
     assert.equal(reason.children.length,3,'correct, misconception and explanation link');
     assert.ok(reason.children[0].classList.contains('physics-qa-correct'));
@@ -182,7 +186,7 @@ for(const lang of ['tr','en']){
   assert.equal(conduction.children.find(e=>e.classList.contains('is-carrier')).dataset.x,'4');
 
   const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
-  assert.equal(narratives.length,10,'exactly one standalone narrative per topic');
+  assert.equal(narratives.length,11,'exactly one standalone narrative per topic');
   const topicsWithGames=['crystal','bloch-electron','bands','edges','dos','holes','fermi','equilibrium','doping','transport'];
   const gamesByTopic={},secondGamesByTopic={};
   const gameSwitchers={};
@@ -205,8 +209,43 @@ for(const lang of ['tr','en']){
       assert.equal(switcher.children[1].attributes['aria-selected'],'true');
       switcher.children[0].listeners.click();
       assert.equal(first.hidden,false);assert.equal(second.hidden,true);
+    }else if(key==='regimes'){
+      assert.ok(last.classList.contains('physics-learning-outcomes'),'temperature regimes need outcomes');
+      assert.equal(last.children[1].children.length,6,'six explicit regime learning outcomes');
+      assert.ok(gamePane&&gamePane.children.length===2,'regimes need two complementary games');
+      const switcher=gamePane.children[0],games=gamePane.children[1];
+      assert.equal(switcher.children.length,2);
+      assert.equal(games.children.length,2);
+      assert.equal(games.children[0].hidden,false);
+      assert.equal(games.children[1].hidden,true);
+      switcher.children[1].listeners.click();
+      assert.equal(games.children[1].hidden,false);
+      switcher.children[0].listeners.click();
+      assert.equal(games.children[0].hidden,false);
+      const first=games.children[0].children[0];
+      const second=games.children[1].children[0];
+      for(const game of [first,second]){
+        const optionCards=game.children[4];
+        assert.equal(optionCards.children.length,3);
+        optionCards.children[0].listeners.click();
+        assert.ok(game.children[5].children.some(e=>e.classList.contains('physics-game-lesson-link')));
+      }
+      const sim=page.children.find(e=>e.dataset.pane==='gorsel').children.find(e=>e.classList.contains('regime-lab'));
+      assert.ok(sim,'temperature simulation missing');
+      const inputs=sim.children[2].children;
+      assert.equal(inputs.length,5);
+      const graph=sim.children[4].children[0];
+      assert.ok(graph.innerHTML.includes('<svg'),'native SVG graph not mounted');
+      inputs[3].children[1].value='inverse';inputs[3].children[1].listeners.change();
+      assert.ok(graph.innerHTML.includes('1000/T'),'reciprocal temperature scale should render');
+      inputs[4].children[1].value='three-donor';inputs[4].children[1].listeners.change();
+      assert.equal(sim.children[3].children.length,3,'three Si:P doping levels should have a separate legend');
+      assert.ok(sim.children[5].textContent.includes('1.00 × 10^14'),'three-level comparison should show its concentrations');
+      inputs[4].children[1].value='contributions';inputs[4].children[1].listeners.change();
+      inputs[0].children[1].value='heavy';inputs[0].children[1].listeners.change();
+      assert.ok(graph.innerHTML.includes('regime-model-limit'),'heavy doping should flag invalid model');
     }else{
-      assert.ok(!gamePane,'only the first seven lessons have a game tab');
+      assert.ok(!gamePane,'this lesson does not have a game tab');
       assert.ok(!last.classList.contains('physics-learning-outcomes'));
     }
   }
@@ -491,4 +530,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 20 learning games, 40 mapped outcomes, pedagogical feedback and all 10 game tabs');
+console.log('PASS: 22 games, 11 narratives, 46 outcomes, 37 QA, 55 lesson tabs, T/1000-T model');

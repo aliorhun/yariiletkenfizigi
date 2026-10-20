@@ -49,12 +49,13 @@ assert.equal(sections.children[1].children[1].textContent,'Yarıiletken Fiziği'
 const buttons=nav.children.filter(el=>el.tagName==='BUTTON');
 const topics=buttons.filter(el=>el.dataset.topic);
 const extras=buttons.filter(el=>el.dataset.week);
-assert.equal(topics.length,10);
+assert.equal(topics.length,11);
 assert.equal(extras.length,3);
 assert.deepEqual(extras.map(el=>el.dataset.week),['5','19','20']);
 assert.equal(topics.filter(el=>el.attributes['aria-current']==='location').length,1);
 assert.equal(topics[0].dataset.topic,'crystal');
 assert.equal(topics[4].dataset.topic,'dos');
+assert.equal(topics[9].dataset.topic,'regimes');
 topics[4].events.click();
 assert.equal(topic,'dos');
 extras[0].events.click();
@@ -76,7 +77,7 @@ assert.equal(selectedWeek,7);
 
 // No in-content roadmap; lesson anchors and explanations must still be mounted.
 assert.ok(!script.includes("prose.insertBefore(guide,prose.firstChild)"));
-for(const id of ['crystal','bloch-electron','bands','edges','dos','holes','fermi','equilibrium','doping','transport']){
+for(const id of ['crystal','bloch-electron','bands','edges','dos','holes','fermi','equilibrium','doping','regimes','transport']){
   assert.ok(script.includes("'"+id+"'")||script.includes("['"+id+"'"),'Missing '+id);
 }
 for(const required of [
@@ -84,7 +85,7 @@ for(const required of [
   'SemiconductorCourseOutline.renderNavigation(',
   'function showHome(',
   'function showTopic(',
-  "target.scrollIntoView(",
+  "window.scrollTo({ top: 0 })",
   "setCourse('physics');",
   'window.SolidStateFoundations.mount(main, LANG)',
   'window.SemiconductorFundamentals.render()'
