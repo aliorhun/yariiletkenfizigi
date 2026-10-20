@@ -129,7 +129,7 @@ Kristal yapı, Bloch elektronları, bant oluşumu, durum yoğunluğu, hol, Fermi
 
 ## On bir ayrı fizik dersi ve öğrenme sekmeleri
 
-**I. Yarıiletken Fiziği → Temel Konular** altındaki 11 başlık **birbirinden ayrı ders sayfalarıdır**. Ortak sekmeler **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap**; ayrıca ilk yedi temel konuda ve sıcaklık rejimleri dersinde iki oyunlu **Oyun** sekmesi vardır.
+**I. Yarıiletken Fiziği → Temel Konular** altındaki 11 başlık **birbirinden ayrı ders sayfalarıdır**. Her dersin **Anlatım**, **Matematiksel Temel**, **Görsel / Simülasyon**, **Soru–Cevap** ve iki tamamlayıcı etkinlikten oluşan **Oyun** sekmesi vardır. Böylece önceki 20 oyun korunur ve yeni bölümle toplam 22 oyun sunulur.
 
 | No | Konu | Ana simülasyon |
 |---|---|---|
@@ -159,7 +159,7 @@ node tests/solid-state-foundations.test.js
 node tests/temperature-regimes.test.js
 ```
 
-İlk test Türkçe ve İngilizce 11 dersin 52 sekmesini, 19 mevcut görsel bölümünü, 37 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. Son test sıcaklığa bağlı tam/eksik katkı iyonlaşmasını, elektron–hol dengesi ve kompanzasyonu sayısal olarak sınar. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
+İlk test Türkçe ve İngilizce 11 dersin 55 sekmesini, 22 öğrenme oyununu, 19 mevcut görsel bölümünü, 37 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. Son test sıcaklığa bağlı tam/eksik katkı iyonlaşmasını, elektron–hol dengesi ve kompanzasyonu sayısal olarak sınar. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
 
 ### 10 · Sıcaklık rejimleri ve katkılama senaryoları
 

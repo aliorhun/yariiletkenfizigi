@@ -564,7 +564,7 @@ function createPage(topic,i,lang,views){
  var n=elem('span','physics-lesson-index');n.textContent=String(i+1).padStart(2,'0');
  var h=elem('h2');h.textContent=langPick([topic[1],topic[2]],lang);
  header.appendChild(n);header.appendChild(h);page.appendChild(header);
- var pageTabs=i<7||topic[0]==='regimes'?TABS:TABS.slice(0,4);
+ var pageTabs=TABS;
  var tabs=elem('div','subtabs physics-topic-tabs');tabs.setAttribute('role','tablist');
  pageTabs.forEach(function(t){
   var b=elem('button');b.type='button';b.dataset.sub=t[0];

@@ -1,7 +1,7 @@
-/* Choice-driven learning labs and measurable objectives for the first seven physics topics. */
+/* Choice-driven learning labs and measurable objectives for all ten physics topics. */
 (function(){
 'use strict';
-var KEYS=['crystal','bloch-electron','bands','edges','dos','holes','fermi'];
+var KEYS=['crystal','bloch-electron','bands','edges','dos','holes','fermi','equilibrium','doping','transport'];
 var OUTCOMES={
  'crystal':[
  ['Kristal örgüsü, birim hücre ve örgü sabiti kavramlarını ayırt eder.','Distinguish a crystal lattice, unit cell, and lattice constant.'],
@@ -44,6 +44,24 @@ var OUTCOMES={
  ['E=EF için T>0 olduğunda doluluk olasılığının %50 olduğunu hesaplar.','Calculate 50% occupancy at E=EF for T>0.'],
  ['EF altındaki/üstündeki mevcut durumların doluluk eğilimini öngörür.','Predict occupancy above and below EF.'],
  ['Sıcaklık arttıkça doluluk geçişinin genişlediğini açıklar.','Explain thermal broadening of the occupancy transition.']
+ ],
+ equilibrium:[
+  ['Isıl denge ile dış uyarım altında kararlı hâlin farklı kavramlar olduğunu açıklar.','Distinguish thermal equilibrium from a driven steady state.'],
+  ['Dejenere olmayan ısıl dengede np=ni² bağıntısını kullanarak azınlık taşıyıcı yoğunluğunu hesaplar.','Compute the minority-carrier density from np=ni² in nondegenerate thermal equilibrium.'],
+  ['Yük nötrlüğü bağıntısında hareketli ve iyonlaşmış sabit yükleri karşılaştırır.','Relate mobile charges to fixed ionized dopants in charge neutrality.'],
+  ['Sürekli üretimin np=ni² durumunu bozabileceğini ve kuazi-Fermi kavramına yol açtığını açıklar.','Explain how continuous generation can violate np=ni² and require quasi-Fermi levels.']
+ ],
+ doping:[
+  ['Has silisyumda dengede n=p=ni olduğunu, n/p tipinde çoğunluk taşıyıcısını ayırt eder.','Identify n=p=ni in intrinsic Si and the majority carrier in n/p-type material.'],
+  ['P donör, B akseptör katkısının iyonlaşmış sabit yükünü ve elektriksel nötrlüğü açıklar.','Describe ionized P donors, B acceptors, and electrical neutrality.'],
+  ['Tam iyonlaşma varsayımında çoğunluk ve azınlık yoğunluklarını np=ni² ile ilişkilendirir.','Relate majority/minority concentrations using np=ni² under complete ionization.'],
+  ['Donma, katkı baskın ve öz taşıyıcı baskın sıcaklık rejimlerini tanır; n≈ND sınırını bilir.','Recognize freeze-out, extrinsic, and intrinsic regimes and limits of n≈ND.']
+ ],
+ transport:[
+  ['Elektron ve hol sürüklenmesini E alanına göre ayırır; elektron hızını konvansiyonel akımdan ayırır.','Predict electron/hole drift relative to E and distinguish electron velocity from conventional current.'],
+  ['Elektron difüzyonunun yoğunluğu yüksek bölgeden düşük bölgeye yöneldiğini öngörür.','Predict electron diffusion from high to low concentration.'],
+  ['Sürüklenme–difüzyon katkılarını ve dejenere olmayan durumda D/μ=kBT/q bağıntısını açıklar.','Explain drift/diffusion contributions and D/μ=kBT/q in the nondegenerate limit.'],
+  ['Saçılma, üretim ve yeniden birleşmenin hareketlilik veya taşıyıcı sayısına etkisini ayırt eder.','Differentiate scattering, generation, and recombination effects on mobility or carrier count.']
  ]
 };
 function L(tr,en,lang){return lang==='en'?en:tr;}
@@ -566,6 +584,50 @@ var GAME_GUIDANCE={
    [['Yüksek sıcaklık EF çevresindeki doluluk geçişini genişletir; üstteki doluluk artarken alttaki azalır.','Isınmanın tüm enerjilerde doluluğu aynı yönde değiştirdiğini düşünmek yanlıştır.','Sıcaklık doluluk olasılığını değiştirir'],
     ['Higher T broadens occupancy around EF: above-EF occupancy increases, below-EF decreases.','Heating does not move occupancy in the same direction at all energies.','Temperature changes occupancy']]
   ]
+ ],
+ equilibrium:[
+  [
+   [['Isıl dengede np=ni² olduğundan p=ni²/n; seçilen n için bu çarpımı koruyan azınlık yoğunluğunu buluruz.','p=n, ni veya dopant sayısına otomatik eşit değildir; denge için çarpım önemlidir.','Elektron ve hol birlikte nasıl belirlenir?'],
+    ['At equilibrium np=ni², so p=ni²/n for the chosen electron density.','The minority density is not automatically equal to n, ni, or the dopant count.','How are electrons and holes related?']],
+   [['N_A=0 iken nötrlük n=p+N_D⁺, yani N_D⁺=n−p koşulunu gerektirir.','İyonlaşmış donörü n+p olarak saymak elektron ve hol yüklerinin işaretini karıştırır.','Elektron ve hol birlikte nasıl belirlenir?'],
+    ['With N_A=0, charge neutrality requires n=p+N_D⁺ or N_D⁺=n−p.','Adding n and p confuses the signs of their mobile charges.','How are electrons and holes related?']]
+  ],
+  [
+   [['Dış üretim yoksa ısıl dengede üretim ve birleşme dengelenir; sürekli aydınlatma kararlı ama denge dışı olabilir.','Zamanla sabit olmayı tek başına ısıl denge ile özdeşleştiremeyiz.','Denge ve kararlı durum farklıdır'],
+    ['Without external driving, thermal equilibrium balances generation and recombination; illumination can create a nonequilibrium steady state.','A constant reading alone does not prove thermal equilibrium.','Equilibrium differs from a steady state']],
+   [['Örnek ışıklı durumda iki taşıyıcı da artar ve np>ni² olabilir; elektron ve hol kuazi-Fermi seviyeleri ayrılabilir.','np=ni² bağıntısı sürülen denge dışı durumlara koşulsuz uygulanmaz.','Denge dışına çıkınca ne değişir?'],
+    ['Both carriers can increase under illumination, giving np>ni² and distinct electron/hole quasi-Fermi levels.','The equilibrium mass-action law does not generally hold in a driven steady state.','What changes out of equilibrium?']]
+  ]
+ ],
+ doping:[
+  [
+   [['Has Si için n=p=ni; donör elektronları, akseptör ise holleri çoğunluk taşıyıcı yapabilir.','Katkı türüyle hareketli taşıyıcının yükünü karıştırmak n/p tipini ters yorumlatır.','Katkılama ile n ve p tipi nasıl oluşur?'],
+    ['Intrinsic Si has n=p=ni; donors favour electrons and acceptors favour holes.','Confusing dopant type with mobile-carrier charge reverses n/p-type behaviour.','How do n-type and p-type materials arise?']],
+   [['İyonlaşmış donör sabit +, iyonlaşmış akseptör sabit − iyon bırakır; hareketli yükler bunları dengeler.','n tipi numunenin toplamda eksi yüklü olduğunu sanmak yük nötrlüğünü atlar.','Katkılama ile n ve p tipi nasıl oluşur?'],
+    ['An ionized donor is a fixed positive ion; an ionized acceptor is fixed negative; mobile carriers balance them.','N-type does not mean the whole sample is negatively charged.','How do n-type and p-type materials arise?']]
+  ],
+  [
+   [['Tam iyonlaşma ve az kompanzasyonda çoğunluk yaklaşık 10¹⁵ cm⁻³ ise ni=10¹⁰ için azınlık 10⁵ cm⁻³ olur.','Azınlığı ni veya katkı yoğunluğuna eşitlemek np=ni² bağıntısını ihlal eder.','Neden katkı sayısı her zaman taşıyıcı sayısı değildir?'],
+    ['With full ionization and weak compensation, majority 10¹⁵ cm⁻³ and ni=10¹⁰ imply minority 10⁵ cm⁻³.','Setting minority density equal to ni or dopants violates np=ni².','Why aren\'t all dopants always free carriers?']],
+   [['Düşük T donma, orta T katkı baskın, yüksek T ise termal öz taşıyıcılar baskın olabilir.','n≈ND her sıcaklıkta geçerli değildir; iyonlaşma ve öz üretim sıcaklıkla değişir.','Neden katkı sayısı her zaman taşıyıcı sayısı değildir?'],
+    ['Low T may show freeze-out, moderate T extrinsic dominance, and high T intrinsic dominance.','n≈ND is not universal across temperatures because ionization and intrinsic generation change.','Why aren\'t all dopants always free carriers?']]
+  ]
+ ],
+ transport:[
+  [
+   [['Negatif elektron E alanının tersine, etkin pozitif hol E ile aynı yönde sürüklenir; elektronun konvansiyonel akımı hızına terstir.','Elektron hızını konvansiyonel akımla karıştırmak alan yönünü yanlış buldurur.','Sürüklenme ve difüzyonun ayrımı'],
+    ['Electrons drift opposite E; holes follow E. Conventional electron current opposes electron drift velocity.','Equating electron velocity with conventional current reverses the direction.','Drift versus diffusion']],
+   [['Difüzyon taşıyıcıları yüksek yoğunluktan düşük yoğunluğa taşır; elektron parçacık akışını akım işaretiyle ayırırız.','Yoğunluk gradyanı kaynaklı difüzyonu mutlaka elektrik alanın yönünde sanmak yanlıştır.','Sürüklenme ve difüzyonun ayrımı'],
+    ['Diffusion moves particles from high to low concentration; electron particle flux and conventional current have opposite signs.','Diffusion need not follow any imposed electric field.','Drift versus diffusion']]
+  ],
+  [
+   [['Daha kuvvetli saçılma hareketliliği ve düşük alan sürüklenme hızını azaltma eğilimindedir.','Saçılma olaylarının sıklaşması taşıyıcıların hız kazanmasını kolaylaştırmaz.','Saçılma ve rekombinasyon neden önemli?'],
+    ['Stronger scattering tends to reduce mobility and low-field drift speed.','More scattering events do not help carriers accelerate between collisions.','Why do scattering and recombination matter?']],
+   [['Üretim çift sayısını artırırken yeniden birleşme elektron–hol çiftlerini ortadan kaldırır.','Rekombinasyonu yeni serbest taşıyıcı kaynağı sanmak üretim ile birleşmeyi karıştırır.','Saçılma ve rekombinasyon neden önemli?'],
+    ['Generation creates pairs; recombination removes electron–hole pairs.','Treating recombination as a free-carrier source reverses its physical meaning.','Why do scattering and recombination matter?']],
+   [['Dejenere olmayan dengede D/μ=kBT/q; 300 K için yaklaşık 0,026 V, 600 K için yaklaşık 0,052 V olur.','D/μ oranı sabit bir boyutsuz sayı değildir; birimi V ve sıcaklığa bağımlıdır.','Sürüklenme ve difüzyonun ayrımı'],
+    ['For nondegenerate equilibrium D/μ=kBT/q, about 0.026 V at 300 K and 0.052 V at 600 K.','The ratio has voltage units and depends on temperature.','Drift versus diffusion']]
+  ]
  ]
 };
 
@@ -954,13 +1016,423 @@ function secondFermi(target,lang){
  fermiSelection(choices,selected);draw();
 }
 
+/* Topics 8–10 use the same explanatory card system as the first seven lessons. */
+function learningMeter(parent,title,value,percent,kind){
+ var row=el('div','physics-game-metric-row'+(kind?' '+kind:''));
+ row.appendChild(el('strong','physics-game-metric-title',title));
+ var track=el('span','physics-game-metric-track'),fill=el('span','physics-game-metric-fill');
+ fill.setAttribute('style','width:'+Math.max(0,Math.min(100,percent))+'%');
+ track.appendChild(fill);row.appendChild(track);
+ row.appendChild(el('span','physics-game-metric-value',value));
+ parent.appendChild(row);
+}
+function equilibriumGame(target,lang){
+ var v=frame(target,lang,L('Denge hesap laboratuvarı','Equilibrium calculation lab',lang),
+  L('Önce kütle etkisinden azınlık holünü bul; sonra aynı örneğin yük nötrlüğünü değerlendir. Model: dejenere olmayan ısıl denge, ni=10¹⁰ cm⁻³.','Find the minority holes from mass action, then apply charge neutrality. Model: nondegenerate thermal equilibrium, ni=10¹⁰ cm⁻³.',lang));
+ var nValues=[1e11,1e12],pValues=[1e9,1e8],selected=0,round=0,revealed=false;
+ var params=choiceGroup(v.controls,lang,1,'Elektron yoğunluğu','Electron concentration',
+   'n değerini seç. ni sabittir.','Select n while ni stays fixed.');
+ var answers=choiceGroup(v.controls,lang,2,'Hesap sonucunu seç','Choose the result',
+   'Önce n·p çarpımını, sonra yük işaretlerini düşün.','First consider n·p, then the charge signs.');
+ var next=button(L('Sonraki aşama','Next stage',lang),function(){round=(round+1)%2;draw();},'sim-btn');
+ v.root.appendChild(next);
+ function visual(){
+  v.scene.innerHTML='';
+  v.scene.appendChild(el('strong','physics-game-metric-headline',L('Isıl dengedeki taşıyıcılar','Carriers at equilibrium',lang)));
+  var n=nValues[selected],p=pValues[selected];
+  learningMeter(v.scene,'n',n.toExponential(0)+' cm⁻³',35+20*selected,'is-electron');
+  learningMeter(v.scene,'p',revealed?p.toExponential(0)+' cm⁻³':'?',revealed?18-6*selected:0,'is-hole');
+  learningMeter(v.scene,'ni','1×10¹⁰ cm⁻³',28,'is-reference');
+  textRow(v.scene,'physics-game-visual-label',L('Çubuklar şematiktir, sayılar kesin örnek değerlerdir.','Bars are schematic; the displayed numerical values define the example.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';
+  v.response._learning.focus=round;next.hidden=true;clearChoices(answers);
+  fermiSelection(params,selected);
+  if(round===0){
+   v.question.textContent=L('np=ni² koşuluyla p kaç cm⁻³ olur?','Using np=ni², what is p in cm⁻³?',lang);
+   setChoices(answers,[1e8,1e9,1e10].map(function(x){return [x.toExponential(0)+' cm⁻³',
+     L('Azınlık hol yoğunluğu adayı','Candidate minority-hole density',lang)];}),function(i){
+    var p=pValues[selected],good=[1e8,1e9,1e10][i]===p;revealed=true;visual();
+    feedback(v.response,good,L('p=ni²/n = 10²⁰ / '+nValues[selected].toExponential(0)+' = '+p.toExponential(0)+' cm⁻³.',
+     'p=ni²/n = 10²⁰ / '+nValues[selected].toExponential(0)+' = '+p.toExponential(0)+' cm⁻³.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Akseptör yoksa, nötrlük için iyonlaşmış donör yoğunluğu N_D⁺ hangi bağıntıyı sağlar?',
+     'Without acceptors, which relation must the ionized donor density N_D⁺ satisfy?',lang);
+   setChoices(answers,[
+    ['N_D⁺ = n + p',L('Yükleri toplamak','Add both carrier densities',lang)],
+    ['N_D⁺ = n − p',L('Elektron ve hol farkı','Electron–hole difference',lang)],
+    ['N_D⁺ = p − n',L('Ters yük farkı','Reversed charge difference',lang)]
+   ],function(i){
+    var good=i===1;revealed=true;visual();
+    feedback(v.response,good,L('n = p + N_D⁺; dolayısıyla N_D⁺ = n − p.','n = p + N_D⁺; therefore N_D⁺ = n − p.',lang));
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ setChoices(params,nValues.map(function(n){return [n.toExponential(0)+' cm⁻³',
+  L(n===1e11?'Daha az elektron':'Daha çok elektron',n===1e11?'Lower electron density':'Higher electron density',lang)];}),function(i){selected=i;draw();});
+ draw();
+}
+function equilibriumSecondGame(target,lang){
+ var v=frame(target,lang,L('Karanlık mı, sürekli ışık mı?','Darkness or continuous light?',lang),
+  L('Sadeleştirilmiş iki senaryoda taşıyıcıların zamanla sabit olmasının ısıl dengeyle aynı olup olmadığını araştır.','Compare two simplified scenarios: time-independent carrier concentrations do not necessarily mean thermal equilibrium.',lang));
+ var scenario=0,round=0,revealed=false;
+ var params=choiceGroup(v.controls,lang,1,'Fiziksel ortam','Physical conditions',
+  'Dışarıdan sürekli taşıyıcı üretimi var mı?','Is there continuous external carrier generation?');
+ var answers=choiceGroup(v.controls,lang,2,'Denge yorumu','Equilibrium assessment',
+  'Seçilen durumu fiziksel olarak yorumla.','Interpret the chosen physical situation.');
+ var next=button(L('Sonraki sorgu','Next question',lang),function(){round=(round+1)%2;draw();},'sim-btn');v.root.appendChild(next);
+ function visual(){
+  v.scene.innerHTML='';
+  v.scene.appendChild(el('strong','physics-game-metric-headline',scenario===0?
+    L('Karanlık · dış uyarım yok','Dark · no external drive',lang):
+    L('Sürekli ışık · örnek kararlı durum','Continuous light · illustrative steady state',lang)));
+  var ratio=scenario===0?1:3;
+  learningMeter(v.scene,'n',ratio+' × ni',ratio*24,'is-electron');
+  learningMeter(v.scene,'p',ratio+' × ni',ratio*24,'is-hole');
+  learningMeter(v.scene,'np / ni²',revealed?ratio*ratio+'':'?',revealed?ratio*ratio*10:0,'is-reference');
+  textRow(v.scene,'physics-game-visual-label',L('Örnek: ışık altında n ve p, dengeye göre üçer kat artmış ve zamanla sabit.','Example: under light, n and p are each three times the dark equilibrium values and constant in time.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
+  clearChoices(answers);fermiSelection(params,scenario);next.hidden=true;
+  if(round===0){
+   v.question.textContent=L('Bu kararlı durum ısıl denge midir?','Is this steady state thermal equilibrium?',lang);
+   setChoices(answers,[
+    [L('Isıl denge','Thermal equilibrium',lang),L('Dışarıdan sürülmeyen durum','No sustained external drive',lang)],
+    [L('Kararlı, denge dışı','Steady, not equilibrium',lang),L('Sürekli taşıyıcı üretimi olabilir','May require continuous carrier generation',lang)]
+   ],function(i){var good=i===scenario;revealed=true;visual();
+    feedback(v.response,good,scenario===0?
+     L('Karanlık ve dış sürme yok varsayımında malzeme ısıl dengede olabilir.','With no external drive in the dark, the material can be at thermal equilibrium.',lang):
+     L('Işıkla sürekli üretilen çiftler zamanla sabit kalsa bile malzeme ısıl dengede değildir.','Continuously generated pairs can be time-independent without thermal equilibrium.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Bu örnekte np ile ni² nasıl karşılaştırılır?','How does np compare with ni² in this example?',lang);
+   setChoices(answers,[
+    ['np = ni²',L('Denge kütle etkisi','Equilibrium mass-action relation',lang)],
+    ['np > ni²',L('Fazla elektron–hol çiftleri','Excess electron–hole pairs',lang)]
+   ],function(i){var good=i===scenario;revealed=true;visual();
+    feedback(v.response,good,scenario===0?
+     L('n=p=ni olduğunda np=ni²; tek Fermi seviyesi kullanılır.','When n=p=ni, np=ni² and a single equilibrium Fermi level applies.',lang):
+     L('n=p=3ni olduğunda np=9ni²; kuazi-Fermi seviyeleri gerekli olabilir.','When n=p=3ni, np=9ni²; separate quasi-Fermi levels may be needed.',lang));
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ setChoices(params,[
+  [L('Karanlık','Dark',lang),L('Sürekli dış üretim yok','No continuous external generation',lang)],
+  [L('Sürekli ışık','Continuous light',lang),L('Ek elektron–hol çiftleri üretilir','Additional electron–hole pairs generated',lang)]
+ ],function(i){scenario=i;draw();});
+ draw();
+}
+
+function dopingGame(target,lang){
+ var v=frame(target,lang,L('Katkı atomu dedektifi','Dopant detective',lang),
+  L('Üstten görülen 2B şemada has Si, fosfor donörü ve bor akseptörünü karşılaştır. Bu görünüm gerçek 3B elmas-kübik yapının sadeleştirmesidir.','Compare intrinsic Si, phosphorus donors and boron acceptors in a schematic 2D top view, not a literal 3D bond structure.',lang));
+ var selected=0,round=0,revealed=false;
+ var params=choiceGroup(v.controls,lang,1,'Kristal örneği','Silicon specimen',
+  'Ortadaki atomun katkı türünü seç.','Select the dopant at the centre.');
+ var answers=choiceGroup(v.controls,lang,2,'Taşıyıcı ve iyon yorumu','Carrier and ion interpretation',
+  'Hareketli yükleri sabit iyonlardan ayır.','Separate mobile carriers from fixed ions.');
+ var next=button(L('Sonraki inceleme','Next investigation',lang),function(){round=(round+1)%2;draw();},'sim-btn');v.root.appendChild(next);
+ function visual(){
+  v.scene.innerHTML='';
+  var grid=el('div','physics-game-dopant-lattice');
+  for(var i=0;i<20;i++){
+   var center=i===9,symbol=center?['Si','P','B'][selected]:'Si';
+   var cell=el('span','physics-game-dopant-site'+(center?' is-centre':'')+(center&&selected===1?' is-donor':center&&selected===2?' is-acceptor':''));
+   cell.appendChild(el('strong','',symbol));
+   if(center&&revealed&&selected!==0)cell.appendChild(el('small','',selected===1?'+':'−'));
+   grid.appendChild(cell);
+  }
+  v.scene.appendChild(grid);
+  var pair=selected===0?L('Has · n = p = ni','Intrinsic · n = p = ni',lang):
+           selected===1?L('P donör · elektron çoğunluk','P donor · electrons majority',lang):
+           L('B akseptör · hol çoğunluk','B acceptor · holes majority',lang);
+  textRow(v.scene,'physics-game-visual-label',revealed?pair:L('Taşıyıcı türünü tahmin et; sonra sonucu gör.','Predict the carrier type, then reveal it.',lang));
+  textRow(v.scene,'physics-game-footnote',L('Katkı iyonunun işareti, onun saldığı/aldığı hareketli taşıyıcının işaretinden farklıdır.','The fixed dopant-ion sign differs from the mobile carrier it donates or accepts.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
+  clearChoices(answers);fermiSelection(params,selected);next.hidden=true;
+  if(round===0){
+   v.question.textContent=L('Bu örneğin denge durumunda çoğunluk taşıyıcısı hangisidir?','Which carriers dominate in this specimen at equilibrium?',lang);
+   setChoices(answers,[
+    ['n = p = ni',L('Has yarıiletken','Intrinsic semiconductor',lang)],
+    [L('Elektronlar','Electrons',lang),L('n tipi çoğunluk taşıyıcısı','N-type majority carriers',lang)],
+    [L('Holler','Holes',lang),L('p tipi çoğunluk taşıyıcısı','P-type majority carriers',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,selected===0?
+     L('Kasıtlı katkı yoksa has Si için ısıl dengede n=p=ni.','Without intentional dopants, intrinsic Si has n=p=ni at equilibrium.',lang):
+     selected===1?L('Fosfor donörü elektronu iletim bandına sağlayabilir; n tipi davranış oluşur.','Phosphorus donors can supply conduction electrons and yield n-type behaviour.',lang):
+     L('Bor akseptörü değerlikte eksik elektron durumu yaratabilir; p tipi holler çoğunluktadır.','Boron acceptors create valence-electron vacancies, giving p-type hole majority.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Uygun şekilde iyonlaştığında ortadaki katkı atomunun sabit iyon yükü nedir?','After ionization, what fixed ionic charge remains on the central dopant?',lang);
+   setChoices(answers,[
+    [L('Sabit iyon yok','No dopant ion',lang),L('Has silisyumda katkı bulunmaz','No intentional dopant in intrinsic silicon',lang)],
+    ['P⁺',L('Elektronunu vermiş donör','Donor after releasing an electron',lang)],
+    ['B⁻',L('Elektron kabul etmiş akseptör','Acceptor after taking an electron',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,selected===0?
+     L('Has örnekte katkı atomu ve buna bağlı sabit iyon yoktur.','The intrinsic example contains no dopant or associated fixed dopant ion.',lang):
+     selected===1?L('Donör elektron verince P⁺ sabit iyonu kalır; hareketli elektron yüküyle nötrlük sağlanır.','After donating an electron, P⁺ remains fixed and charge neutrality is preserved.',lang):
+     L('Akseptör elektron alınca B⁻ sabit iyonu oluşur; hareketli hol ile yük dengelenir.','After accepting an electron, fixed B⁻ is balanced by mobile holes.',lang));
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ setChoices(params,[
+  ['Si',L('Has kristal · katkısız','Intrinsic · undoped',lang)],
+  ['P',L('Fosfor · donör','Phosphorus · donor',lang)],
+  ['B',L('Bor · akseptör','Boron · acceptor',lang)]
+ ],function(i){selected=i;draw();});
+ draw();
+}
+function dopingSecondGame(target,lang){
+ var v=frame(target,lang,L('Azınlık taşıyıcısı ve sıcaklık rejimleri','Minority carriers and temperature regimes',lang),
+  L('Tam iyonlaşma varsayımında bir azınlık yoğunluğu hesapla; ardından donma, katkı ve öz taşıyıcı rejimlerini ayırt et.','Calculate minority carriers under full ionization, then distinguish freeze-out, extrinsic and intrinsic regimes.',lang));
+ var round=0,selected=0,revealed=false;
+ var options=choiceGroup(v.controls,lang,1,'Deney koşulu','Experiment conditions',
+  'İlk soruda n/p tipi, ikinci soruda nitel sıcaklık rejimi.','Choose n/p type first; then choose a qualitative temperature range.');
+ var answers=choiceGroup(v.controls,lang,2,'Sonucu tahmin et','Predict the result',
+  'Seçilen koşula göre fiziksel sonucu belirle.','Choose the physical consequence of the selected conditions.');
+ var next=button(L('Sonraki deney','Next experiment',lang),function(){round=(round+1)%2;selected=0;draw();},'sim-btn');v.root.appendChild(next);
+ function setParameterCards(){
+  setChoices(options,round===0?[
+    [L('n tipi · donör','N-type · donor',lang),L('n ≈ ND = 10¹⁵ cm⁻³','n ≈ ND = 10¹⁵ cm⁻³',lang)],
+    [L('p tipi · akseptör','P-type · acceptor',lang),L('p ≈ NA = 10¹⁵ cm⁻³','p ≈ NA = 10¹⁵ cm⁻³',lang)]
+   ]:[
+    [L('Çok düşük T','Very low T',lang),L('Eksik iyonlaşma olası','Incomplete ionization possible',lang)],
+    [L('Orta T','Moderate T',lang),L('Katkı baskın olabilir','Dopant dominated',lang)],
+    [L('Çok yüksek T','Very high T',lang),L('Termal çiftler önem kazanır','Thermal pairs grow important',lang)]
+   ],function(i){selected=i;draw();});
+ }
+ function visual(){
+  v.scene.innerHTML='';
+  v.scene.appendChild(el('strong','physics-game-metric-headline',round===0?
+   L('ni = 10¹⁰ cm⁻³ · çoğunluk = 10¹⁵ cm⁻³','ni = 10¹⁰ cm⁻³ · majority = 10¹⁵ cm⁻³',lang):
+   L('Şematik taşıyıcı rejimleri','Schematic carrier regimes',lang)));
+  if(round===0){
+   learningMeter(v.scene,selected===0?'n':'p','10¹⁵ cm⁻³',90,'is-electron');
+   learningMeter(v.scene,selected===0?'p':'n',revealed?'10⁵ cm⁻³':'?',revealed?12:0,'is-hole');
+  }else{
+   var names=[L('İyonlaşmış katkı payı','Ionized dopant fraction',lang),L('Katkı taşıyıcıları','Dopant carriers',lang),L('Öz taşıyıcılar','Intrinsic carriers',lang)];
+   var widths=[[10,15,2],[90,78,6],[98,78,96]][selected];
+   names.forEach(function(name,i){learningMeter(v.scene,name,revealed?L('Nitel eğilim','Qualitative trend',lang):'?',revealed?widths[i]:0,i===2?'is-hole':'is-electron');});
+  }
+  textRow(v.scene,'physics-game-visual-label',round===0?
+   L('Model: dengede, dejenere değil ve katkı tam iyonlaşmış.','Model: equilibrium, nondegenerate, fully ionized dopants.',lang):
+   L('Sıcaklıklar ve oranlar nitel örnektir; geçiş sınırları katkı yoğunluğuna bağlıdır.','Qualitative illustration; regime boundaries depend on dopant concentration.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
+  next.hidden=true;clearChoices(answers);setParameterCards();fermiSelection(options,selected);
+  if(round===0){
+   v.question.textContent=selected===0?
+    L('Bu n tipi örnekte azınlık hol yoğunluğu kaçtır?','What is the minority-hole density in this n-type example?',lang):
+    L('Bu p tipi örnekte azınlık elektron yoğunluğu kaçtır?','What is the minority-electron density in this p-type example?',lang);
+   setChoices(answers,[
+    ['10⁵ cm⁻³',L('ni² / çoğunluk','ni² / majority',lang)],
+    ['10¹⁰ cm⁻³',L('ni ile aynı','Equal to ni',lang)],
+    ['10¹⁵ cm⁻³',L('Çoğunlukla aynı','Equal to majority',lang)]
+   ],function(i){var good=i===0;revealed=true;visual();
+    feedback(v.response,good,L('np=ni²: 10²⁰ / 10¹⁵ = 10⁵ cm⁻³.','np=ni²: 10²⁰ / 10¹⁵ = 10⁵ cm⁻³.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Bu koşulda hangi fiziksel rejim baskın olmaya en uygundur?',
+    'Which physical regime best represents this condition?',lang);
+   setChoices(answers,[
+    [L('Donma / freeze-out','Freeze-out',lang),L('Katkının bir bölümü iyonlaşmamış','Some dopants remain unionized',lang)],
+    [L('Katkı baskın','Extrinsic',lang),L('Tam iyonlaşmaya yakın bölge','Near full ionization regime',lang)],
+    [L('Öz taşıyıcı baskın','Intrinsic-dominated',lang),L('Termal elektron–hol üretimi baskın','Thermal pair generation dominates',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,L('Düşük T: donma; orta T: katkı baskın; çok yüksek T: öz taşıyıcılar baskınlaşabilir. n≈ND ancak uygun bölgede geçerlidir.',
+     'Low T: freeze-out; moderate T: extrinsic; very high T: intrinsic carriers may dominate. n≈ND requires appropriate conditions.',lang));
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ draw();
+}
+
+function transportGame(target,lang){
+ var v=frame(target,lang,L('Sürüklenme ve difüzyon yönleri','Drift and diffusion directions',lang),
+  L('Önce alan altında elektron ve hol hızlarını, sonra yoğunluk farkından doğan elektron yayılımını tahmin et.','Predict electron and hole drift under a field, then electron diffusion due to a concentration difference.',lang));
+ var round=0,orientation=1,revealed=false;
+ var settings=choiceGroup(v.controls,lang,1,'Yön koşulu','Direction condition',
+  'Önce E alanını, sonra elektron yoğunluğunun yüksek olduğu tarafı seç.','Choose E first, then the side with more electrons.');
+ var answers=choiceGroup(v.controls,lang,2,'Hareket yönü tahmini','Predict the movement',
+  'Elektronun hızı ile konvansiyonel akımın işaretini karıştırma.','Do not confuse electron velocity with conventional current.');
+ var next=button(L('Sonraki mekanizma','Next mechanism',lang),function(){round=(round+1)%2;orientation=1;draw();},'sim-btn');v.root.appendChild(next);
+ function setParameters(){
+  setChoices(settings,round===0?[
+    ['E ←',L('Elektrik alan sola','Field points left',lang)],
+    ['E →',L('Elektrik alan sağa','Field points right',lang)]
+   ]:[
+    [L('Sağ taraf yoğun','High density on right',lang),L('Elektronlar sağda daha sık','More electrons on the right',lang)],
+    [L('Sol taraf yoğun','High density on left',lang),L('Elektronlar solda daha sık','More electrons on the left',lang)]
+   ],function(i){orientation=i;draw();});
+ }
+ function visual(){
+  v.scene.innerHTML='';
+  var grid=el('div','physics-game-transport-track');
+  if(round===0){
+   grid.appendChild(el('strong','physics-game-transport-head',L('Elektrik alan E','Electric field E',lang)+' '+(orientation?'→':'←')));
+   var electron=orientation?'←':'→',hole=orientation?'→':'←';
+   grid.appendChild(el('div','physics-game-transport-carrier is-electron',
+    L('Elektron hızı','Electron velocity',lang)+' · '+(revealed?electron:'?')));
+   grid.appendChild(el('div','physics-game-transport-carrier is-hole',
+    L('Hol hızı','Hole velocity',lang)+' · '+(revealed?hole:'?')));
+   grid.appendChild(el('div','physics-game-transport-carrier is-current',
+    L('Konvansiyonel sürüklenme akımı','Conventional drift current',lang)+' · '+(revealed?(orientation?'→':'←'):'?')));
+  }else{
+   grid.appendChild(el('strong','physics-game-transport-head',L('Elektron yoğunluğu','Electron density',lang)));
+   var cells=el('div','physics-game-density-track');
+   for(var i=0;i<8;i++){
+    var left=i<4,high=orientation?left:!left;
+    cells.appendChild(el('span','physics-game-density-cell'+(high?' is-dense':''),high?'••':'•'));
+   }
+   grid.appendChild(cells);
+   grid.appendChild(el('div','physics-game-transport-carrier is-electron',
+    L('Elektron parçacık akışı','Electron particle flow',lang)+' · '+(revealed?(orientation?'→':'←'):'?')));
+  }
+  v.scene.appendChild(grid);
+  textRow(v.scene,'physics-game-visual-label',round===0?
+   L('Negatif elektronun konvansiyonel akımı kendi hızının ters yönündedir.','Conventional electron current is opposite electron drift velocity.',lang):
+   L('Bu aşamada E=0 kabul edilir: sadece yoğunluk farkına bağlı difüzyon var.','Assume E=0 here: diffusion is driven only by the density gradient.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
+  next.hidden=true;clearChoices(answers);setParameters();fermiSelection(settings,orientation);
+  if(round===0){
+   v.question.textContent=L('Bu E alanında elektron ve hol sürüklenme hızlarının yönleri hangisidir?',
+    'What are the electron and hole drift-velocity directions under this E field?',lang);
+   setChoices(answers,[
+    [L('Elektron → · Hol ←','Electron → · Hole ←',lang),L('Zıt yönlü hızlar','Opposite drift velocities',lang)],
+    [L('Elektron ← · Hol →','Electron ← · Hole →',lang),L('Zıt yönlü hızlar','Opposite drift velocities',lang)],
+    [L('İkisi de E yönünde','Both follow E',lang),L('Aynı yönlü hızlar','Same drift direction',lang)]
+   ],function(i){var expected=orientation?1:0,good=i===expected;revealed=true;visual();
+    feedback(v.response,good,L('F=qE: negatif elektron E’ye ters, hol E ile aynı yönde sürüklenir. Elektron akımı elektron hızına terstir.',
+     'F=qE: negative electrons drift opposite E, holes drift with E. Conventional electron current opposes electron velocity.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Alan yoksa elektronlar yoğunluk farkıyla hangi yöne yayılır?',
+    'Without a field, in which direction do electrons diffuse?',lang);
+   setChoices(answers,[
+    ['←',L('Sağa göre sol tarafa','Toward the left side',lang)],
+    ['→',L('Sola göre sağ tarafa','Toward the right side',lang)]
+   ],function(i){var expected=orientation?1:0,good=i===expected;revealed=true;visual();
+    feedback(v.response,good,L('Elektronlar yüksek yoğunluktan düşüğe yayılır. Bu parçacık akışıdır; elektronun konvansiyonel akım yönü terstir.',
+     'Electrons diffuse from high to low concentration. This is particle flow; conventional electron current has the opposite sign.',lang));
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ draw();
+}
+function transportSecondGame(target,lang){
+ var v=frame(target,lang,L('Hareketlilik, çiftler ve Einstein bağıntısı','Mobility, pairs and Einstein relation',lang),
+  L('Üç mini deneyde saçılma, üretim/yeniden birleşme ve sıcaklığın D/μ üzerindeki etkisini ayrı ayrı tahmin et.','Three mini-experiments: scattering, generation/recombination and temperature dependence of D/μ.',lang));
+ var round=0,selected=0,revealed=false;
+ var settings=choiceGroup(v.controls,lang,1,'Deney parametresi','Experiment parameter',
+  'Fiziksel koşulu değiştir ve sonucu gözlemle.','Change the physical condition and observe the outcome.');
+ var answers=choiceGroup(v.controls,lang,2,'Beklenen fiziksel etki','Predicted physical effect',
+  'Sıcaklık veya süreç değişince ne olacağını seç.','Choose what happens as temperature or process changes.');
+ var next=button(L('Sonraki deney','Next experiment',lang),function(){round=(round+1)%3;selected=0;draw();},'sim-btn');v.root.appendChild(next);
+ var kOverQ=8.617333262145e-5;
+ function parameterCards(){
+  var data=round===0?[
+   [L('Daha az saçılma','Less scattering',lang),L('Çarpışmalar seyrek','Fewer collisions',lang)],
+   [L('Daha çok saçılma','More scattering',lang),L('Çarpışmalar sık','More frequent collisions',lang)]
+  ]:round===1?[
+   [L('Üretim','Generation',lang),L('Yeni elektron–hol çiftleri','New electron–hole pairs',lang)],
+   [L('Yeniden birleşme','Recombination',lang),L('Bir çift ortadan kalkar','An electron–hole pair is removed',lang)]
+  ]:[
+   ['300 K',L('Oda sıcaklığına yakın','Near room temperature',lang)],
+   ['600 K',L('Daha yüksek sıcaklık','Higher temperature',lang)]
+  ];
+  setChoices(settings,data,function(i){selected=i;draw();});
+ }
+ function visual(){
+  v.scene.innerHTML='';
+  var headline=round===0?L('μ · hareketlilik','μ · mobility',lang):
+   round===1?L('Elektron–hol çifti sayısı','Electron–hole pair count',lang):
+   'D/μ = kBT/q';
+  v.scene.appendChild(el('strong','physics-game-metric-headline',headline));
+  if(round===0){
+   learningMeter(v.scene,'μ',revealed?L(selected===0?'Görece yüksek':'Görece düşük',selected===0?'Relatively high':'Relatively low',lang):'?',revealed?(selected===0?78:32):0,'is-electron');
+  }else if(round===1){
+   learningMeter(v.scene,'n, p',revealed?L(selected===0?'Artar':'Azalır',selected===0?'Increase':'Decrease',lang):'?',revealed?(selected===0?85:25):0,'is-hole');
+  }else{
+   var t=selected?600:300,value=kOverQ*t;
+   learningMeter(v.scene,'D/μ',revealed?value.toFixed(3)+' V':'?',revealed?(selected===0?42:84):0,'is-reference');
+  }
+  textRow(v.scene,'physics-game-visual-label',round===0?
+   L('Diğer koşullar ve düşük alan sabit tutulur.','Other conditions and low electric field are held fixed.',lang):
+   round===1?L('Sade örnek: net çift sayısını diğer etkiler sabitken karşılaştır.','Simplified model: compare pair counts holding other effects fixed.',lang):
+   L('Einstein bağıntısı dejenere olmayan ısıl denge yaklaşımında geçerlidir.','Einstein relation applies in the nondegenerate equilibrium approximation.',lang));
+ }
+ function draw(){
+  revealed=false;v.response.innerHTML='';v.response.className='physics-game-feedback';v.response._learning.focus=round;
+  next.hidden=true;clearChoices(answers);parameterCards();fermiSelection(settings,selected);
+  if(round===0){
+   v.question.textContent=L('Bu koşulda düşük alan hareketliliği referansa göre nasıl değişir?',
+    'How does low-field mobility change relative to the reference?',lang);
+   setChoices(answers,[
+    [L('Artar','Increases',lang),L('Daha az momentum kaybı','Less momentum relaxation',lang)],
+    [L('Azalır','Decreases',lang),L('Daha sık momentum kaybı','More frequent momentum relaxation',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,L('Saçılma sıklaştığında hareketlilik genel olarak azalır; seyrekleştiğinde artabilir.','Mobility generally falls with stronger scattering and may rise as scattering weakens.',lang));
+    next.hidden=!good;return good;
+   });
+  }else if(round===1){
+   v.question.textContent=L('Seçilen süreç, diğer koşullar aynıyken serbest elektron–hol çiftlerinin sayısını nasıl etkiler?',
+    'How does the selected process affect free electron–hole pairs with other effects fixed?',lang);
+   setChoices(answers,[
+    [L('Artırır','Increases',lang),L('Yeni çiftler oluşur','New pairs form',lang)],
+    [L('Azaltır','Decreases',lang),L('Çiftler birleşir','Pairs disappear',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,L('Üretim çift oluşturur; yeniden birleşme ile elektron ve hol aynı anda azalır.','Generation creates pairs; recombination removes an electron and a hole together.',lang));
+    next.hidden=!good;return good;
+   });
+  }else{
+   v.question.textContent=L('Bu sıcaklıkta D/μ yaklaşık kaç volttur?','What is the approximate D/μ in volts at this temperature?',lang);
+   setChoices(answers,[
+    ['0.026 V',L('Yaklaşık 26 mV','About 26 mV',lang)],
+    ['0.052 V',L('Yaklaşık 52 mV','About 52 mV',lang)],
+    ['0.260 V',L('Yaklaşık 260 mV','About 260 mV',lang)]
+   ],function(i){var good=i===selected;revealed=true;visual();
+    feedback(v.response,good,'D/μ = kBT/q ≈ '+(kOverQ*(selected?600:300)).toFixed(3)+' V.');
+    next.hidden=!good;return good;
+   });
+  }
+  visual();
+ }
+ draw();
+}
+
 var GAMES={
- 'crystal':gameCrystal,'bloch-electron':gameBloch,'bands':gameBands,
- 'edges':gameEdges,'dos':gameDos,'holes':gameHoles,'fermi':gameFermi
+ crystal:gameCrystal,'bloch-electron':gameBloch,bands:gameBands,
+ edges:gameEdges,dos:gameDos,holes:gameHoles,fermi:gameFermi,
+ equilibrium:equilibriumGame,doping:dopingGame,transport:transportGame
 };
 var SECOND_GAMES={
  crystal:secondCrystal,'bloch-electron':secondBloch,bands:secondBands,
- edges:secondEdges,dos:secondDos,holes:secondHoles,fermi:secondFermi
+ edges:secondEdges,dos:secondDos,holes:secondHoles,fermi:secondFermi,
+ equilibrium:equilibriumSecondGame,doping:dopingSecondGame,transport:transportSecondGame
 };
 /* Indices refer to the four measurable objectives per topic, starting at 1. */
 var GAME_COVERAGE={
@@ -970,7 +1442,10 @@ var GAME_COVERAGE={
  edges:[[1,3],[1,2,4]],
  dos:[[2,3],[1,4]],
  holes:[[2,4],[1,3]],
- fermi:[[1,2,3],[1,4]]
+ fermi:[[1,2,3],[1,4]],
+ equilibrium:[[2,3],[1,4]],
+ doping:[[1,2],[3,4]],
+ transport:[[1,2],[3,4]]
 };
 function mount(views,lang){
  KEYS.forEach(function(key){

@@ -129,7 +129,7 @@ for(const lang of ['tr','en']){
   const pages=all.filter(e=>e.classList.contains('physics-topic-page'));
   assert.equal(pages.length,11);
   assert.equal(pages.filter(e=>e.hidden).length,10);
-  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,52);
+  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,55);
   assert.equal(all.filter(e=>e.classList.contains('qa')).length,37);
   const whyPanels=all.filter(e=>e.classList.contains('physics-qa-reason'));
   assert.equal(whyPanels.length,37,'all eleven topic prompts, four regime questions and 22 legacy questions need a reason');
@@ -187,7 +187,7 @@ for(const lang of ['tr','en']){
 
   const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
   assert.equal(narratives.length,11,'exactly one standalone narrative per topic');
-  const topicsWithGames=['crystal','bloch-electron','bands','edges','dos','holes','fermi'];
+  const topicsWithGames=['crystal','bloch-electron','bands','edges','dos','holes','fermi','equilibrium','doping','transport'];
   const gamesByTopic={},secondGamesByTopic={};
   const gameSwitchers={};
   for(const page of pages){
@@ -413,6 +413,52 @@ for(const lang of ['tr','en']){
   assert.ok(choice(fermi2,1,2).classList.contains('is-correct'));
   choice(fermi2,0,1);
   assert.ok(choice(fermi2,1,1).classList.contains('is-correct'));
+  // Three additional lessons each have two physically distinct, stateful games.
+  const equilibrium1=gamesByTopic.equilibrium;
+  assert.ok(choice(equilibrium1,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(equilibrium1,1,1).classList.contains('is-correct')); // n=1e11 -> p=1e9
+  equilibrium1.children[6].listeners.click();
+  assert.ok(choice(equilibrium1,1,1).classList.contains('is-correct')); // ND+=n-p
+  choice(equilibrium1,0,1); // n=1e12, previous response cleared
+  assert.ok(!equilibrium1.children[5].classList.contains('is-correct'));
+  equilibrium1.children[6].listeners.click(); // back to mass-action stage
+  assert.ok(choice(equilibrium1,1,0).classList.contains('is-correct')); // p=1e8
+  const equilibrium2=secondGamesByTopic.equilibrium;
+  choice(equilibrium2,0,1); // steady under continuous light
+  assert.ok(choice(equilibrium2,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(equilibrium2,1,1).classList.contains('is-correct'));
+  equilibrium2.children[6].listeners.click();
+  assert.ok(choice(equilibrium2,1,1).classList.contains('is-correct')); // np>ni²
+  const doping1=gamesByTopic.doping;
+  choice(doping1,0,1); // phosphorus donor
+  assert.ok(choice(doping1,1,2).classList.contains('is-incorrect'));
+  assert.ok(choice(doping1,1,1).classList.contains('is-correct')); // electrons
+  doping1.children[6].listeners.click();
+  assert.ok(choice(doping1,1,1).classList.contains('is-correct')); // P+ fixed ion
+  choice(doping1,0,2); // boron acceptor
+  assert.ok(choice(doping1,1,2).classList.contains('is-correct')); // B− fixed ion
+  const doping2=secondGamesByTopic.doping;
+  assert.ok(choice(doping2,1,2).classList.contains('is-incorrect'));
+  assert.ok(choice(doping2,1,0).classList.contains('is-correct')); // minority 1e5
+  doping2.children[6].listeners.click();
+  choice(doping2,0,2); // high-temperature intrinsic regime
+  assert.ok(choice(doping2,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(doping2,1,2).classList.contains('is-correct'));
+  const transport1=gamesByTopic.transport;
+  assert.ok(choice(transport1,1,0).classList.contains('is-incorrect')); // E right: not electron right
+  assert.ok(choice(transport1,1,1).classList.contains('is-correct')); // electron left, hole right
+  transport1.children[6].listeners.click();
+  choice(transport1,0,0); // higher electron concentration on right
+  assert.ok(choice(transport1,1,0).classList.contains('is-correct')); // electron diffusion left
+  const transport2=secondGamesByTopic.transport;
+  assert.ok(choice(transport2,1,0).classList.contains('is-correct')); // less scattering increases mobility
+  transport2.children[6].listeners.click();
+  choice(transport2,0,1); // recombination
+  assert.ok(choice(transport2,1,1).classList.contains('is-correct')); // fewer pairs
+  transport2.children[6].listeners.click();
+  choice(transport2,0,1); // 600 K
+  assert.ok(choice(transport2,1,0).classList.contains('is-incorrect'));
+  assert.ok(choice(transport2,1,1).classList.contains('is-correct')); // 52 mV
   // Both correct and wrong choices must teach the scientific reason and link to a real Explanation heading.
   for(const [key,game] of Object.entries(secondGamesByTopic)){
     const reason=game.children[5],link=reason.children.find(e=>e.classList.contains('physics-game-lesson-link'));
@@ -461,7 +507,7 @@ for(const lang of ['tr','en']){
   }
   for(const page of pages){
     const panes=page.children.filter(e=>e.classList.contains('physics-topic-pane'));
-    assert.equal(panes.length,pages.indexOf(page)<7||page.dataset.physicsTopic==='regimes'?5:4);
+    assert.equal(panes.length,5);
     for(const pane of panes)assert.ok(pane.children.length>0,'empty '+page.dataset.physicsTopic+' / '+pane.dataset.pane);
   }
   api.showTopic(main,'dos');api.showSub(main,'gorsel');
@@ -469,7 +515,7 @@ for(const lang of ['tr','en']){
   assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')&&e.classList.contains('active')).length,1);
   assert.ok(api.showSub(main,'matematik'));
   api.showTopic(main,'holes');assert.ok(api.showSub(main,'oyun'));
-  api.showTopic(main,'transport');assert.ok(!api.showSub(main,'oyun'));
+  api.showTopic(main,'transport');assert.ok(api.showSub(main,'oyun'));
   assert.ok(!api.showSub(main,'nonexistent'));
   assert.ok(!api.showTopic(main,'nonexistent'));
 }
@@ -484,4 +530,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 16 labelled games, 11 narratives, 34 outcomes, 37 QA, T/1000-T interactive model');
+console.log('PASS: 22 games, 11 narratives, 46 outcomes, 37 QA, 55 lesson tabs, T/1000-T model');
