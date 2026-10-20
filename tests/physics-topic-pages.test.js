@@ -110,11 +110,11 @@ function fixture(){
   }
   for(let i=1;i<=22;i++){
     const qa=mk('div','qa'),q=mk('p','q');q.textContent=i+'. Question';
-    qa.appendChild(q);panes.soru.appendChild(qa);
+    qa.appendChild(q);const details=mk('details'),summary=mk('summary');summary.textContent='Çözümü göster';details.appendChild(summary);qa.appendChild(details);panes.soru.appendChild(qa);
   }
   return main;
 }
-const win={showSub(){}},document={createElement:tag=>new Element(tag)};
+const win={lastSub:null,showSub(tab){this.lastSub=tab;}},document={createElement:tag=>new Element(tag)};
 vm.runInNewContext(narrativeCode,{window:win,document});
 vm.runInNewContext(gamesCode,{window:win,document});
 vm.runInNewContext(code,{window:win,document});
@@ -127,6 +127,19 @@ for(const lang of ['tr','en']){
   assert.equal(pages.filter(e=>e.hidden).length,9);
   assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,47);
   assert.equal(all.filter(e=>e.classList.contains('qa')).length,32);
+  const whyPanels=all.filter(e=>e.classList.contains('physics-qa-reason'));
+  assert.equal(whyPanels.length,32,'all ten topic prompts and 22 legacy physics questions need a reason');
+  for(const reason of whyPanels){
+    assert.equal(reason.children.length,3,'correct, misconception and explanation link');
+    assert.ok(reason.children[0].classList.contains('physics-qa-correct'));
+    assert.ok(reason.children[1].classList.contains('physics-qa-misconception'));
+    assert.ok(reason.children[0].children[1].textContent.length>20,'correct reasoning too brief');
+    assert.ok(reason.children[1].children[1].textContent.length>20,'wrong reasoning too brief');
+    assert.ok(reason.children[2].classList.contains('physics-qa-reference'));
+  }
+  whyPanels[0].children[2].listeners.click();
+  assert.equal(win.lastSub,'anlatim','reason link should switch to the same lesson Explanation tab');
+
   assert.equal(all.filter(e=>e.classList.contains('fig')).length,19);
   assert.equal(main.children.filter(e=>e.classList.contains('pane')).length,0);
   assert.equal(pages[0].children[1].children.length,5);
@@ -271,4 +284,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 7 games, 28 learning outcomes per language, 10 topics, 47 tabs/panes, 2D hole lab');
+console.log('PASS: 32 correct/misconception explanations, 7 games, 28 learning outcomes, 10 topics');
