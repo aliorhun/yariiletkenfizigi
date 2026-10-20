@@ -210,48 +210,91 @@ for(const lang of ['tr','en']){
       assert.ok(!last.classList.contains('physics-learning-outcomes'));
     }
   }
+  // Every game uses clearly titled semantic choice groups with informative cards.
+  function optionGrid(game,group=0){
+    const field=game.children[4].children[group];
+    assert.ok(field && field.tagName==='FIELDSET','expected fieldset in game options');
+    const grid=field.children.find(e=>e.classList.contains('physics-game-options')||e.classList.contains('physics-fermi-option-grid'));
+    assert.ok(grid,'expected card grid');
+    return grid;
+  }
+  function pick(game,group,index){
+    const cards=optionGrid(game,group).children;
+    const card=cards[index];
+    assert.ok(card&&card.tagName==='BUTTON','expected a selectable card');
+    card.listeners.click();
+    return game.children[5];
+  }
+  for(const [key,game] of [...Object.entries(gamesByTopic),...Object.entries(secondGamesByTopic)]){
+    for(const field of game.children[4].children){
+      assert.equal(field.tagName,'FIELDSET','named, accessible choice groups: '+key);
+      assert.equal(field.children[0].tagName,'LEGEND','visible control heading: '+key);
+      const cards=field.children.find(e=>e.classList.contains('physics-game-options')||e.classList.contains('physics-fermi-option-grid'));
+      assert.ok(cards&&cards.children.length>=2,'meaningful choices: '+key);
+      for(const card of cards.children){
+        assert.equal(card.tagName,'BUTTON');
+        assert.ok(card.children.length>=2,'choice needs a main label and supporting explanation: '+key);
+        assert.ok(card.children[0].textContent.trim().length>0);
+        assert.ok(card.children[1].textContent.trim().length>3,'sub-label missing: '+key);
+        assert.ok(['true','false'].includes(card.attributes['aria-pressed']),'accessible selected state: '+key);
+      }
+    }
+  }
   // Each game has a topic-specific choice and feedback loop in both languages.
   const crystalGame=gamesByTopic.crystal;
-  crystalGame.children[4].children[0].listeners.click();
+  pick(crystalGame,0,0);
   assert.ok(crystalGame.children[5].classList.contains('is-incorrect'));
-  crystalGame.children[4].children[2].listeners.click();
+  assert.ok(optionGrid(crystalGame,0).children[0].classList.contains('is-incorrect-answer'));
+  pick(crystalGame,0,2);
   assert.ok(crystalGame.children[5].classList.contains('is-correct'));
+  assert.ok(optionGrid(crystalGame,0).children[2].classList.contains('is-correct-answer'));
+  assert.equal(optionGrid(crystalGame,0).children[0].attributes['aria-pressed'],'false');
   const blochGame=gamesByTopic['bloch-electron'];
-  blochGame.children[4].children[0].children[2].listeners.click(); // k=π/a
-  blochGame.children[4].children[1].children[0].listeners.click(); // incorrect prediction
+  pick(blochGame,0,2); // k=π/a
+  pick(blochGame,1,0); // incorrect prediction
   assert.ok(blochGame.children[5].classList.contains('is-incorrect'));
-  blochGame.children[4].children[1].children[2].listeners.click(); // 180°
+  pick(blochGame,1,2); // 180°
   assert.ok(blochGame.children[5].classList.contains('is-correct'));
   const bandsGame=gamesByTopic.bands;
-  bandsGame.children[4].children[1].listeners.click(); // wrong level count
+  pick(bandsGame,0,1); // wrong level count
   assert.ok(bandsGame.children[5].classList.contains('is-incorrect'));
-  bandsGame.children[4].children[0].listeners.click(); // two levels
+  pick(bandsGame,0,0); // two levels
   assert.ok(bandsGame.children[5].classList.contains('is-correct'));
   bandsGame.children[6].listeners.click(); // target four levels
-  bandsGame.children[4].children[1].listeners.click();
+  pick(bandsGame,0,1);
   assert.ok(bandsGame.children[5].classList.contains('is-correct'));
   const edgesGame=gamesByTopic.edges;
-  edgesGame.children[4].children[0].children[0].listeners.click(); // 0.6 eV
-  edgesGame.children[4].children[1].children[0].listeners.click(); // wrong excitation
+  pick(edgesGame,0,0); // 0.6 eV
+  pick(edgesGame,1,0); // wrong excitation
   assert.ok(edgesGame.children[5].classList.contains('is-incorrect'));
-  edgesGame.children[4].children[1].children[1].listeners.click(); // no excitation
+  pick(edgesGame,1,1); // no excitation
   assert.ok(edgesGame.children[5].classList.contains('is-correct'));
-  edgesGame.children[4].children[0].children[3].listeners.click(); // 1.8 eV
-  edgesGame.children[4].children[1].children[0].listeners.click();
+  pick(edgesGame,0,3); // 1.8 eV
+  assert.ok(!edgesGame.children[5].classList.contains('is-incorrect'),
+    'new photon must clear old verdict');
+  assert.equal(optionGrid(edgesGame,1).children[1].attributes['aria-pressed'],'false',
+    'changing photon must reset old answer');
+  pick(edgesGame,1,0);
   assert.ok(edgesGame.children[5].classList.contains('is-correct'));
   const dosGame=gamesByTopic.dos;
-  dosGame.children[4].children[0].children[0].listeners.click(); // 1D
-  dosGame.children[4].children[1].children[2].listeners.click(); // wrong trend
+  pick(dosGame,0,0); // 1D
+  pick(dosGame,1,2); // wrong trend
   assert.ok(dosGame.children[5].classList.contains('is-incorrect'));
-  dosGame.children[4].children[1].children[0].listeners.click(); // decreases
+  pick(dosGame,1,0); // decreases
   assert.ok(dosGame.children[5].classList.contains('is-correct'));
-  dosGame.children[4].children[0].children[1].listeners.click(); // 2D
-  dosGame.children[4].children[1].children[1].listeners.click(); // constant
+  pick(dosGame,0,1); // 2D
+  assert.equal(optionGrid(dosGame,1).children[0].attributes['aria-pressed'],'false',
+    'changing dimension must clear old trend');
+  pick(dosGame,1,1); // constant
   assert.ok(dosGame.children[5].classList.contains('is-correct'));
   const holesGame=gamesByTopic.holes;
-  holesGame.children[4].children[0].listeners.click(); // electron left, hole right
-  holesGame.children[4].children[0].listeners.click();
-  holesGame.children[4].children[2].listeners.click(); // electron up, hole down
+  pick(holesGame,0,1); // electron right sends the hole away from the target
+  assert.ok(holesGame.children[5].classList.contains('is-incorrect'),
+    'moving away from the target should give corrective guidance');
+  holesGame.children[6].listeners.click(); // reset before trying a shorter route
+  pick(holesGame,0,0); // electron left, hole right
+  pick(holesGame,0,0);
+  pick(holesGame,0,2); // electron up, hole down
   assert.ok(holesGame.children[5].classList.contains('is-correct'));
   assert.equal(holesGame.children[2].children[0].children.filter(e=>e.classList.contains('is-hole')&&e.classList.contains('is-target')).length,1);
   function fermiOption(game,group,index){return game.children[4].children[group].children[2].children[index];}
@@ -289,12 +332,7 @@ for(const lang of ['tr','en']){
     assert.ok(game.children[4].children.length>=1,'second game must offer choices '+key);
     assert.ok(game.children[3].textContent.length>15,'missing question '+key);
   }
-  function choice(game,group,index){
-    const groupEl=game.children[4].children[group];
-    const row=groupEl.classList.contains('physics-fermi-option-group')?groupEl.children[2]:groupEl;
-    row.children[index].listeners.click();
-    return game.children[5];
-  }
+  function choice(game,group,index){return pick(game,group,index);}
   const crystal2=secondGamesByTopic.crystal;
   assert.ok(choice(crystal2,1,0).classList.contains('is-incorrect'));
   assert.ok(choice(crystal2,1,1).classList.contains('is-correct'));
@@ -407,4 +445,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 32 QA explanations, 14 complementary games, pedagogical feedback, 28 outcomes, 10 topics');
+console.log('PASS: 14 labelled games, two-line option cards, answer states, reset behavior, 28 outcomes, 32 QA');
