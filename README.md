@@ -115,7 +115,7 @@ Testler Bloch çeviri/faz koşulunu, Bragg sınırındaki enerji ayrışmasını
 
 ## Fizik derslerinde eksik anlatımların tamamlanması
 
-İlk 10 fizik dersinin **Anlatım** sekmesi, eski 1. hafta başlıklarına bağımlı olmadan Türkçe ve İngilizce açıklamalar içerir. Bu içerikler `assets/physics-lesson-explanations.js` içinde saklanır. On birinci sıcaklık rejimleri dersinin bağımsız anlatımı ise `assets/temperature-regimes.js` tarafından sağlanır. Önceki matematiksel türetimler, 19 eski görsel ve 32 eski soru-cevap korunur; yeni bölümle toplam 37 soru-cevap bulunur.
+İlk 10 fizik dersinin **Anlatım** sekmesi, eski 1. hafta başlıklarına bağımlı olmadan Türkçe ve İngilizce açıklamalar içerir. Bu içerikler `assets/physics-lesson-explanations.js` içinde saklanır. On birinci sıcaklık rejimleri dersinin bağımsız anlatımı ise `assets/temperature-regimes.js` tarafından sağlanır. Önceki matematiksel türetimler, 19 eski görsel ve 32 eski soru-cevap korunur; yeni bölümle toplam 39 soru-cevap bulunur.
 
 ### Özellikle 04 · Değerlik ve iletim bandı
 
@@ -149,7 +149,7 @@ Kristal yapı, Bloch elektronları, bant oluşumu, durum yoğunluğu, hol, Fermi
 
 Yeni **assets/physics-topic-pages.js**, mevcut 1. hafta şablonundaki DOM elemanlarını **kopyalamadan** ilgili konu ve sekmeye taşır. Böylece eski grafik ID'leri ve slider olayları korunur. Yeni **assets/physics-topic-pages.css** yalnızca seçilen ders ve seçilen sekmenin gösterilmesini sağlar. Eski 20 ders/modülün geri kalanı, tema ve iki dil seçeneği korunur.
 
-Matematiksel temel sekmelerinde her başlığa özgü formül özeti bulunur, mevcut ayrıntılı türetimler ilgili konulara ayrılır. Mevcut 22 soru ve ilk 10 konuya ait 10 kavramsal soru korunur; sıcaklık rejiminde 5 ek soruyla **37 soru** sunulur. Hol konusundaki boşluk hareketi görseli şematik bir doluluk modelidir, gerçek zamanlı kuantum dinamiği değildir.
+Matematiksel temel sekmelerinde her başlığa özgü formül özeti bulunur, mevcut ayrıntılı türetimler ilgili konulara ayrılır. Mevcut 22 soru ve ilk 10 konuya ait 10 kavramsal soru korunur; sıcaklık rejiminde 7 ek soruyla **39 soru** sunulur. Hol konusundaki boşluk hareketi görseli şematik bir doluluk modelidir, gerçek zamanlı kuantum dinamiği değildir.
 
 Regresyon testleri:
 
@@ -159,13 +159,15 @@ node tests/solid-state-foundations.test.js
 node tests/temperature-regimes.test.js
 ```
 
-İlk test Türkçe ve İngilizce 11 dersin 55 sekmesini, 22 öğrenme oyununu, 19 mevcut görsel bölümünü, 37 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. Son test sıcaklığa bağlı tam/eksik katkı iyonlaşmasını, elektron–hol dengesi ve kompanzasyonu sayısal olarak sınar. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
+İlk test Türkçe ve İngilizce 11 dersin 55 sekmesini, 22 öğrenme oyununu, 19 mevcut görsel bölümünü, 39 soru-cevabı, boş olmayan sekmeleri ve görünürlük geçişlerini bağımlılıksız DOM taklidi ile doğrular. Son test sıcaklığa bağlı tam/eksik katkı iyonlaşmasını, elektron–hol dengesi, enerji ölçekleri ve kompanzasyonu sayısal olarak sınar. **Gerçek tarayıcı görsel regresyonu ve CI sonucu ayrıca doğrulanmalıdır.**
 
 ### 10 · Sıcaklık rejimleri ve katkılama senaryoları
 
-Yeni dersin **Anlatım** sekmesinde P donörü ve B akseptörü, hidrojen benzeri sığ bağlanma, düşük sıcaklıkta **freeze-out**, ara sıcaklıkta **extrinsic**, yüksek sıcaklıkta **intrinsic** davranış, çok hafif ve yüksek katkılama ile kompanzasyon senaryoları açıklanır. Her kavram Türkçe/İngilizce sunulur; altı öğrenme kazanımı ve doğru/yanlış gerekçeleri ile iki oyun bulunur.
+Yeni dersin **Anlatım** sekmesinde P donörü ve B akseptörü, hidrojen benzeri sığ bağlanma, düşük sıcaklıkta **freeze-out**, ara sıcaklıkta **extrinsic**, yüksek sıcaklıkta **intrinsic** davranış, çok hafif ve yüksek katkılama ile kompanzasyon senaryoları açıklanır. Ayrıca 300 K'deki üç enerji ayırt edilir: **kBT ≈ 0,026 eV** ısıl enerji ölçeği; Si:P ve Si:B'nin **≈0,045–0,046 eV** katkı iyonlaşma enerjileri; Si için **Eg ≈ 1,12 eV** bant aralığıdır. `kBT < Eion` olduğu hâlde iyonlaşmanın gerçekleşebilmesi Fermi doluluğu ve enerji dağılımıyla açıklanır. Her kavram Türkçe/İngilizce sunulur; altı öğrenme kazanımı, yedi soruluk Soru–Cevap ve doğru/yanlış gerekçeleri içeren iki oyun bulunur.
 
 **Görsel / Simülasyon** sekmesindeki sayısal model n-tipi Si:P, p-tipi Si:B, has Si, n/p baskın kompanzasyon ve eşit donör–akseptör senaryolarını kapsar. Sıcaklık, katkı yoğunluğu ve **T / 1000/T** ekseni seçilebilir. İlk grafik görünümünde mavi eğri çoğunluk taşıyıcısı, yeşil eğri iyonlaşmış net katkı yoğunluğu ve turuncu eğri azınlık taşıyıcı yoğunluğuna eşit ısıl çift katkısıdır. İkinci grafik görünümü ise **Si:P için üç farklı donör yoğunluğunun (10¹⁴, 10¹⁶, 10¹⁷ cm⁻³) n(T) eğrilerini** aynı eksende karşılaştırır. Model, sıcaklığa bağlı bant aralığı ve durum yoğunluğu ile yük nötrlüğü ve eksik iyonlaşmayı birlikte çözer.
+
+Aynı simülasyona **P donör / B akseptör enerji bant diyagramı** eklendi. İletim ve değerlik bandı kenarları ile sığ katkı seviyeleri şematik (ölçekli olmayan) yerleşimdedir. Yanındaki bağımsız `kBT` kartı enerji düzeyi olarak çizilmez; sıcaklık sürgüsüyle `kBT`, `Eg` ve oranları dinamik güncellenir. Oyun 1 ve Oyun 2'ye bu üç ölçeği ve `kBT` hakkındaki yanlış eşik yorumunu öğreten yeni sorular eklendi.
 
 **Önemli sınır:** Bu hesap homojen, termal dengedeki ve dejenere olmayan silisyum içindir. Çok yoğun katkılamada (örneğin 10¹⁹ cm⁻³ Si:P) tekil donör/akseptör resmi fiziksel geçerliliğini yitirir. Bu senaryoda bilerek hatalı bir çizim üretilmez; modelin sınırlaması gösterilir. Rejimler arasında evrensel sabit sıcaklık sınırları yoktur.
 

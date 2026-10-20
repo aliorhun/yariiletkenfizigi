@@ -130,9 +130,9 @@ for(const lang of ['tr','en']){
   assert.equal(pages.length,11);
   assert.equal(pages.filter(e=>e.hidden).length,10);
   assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,55);
-  assert.equal(all.filter(e=>e.classList.contains('qa')).length,37);
+  assert.equal(all.filter(e=>e.classList.contains('qa')).length,39);
   const whyPanels=all.filter(e=>e.classList.contains('physics-qa-reason'));
-  assert.equal(whyPanels.length,37,'all eleven topic prompts, four regime questions and 22 legacy questions need a reason');
+  assert.equal(whyPanels.length,39,'all eleven topic prompts, six regime questions and 22 legacy questions need a reason');
   for(const reason of whyPanels){
     assert.equal(reason.children.length,3,'correct, misconception and explanation link');
     assert.ok(reason.children[0].classList.contains('physics-qa-correct'));
@@ -230,12 +230,34 @@ for(const lang of ['tr','en']){
         optionCards.children[0].listeners.click();
         assert.ok(game.children[5].children.some(e=>e.classList.contains('physics-game-lesson-link')));
       }
+      for(const [game,correctIndices] of [[first,[0,1,1,2,1,0,1]],[second,[0,1,1,0,2,1]]]){
+        assert.ok(game.children[3].textContent.includes(' / '+correctIndices.length+' — '),'all rounds must be available');
+        correctIndices.forEach((correct,i)=>{
+          if(i===correctIndices.length-1){
+            assert.ok(game.children[3].textContent.includes(lang==='tr'?'0,0':'0.0'),'last round should test the relationship of energy scales');
+          }
+          game.children[4].children[correct].listeners.click();
+          assert.ok(game.children[5].classList.contains('is-correct'),'every new game round needs feedback');
+          if(i!==correctIndices.length-1)game.children[6].listeners.click();
+        });
+      }
       const sim=page.children.find(e=>e.dataset.pane==='gorsel').children.find(e=>e.classList.contains('regime-lab'));
       assert.ok(sim,'temperature simulation missing');
       const inputs=sim.children[2].children;
       assert.equal(inputs.length,5);
       const graph=sim.children[4].children[0];
       assert.ok(graph.innerHTML.includes('<svg'),'native SVG graph not mounted');
+      const energy=sim.children[7];
+      assert.ok(energy&&energy.classList.contains('regime-energy-panel'),'separate energy scale visual missing');
+      const visual=energy.children[2];
+      assert.ok(visual.innerHTML.includes('0.026 eV'),'300 K must display kBT≈0.026 eV');
+      assert.ok(visual.innerHTML.includes('1.12 eV'),'300 K must show silicon band gap');
+      assert.ok(visual.innerHTML.includes('0.045 / 0.046 eV'),'P/B impurity levels must both be identified');
+      assert.ok(visual.innerHTML.includes('E_g'),'energy gap must be labelled on the diagram');
+      inputs[2].children[1].value='600';inputs[2].children[1].listeners.input();
+      assert.ok(visual.innerHTML.includes('0.052 eV'),'kBT must update with temperature');
+      assert.ok(!visual.innerHTML.includes('1.12 eV'),'band gap should narrow with temperature');
+      inputs[2].children[1].value='300';inputs[2].children[1].listeners.input();
       inputs[3].children[1].value='inverse';inputs[3].children[1].listeners.change();
       assert.ok(graph.innerHTML.includes('1000/T'),'reciprocal temperature scale should render');
       inputs[4].children[1].value='three-donor';inputs[4].children[1].listeners.change();
@@ -530,4 +552,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 22 games, 11 narratives, 46 outcomes, 37 QA, 55 lesson tabs, T/1000-T model');
+console.log('PASS: 22 games, 11 narratives, 46 outcomes, 39 QA, 55 lesson tabs, T/1000-T and energy-level model');

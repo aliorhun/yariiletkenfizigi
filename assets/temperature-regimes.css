@@ -38,6 +38,23 @@
   overflow-wrap:anywhere;font-variant-numeric:tabular-nums;
 }
 .regime-caution { margin:.65rem 0 0;color:var(--muted);font:400 .8rem/1.6 var(--sans); }
+.regime-energy-panel {
+  margin-top:1.3rem;padding:clamp(.8rem,2vw,1.2rem);
+  border:1px solid var(--rule);border-radius:12px;background:var(--bg);
+}
+.regime-energy-panel > h3 { margin:0 0 .35rem;color:var(--ink);font:700 1.05rem/1.4 var(--sans); }
+.regime-energy-lead { color:var(--muted);font:.84rem/1.6 var(--sans);margin:.25rem 0 .8rem; }
+.regime-energy-metrics { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem; }
+.regime-energy-metric {
+  display:flex;flex-direction:column;gap:.22rem;padding:.8rem .85rem;
+  border:1px solid var(--rule);border-radius:9px;background:var(--panel);min-width:0;
+}
+.regime-energy-metric > span { color:var(--muted);font:700 .79rem var(--sans); }
+.regime-energy-metric > strong { color:var(--ink);font:700 clamp(.95rem,1.7vw,1.2rem)/1.3 var(--sans);font-variant-numeric:tabular-nums; }
+.regime-energy-metric > small { color:var(--muted);font:.72rem/1.4 var(--sans); }
+.regime-energy-diagram { margin-top:.7rem;border:1px solid var(--rule);border-radius:9px;overflow:hidden;background:#fff; }
+.regime-energy-diagram svg { display:block;width:100%;height:auto; }
+.regime-energy-note { margin:.7rem 0 0;color:var(--ink);font:.82rem/1.65 var(--sans); }
 .regime-game-instance[hidden] { display:none!important; }
 .regime-games .physics-learning-game { border-color:var(--rule); }
 .regime-game-options { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;margin:1rem 0; }
@@ -63,4 +80,7 @@
   .regime-game-options { grid-template-columns:1fr;gap:.5rem; }
   .regime-game-option { min-height:72px;padding:.75rem; }
   .regime-chart { min-width:430px; }
+  .regime-energy-metrics { grid-template-columns:1fr; }
+  .regime-energy-diagram { overflow-x:auto; }
+  .regime-energy-diagram svg { min-width:560px; }
 }
