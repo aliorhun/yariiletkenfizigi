@@ -18,7 +18,8 @@ var TABS=[
  ['anlatim','Anlatım','Explanation'],
  ['matematik','Matematiksel temel','Mathematical foundations'],
  ['gorsel','Görsel / Simülasyon','Visuals / Simulations'],
- ['soru','Soru–Cevap','Questions & Answers']
+ ['soru','Soru–Cevap','Questions & Answers'],
+ ['oyun','Oyun','Game']
 ];
 var FORMULAS={
  crystal:[
@@ -415,8 +416,9 @@ function createPage(topic,i,lang,views){
  var n=elem('span','physics-lesson-index');n.textContent=String(i+1).padStart(2,'0');
  var h=elem('h2');h.textContent=langPick([topic[1],topic[2]],lang);
  header.appendChild(n);header.appendChild(h);page.appendChild(header);
+ var pageTabs=i<7?TABS:TABS.slice(0,4);
  var tabs=elem('div','subtabs physics-topic-tabs');tabs.setAttribute('role','tablist');
- TABS.forEach(function(t){
+ pageTabs.forEach(function(t){
   var b=elem('button');b.type='button';b.dataset.sub=t[0];
   b.setAttribute('role','tab');b.setAttribute('aria-selected','false');
   b.textContent=langPick([t[1],t[2]],lang);
@@ -424,7 +426,7 @@ function createPage(topic,i,lang,views){
   tabs.appendChild(b);
  });
  page.appendChild(tabs);
- TABS.forEach(function(t){
+ pageTabs.forEach(function(t){
   var pane=elem('section','pane physics-topic-pane');pane.dataset.pane=t[0];pane.setAttribute('role','tabpanel');
   if(t[0]==='anlatim'||t[0]==='matematik'){
    var prose=elem('div','prose');pane.appendChild(prose);views[topic[0]][t[0]]=prose;
@@ -461,6 +463,7 @@ function mount(main,lang,initialTopic){
   Array.from(old.urun.children).forEach(function(c){details.appendChild(c);});
   views.transport.anlatim.appendChild(details);
  }
+ if(window.PhysicsLearningGames)window.PhysicsLearningGames.mount(views,lang);
  Object.keys(old).forEach(function(t){if(old[t])old[t].remove();});
  showTopic(main,initialTopic||'crystal');
 }
@@ -476,6 +479,7 @@ function showTopic(main,key){
 }
 function showSub(main,key){
  var shown=page(main);if(!shown||!TABS.some(function(x){return x[0]===key;}))return false;
+ if(!Array.from(shown.querySelectorAll(':scope > .physics-topic-pane')).some(function(p){return p.dataset.pane===key;}))return false;
  shown.querySelectorAll(':scope > .physics-topic-tabs button').forEach(function(b){
    b.setAttribute('aria-selected',String(b.dataset.sub===key));
  });

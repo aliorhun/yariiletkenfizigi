@@ -5,12 +5,15 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const dir=path.join(__dirname,'..');
 const code=fs.readFileSync(path.join(dir,'assets/physics-topic-pages.js'),'utf8');
 const narrativeCode=fs.readFileSync(path.join(dir,'assets/physics-lesson-explanations.js'),'utf8');
+const gamesCode=fs.readFileSync(path.join(dir,'assets/physics-learning-games.js'),'utf8');
 const index=fs.readFileSync(path.join(dir,'index.html'),'utf8');
 new vm.Script(code);
 new vm.Script(narrativeCode);
+new vm.Script(gamesCode);
 for(const marker of [
   'assets/physics-topic-pages.js','assets/physics-topic-pages.css',
   'assets/physics-lesson-explanations.js','assets/physics-lesson-explanations.css',
+  'assets/physics-learning-games.js','assets/physics-learning-games.css',
   'PhysicsTopicPages.mount(main, LANG, currentTopic)',
   'PhysicsTopicPages.showTopic(main, id)',
   'PhysicsTopicPages.showSub(main, id)'
@@ -113,6 +116,7 @@ function fixture(){
 }
 const win={showSub(){}},document={createElement:tag=>new Element(tag)};
 vm.runInNewContext(narrativeCode,{window:win,document});
+vm.runInNewContext(gamesCode,{window:win,document});
 vm.runInNewContext(code,{window:win,document});
 const api=win.PhysicsTopicPages;
 for(const lang of ['tr','en']){
@@ -121,11 +125,11 @@ for(const lang of ['tr','en']){
   const pages=all.filter(e=>e.classList.contains('physics-topic-page'));
   assert.equal(pages.length,10);
   assert.equal(pages.filter(e=>e.hidden).length,9);
-  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,40);
+  assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,47);
   assert.equal(all.filter(e=>e.classList.contains('qa')).length,32);
   assert.equal(all.filter(e=>e.classList.contains('fig')).length,19);
   assert.equal(main.children.filter(e=>e.classList.contains('pane')).length,0);
-  assert.equal(pages[0].children[1].children.length,4);
+  assert.equal(pages[0].children[1].children.length,5);
   assert.ok(all.some(e=>e.classList.contains('physics-hole-sim')));
   // The hole lesson must have an interactive 2D lattice and three learning modes.
   const simulation=all.find(e=>e.classList.contains('physics-hole-sim'));
@@ -166,6 +170,63 @@ for(const lang of ['tr','en']){
 
   const narratives=all.filter(e=>e.classList.contains('physics-lesson-intro'));
   assert.equal(narratives.length,10,'exactly one standalone narrative per topic');
+  const topicsWithGames=['crystal','bloch-electron','bands','edges','dos','holes','fermi'];
+  const gamesByTopic={};
+  for(const page of pages){
+    const key=page.dataset.physicsTopic,prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
+    const last=prose.children[prose.children.length-1];
+    const gamePane=page.children.find(e=>e.dataset.pane==='oyun');
+    if(topicsWithGames.includes(key)){
+      assert.ok(last.classList.contains('physics-learning-outcomes'),'outcomes must end '+key+' explanation');
+      assert.equal(last.children[1].children.length,4,'exactly four measurable outcomes: '+key);
+      assert.ok(gamePane&&gamePane.children.length===1,'missing game on '+key);
+      gamesByTopic[key]=gamePane.children[0];
+    }else{
+      assert.ok(!gamePane,'only the first seven lessons have a game tab');
+      assert.ok(!last.classList.contains('physics-learning-outcomes'));
+    }
+  }
+  // Each game has a topic-specific choice and feedback loop in both languages.
+  const crystalGame=gamesByTopic.crystal;
+  crystalGame.children[4].children[2].listeners.click();
+  assert.ok(crystalGame.children[5].classList.contains('is-correct'));
+  const blochGame=gamesByTopic['bloch-electron'];
+  blochGame.children[4].children[0].children[2].listeners.click(); // k=π/a
+  blochGame.children[4].children[1].children[2].listeners.click(); // 180°
+  assert.ok(blochGame.children[5].classList.contains('is-correct'));
+  const bandsGame=gamesByTopic.bands;
+  bandsGame.children[4].children[0].listeners.click(); // two levels
+  assert.ok(bandsGame.children[5].classList.contains('is-correct'));
+  bandsGame.children[6].listeners.click(); // target four levels
+  bandsGame.children[4].children[1].listeners.click();
+  assert.ok(bandsGame.children[5].classList.contains('is-correct'));
+  const edgesGame=gamesByTopic.edges;
+  edgesGame.children[4].children[0].children[0].listeners.click(); // 0.6 eV
+  edgesGame.children[4].children[1].children[1].listeners.click(); // no excitation
+  assert.ok(edgesGame.children[5].classList.contains('is-correct'));
+  edgesGame.children[4].children[0].children[3].listeners.click(); // 1.8 eV
+  edgesGame.children[4].children[1].children[0].listeners.click();
+  assert.ok(edgesGame.children[5].classList.contains('is-correct'));
+  const dosGame=gamesByTopic.dos;
+  dosGame.children[4].children[0].children[0].listeners.click(); // 1D
+  dosGame.children[4].children[1].children[0].listeners.click(); // decreases
+  assert.ok(dosGame.children[5].classList.contains('is-correct'));
+  dosGame.children[4].children[0].children[1].listeners.click(); // 2D
+  dosGame.children[4].children[1].children[1].listeners.click(); // constant
+  assert.ok(dosGame.children[5].classList.contains('is-correct'));
+  const holesGame=gamesByTopic.holes;
+  holesGame.children[4].children[0].listeners.click(); // electron left, hole right
+  holesGame.children[4].children[0].listeners.click();
+  holesGame.children[4].children[2].listeners.click(); // electron up, hole down
+  assert.ok(holesGame.children[5].classList.contains('is-correct'));
+  assert.equal(holesGame.children[2].children[0].children.filter(e=>e.classList.contains('is-hole')&&e.classList.contains('is-target')).length,1);
+  const fermiGame=gamesByTopic.fermi;
+  fermiGame.children[4].children[0].children[0].listeners.click(); // E-EF < 0
+  fermiGame.children[4].children[2].children[2].listeners.click(); // >75%
+  assert.ok(fermiGame.children[5].classList.contains('is-correct'));
+  fermiGame.children[4].children[0].children[1].listeners.click(); // E=EF
+  fermiGame.children[4].children[2].children[1].listeners.click(); // 50%
+  assert.ok(fermiGame.children[5].classList.contains('is-correct'));
   for(const page of pages){
     const prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
     assert.ok(prose && prose.children[0]?.classList.contains('physics-lesson-intro'),
@@ -187,13 +248,15 @@ for(const lang of ['tr','en']){
   }
   for(const page of pages){
     const panes=page.children.filter(e=>e.classList.contains('physics-topic-pane'));
-    assert.equal(panes.length,4);
+    assert.equal(panes.length,pages.indexOf(page)<7?5:4);
     for(const pane of panes)assert.ok(pane.children.length>0,'empty '+page.dataset.physicsTopic+' / '+pane.dataset.pane);
   }
   api.showTopic(main,'dos');api.showSub(main,'gorsel');
   assert.equal(pages.filter(e=>!e.hidden)[0].dataset.physicsTopic,'dos');
   assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')&&e.classList.contains('active')).length,1);
   assert.ok(api.showSub(main,'matematik'));
+  api.showTopic(main,'holes');assert.ok(api.showSub(main,'oyun'));
+  api.showTopic(main,'transport');assert.ok(!api.showSub(main,'oyun'));
   assert.ok(!api.showSub(main,'nonexistent'));
   assert.ok(!api.showTopic(main,'nonexistent'));
 }
@@ -208,4 +271,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 10 lessons × 4 tabs, 2D electron-hole lab modes, 19 figures, 32 QAs, TR/EN narratives');
+console.log('PASS: 7 games, 28 learning outcomes per language, 10 topics, 47 tabs/panes, 2D hole lab');
