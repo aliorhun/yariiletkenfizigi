@@ -1,4 +1,4 @@
-/* Ten independent semiconductor-physics lessons, four panels each.
+/* Independent semiconductor-physics lessons with separate learning panels.
    Existing Week 1 nodes are MOVED (not duplicated) so IDs and events are preserved. */
 (function(){
 'use strict';
@@ -12,6 +12,7 @@ var TOPICS=[
  ['fermi','Fermi seviyesi ve olasılık','Fermi level and occupancy'],
  ['equilibrium','Elektron–hol dengesi','Electron–hole equilibrium'],
  ['doping','Has ve katkılı yarıiletkenler','Intrinsic and doped semiconductors'],
+ ['regimes','Sıcaklık rejimleri ve katkılama senaryoları','Temperature regimes and doping scenarios'],
  ['transport','Taşıyıcı hareketi ve geçiş','Carrier transport and transition']
 ];
 var TABS=[
@@ -85,6 +86,13 @@ var FORMULAS={
  'Düşük sıcaklıkta eksik iyonlaşma ve yüksek katkıda dejenerelik bu yaklaşık ifadeleri bozabilir.',
  'Low-temperature incomplete ionization and high-doping degeneracy can invalidate these approximations.'
  ],
+ regimes:[
+ 'Isıl dengede üç rejim, iyonlaşmış katkı yoğunluğu ile ısıl elektron–hol çiftlerinin yarışından doğar:',
+ 'The three temperature regimes emerge from competition between ionized dopants and thermal electron–hole pairs:',
+ '\\[n+N_A^-=p+N_D^+,\\qquad np=n_i^2,\\qquad n_{\\mathrm{majority}}=|N_D^+-N_A^-|+n_{\\mathrm{minority}}.\\]',
+ 'Son eşitlik hem n hem p tipi için geçerlidir. Donör/akseptörler eksik iyonlaştığında N_D ve N_A yerine iyonlaşmış yoğunlukları kullanın; çok yüksek katkıda klasik model yetersizdir.',
+ 'The last identity works for either majority-carrier type. Use ionized, not total, dopant densities when ionization is incomplete; the classical model fails at very heavy doping.'
+ ],
  transport:[
  'Elektron ve hol akımı, sürüklenme ve difüzyon katkılarının toplamıdır:',
  'Electron and hole currents combine drift and diffusion:',
@@ -103,6 +111,7 @@ var PROMPTS={
  fermi:['Fermi seviyesi yasak aralıkta olabilir mi?','Evet. Orada elektron durumu olmasa da kimyasal potansiyel tanımlıdır.','Can the Fermi level lie inside the band gap?','Yes. The chemical potential can exist where there is no allowed electronic state.'],
  equilibrium:['Sabit ışık altındaki malzeme ısıl dengede midir?','Her zaman değil; kararlı durum ile ısıl denge farklıdır.','Is constant illumination equivalent to thermal equilibrium?','No. Steady state and thermal equilibrium are different.'],
  doping:['n tipi Si toplamda negatif yüklü müdür?','Hayır. Hareketli elektronlar pozitif donör iyonlarıyla dengelenir.','Does n-type silicon have a net negative charge?','No. Ionized donors balance the mobile electrons.'],
+ regimes:['Üç sıcaklık rejiminin sınırı her katkılı Si örneğinde aynı mıdır?','Hayır. Net iyonlaşmış katkı, safsızlık enerjisi ve n_i(T) geçişi belirler.','Do all doped silicon samples have the same three temperature thresholds?','No. Ionized net doping, impurity binding energy and n_i(T) set the transitions.'],
  transport:['Elektron sürüklenme hızı alanın yönünde midir?','Hayır, negatif yük nedeniyle alanın ters yönündedir.','Does electron drift velocity point along the electric field?','No. It points opposite to the field because electrons are negatively charged.']
 };
 
@@ -160,6 +169,12 @@ var QA_REASONS={
   'Donors and acceptors change carrier populations, while ionized dopants help maintain charge neutrality.',
   'n tipi malzemenin bütün olarak negatif yüklü olduğunu veya her sıcaklıkta n=ND olduğunu sanmak yanlıştır.',
   'An n-type sample is not net negative, and n=ND is not valid at every temperature.'
+ ],
+ regimes:[
+  'Rejim sınırları, eksik iyonlaşmanın bitişi ve ısıl elektron–hol üretiminin net iyonlaşmış katkıya yaklaşmasıyla belirlenir.',
+  'The thresholds depend on donor/acceptor ionization and when thermal pairs approach the net ionized dopant density.',
+  'Freeze-out, extrinsic ve intrinsic terimlerini donör/akseptör türleriyle veya sabit sıcaklık sayılarıyla eşleştirmek yanlış olur.',
+  'Do not equate freeze-out, extrinsic and intrinsic with dopant species or universal fixed temperatures.'
  ],
  transport:[
   'Elektrik alan elektron ve holleri zıt sürüklenme yönlerine yöneltir; difüzyon ise yoğunluk gradyanıyla oluşur.',
@@ -284,7 +299,7 @@ function moveMath(source,views,lang){
 var PLOT_TOPICS={
  'p-lattice':'crystal','p-ek':'edges','p-egscale':'edges',
  'p-f0-lattice':'doping','p-fd':'fermi','p-ni':'equilibrium',
- 'p-f0-regime':'doping','p-dop':'doping','p-f0-sweep':'doping',
+ 'p-f0-regime':'regimes','p-dop':'doping','p-f0-sweep':'doping',
  'p-mob':'transport','p-scat':'transport','p-sc-mu':'transport','p-hs':'transport'
 };
 function appendFigure(fig,views,key,containerClass){
@@ -549,7 +564,7 @@ function createPage(topic,i,lang,views){
  var n=elem('span','physics-lesson-index');n.textContent=String(i+1).padStart(2,'0');
  var h=elem('h2');h.textContent=langPick([topic[1],topic[2]],lang);
  header.appendChild(n);header.appendChild(h);page.appendChild(header);
- var pageTabs=i<7?TABS:TABS.slice(0,4);
+ var pageTabs=i<7||topic[0]==='regimes'?TABS:TABS.slice(0,4);
  var tabs=elem('div','subtabs physics-topic-tabs');tabs.setAttribute('role','tablist');
  pageTabs.forEach(function(t){
   var b=elem('button');b.type='button';b.dataset.sub=t[0];
@@ -597,6 +612,7 @@ function mount(main,lang,initialTopic){
   views.transport.anlatim.appendChild(details);
  }
  if(window.PhysicsLearningGames)window.PhysicsLearningGames.mount(views,lang);
+ if(window.SemiconductorTemperatureRegimes)window.SemiconductorTemperatureRegimes.mount(views,lang);
  Object.keys(old).forEach(function(t){if(old[t])old[t].remove();});
  showTopic(main,initialTopic||'crystal');
 }
