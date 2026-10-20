@@ -118,3 +118,87 @@
 }
 
 .physics-game-covered { font:500 .79rem/1.45 var(--sans);color:var(--muted);margin:1rem 0 0;padding-top:.6rem;border-top:1px dashed var(--rule); }
+
+
+/* Decision controls: meaningful labels, equal-width cards and clear selected/answered states. */
+.physics-fermi-game .physics-game-question { margin:1rem 0 .8rem; }
+.physics-fermi-controls {
+ display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+ gap:.85rem;align-items:stretch;
+}
+.physics-fermi-option-group {
+ min-width:0;margin:0;padding:.8rem .85rem .95rem;
+ border:1px solid var(--rule);border-radius:11px;background:var(--bg);
+}
+.physics-fermi-option-group.is-prediction { grid-column:1 / -1; }
+.physics-fermi-option-heading {
+ padding:0 .35rem;font:700 .87rem/1.4 var(--sans);color:var(--ink);
+}
+.physics-fermi-option-hint { margin:0 0 .7rem;color:var(--muted);font:400 .8rem/1.4 var(--sans); }
+.physics-fermi-option-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem; }
+.physics-fermi-option-group:nth-child(2):not(.is-prediction) .physics-fermi-option-grid {
+ grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.physics-fermi-controls.is-comparison .physics-fermi-option-group:nth-child(2) .physics-fermi-option-grid {
+ grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.physics-fermi-card {
+ position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+ gap:.25rem;min-width:0;min-height:68px;padding:.75rem .8rem;border:1px solid var(--rule);border-radius:9px;
+ background:var(--panel);color:var(--ink);text-align:left;cursor:pointer;
+ font-family:var(--sans);transition:background-color .16s,border-color .16s,box-shadow .16s;
+}
+.physics-fermi-card:hover { border-color:var(--elec);background:var(--bg); }
+.physics-fermi-card:focus-visible { outline:3px solid var(--elec);outline-offset:3px; }
+.physics-fermi-card[aria-pressed="true"] {
+ border-color:var(--elec);background:rgba(45,121,196,.09);
+ box-shadow:inset 0 0 0 1px var(--elec);
+}
+.physics-fermi-card[aria-pressed="true"]::after {
+ content:"✓";position:absolute;right:.45rem;top:.35rem;
+ color:var(--elec);font:800 .9rem/1 var(--sans);
+}
+.physics-fermi-card.is-correct-answer { border-color:#16804d;background:rgba(22,128,77,.09);box-shadow:inset 0 0 0 1px #16804d; }
+.physics-fermi-card.is-correct-answer::after { color:#16804d; }
+.physics-fermi-card.is-incorrect-answer { border-color:#b24736;background:rgba(178,71,54,.08);box-shadow:inset 0 0 0 1px #b24736; }
+.physics-fermi-card.is-incorrect-answer::after { content:"×";color:#b24736; }
+.physics-fermi-card-value {
+ max-width:calc(100% - .6rem);font:700 .94rem/1.3 var(--sans);
+ letter-spacing:-.01em;overflow-wrap:anywhere;
+}
+.physics-fermi-card-caption { color:var(--muted);font:400 .76rem/1.38 var(--sans);overflow-wrap:anywhere; }
+.physics-fermi-meter {
+ display:flex;flex-direction:column;align-items:center;gap:.35rem;
+ width:min(100%,430px);padding:.35rem .55rem;
+}
+.physics-fermi-meter-overline { color:var(--muted);font:700 .73rem/1.5 var(--sans);letter-spacing:.09em; }
+.physics-fermi-meter-value { color:var(--ink);font:700 clamp(1.8rem,4vw,2.6rem)/1.2 var(--sans);font-variant-numeric:tabular-nums; }
+.physics-fermi-meter-subtitle { color:var(--muted);text-align:center;font:400 .81rem/1.4 var(--sans); }
+.physics-fermi-meter-track { width:100%;height:14px;margin-top:.55rem;overflow:hidden;border-radius:100px;border:1px solid var(--rule);background:var(--panel); }
+.physics-fermi-meter-fill { height:100%;border-radius:100px;background:var(--elec);transition:width .18s ease; }
+.physics-fermi-meter-ticks { display:flex;justify-content:space-between;width:100%;font:500 .76rem var(--sans);color:var(--muted); }
+.physics-learning-game:not(.physics-fermi-game) .physics-game-options {
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:.55rem;
+}
+.physics-learning-game:not(.physics-fermi-game) .physics-game-choice {
+ min-height:45px;background:var(--bg);padding:.7rem .85rem;
+}
+.physics-learning-game:not(.physics-fermi-game) .physics-game-choice[aria-pressed="true"] {
+ border-color:var(--elec);background:rgba(45,121,196,.09);color:var(--ink);
+ box-shadow:inset 0 0 0 1px var(--elec);
+}
+@media(max-width:840px){
+ .physics-fermi-controls { grid-template-columns:minmax(0,1fr); }
+ .physics-fermi-option-group.is-prediction { grid-column:auto; }
+}
+@media(max-width:540px){
+ .physics-fermi-option-group { padding:.65rem .65rem .75rem; }
+ .physics-fermi-option-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .physics-fermi-option-group:nth-child(2):not(.is-prediction) .physics-fermi-option-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .physics-fermi-controls.is-comparison .physics-fermi-option-group:nth-child(2) .physics-fermi-option-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .physics-fermi-card { padding:.65rem;min-height:65px; }
+ .physics-fermi-card-value { font-size:.86rem; }
+ .physics-fermi-meter { padding:.2rem; }
+}
+
+.physics-fermi-game .physics-game-feedback:empty { display:none; }
