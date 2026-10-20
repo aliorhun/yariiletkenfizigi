@@ -22,7 +22,7 @@
     eyebrow.className='course-home-eyebrow';
     eyebrow.textContent=trEn(lang,'Ders içerikleri','Course contents');
     var h=document.createElement('h2');
-    h.textContent=trEn(lang,'Ne öğrenmek istiyorsunuz?','What would you like to study?');
+    h.textContent=trEn(lang,'Ana bölümler','Course parts');
     var p=document.createElement('p');
     p.textContent=trEn(lang,
       'Önce yarıiletkenlerin temel fiziğini öğrenin veya bu ilkelerin cihazlardaki uygulamalarına geçin.',
