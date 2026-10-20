@@ -254,15 +254,30 @@ for(const lang of ['tr','en']){
   holesGame.children[4].children[2].listeners.click(); // electron up, hole down
   assert.ok(holesGame.children[5].classList.contains('is-correct'));
   assert.equal(holesGame.children[2].children[0].children.filter(e=>e.classList.contains('is-hole')&&e.classList.contains('is-target')).length,1);
+  function fermiOption(game,group,index){return game.children[4].children[group].children[2].children[index];}
   const fermiGame=gamesByTopic.fermi;
-  fermiGame.children[4].children[0].children[0].listeners.click(); // E-EF < 0
-  fermiGame.children[4].children[2].children[0].listeners.click(); // wrong range
+  fermiOption(fermiGame,0,0).listeners.click(); // E-EF < 0
+  fermiOption(fermiGame,2,0).listeners.click(); // wrong range
   assert.ok(fermiGame.children[5].classList.contains('is-incorrect'));
-  fermiGame.children[4].children[2].children[2].listeners.click(); // >75%
+  fermiOption(fermiGame,2,2).listeners.click(); // >75%
   assert.ok(fermiGame.children[5].classList.contains('is-correct'));
-  fermiGame.children[4].children[0].children[1].listeners.click(); // E=EF
-  fermiGame.children[4].children[2].children[1].listeners.click(); // 50%
+  fermiOption(fermiGame,0,1).listeners.click(); // E=EF
+  fermiOption(fermiGame,2,1).listeners.click(); // 50%
   assert.ok(fermiGame.children[5].classList.contains('is-correct'));
+  const fermiEnergyChoices=fermiGame.children[4].children[0];
+  assert.equal(fermiEnergyChoices.tagName,'FIELDSET');
+  assert.equal(fermiEnergyChoices.children[0].tagName,'LEGEND');
+  assert.ok(fermiOption(fermiGame,0,1).classList.contains('physics-fermi-card'));
+  assert.equal(fermiOption(fermiGame,0,1).attributes['aria-pressed'],'true');
+  assert.ok(fermiOption(fermiGame,2,1).classList.contains('is-correct-answer'));
+  assert.ok(fermiGame.children[2].children.some(e=>e.classList.contains('physics-fermi-meter')),
+    'precise occupancy meter is required instead of rounded dots');
+  fermiOption(fermiGame,0,2).listeners.click();
+  assert.ok(!fermiGame.children[5].classList.contains('is-correct'),
+    'changing energy must clear old feedback');
+  assert.equal(fermiOption(fermiGame,2,1).attributes['aria-pressed'],'false',
+    'changing an input must clear old answer selection');
+  fermiOption(fermiGame,2,0).listeners.click(); // correct below-25% answer at E>EF
   // A second complementary game per topic must test the previously uncovered concepts.
   const attempts=[
     ['crystal',0,1],['bloch-electron',0,1],['bands',0,1],
@@ -275,7 +290,9 @@ for(const lang of ['tr','en']){
     assert.ok(game.children[3].textContent.length>15,'missing question '+key);
   }
   function choice(game,group,index){
-    game.children[4].children[group].children[index].listeners.click();
+    const groupEl=game.children[4].children[group];
+    const row=groupEl.classList.contains('physics-fermi-option-group')?groupEl.children[2]:groupEl;
+    row.children[index].listeners.click();
     return game.children[5];
   }
   const crystal2=secondGamesByTopic.crystal;
