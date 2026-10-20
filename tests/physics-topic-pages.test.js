@@ -130,9 +130,9 @@ for(const lang of ['tr','en']){
   assert.equal(pages.length,11);
   assert.equal(pages.filter(e=>e.hidden).length,10);
   assert.equal(all.filter(e=>e.classList.contains('physics-topic-pane')).length,55);
-  assert.equal(all.filter(e=>e.classList.contains('qa')).length,39);
+  assert.equal(all.filter(e=>e.classList.contains('qa')).length,44);
   const whyPanels=all.filter(e=>e.classList.contains('physics-qa-reason'));
-  assert.equal(whyPanels.length,39,'all eleven topic prompts, six regime questions and 22 legacy questions need a reason');
+  assert.equal(whyPanels.length,44,'all eleven topic prompts, six regime and five additional ionization questions plus 22 legacy questions need a reason');
   for(const reason of whyPanels){
     assert.equal(reason.children.length,3,'correct, misconception and explanation link');
     assert.ok(reason.children[0].classList.contains('physics-qa-correct'));
@@ -196,7 +196,33 @@ for(const lang of ['tr','en']){
     const gamePane=page.children.find(e=>e.dataset.pane==='oyun');
     if(topicsWithGames.includes(key)){
       assert.ok(last.classList.contains('physics-learning-outcomes'),'outcomes must end '+key+' explanation');
-      assert.equal(last.children[1].children.length,4,'exactly four measurable outcomes: '+key);
+      assert.equal(last.children[1].children.length,key==='doping'?7:4,'measurable outcomes for '+key);
+      if(key==='doping'){
+        const explanation=prose.children.find(e=>e.classList.contains('ionization-explanation'));
+        assert.ok(explanation&&explanation.children.length===9,'donor/acceptor states need nine detailed teaching sections');
+        assert.ok(explanation.children.some(e=>e.children[1].innerHTML.includes('N_D^+')),'ionization formula must be explained in the narrative');
+        assert.ok(explanation.children.some(e=>e.children[1].innerHTML.includes('a_B^*')),'screened hydrogenic impurity model missing');
+        const mathPane=page.children.find(e=>e.dataset.pane==='matematik');
+        const ionMath=[...mathPane.descendants()].find(e=>e.classList.contains('ionization-math'));
+        assert.ok(ionMath,'step-by-step donor/acceptor mathematical derivation missing');
+        assert.ok(ionMath.children.some(e=>e.innerHTML.includes('g_D')),'degeneracy factor missing in math');
+        const lab=page.children.find(e=>e.dataset.pane==='gorsel').children.find(e=>e.classList.contains('ionization-lab'));
+        assert.ok(lab,'ionization visual simulator missing');
+        const c=lab.children[2].children,bars=lab.children[3].children;
+        assert.equal(bars.length,2,'donor and acceptor ionized fractions need separate meters');
+        assert.ok(bars[0].children[1].textContent.includes('%'),'default donor fraction must be calculated');
+        assert.equal(bars[1].children[1].textContent,lang==='en'?'Absent in this sample':'Bu örnekte yok');
+        c[2].children[1].value='50';c[2].children[1].listeners.input();
+        assert.ok(Number(bars[0].children[2].attributes['aria-valuenow'])<20,'donor freeze-out should decrease ionized fraction');
+        c[2].children[1].value='300';c[2].children[1].listeners.input();
+        c[0].children[1].value='acceptor';c[0].children[1].listeners.change();
+        assert.ok(bars[1].children[1].textContent.includes('%'),'boron acceptors should ionize');
+        c[0].children[1].value='compensated';c[0].children[1].listeners.change();
+        assert.ok(bars[0].children[1].textContent.includes('%')&&bars[1].children[1].textContent.includes('%'),
+          'compensation must display both ion fractions');
+        assert.ok(lab.children[4].textContent.includes('E_F'),'self-consistent Fermi level must be displayed');
+        assert.ok(lab.children.some(e=>e.classList.contains('ionization-hydrogen-model')),'hydrogenic donor cloud visual missing');
+      }
       assert.ok(gamePane&&gamePane.children.length===3,'each topic needs the Oyun 1 / Oyun 2 selector and both games: '+key);
       const switcher=gamePane.children[0],first=gamePane.children[1],second=gamePane.children[2];
       assert.ok(switcher.classList.contains('physics-game-switch'));
@@ -459,6 +485,17 @@ for(const lang of ['tr','en']){
   assert.ok(choice(doping1,1,1).classList.contains('is-correct')); // P+ fixed ion
   choice(doping1,0,2); // boron acceptor
   assert.ok(choice(doping1,1,2).classList.contains('is-correct')); // B− fixed ion
+  doping1.children[6].listeners.click(); // ionized vs total dopant count
+  assert.ok(choice(doping1,1,2).classList.contains('is-incorrect'),'N_A total is not N_A−');
+  assert.ok(choice(doping1,1,1).classList.contains('is-correct'),'40% of 1e16 must be 4e15');
+  doping1.children[6].listeners.click(); // neutral and ionized charge reactions
+  assert.ok(choice(doping1,1,1).classList.contains('is-incorrect'),'P donor reaction is not boron reaction');
+  assert.ok(choice(doping1,1,2).classList.contains('is-correct'),'B0 to B− requires electron capture');
+  doping1.children[6].listeners.click(); // hydrogenic shallow donor model
+  assert.ok(choice(doping1,1,2).classList.contains('is-incorrect'),'shallow donor Eion must not equal full Eg');
+  assert.ok(choice(doping1,1,1).classList.contains('is-correct'),'screening and effective mass explain shallow Si:B states');
+  choice(doping1,0,1); // Si:P
+  assert.ok(choice(doping1,1,1).classList.contains('is-correct'),'screening and effective mass explain shallow Si:P states');
   const doping2=secondGamesByTopic.doping;
   assert.ok(choice(doping2,1,2).classList.contains('is-incorrect'));
   assert.ok(choice(doping2,1,0).classList.contains('is-correct')); // minority 1e5
@@ -466,6 +503,18 @@ for(const lang of ['tr','en']){
   choice(doping2,0,2); // high-temperature intrinsic regime
   assert.ok(choice(doping2,1,0).classList.contains('is-incorrect'));
   assert.ok(choice(doping2,1,2).classList.contains('is-correct'));
+  doping2.children[6].listeners.click(); // donor Fermi position
+  assert.ok(choice(doping2,1,1).classList.contains('is-incorrect'),'E_F=E_D gives 1/3, not 2.4%');
+  assert.ok(choice(doping2,1,0).classList.contains('is-correct'),'E_F=E_D gives 33.3% with gD=2');
+  choice(doping2,0,1); // EF=ED+3kBT
+  assert.ok(choice(doping2,1,1).classList.contains('is-correct'),'higher EF reduces donor ionization');
+  choice(doping2,0,2); // EF=ED-3kBT
+  assert.ok(choice(doping2,1,2).classList.contains('is-correct'),'lower EF increases donor ionization');
+  doping2.children[6].listeners.click(); // equation and sign round
+  assert.ok(choice(doping2,1,2).classList.contains('is-incorrect'),'opposite donor exponent sign must be rejected');
+  assert.ok(choice(doping2,1,0).classList.contains('is-correct'),'donor sign must be EF−ED');
+  choice(doping2,0,1); // acceptor equation
+  assert.ok(choice(doping2,1,1).classList.contains('is-correct'),'acceptor sign must be EA−EF');
   const transport1=gamesByTopic.transport;
   assert.ok(choice(transport1,1,0).classList.contains('is-incorrect')); // E right: not electron right
   assert.ok(choice(transport1,1,1).classList.contains('is-correct')); // electron left, hole right
@@ -489,8 +538,11 @@ for(const lang of ['tr','en']){
       'pedagogical explanation too brief '+key);
     assert.ok(link.textContent.includes(lang==='en'?'Explanation: ':'Anlatım: '));
     const topicPage=pages.find(p=>p.dataset.physicsTopic===key);
-    const lessonIntro=topicPage.children.find(p=>p.dataset.pane==='anlatim').children[0].children[0];
-    assert.ok(lessonIntro.children.some(section=>link.textContent.includes(section.children[0].textContent)),
+    const lessonPane=topicPage.children.find(p=>p.dataset.pane==='anlatim').children[0];
+    const lessonIntro=lessonPane.children[0];
+    const extra=lessonPane.children.find(x=>x.classList.contains('ionization-explanation'));
+    const sections=lessonIntro.children.concat(extra?extra.children:[]);
+    assert.ok(sections.some(section=>link.textContent.includes(section.children[0].textContent)),
       'game must link to an exact existing narrative heading: '+key);
     link.listeners.click();
     assert.equal(win.lastSub,'anlatim','link should open lesson narrative');
@@ -505,8 +557,9 @@ for(const lang of ['tr','en']){
     const parts=coverage[key];
     assert.equal(parts.length,2);
     const union=new Set(parts.flat());
-    assert.equal(union.size,4,'each of four objectives must be exercised across two games: '+key);
-    for(let n=1;n<=4;n++)assert.ok(union.has(n),'uncovered objective '+key+' #'+n);
+    const expected=key==='doping'?7:4;
+    assert.equal(union.size,expected,'each objective must be exercised across two games: '+key);
+    for(let n=1;n<=expected;n++)assert.ok(union.has(n),'uncovered objective '+key+' #'+n);
   }
   for(const page of pages){
     const prose=page.children.find(e=>e.dataset.pane==='anlatim')?.children[0];
@@ -552,4 +605,4 @@ const edgeProse=edgePage.children.find(e=>e.dataset.pane==='anlatim').children[0
 assert.ok(edgeProse.children[0].classList.contains('physics-lesson-intro'));
 assert.ok(edgeProse.children[0].children.length>=7);
 assert.ok(edgeProse.children[0].children.some(b=>b.children[1].innerHTML.includes('E_g=E_c-E_v')));
-console.log('PASS: 22 games, 11 narratives, 46 outcomes, 39 QA, 55 lesson tabs, T/1000-T and energy-level model');
+console.log('PASS: 22 games, 11 narratives, 49 outcomes, 44 QA, 55 tabs, donor/acceptor ionization and hydrogenic model');
