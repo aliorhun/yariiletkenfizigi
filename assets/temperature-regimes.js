@@ -147,8 +147,8 @@
       'a_B^*\\approx2.38\\,\\mathrm{nm},\\quad E_B^*\\approx0.026\\,\\mathrm{eV}\\]';
     block.appendChild(hydrogen);
     block.appendChild(element('p','',txt(lang,
-      'Bu tek etkin-kütleli yaklaşık model bir ölçek tahminidir: Si:P için gerçek iyonlaşma enerjisi yaklaşık 0,045 eV’dir. Si vadilerinin anizotropisi ve merkez-hücre düzeltmeleri hesaba katılmadan 0,026 eV değerini ölçülmüş P seviyesi sanmamak gerekir.',
-      'This one-effective-mass model estimates the scale: measured Si:P ionization is about 0.045 eV. Anisotropic silicon valleys and central-cell corrections explain why the 0.026 eV estimate must not be mistaken for the observed P level.')));
+      'Bu tek etkin-kütleli model yalnızca bir ölçek tahminidir: gerçek Si:P iyonlaşma enerjisi yaklaşık 0,045 eV’dir. Modelin 0,026 eV sonucu ile 300 K’deki kBT≈0,026 eV sayısal olarak benzese de biri bağlanma, diğeri ısıl enerji ölçeğidir; aynı fiziksel nicelik değildir. Si vadilerinin anizotropisi ve merkez-hücre düzeltmeleri gerçek farkı açıklar.',
+      'This one-effective-mass model only estimates the scale: actual Si:P ionization is about 0.045 eV. Its 0.026 eV estimate happens to resemble kBT≈0.026 eV at 300 K numerically, but binding energy and thermal energy are different physical quantities. Anisotropic valleys and central-cell corrections account for the real difference.')));
     view.appendChild(block);
   }
   function renderDopantQuestions(view,lang) {
