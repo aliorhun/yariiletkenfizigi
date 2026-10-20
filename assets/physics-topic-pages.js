@@ -105,8 +105,138 @@ var PROMPTS={
  doping:['n tipi Si toplamda negatif yüklü müdür?','Hayır. Hareketli elektronlar pozitif donör iyonlarıyla dengelenir.','Does n-type silicon have a net negative charge?','No. Ionized donors balance the mobile electrons.'],
  transport:['Elektron sürüklenme hızı alanın yönünde midir?','Hayır, negatif yük nedeniyle alanın ters yönündedir.','Does electron drift velocity point along the electric field?','No. It points opposite to the field because electrons are negatively charged.']
 };
+
+var QA_REASONS={
+ crystal:[
+  'Elmas-kübik Si örgüsünde aynı atomun dört en yakın bağı bulunur; örgü sabiti ile bağ uzunluğu farklıdır.',
+  'Diamond-cubic Si has four nearest-neighbour bonds; lattice constant and bond length are different.',
+  'Kübik birim hücreyi basit kübik yapı sanmak veya a değerini doğrudan bağ uzunluğu almak yanlış sonuç verir.',
+  'Treating a diamond cell as simple cubic, or using a as the bond length, gives the wrong geometry.'
+ ],
+ 'bloch-electron':[
+  'Bloch dalgası periyodik bir çarpan ve hücreler arasında e^(ika) faz ilerlemesi içerir.',
+  'A Bloch state combines a periodic factor with an e^(ika) phase advance between cells.',
+  'Dalga fonksiyonunun fazı değişebilir; bu, olasılık yoğunluğunun her hücrede değişmesi gerektiği anlamına gelmez.',
+  'A changing phase does not imply that the probability density must change from cell to cell.'
+ ],
+ bands:[
+  'Özdeş atomlar etkileştiğinde ayrık orbital düzeyleri ayrılır; çok atomlu yapıda düzeyler sıklaşarak bant oluşturur.',
+  'Interacting atoms split discrete orbital levels; for many atoms these levels crowd into bands.',
+  'Bant oluşmasını bütün elektronların serbest olması veya bant genişliğinin sınırsız büyümesi sanmak yanlıştır.',
+  'Band formation does not mean all electrons are free, nor that bandwidth increases without bound.'
+ ],
+ edges:[
+  'Yasak aralık Ec−Ev arasındaki izinli hacimsel durum bulunmayan enerji bölgesidir; yeterli uyarılma çift oluşturabilir.',
+  'The gap Ec−Ev lacks allowed ideal bulk states; sufficient excitation can produce an electron–hole pair.',
+  'İletim bandına çıkan elektron kristalden kopmak zorunda değildir; hâlâ katının bir elektronik durumundadır.',
+  'A conduction-band electron need not leave the solid; it still occupies a state within the crystal.'
+ ],
+ dos:[
+  'DOS kullanılabilir durumları, Fermi–Dirac ise bunların doluluk oranını anlatır; n için ikisi birlikte kullanılır.',
+  'DOS counts available states; Fermi–Dirac gives occupancy. Both are needed to compute n.',
+  'DOS grafiğini doğrudan elektron sayısı olarak okumak yanlıştır; boş durumlar da DOS’a dahildir.',
+  'A DOS curve is not the electron count: unoccupied states are included as well.'
+ ],
+ holes:[
+  'Hol, dolu değerlik bandındaki eksik elektron durumunun +q etkin yüklü kuaziparçacık gösterimidir.',
+  'A hole represents a missing valence-band electron and acts as an effective +q quasiparticle.',
+  'Holü proton ya da elektronla aynı yönde sıçrayan bağımsız bir cisim gibi düşünmek yanlıştır.',
+  'A hole is not a proton or an independent object that hops in the same direction as an electron.'
+ ],
+ fermi:[
+  'Fermi seviyesi doluluk olasılığını belirler; E=EF ve T>0 için mevcut bir durumun doluluğu %50’dir.',
+  'The Fermi level controls occupancy; an available state at E=EF has 50% occupancy for T>0.',
+  'Fermi seviyesi yasak aralıkta bulunabilir; orada mutlaka bir elektron bulunduğu sonucu çıkmaz.',
+  'EF may lie within a gap, where there need not be an electronic state at all.'
+ ],
+ equilibrium:[
+  'Isıl dengede net üretim ile yeniden birleşme dengededir ve tek Fermi seviyesi tanımlanır.',
+  'Thermal equilibrium balances generation and recombination and permits a single Fermi level.',
+  'Zamanla değişmeyen her durumu ısıl denge saymak yanlıştır; sürekli ışık altında kararlı fakat dengesiz durum olabilir.',
+  'A steady state is not necessarily thermal equilibrium; continuous illumination can sustain nonequilibrium.'
+ ],
+ doping:[
+  'Donör ve akseptörler hareketli taşıyıcı oranlarını değiştirir; iyonlaşmış katkı iyonları yük nötrlüğünü korur.',
+  'Donors and acceptors change carrier populations, while ionized dopants help maintain charge neutrality.',
+  'n tipi malzemenin bütün olarak negatif yüklü olduğunu veya her sıcaklıkta n=ND olduğunu sanmak yanlıştır.',
+  'An n-type sample is not net negative, and n=ND is not valid at every temperature.'
+ ],
+ transport:[
+  'Elektrik alan elektron ve holleri zıt sürüklenme yönlerine yöneltir; difüzyon ise yoğunluk gradyanıyla oluşur.',
+  'Electrons and holes drift in opposite directions under an electric field; diffusion follows concentration gradients.',
+  'Elektronun sürüklenme yönünü akım yönüyle aynı almak veya difüzyonu elektrik alanın kendisi sanmak yanlıştır.',
+  'Electron drift is opposite conventional current, and diffusion is not itself an electric-field effect.'
+ ]
+};
+var LEGACY_REASONS={
+ 1:['Elmas-kübik Si için bağ uzunluğu d=√3a/4 geometrisinden gelir.','Diamond-cubic geometry gives d=√3a/4.',
+    'd=a demek birim hücre kenarı ile en yakın komşu bağını karıştırır.','Setting d=a confuses the unit-cell edge with a nearest-neighbour bond.'],
+ 2:['Konvansiyonel elmas-kübik birim hücrede 8 atom bulunur; N=8/a³ hesaplanır.','A conventional diamond-cubic cell contains 8 atoms, so N=8/a³.',
+    'Köşe ve yüz atomlarını tek hücreye bütünüyle saymak atom yoğunluğunu fazla verir.','Counting shared corner and face atoms as whole atoms overestimates density.'],
+ 3:['ni ısıl dengede hareketli elektron/hol yoğunluğudur, kristaldeki atom sayısı değildir.','ni counts mobile carriers at equilibrium, not atoms.',
+    'Yaklaşık 10^10 taşıyıcı/cm³ ile 10^22 atom/cm³ ölçeklerini karıştırmamak gerekir.','Do not confuse carrier concentrations near 10^10/cm³ with atomic densities near 10^22/cm³.'],
+ 4:['Bir elektron değerlikten iletime uyarılırken eski durumunda boşluk bırakır; çift birlikte oluşur.','Exciting a valence electron into conduction leaves a hole; the pair forms together.',
+    'Elektron oluştuğu için katının toplam yükü otomatik negatif olmaz.','Creating an electron–hole pair does not make the solid net negative.'],
+ 5:['Hol bir eksik değerlik durumu ve etkin +q taşıyıcı olarak tanımlanır.','A hole is a missing valence state represented by an effective +q carrier.',
+    'Proton veya kristal içinde gezen bağımsız pozitif temel parçacık değildir.','It is not a proton or a separate positive elementary particle moving through the crystal.'],
+ 6:['Tam iyonlaşma ve dejenere olmayan koşullarda n≈ND, p≈ni²/n yaklaşımı geçerlidir.','With complete ionization and nondegenerate statistics, n≈ND and p≈ni²/n.',
+    'Donör sayısını atom yoğunluğuna veya her koşulda serbest elektron sayısına eşitlemek doğru değildir.','Dopant density is neither the atomic density nor always the free-electron density.'],
+ 7:['Akseptör katkı p tipinde çoğunluk holleri oluşturur; azınlık elektronlar np=ni² ile bulunur.','Acceptors make holes the majority carriers; minority electrons follow np=ni².',
+    'NA değerini elektron yoğunluğu olarak doğrudan almak çoğunluk/azınlığı ters çevirir.','Using NA directly as electron density reverses the majority/minority roles.'],
+ 8:['Kompanzasyonda net iyonlaşmış katkı farkı ND−NA belirleyicidir.','Compensation depends on the net ionized dopant difference ND−NA.',
+    'Donör ile akseptörü toplamak, birbirlerini elektriksel olarak dengelediklerini göz ardı eder.','Adding donor and acceptor densities ignores their compensating charges.'],
+ 9:['Özdirenç, taşıyıcı sayısı kadar elektron ve hol hareketliliklerine de bağlıdır.','Resistivity depends on carrier mobility as well as concentration.',
+    'Sadece katkı atomlarını sayıp σ=q(nμn+pμp) bağıntısını atlamak hatalıdır.','Counting dopants without using σ=q(nμn+pμp) misses transport physics.'],
+ 10:['Hareketli elektronların yükü, pozitif iyonlaşmış donörlerle dengelenir.','The mobile electron charge is balanced by positively ionized donors.',
+     'n tipi ile net negatif yük kavramlarını aynı saymak yük nötrlüğünü ihmal eder.','Equating n-type with net negative charge ignores charge neutrality.'],
+ 11:['Öz Fermi seviyesi NC ve NV etkin durum yoğunlukları farklıysa tam orta noktada olmayabilir.','The intrinsic Fermi level can shift from mid-gap when NC and NV differ.',
+     'Ei değerini her malzemede geometrik bant ortası kabul etmek yaklaşımın sınırını unutturur.','Assuming Ei always equals exact mid-gap ignores differing effective densities of states.'],
+ 12:['Öz taşıyıcı yoğunluğu ni(T) katkı düzeyiyle karşılaştırılabilir olunca öz davranış başlar.','Intrinsic behaviour emerges when ni(T) becomes comparable to doping.',
+     'Bütün katkılı örnekler için tek bir sabit geçiş sıcaklığı yoktur.','There is no universal transition temperature for every doped sample.'],
+ 13:['Düşük sıcaklıkta donörler bütünüyle iyonlaşmayabilir; buna freeze-out denir.','Donors may not be fully ionized at low temperatures (freeze-out).',
+     'n=ND yaklaşımını mutlak sıfıra kadar sürdürmek hatalıdır.','Extrapolating n=ND down to absolute zero is incorrect.'],
+ 14:['Sıcaklık artınca öz üretim büyür ve katkının göreli etkisi küçülür.','Intrinsic generation rises with temperature until it outweighs doping effects.',
+     'Katkı atomlarının yok olduğunu düşünmek yanlıştır; yalnız taşıyıcı dengesi değişir.','Dopants do not disappear; the carrier balance changes.'],
+ 15:['D=μkBT/q ve L=√(Dτ) bağıntıları birlikte kullanılır.','Use D=μkBT/q and L=√(Dτ) together.',
+     'Difüzyon katsayısını hareketlilikle veya uzunluğu Dτ ile özdeşlemek birimce yanlıştır.','Equating D with mobility or L with Dτ gives incorrect units.'],
+ 16:['Isıl fononlar ve kusurlar elektron saçılmasına katkı verir; gerçek kristal bütünüyle durağan değildir.','Thermal phonons and defects cause scattering; real crystals are not static.',
+     'Mükemmel periyodik potansiyelin kendisini rastgele çarpışma saymak da, her saçılmayı yok saymak da hatalıdır.','Neither every periodic potential nor zero scattering is a sound model of all conditions.'],
+ 17:['μ=qτm/m* bağıntısıyla momentum gevşeme süresi, uygun hızla serbest yol bulunur.','Use μ=qτm/m* for momentum relaxation time, then a suitable speed for mean free path.',
+     'Hareketlilik ve serbest yolun doğrudan aynı fiziksel nicelik olduğunu sanmak yanlıştır.','Mobility and mean free path are not the same physical quantity.'],
+ 18:['Soğumayla fonon saçılması azalırken iyonize katkı saçılması göreli olarak önem kazanabilir.','Cooling weakens phonon scattering while ionized-impurity scattering may become dominant.',
+     'Hareketlilik her malzemede sıcaklıkla tek yönlü değişmez.','Mobility does not vary monotonically with temperature in every regime.'],
+ 19:['Foton enerji taşır; dolaylı geçişte fonon kristal momentumu farkını karşılamaya yardımcı olabilir.','Photons supply energy; phonons can help conserve crystal momentum in indirect transitions.',
+     'Foton ile fononun görevlerini aynı görmek optik geçiş koşullarını gizler.','Treating photons and phonons as interchangeable hides transition requirements.'],
+ 20:['GaAs doğrudan, Si dolaylı bant aralıklıdır; ışınımlı birleşme olasılıkları çok farklıdır.','GaAs has a direct gap, Si an indirect gap; radiative efficiency differs strongly.',
+     'Silisyumun hiç ışık yayamayacağını söylemek yanlış; mesele düşük verimdir.','Silicon can emit light, but typically with poor efficiency.'],
+ 21:['Isıl dengede taşıyıcıların rastgele hareketlerinin ortalama yönlü akımı sıfırlanır.','At thermal equilibrium random carrier motion gives no net directional current.',
+     'Akım sıfır diye elektronların tamamen hareketsiz kaldığını düşünmek yanlıştır.','Zero current does not mean carriers stop moving.'],
+ 22:['Sürekli ışık kararlı durum oluşturabilir ama ısıl dengeyi bozup ayrı kuazi-Fermi seviyeleri doğurabilir.','Constant illumination can yield steady nonequilibrium with separate quasi-Fermi levels.',
+     'Zamana göre sabit olmak, np=ni² denge bağıntısını otomatik olarak geçerli kılmaz.','Time independence alone does not guarantee the equilibrium relation np=ni².']
+};
+
 function langPick(v,lang){return v[lang==='en'?1:0];}
 function elem(tag,cls){var e=document.createElement(tag);if(cls)e.className=cls;return e;}
+function appendWhy(qa,reason,lang){
+ if(!reason)return;
+ var details=Array.from(qa.children).find(function(node){return node.tagName==='DETAILS';});
+ if(!details)return;
+ var box=elem('div','physics-qa-reason');
+ function paragraph(css,label,explanation){
+  var p=elem('p',css),strong=elem('strong');
+  strong.textContent=label;
+  p.appendChild(strong);
+  var content=elem('span');content.textContent=' '+explanation;
+  p.appendChild(content);box.appendChild(p);
+ }
+ paragraph('physics-qa-correct',lang==='en'?'Correct because:':'Doğru çünkü:',lang==='en'?reason[1]:reason[0]);
+ paragraph('physics-qa-misconception',lang==='en'?'Common mistake — why it is wrong:':'Sık yanılgı — neden yanlış:',lang==='en'?reason[3]:reason[2]);
+ var link=elem('button','physics-qa-reference');link.type='button';
+ link.textContent=lang==='en'?'Review this topic in Explanation →':'İlgili konuyu Anlatımda incele →';
+ link.addEventListener('click',function(){if(typeof window.showSub==='function')window.showSub('anlatim');});
+ box.appendChild(link);
+ details.appendChild(box);
+}
 function topicForHeading(n){
  if(n===1)return 'crystal';if(n===2)return 'bands';if(n===3)return 'holes';
  if(n===4||n===8)return 'equilibrium';
@@ -193,7 +323,9 @@ function moveQuestions(source,views,lang){
  Array.from(source.children).forEach(function(n){
   var question=n.querySelector&&n.querySelector('.q');
   var match=question&&question.textContent.match(/^\s*(\d+)\./);
-  views[QUESTION_TOPICS[match?Number(match[1]):0]||'bands'].soru.appendChild(n);
+  var number=match?Number(match[1]):0;
+  views[QUESTION_TOPICS[number]||'bands'].soru.appendChild(n);
+  appendWhy(n,LEGACY_REASONS[number],lang);
  });
  TOPICS.forEach(function(t){
   var a=PROMPTS[t[0]],qa=elem('div','qa physics-topic-question');
@@ -201,6 +333,7 @@ function moveQuestions(source,views,lang){
   var details=elem('details'),sum=elem('summary');sum.textContent=lang==='en'?'Show explanation':'Çözümü göster';
   var p=elem('p');p.textContent=lang==='en'?a[3]:a[1];
   details.appendChild(sum);details.appendChild(p);qa.appendChild(title);qa.appendChild(details);
+  appendWhy(qa,QA_REASONS[t[0]],lang);
   views[t[0]].soru.insertBefore(qa,views[t[0]].soru.firstChild);
  });
 }
