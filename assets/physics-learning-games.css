@@ -65,5 +65,6 @@
  .physics-game-options{gap:.35rem;}
  .physics-game-phase-arrow{font-size:1.3rem;}
  .physics-learning-outcomes{padding:.8rem;}
- .physics-topic-tabs button{font-size:.88rem;padding:.45rem .62rem;}
+ .physics-topic-tabs{flex-wrap:wrap;overflow:visible;box-shadow:none;border-bottom:1px solid var(--rule);}
+ .physics-topic-tabs button{flex:1 0 auto;font-size:.83rem;padding:.42rem .55rem;}
 }
