@@ -59,3 +59,20 @@ button.physics-site.is-available:hover { background:rgba(62,137,204,.12); }
 .physics-optional-products summary { cursor:pointer; font-family:var(--sans); font-weight:600; }
 .physics-optional-products > div { margin-top:.65rem; }
 @media(max-width:860px) { .physics-topic-tabs button { font-size:.94rem; padding:.45rem .62rem; } .physics-lesson-heading { gap:.55rem; } }
+
+/* Short explanation of the correct reasoning and the common trap for each physics Q&A. */
+.physics-qa-reason {
+ margin:.85rem 0 .2rem;padding:.7rem .85rem;
+ border:1px solid var(--rule);border-radius:8px;background:var(--bg);
+ font:400 .88rem/1.55 var(--sans);
+}
+.physics-qa-reason p { margin:.28rem 0 .55rem; }
+.physics-qa-reason strong { font-weight:700; }
+.physics-qa-correct strong { color:#167548; }
+.physics-qa-misconception strong { color:#b34a38; }
+.physics-qa-reference {
+ border:0;background:transparent;padding:.2rem 0;margin-top:.15rem;
+ font:600 .83rem var(--sans);color:var(--elec);text-align:left;cursor:pointer;
+}
+.physics-qa-reference:hover { text-decoration:underline; }
+.physics-qa-reference:focus-visible { outline:2px solid var(--elec);outline-offset:3px; }
